@@ -1203,6 +1203,32 @@
       .about-signature::after{width:30px;margin:0 10px}
     }
 
+    /* Cografi Isaret bolumu + sertifika rozeti */
+    .gi-section{background:linear-gradient(180deg, rgba(11,8,7,1) 0%, rgba(13,10,8,1) 100%);position:relative}
+    .gi-grid{display:grid;grid-template-columns:1.1fr 0.9fr;gap:80px;align-items:start;max-width:1100px;margin:48px auto 0}
+    .gi-content .eyebrow{margin-bottom:18px}
+    .gi-content .title{margin-bottom:34px}
+    .gi-content p{color:var(--muted);line-height:1.85;margin:0 0 18px;font-size:1rem;letter-spacing:.005em}
+    .gi-content p:last-of-type{margin-bottom:0}
+
+    .cert-badge{background:linear-gradient(180deg, rgba(210,161,47,.06), rgba(210,161,47,.015));border:1px solid rgba(210,161,47,.22);padding:48px 38px;position:relative;align-self:start}
+    .cert-badge::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg, transparent, var(--gold), transparent)}
+    .cert-badge::after{content:'';position:absolute;inset:8px;border:1px solid rgba(210,161,47,.08);pointer-events:none}
+    .cert-eyebrow{display:inline-flex;align-items:center;gap:14px;margin-bottom:24px;font-size:.62rem;letter-spacing:.32em;text-transform:uppercase;color:var(--gold-soft);font-weight:600;position:relative;z-index:2}
+    .cert-eyebrow::before,.cert-eyebrow::after{content:'';width:18px;height:1px;background:rgba(210,161,47,.5)}
+    .cert-title{margin:0 0 6px;font-family:'Cormorant Garamond',serif;font-size:clamp(1.6rem,2.4vw,2.1rem);font-weight:500;color:var(--cream);letter-spacing:.005em;position:relative;z-index:2}
+    .cert-sub{margin:0 0 28px;font-size:.78rem;letter-spacing:.16em;text-transform:uppercase;color:rgba(244,238,230,.5);font-weight:500;position:relative;z-index:2}
+    .cert-meta{list-style:none;margin:0;padding:24px 0 0;border-top:1px solid rgba(210,161,47,.18);position:relative;z-index:2}
+    .cert-meta li{display:flex;flex-direction:column;gap:4px;padding:14px 0;border-bottom:1px solid rgba(255,255,255,.05)}
+    .cert-meta li:last-child{border-bottom:none}
+    .cert-meta li > span{font-size:.62rem;letter-spacing:.22em;text-transform:uppercase;color:rgba(244,238,230,.42)}
+    .cert-meta li > strong{font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:500;color:var(--cream)}
+    .cert-meta li > em{font-family:'Cormorant Garamond',serif;font-size:1.05rem;font-style:italic;font-weight:400;color:var(--gold-soft);letter-spacing:.01em}
+    @media (max-width:980px){
+      .gi-grid{grid-template-columns:1fr;gap:48px;max-width:760px}
+      .cert-badge{padding:36px 28px}
+    }
+
     /* About — asymmetric grid + meta card */
     .gold-accent{font-style:italic;color:var(--gold-soft);font-weight:400}
     .about-grid{display:grid;grid-template-columns:1.2fr 0.8fr;gap:80px;margin-top:48px;max-width:1100px;margin-left:auto;margin-right:auto;align-items:start}
@@ -1728,6 +1754,38 @@
         </div>
 </div></section>
 
+<section class="section gi-section" id="gi">
+  <div class="container">
+    <div class="gi-grid reveal">
+      <div class="gi-content">
+        <div class="eyebrow" data-i18n="gi_eyebrow">TESCİL</div>
+        <h2 class="title" data-i18n="gi_title">Coğrafi *İşaret* Nedir?</h2>
+        <p data-i18n="gi_paragraph1">Coğrafi işaret, bir yörede emek ve birikim sonucu oluşan kimliği yasal güvence altına alır. Üreticinin emeği, tüketicinin güveni — her ikisi için bir taahhüt.</p>
+        <p data-i18n="gi_paragraph2">Türkiye'de tescili Türk Patent ve Marka Kurumu (TPMK) yapar. Safranbolu Safranı, Anadolu'nun yüzyıllık üretim mirasını kayıt altına alan örneklerdendir.</p>
+      </div>
+      <aside class="cert-badge">
+        <div class="cert-eyebrow" data-i18n="cert_eyebrow">RESMİ BELGE</div>
+        <h3 class="cert-title" data-i18n="cert_title">Safranbolu Safranı</h3>
+        <p class="cert-sub" data-i18n="cert_sub">Türk Patent ve Marka Kurumu</p>
+        <ul class="cert-meta">
+          <li>
+            <span data-i18n="cert_meta_category">Kategori</span>
+            <strong data-i18n="cert_meta_category_value">Coğrafi İşaret</strong>
+          </li>
+          <li>
+            <span data-i18n="cert_meta_no">Tescil No</span>
+            <em data-i18n="cert_value_pending">Belirtilecek</em>
+          </li>
+          <li>
+            <span data-i18n="cert_meta_date">Tescil Tarihi</span>
+            <em data-i18n="cert_value_pending">Belirtilecek</em>
+          </li>
+        </ul>
+      </aside>
+    </div>
+  </div>
+</section>
+
 <div class="container"><div class="section-divider" aria-hidden="true"><span class="diamond">◆</span></div></div>
 
     <section class="section home-about" id="about"><div class="container">
@@ -1889,6 +1947,18 @@
       about_meta_doc: "Belge",
       about_meta_doc_value: "TPMK Coğrafi İşaret",
       about_meta_contact: "İletişim",
+      gi_eyebrow: "TESCİL",
+      gi_title: "Coğrafi *İşaret* Nedir?",
+      gi_paragraph1: "Coğrafi işaret, bir yörede emek ve birikim sonucu oluşan kimliği yasal güvence altına alır. Üreticinin emeği, tüketicinin güveni — her ikisi için bir taahhüt.",
+      gi_paragraph2: "Türkiye'de tescili Türk Patent ve Marka Kurumu (TPMK) yapar. Safranbolu Safranı, Anadolu'nun yüzyıllık üretim mirasını kayıt altına alan örneklerdendir.",
+      cert_eyebrow: "RESMİ BELGE",
+      cert_title: "Safranbolu Safranı",
+      cert_sub: "Türk Patent ve Marka Kurumu",
+      cert_meta_category: "Kategori",
+      cert_meta_category_value: "Coğrafi İşaret",
+      cert_meta_no: "Tescil No",
+      cert_meta_date: "Tescil Tarihi",
+      cert_value_pending: "Belirtilecek",
       about_p1: "Anadolu'nun binlerce yıllık üretim kültüründen ilham alarak yola çıktık. Toprağın bereketini, emeğin değerini ve gerçek lezzetin kökenini dünyaya ulaştırma hedefiyle markamızı kurduk.",
       about_p2: "Bizim için her ürün sadece bir ticari mal değil; bir hikâye, bir gelenek ve bir mirastır. Bu anlayışla, üretimin en değerli örneklerinden biri olan Safranbolu safranı ile başladık. Coğrafi işaretli, yüksek kaliteli ve özenle seçilmiş ürünleri doğrudan kaynağından temin ederek sizlere ulaştırıyoruz.",
       about_p3: "Amacımız Anadolu'nun dört bir yanındaki coğrafi işaretli ve özgün ürünleri, kalite standartlarından ödün vermeden hem Türkiye'ye hem de dünyaya sunmak. Üreticiyi destekleyen, sürdürülebilir ve şeffaf bir tedarik zinciri oluşturmayı önemsiyoruz.",
@@ -1972,6 +2042,18 @@
       about_meta_doc: "Certificate",
       about_meta_doc_value: "TPMK Geographical Indication",
       about_meta_contact: "Contact",
+      gi_eyebrow: "REGISTRATION",
+      gi_title: "What is a Geographical *Indication*?",
+      gi_paragraph1: "A geographical indication wraps a region's craft and patrimony in legal protection — a covenant for both the maker's labor and the consumer's trust.",
+      gi_paragraph2: "In Türkiye, registration is handled by the Turkish Patent and Trademark Office (TPMK). Safranbolu Saffron is among the products preserving Anatolia's centuries-old production heritage.",
+      cert_eyebrow: "OFFICIAL CERTIFICATE",
+      cert_title: "Safranbolu Saffron",
+      cert_sub: "Turkish Patent and Trademark Office",
+      cert_meta_category: "Category",
+      cert_meta_category_value: "Geographical Indication",
+      cert_meta_no: "Registration No",
+      cert_meta_date: "Registration Date",
+      cert_value_pending: "To be confirmed",
       about_p1: "We set out inspired by Anatolia's millennia-old craft. We founded our brand with one purpose: to bring the abundance of the soil, the value of labor, and the true origin of taste to the world.",
       about_p2: "For us, each product is more than merchandise — it is a story, a tradition, an inheritance. With this understanding, we began with one of the most distinguished examples of this craft: Safranbolu saffron. We bring geographically protected, premium, carefully selected products directly from their source to you.",
       about_p3: "Our aim is to present Anatolia's geographically protected and authentic products to both Turkey and the world, never compromising on quality. We believe in a supply chain that is transparent, sustainable, and supports the producer.",
