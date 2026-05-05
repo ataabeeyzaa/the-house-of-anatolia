@@ -1,0 +1,2479 @@
+<!DOCTYPE html>
+<html lang="tr"><head><meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>The House of Anatolia — Anadolu'nun Coğrafi İşaretli Kıymetleri</title>
+<meta name="description" content="Türkiye'nin coğrafi işaretli ürünlerini, üretildikleri topraktan doğrudan size ulaştırıyoruz. Karabük safranı ile başladık; Anadolu'nun mirası dijital vitrinimizde sizi bekliyor.">
+
+<!-- Open Graph (Facebook, WhatsApp, LinkedIn paylaşımı için) -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="The House of Anatolia — Anadolu'nun Coğrafi İşaretli Kıymetleri">
+<meta property="og:description" content="Türkiye'nin coğrafi işaretli ürünleri, doğrudan üreticisinden. A Journey to the Roots of Taste.">
+<meta property="og:image" content="assets/logo_house_of_anatolia_transparent.png">
+<meta property="og:locale" content="tr_TR">
+<meta property="og:locale:alternate" content="en_US">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="The House of Anatolia">
+<meta name="twitter:description" content="Türkiye'nin coğrafi işaretli ürünleri, doğrudan üreticisinden.">
+
+<!-- hreflang (Google'a iki dilli olduğunu söyler) -->
+<link rel="alternate" hreflang="tr" href="./?lang=tr">
+<link rel="alternate" hreflang="en" href="./?lang=en">
+<link rel="alternate" hreflang="x-default" href="./">
+
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+    :root{
+      --bg:#0a0807;
+      --bg-soft:#120e0c;
+      --panel:#15110e;
+      --panel-soft:#1c1612;
+      --cream:#efe9dd;
+      --cream-2:#e5ddd0;
+      --text:#f4eee6;
+      --muted:#c2b4a4;
+      --line:rgba(255,255,255,.08);
+      --gold:#d2a12f;
+      --gold-soft:#f0d28a;
+      --warm:#8a5225;
+      --shadow:0 30px 80px rgba(0,0,0,.38);
+      --radius:30px;
+      --max:1320px;
+    }
+
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0;font-family:'Inter',sans-serif;background:
+      radial-gradient(circle at 20% 0%, rgba(151,90,24,.10), transparent 28%),
+      radial-gradient(circle at 80% 10%, rgba(210,161,47,.07), transparent 22%),
+      linear-gradient(180deg, #090706 0%, #0d0b09 58%, #090706 100%);
+      color:var(--text);overflow-x:hidden}
+    a{text-decoration:none;color:inherit}
+    img{display:block;max-width:100%}
+    .container{width:min(calc(100% - 48px), var(--max));margin:0 auto}
+    .parts-container{width:min(calc(100% - 34px), 1500px)}
+
+    /* NAVBAR */
+    .navbar{position:sticky;top:0;z-index:100;background:rgba(239,233,221,.97);backdrop-filter:blur(14px);border-bottom:1px solid rgba(30,24,18,.06)}
+    .nav-inner{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;min-height:84px;gap:18px}
+    .brand{font-family:'Cormorant Garamond',serif;font-size:2.4rem;font-weight:600;color:#231b15}
+    .brand span{color:var(--gold)}
+
+    .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+    .brand-logo{display:flex;align-items:center;min-height:76px}
+    .brand-logo img{display:block;height:76px;width:auto;object-fit:contain;object-position:left center;filter:drop-shadow(0 6px 14px rgba(0,0,0,.08))}
+    @media (max-width: 768px){.brand-logo img{height:62px}}
+    .nav-center{display:flex;justify-content:center}
+    .nav-links{display:flex;gap:34px;list-style:none;margin:0;padding:0;color:#352b23;font-size:1rem;letter-spacing:.12em;text-transform:uppercase}
+    .nav-links a{position:relative}
+    .nav-links a::after{content:'';position:absolute;left:0;bottom:-8px;width:0;height:1px;background:var(--gold);transition:.32s ease}
+    .nav-links a:hover::after{width:100%}
+    .nav-cta-wrap{display:flex;justify-content:flex-end}
+    .nav-btn{display:inline-flex;align-items:center;justify-content:center;min-height:50px;padding:0 26px;background:var(--gold);color:#24170a;border-radius:2px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;box-shadow:0 8px 20px rgba(210,161,47,.22)}
+
+    .map-wrap{position:relative;overflow:visible;margin-top:72px}
+    .map-branding{
+      position:absolute;
+      left:50%;
+      top:-72px;
+      transform:translateX(-50%);
+      z-index:12;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:center;
+      gap:8px;
+      width:100%;
+      max-width:100%;
+      padding:0 42px;
+      pointer-events:none;
+    }
+    .map-branding-logo{width:min(220px,30vw);opacity:.96;filter:drop-shadow(0 14px 34px rgba(0,0,0,.38))}
+    .map-branding-logo img{display:block;width:100%;height:auto}
+    .map-slogan{
+      display:flex;
+      flex-wrap:wrap;
+      justify-content:center;
+      gap:.24em;
+      width:100%;
+      color:var(--text);
+      font-family:'Cormorant Garamond',serif;
+      font-size:clamp(1.65rem,3vw,3.1rem);
+      font-weight:500;
+      letter-spacing:.01em;
+      text-align:center;
+      text-shadow:0 10px 26px rgba(0,0,0,.42);
+      line-height:1.18;
+      padding-top:0;
+    }
+    .map-slogan .word{opacity:0;transform:translateY(18px);animation:sloganReveal .85s cubic-bezier(.21,.99,.34,1) forwards}
+    .map-slogan .word:nth-child(1){animation-delay:.15s}
+    .map-slogan .word:nth-child(2){animation-delay:.30s}
+    .map-slogan .word:nth-child(3){animation-delay:.45s}
+    .map-slogan .word:nth-child(4){animation-delay:.60s}
+    .map-slogan .word:nth-child(5){animation-delay:.75s}
+    .map-slogan .word:nth-child(6){animation-delay:.90s}
+    .map-slogan .word:nth-child(7){animation-delay:1.05s}
+    .map-slogan .word:nth-child(8){animation-delay:1.20s}
+    .map-slogan::after{content:'';display:block;flex-basis:100%;height:1px;margin-top:4px;background:linear-gradient(90deg, transparent, rgba(240,210,138,.92), transparent);transform-origin:center;animation:sloganLine 1.4s ease .95s both}
+    @keyframes sloganReveal{0%{opacity:0;transform:translateY(18px) scale(.98)}100%{opacity:1;transform:translateY(0) scale(1)}}
+    @keyframes sloganLine{0%{transform:scaleX(.2);opacity:0}100%{transform:scaleX(1);opacity:1}}
+    @media (max-width: 980px){.map-branding{inset:12px 18px auto 18px;gap:8px}.map-branding-logo{width:min(180px,48vw)}.map-slogan{font-size:clamp(1rem,4.6vw,1.5rem)}}
+
+    /* HERO */
+    .hero{position:relative;min-height:100vh;display:flex;align-items:center;justify-content:center;overflow:hidden;background:
+      radial-gradient(circle at 50% 44%, rgba(255,255,255,.04), transparent 20%),
+      radial-gradient(circle at 50% 44%, rgba(210,161,47,.12), transparent 34%),
+      linear-gradient(180deg, #0c0908 0%, #0c0909 58%, #0d0a08 100%)}
+    .hero::before{content:'';position:absolute;inset:0;background:
+      linear-gradient(180deg, transparent 0%, rgba(0,0,0,.12) 100%),
+      radial-gradient(circle at 50% 8%, rgba(210,161,47,.06), transparent 18%);pointer-events:none}
+    .hero-grid{position:absolute;inset:0;opacity:.14;background-image:linear-gradient(rgba(255,255,255,.03) 1px, transparent 1px),linear-gradient(90deg, rgba(255,255,255,.03) 1px, transparent 1px);background-size:120px 120px;mask-image:radial-gradient(circle at center, black 32%, transparent 80%)}
+    .hero-lines span{position:absolute;top:-18%;width:1px;height:145%;background:linear-gradient(180deg, transparent, rgba(210,161,47,.16), transparent);opacity:.65}
+    .hero-lines span:nth-child(1){left:18%;transform:rotate(-34deg)}
+    .hero-lines span:nth-child(2){left:34%;transform:rotate(-16deg)}
+    .hero-lines span:nth-child(3){left:50%;transform:rotate(0deg)}
+    .hero-lines span:nth-child(4){left:66%;transform:rotate(16deg)}
+    .hero-lines span:nth-child(5){left:82%;transform:rotate(34deg)}
+    .hero-dots span{position:absolute;width:4px;height:4px;border-radius:50%;background:rgba(240,210,138,.8);box-shadow:0 0 16px rgba(210,161,47,.26);animation:twinkle 5s ease-in-out infinite}
+    .hero-dots span:nth-child(1){left:6%;top:18%;animation-delay:.4s}
+    .hero-dots span:nth-child(2){left:14%;top:9%;animation-delay:1.2s}
+    .hero-dots span:nth-child(3){left:27%;top:23%;animation-delay:2.1s}
+    .hero-dots span:nth-child(4){left:38%;top:14%;animation-delay:1.4s}
+    .hero-dots span:nth-child(5){left:49%;top:28%;animation-delay:2.9s}
+    .hero-dots span:nth-child(6){left:61%;top:11%;animation-delay:.8s}
+    .hero-dots span:nth-child(7){left:73%;top:18%;animation-delay:1.7s}
+    .hero-dots span:nth-child(8){left:84%;top:11%;animation-delay:2.6s}
+    .hero-dots span:nth-child(9){left:93%;top:24%;animation-delay:.9s}
+    .hero-dots span:nth-child(10){left:10%;top:56%;animation-delay:1.8s}
+    .hero-dots span:nth-child(11){left:21%;top:72%;animation-delay:3.1s}
+    .hero-dots span:nth-child(12){left:35%;top:63%;animation-delay:2.2s}
+    .hero-dots span:nth-child(13){left:52%;top:66%;animation-delay:1.1s}
+    .hero-dots span:nth-child(14){left:69%;top:74%;animation-delay:2.8s}
+    .hero-dots span:nth-child(15){left:82%;top:61%;animation-delay:1.5s}
+    .hero-dots span:nth-child(16){left:95%;top:79%;animation-delay:2.4s}
+    @keyframes twinkle{0%,100%{opacity:.15;transform:scale(.7)}50%{opacity:1;transform:scale(1.4)}}
+    .hero-content{position:relative;z-index:3;width:100%;text-align:center;padding:100px 0 150px}
+    .hero-title-group{display:flex;align-items:center;justify-content:center;gap:0px;margin:0 auto;max-width:1320px}
+    .hero-word-part{font-family:'Inter',sans-serif;font-size:clamp(5.3rem,16vw,12.8rem);font-weight:800;line-height:.88;letter-spacing:.03em;text-transform:uppercase;color:#f2eadf;text-shadow:10px 12px 0 rgba(122,74,34,.72), 0 20px 38px rgba(0,0,0,.35);-webkit-text-stroke:1px rgba(167,118,59,.16)}
+    .hero-flower-slot{width:min(17vw,235px);min-width:110px;display:flex;align-items:center;justify-content:center;transform:translateY(8px);margin:0 -26px;position:relative;z-index:5}
+    .hero-flower{position:relative;left:auto;top:auto;transform:none;width:100%;min-width:0;filter:drop-shadow(0 24px 34px rgba(0,0,0,.42));animation:heroFloat 7s ease-in-out infinite;z-index:6;pointer-events:none}
+    @keyframes heroFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+    .hero-subtitle{margin:24px auto 0;max-width:680px;font-family:'Cormorant Garamond',serif;font-weight:500;font-size:clamp(2.1rem,4vw,3.4rem);line-height:1.06}
+    .hero-subtitle span{color:var(--gold-soft)}
+    .hero-blossom-layer{position:absolute;inset:0;z-index:5;pointer-events:none;overflow:hidden}
+
+    .mini-blossom{position:absolute;width:18px;height:18px;transform:translate(-50%,-50%) scale(var(--scale,1));opacity:0;filter:drop-shadow(0 0 8px rgba(240,210,138,.20));animation:burst 1.45s ease-out forwards}
+    .mini-blossom .petal{position:absolute;left:50%;top:50%;width:8px;height:12px;margin-left:-4px;margin-top:-6px;background:rgba(202,178,236,.62);border:1px solid rgba(255,255,255,.18);border-radius:60% 60% 70% 70%;transform-origin:center 80%}
+    .mini-blossom .petal.p1{transform:translateY(-4px) rotate(0deg)}
+    .mini-blossom .petal.p2{transform:translateY(-1px) rotate(72deg)}
+    .mini-blossom .petal.p3{transform:translateY(-1px) rotate(-72deg)}
+    .mini-blossom .petal.p4{transform:translateY(4px) rotate(145deg)}
+    .mini-blossom .petal.p5{transform:translateY(4px) rotate(-145deg)}
+    .mini-blossom .stigma{position:absolute;left:50%;top:50%;width:2px;height:8px;background:rgba(231,67,47,.78);border-radius:999px;transform:translate(-50%,-15%) rotate(var(--rot, 0deg));box-shadow:4px 0 0 rgba(231,67,47,.45), -4px 0 0 rgba(231,67,47,.45)}
+    @keyframes burst{
+      0%{opacity:0;transform:translate(-50%,-50%) scale(.4) translate(0,0) rotate(0deg)}
+      18%{opacity:.95}
+      100%{opacity:0;transform:translate(calc(-50% + var(--dx)), calc(-50% + var(--dy))) scale(var(--scale)) rotate(var(--spin))}
+    }
+
+
+    .hero-mountains{position:absolute;left:0;right:0;bottom:0;height:62%;z-index:2;pointer-events:none;opacity:.9}
+    .mountain{position:absolute;bottom:0;background:linear-gradient(180deg, rgba(104,58,18,.46), rgba(54,31,12,.56));clip-path:polygon(0 100%, 0 62%, 18% 82%, 33% 34%, 49% 68%, 66% 18%, 83% 61%, 100% 40%, 100% 100%)}
+    .mountain.m1{left:-2%;width:34%;height:58%;opacity:.55}
+    .mountain.m2{left:11%;width:28%;height:76%;opacity:.42}
+    .mountain.m3{left:28%;width:30%;height:88%;opacity:.5}
+    .mountain.m4{left:47%;width:34%;height:82%;opacity:.38}
+    .mountain.m5{left:71%;width:32%;height:73%;opacity:.48}
+    .mountain.m6{right:-5%;width:24%;height:60%;opacity:.36}
+    .mountain-back{position:absolute;left:0;right:0;bottom:0;height:36%;background:linear-gradient(180deg, rgba(83,46,15,.34), rgba(46,28,12,.68));clip-path:polygon(0 100%, 0 44%, 16% 28%, 33% 58%, 47% 18%, 62% 52%, 78% 22%, 92% 58%, 100% 40%, 100% 100%);opacity:.72}
+    .mountain-foreground{position:absolute;left:-3%;right:-3%;bottom:-2%;height:30%;background:linear-gradient(180deg, rgba(91,50,16,.4), rgba(51,28,11,.82));clip-path:polygon(0 100%, 0 48%, 14% 18%, 28% 44%, 42% 12%, 55% 38%, 69% 10%, 83% 44%, 100% 18%, 100% 100%);opacity:.84}
+
+    .marquee-wrap{position:absolute;left:0;right:0;bottom:0;z-index:6;border-top:1px solid rgba(255,255,255,.06);border-bottom:1px solid rgba(255,255,255,.06);background:rgba(18,13,10,.78);overflow:hidden;backdrop-filter:blur(10px)}
+    .marquee{display:flex;gap:40px;padding:16px 0;white-space:nowrap;animation:marquee 28s linear infinite;color:var(--muted)}
+    .marquee span{display:inline-flex;align-items:center;gap:12px;font-size:.95rem;letter-spacing:.08em;text-transform:uppercase}
+    .marquee span::before{content:'✦';color:var(--gold)}
+    @keyframes marquee{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+
+    /* GENERIC */
+    .section{padding:110px 0;position:relative}
+    .eyebrow{display:flex;align-items:center;gap:12px;color:var(--gold-soft);text-transform:uppercase;letter-spacing:.18em;font-size:.76rem;margin-bottom:18px}
+    .eyebrow::before{content:'';width:38px;height:1px;background:rgba(210,161,47,.72)}
+    .title{margin:0 0 14px;font-family:'Cormorant Garamond',serif;font-weight:500;font-size:clamp(2.5rem,4.6vw,4.9rem);line-height:.95}
+    .desc{margin:0;max-width:780px;line-height:1.9;color:var(--muted)}
+
+    /* SHOWCASE */
+    .showcase-shell{height:340vh;position:relative;margin-top:42px}
+    .showcase-sticky{position:sticky;top:92px;height:calc(100vh - 100px);display:flex;align-items:center}
+    .showcase-board{position:relative;width:100%;min-height:92vh;border-radius:38px;overflow:hidden;border:1px solid rgba(255,255,255,.06);box-shadow:var(--shadow);background:
+      radial-gradient(circle at 50% 50%, rgba(210,161,47,.13), transparent 20%),
+      linear-gradient(180deg, rgba(255,255,255,.025), rgba(255,255,255,.01))}
+    .showcase-board::before{content:'';position:absolute;inset:26px;border-radius:30px;border:1px solid rgba(255,255,255,.04);pointer-events:none}
+    .showcase-progress{position:absolute;top:22px;left:50%;transform:translateX(-50%);display:flex;gap:14px;z-index:8}
+    .progress-pill{width:56px;height:56px;border-radius:50%;display:grid;place-items:center;border:1px solid rgba(255,255,255,.08);background:rgba(20,16,12,.85);color:var(--muted);transition:.35s ease}
+    .progress-pill.active{border-color:rgba(210,161,47,.35);color:var(--gold-soft);background:rgba(210,161,47,.14);box-shadow:0 0 0 10px rgba(210,161,47,.06)}
+
+    .board-stage{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;padding:108px 410px 100px}
+    .ring{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);border-radius:50%;border:1px solid rgba(255,255,255,.06);transition:transform .7s ease, opacity .7s ease}
+    .ring.r1{width:min(60vh,720px);height:min(60vh,720px)}
+    .ring.r2{width:min(78vh,940px);height:min(78vh,940px);opacity:.56}
+    .ring.r3{width:min(95vh,1120px);height:min(95vh,1120px);opacity:.24}
+    .center-glow{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:360px;height:360px;border-radius:50%;background:radial-gradient(circle, rgba(210,161,47,.20), transparent 70%);filter:blur(18px)}
+    .plant-wrap{position:relative;z-index:4;width:min(27vw,410px);min-width:240px}
+    .plant-wrap img{width:100%;filter:drop-shadow(0 28px 55px rgba(0,0,0,.46));transition:transform .5s ease}
+
+    .pin{position:absolute;width:16px;height:16px;border-radius:50%;background:radial-gradient(circle, rgba(255,255,255,.95) 0 18%, rgba(210,161,47,.98) 19% 55%, rgba(210,161,47,.35) 56% 100%);box-shadow:0 0 0 8px rgba(210,161,47,.08), 0 0 22px rgba(210,161,47,.18);opacity:.25;transition:.35s ease;z-index:7}
+    .pin::after{content:'';position:absolute;inset:4px;border-radius:50%;background:rgba(255,244,220,.95)}
+    .pin.active{opacity:1;transform:scale(1.18)}
+    .pin.p0{left:calc(50% + 125px);top:calc(50% - 125px)}
+    .pin.p1{left:calc(50% - 90px);top:calc(50% - 45px)}
+    .pin.p2{left:calc(50% - 5px);top:calc(50% + 160px)}
+
+    .connector{position:absolute;height:2px;opacity:0;transition:.35s ease;z-index:8;box-shadow:0 0 12px rgba(210,161,47,.18)}
+    .connector.active{opacity:1}
+
+    /* right-side card: line ends at the card border */
+    .connector.right{background:linear-gradient(90deg, rgba(240,210,138,.96), rgba(240,210,138,.30))}
+    .connector.right::after{content:'';position:absolute;right:-2px;top:50%;width:12px;height:12px;border-top:2px solid rgba(240,210,138,.95);border-right:2px solid rgba(240,210,138,.95);transform:translateY(-50%) rotate(45deg)}
+
+    /* left-side cards: line starts at the card border and goes outward */
+    .connector.left{background:linear-gradient(90deg, rgba(240,210,138,.96), rgba(240,210,138,.28))}
+    .connector.left::before{content:'';position:absolute;left:-2px;top:50%;width:12px;height:12px;border-top:2px solid rgba(240,210,138,.95);border-right:2px solid rgba(240,210,138,.95);transform:translateY(-50%) rotate(-135deg)}
+
+    .connector.c0{left:calc(50% + 140px);top:calc(50% - 117px);width:100px}
+    .connector.c1{left:calc(50% - 230px);top:calc(50% - 38px);width:148px}
+    .connector.c2{left:calc(50% - 200px);top:calc(50% + 170px);width:170px}
+
+    .side-card{position:absolute;max-width:430px;width:min(430px, 31vw);padding:34px 32px 30px;border-radius:30px;background:rgba(10,8,7,.82);backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,.08);box-shadow:0 18px 45px rgba(0,0,0,.26);opacity:0;transform:translateY(16px) scale(.98);pointer-events:none;transition:.38s ease;z-index:7}
+    .side-card.active{opacity:1;transform:translateY(0) scale(1);pointer-events:auto;border-color:rgba(210,161,47,.30);box-shadow:0 20px 46px rgba(0,0,0,.28), 0 0 0 10px rgba(210,161,47,.04)}
+    .side-card.s0{right:72px;top:146px}
+    .side-card.s1{left:72px;top:192px}
+    .side-card.s2{left:92px;bottom:62px}
+    .card-no{display:inline-grid;place-items:center;width:40px;height:40px;border-radius:50%;background:rgba(210,161,47,.10);border:1px solid rgba(210,161,47,.22);color:var(--gold-soft);font-size:.84rem;margin-bottom:16px}
+    .card-title{margin:0 0 14px;font-family:'Cormorant Garamond',serif;font-weight:500;font-size:2.55rem;line-height:.95;color:var(--text)}
+    .side-card p{margin:0;line-height:1.88;color:var(--muted);font-size:1.08rem}
+    .side-card small{display:block;margin-top:18px;color:#dcc08d;text-transform:uppercase;letter-spacing:.16em;font-size:.72rem}
+
+
+    /* STORY / USAGE / GALLERY */
+    .story-section{background:
+      radial-gradient(circle at 18% 22%, rgba(210,161,47,.08), transparent 30%),
+      linear-gradient(180deg, rgba(10,8,7,.96), rgba(14,10,8,1))}
+    .story-grid{display:grid;grid-template-columns:1.08fr .92fr;gap:32px;align-items:stretch;margin-top:34px}
+    .story-main,.story-aside{border-radius:30px;border:1px solid rgba(255,255,255,.06);box-shadow:var(--shadow)}
+    .story-main{padding:52px 48px;background:
+      radial-gradient(circle at 82% 18%, rgba(210,161,47,.14), transparent 24%),
+      rgba(255,255,255,.025)}
+    .story-kicker{display:inline-flex;align-items:center;gap:10px;font-size:.78rem;letter-spacing:.22em;text-transform:uppercase;color:var(--gold-soft);margin-bottom:22px}
+    .story-kicker::before{content:'';width:34px;height:1px;background:rgba(210,161,47,.5)}
+    .story-quote{font-family:'Cormorant Garamond',serif;font-size:clamp(2.6rem,4vw,4.4rem);line-height:.98;color:var(--text);margin:0 0 18px;max-width:10ch}
+    .story-lead{margin:0 0 16px;color:#e6d9c8;font-size:1.12rem;line-height:1.95;max-width:60ch}
+    .story-copy{margin:0;color:var(--muted);line-height:1.9;max-width:58ch}
+    .story-aside{padding:34px 32px;background:rgba(255,255,255,.02);display:flex;flex-direction:column;gap:18px}
+    .story-mini{padding:20px 0;border-bottom:1px solid rgba(255,255,255,.06)}
+    .story-mini:first-child{padding-top:4px}
+    .story-mini:last-child{border-bottom:none;padding-bottom:4px}
+    .story-mini-no{display:block;font-family:'Cormorant Garamond',serif;color:rgba(210,161,47,.42);font-size:2.35rem;line-height:.8;margin-bottom:8px}
+    .story-mini h3{margin:0 0 8px;font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:500;color:var(--text)}
+    .story-mini p{margin:0;color:#d1c0ab;line-height:1.8}
+
+
+    .usage-section{background:var(--cream);color:#241b15}
+    .usage-section .eyebrow{color:#bf9231}
+    .usage-section .eyebrow::before{background:rgba(191,146,49,.6)}
+    .usage-section .title{color:#241b15;text-align:center;margin-bottom:56px}
+    .usage-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:36px}
+    .usage-step{text-align:center;padding:10px 6px}
+    .usage-no{font-family:'Cormorant Garamond',serif;color:rgba(210,161,47,.30);font-size:4.2rem;line-height:.8;margin-bottom:10px}
+    .usage-line{width:56px;height:1px;background:rgba(210,161,47,.30);margin:0 auto 18px}
+    .usage-step h3{margin:0 0 14px;font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:500;color:#241b15}
+    .usage-step p{margin:0 auto;max-width:320px;color:#4f443a;line-height:1.8;font-size:1.03rem}
+
+    .gallery-section{background:
+      radial-gradient(circle at 50% 0%, rgba(210,161,47,.10), transparent 24%),
+      linear-gradient(180deg, #0b0807 0%, #0d0908 100%)}
+    .gallery-head{display:flex;justify-content:space-between;align-items:flex-end;gap:18px;margin-bottom:28px}
+    .gallery-head .title{margin-bottom:0}
+    .gallery-sub{max-width:560px;color:var(--muted);line-height:1.85}
+    .gallery-slider{position:relative;overflow:hidden;border-radius:28px;border:1px solid rgba(255,255,255,.06);background:rgba(255,255,255,.02);padding:18px 0}
+    .gallery-track{display:flex;gap:18px;width:max-content;animation:galleryFlow 34s linear infinite}
+    .gallery-slider:hover .gallery-track{animation-play-state:paused}
+    .gallery-item{width:300px;height:380px;flex:none;border-radius:22px;overflow:hidden;position:relative;background:#14100d;box-shadow:0 16px 40px rgba(0,0,0,.24)}
+    .gallery-item img{width:100%;height:100%;object-fit:cover;transition:transform .45s ease}
+    .gallery-item:hover img{transform:scale(1.04)}
+    .gallery-item::after{content:'';position:absolute;inset:auto 0 0 0;height:45%;background:linear-gradient(180deg, transparent, rgba(0,0,0,.58))}
+    .gallery-tag{position:absolute;left:18px;bottom:16px;z-index:2;padding:8px 12px;border-radius:999px;background:rgba(10,8,7,.72);border:1px solid rgba(255,255,255,.08);font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;color:#f2e6d3}
+    @keyframes galleryFlow{0%{transform:translateX(0)}100%{transform:translateX(calc(-50% - 9px))}}
+
+
+
+    .contact-only{padding-top:30px}
+    .contact-only-grid{display:grid;grid-template-columns:1fr;max-width:920px;margin:0 auto;border-radius:32px;overflow:hidden;box-shadow:var(--shadow);background:linear-gradient(180deg, #110b08, #0d0907);border:1px solid rgba(255,255,255,.06)}
+    .contact-only-box{padding:78px 72px}
+    .contact-only .title{max-width:540px;margin-bottom:22px}
+    .contact-only .desc{max-width:620px;color:#b4a08c;margin-bottom:44px}
+    @media (max-width: 980px){
+      .contact-only-box{padding:54px 24px}
+    }
+
+
+    /* CONTACT */
+    .contact-split{padding-top:30px}
+    .contact-grid{display:grid;grid-template-columns:.92fr 1.08fr;border-radius:0;overflow:hidden;box-shadow:var(--shadow)}
+    .contact-left{padding:82px 78px;background:linear-gradient(180deg, #110b08, #0d0907);min-height:720px;display:flex;flex-direction:column;justify-content:center}
+    .contact-right{padding:82px 78px;background:var(--cream);color:#251d17}
+    .contact-left .eyebrow{margin-bottom:20px}
+    .contact-left .title{max-width:420px;margin-bottom:22px}
+    .contact-left .desc{max-width:520px;color:#b4a08c;margin-bottom:44px}
+    .contact-items{display:grid;gap:26px;max-width:460px}
+    .contact-item{display:grid;grid-template-columns:52px 1fr;gap:18px;align-items:start}
+    .contact-icon{width:52px;height:52px;display:grid;place-items:center;background:rgba(210,161,47,.08);border:1px solid rgba(210,161,47,.14);color:var(--gold-soft);font-size:1.2rem}
+    .contact-copy strong{display:block;margin-bottom:6px;color:var(--gold-soft);text-transform:uppercase;letter-spacing:.12em;font-size:.88rem}
+    .contact-copy span{color:#ccbba9;font-size:1.06rem;line-height:1.7}
+
+    .form-eyebrow{display:flex;align-items:center;gap:12px;color:var(--gold);text-transform:uppercase;letter-spacing:.18em;font-size:.76rem;margin-bottom:18px}
+    .form-title{margin:0 0 34px;font-family:'Cormorant Garamond',serif;font-size:3.3rem;font-weight:500;line-height:1;color:#231b15}
+    form{display:grid;gap:24px}
+    .form-row{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+    label{display:block;margin-bottom:10px;color:#bf9231;text-transform:uppercase;letter-spacing:.16em;font-size:.78rem}
+    input,select,textarea{width:100%;padding:16px 18px;border:1px solid rgba(210,161,47,.22);background:transparent;color:#3a3028;font:inherit;outline:none}
+    textarea{min-height:150px;resize:vertical}
+    input::placeholder, textarea::placeholder{color:#8d8379}
+    .submit-btn{display:inline-flex;align-items:center;justify-content:center;min-height:62px;padding:0 28px;background:var(--gold);border:none;color:#24170a;font-weight:700;letter-spacing:.14em;text-transform:uppercase;cursor:pointer;box-shadow:0 12px 24px rgba(210,161,47,.18)}
+
+
+    .contact-footer-like{padding:0 0 46px}
+    .contact-footer-strip{
+      display:grid;
+      grid-template-columns:1.15fr .85fr .85fr .85fr;
+      gap:22px;
+      align-items:start;
+      padding:34px 38px;
+      border-top:1px solid rgba(255,255,255,.05);
+      border-bottom:1px solid rgba(255,255,255,.05);
+      background:rgba(0,0,0,.14);
+      box-shadow:var(--shadow);
+    }
+    .contact-footer-intro .title{margin-bottom:12px;max-width:11ch}
+    .contact-footer-intro .desc{max-width:46ch}
+    .contact-footer-col strong{
+      display:block;
+      margin-bottom:8px;
+      color:var(--gold-soft);
+      text-transform:uppercase;
+      letter-spacing:.12em;
+      font-size:.84rem
+    }
+    .contact-footer-col span{
+      color:#ccbba9;
+      font-size:1rem;
+      line-height:1.8
+    }
+    @media (max-width: 980px){
+      .contact-footer-strip{grid-template-columns:1fr; padding:28px 24px}
+    }
+
+    footer{padding:34px 0 42px;background:rgba(0,0,0,.16);border-top:1px solid rgba(255,255,255,.05)}
+    .footer-inner{display:flex;justify-content:space-between;align-items:center;gap:18px;flex-wrap:wrap}
+    .footer-copy{color:var(--muted);font-size:.92rem}
+    .footer-links{display:flex;gap:18px;flex-wrap:wrap;color:var(--muted)}
+    .footer-brand img{height:72px;width:auto;object-fit:contain}
+
+    @media (max-width: 1180px){
+      .nav-inner{grid-template-columns:1fr auto}
+      .nav-center{display:none}
+      .board-stage{padding:96px 280px 76px}
+      .side-card{width:min(380px, 38vw)}
+      .contact-left,.contact-right{padding:70px 54px}
+    }
+    @media (max-width: 980px){
+      .container{width:min(calc(100% - 28px), var(--max))}
+      .hero-title-group{gap:0px}.hero-word-part{font-size:clamp(3.9rem,15vw,7rem);letter-spacing:.02em;text-shadow:8px 10px 0 rgba(122,74,34,.68),0 16px 30px rgba(0,0,0,.34)}.hero-flower-slot{width:min(24vw,165px);min-width:100px;margin:0 -24px}
+      .showcase-shell{height:auto}
+      .showcase-sticky{position:relative;top:auto;height:auto}
+      .showcase-board{padding-bottom:32px}
+      .showcase-progress{position:relative;top:auto;left:auto;transform:none;justify-content:center;padding:24px 0 0}
+      .board-stage{position:relative;min-height:560px;padding:80px 24px 26px}
+      .ring.r1{width:390px;height:390px}
+      .ring.r2{width:470px;height:470px}
+      .ring.r3{width:540px;height:540px}
+      .plant-wrap{width:min(72vw,360px)}
+      .pin{display:none}
+      .connector{display:none}
+      .side-card{position:relative;left:auto;right:auto;top:auto;bottom:auto;width:auto;max-width:none;margin:14px 18px 0;display:none}
+      .side-card.active{display:block}
+      .contact-grid{grid-template-columns:1fr}
+      .contact-left{min-height:auto}
+      .form-row{grid-template-columns:1fr}
+    }
+    @media (max-width: 640px){
+      .brand{font-size:2rem}
+      .nav-btn{min-height:44px;padding:0 18px;font-size:.86rem}
+      .hero-title-group{gap:4px}.hero-word-part{font-size:clamp(2.8rem,17vw,5.3rem);letter-spacing:.05em;text-shadow:5px 7px 0 rgba(122,74,34,.65),0 14px 24px rgba(0,0,0,.34)}.hero-flower-slot{width:min(22vw,200px);min-width:120px;transform:translateY(4px);margin:0 -10px}
+      .hero-subtitle{font-size:clamp(1.8rem,7vw,2.4rem)}
+      .progress-pill{width:46px;height:46px}
+      .title{font-size:clamp(2.2rem,12vw,3.1rem)}
+      .contact-left,.contact-right{padding:54px 24px}
+      .form-title{font-size:2.5rem}
+    }
+
+    @media (max-width: 1180px){
+      .usage-grid{grid-template-columns:repeat(2,1fr)}
+      .story-grid{grid-template-columns:1fr}
+      .gallery-head{flex-direction:column;align-items:flex-start}
+    }
+    @media (max-width: 760px){
+      .usage-grid{grid-template-columns:1fr;gap:24px}
+      .story-main,.story-aside{padding:28px 22px}
+      .story-quote{max-width:none}
+      .story-mini h3{font-size:1.7rem}
+      .gallery-item{width:240px;height:320px}
+    }
+
+  
+
+    .home-about{background:
+      radial-gradient(circle at 20% 0%, rgba(210,161,47,.08), transparent 28%),
+      linear-gradient(180deg, rgba(10,8,7,.96), rgba(14,10,8,1))}
+    .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:32px;max-width:980px;margin-left:auto;margin-right:auto}
+    .about-card{padding:34px 30px;border-radius:28px;border:1px solid rgba(255,255,255,.06);background:rgba(255,255,255,.025);box-shadow:var(--shadow)}
+    .about-card h3{margin:0 0 14px;font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:500}
+    .about-card p{margin:0;color:var(--muted);line-height:1.85}
+    .map-section{
+      background:
+        radial-gradient(circle at 50% 0%, rgba(210,161,47,.08), transparent 24%),
+        linear-gradient(180deg, #0b0807 0%, #0d0908 100%);
+      color:var(--text)
+    }
+    .map-section .eyebrow{color:var(--gold-soft)}
+    .map-section .eyebrow::before{background:rgba(210,161,47,.6)}
+    .map-section .title,.map-section .desc{color:var(--text)}
+    .map-wrap{margin-top:0;
+      position:relative;
+      margin-top:34px;
+      padding:0;
+      border-radius:0;
+      background:transparent;
+      border:none;
+      box-shadow:none;
+    }
+    .map-area{
+      position:relative;
+      width:min(100%, 1460px);
+      margin:0 auto;
+    }
+    .map-area svg{
+      width:100%;
+      height:auto;
+      display:block;
+      background:transparent;
+    }
+    .map-area svg path{
+      pointer-events:auto;
+      fill:rgba(210,161,47,.22);
+      stroke:rgba(255,240,220,.82);
+      stroke-width:1.5;
+      transition:fill .22s ease, filter .22s ease;
+      cursor:pointer;
+    }
+    .map-area svg path:hover{
+      fill:rgba(240,210,138,.34);
+      filter:brightness(1.03);
+    }
+    .map-area svg path#TR78{
+      fill:rgba(210,161,47,.78);
+      cursor:pointer;
+    }
+    .map-area svg path#TR78:hover{
+      fill:rgba(240,210,138,.95);
+      filter:brightness(1.05);
+    }
+    .map-area svg path:focus,
+    .map-area svg path:focus-visible{
+      outline:none;
+    }
+    .map-tooltip{
+      position:absolute;
+      display:none;
+      pointer-events:none;
+      align-items:center;
+      gap:10px;
+      padding:10px 12px;
+      border-radius:16px;
+      background:rgba(10,8,7,.94);
+      color:#fff7ea;
+      font-size:14px;
+      line-height:1.2;
+      white-space:nowrap;
+      transform:translate(-50%, calc(-100% - 18px));
+      box-shadow:0 14px 34px rgba(0,0,0,.28);
+      border:1px solid rgba(210,161,47,.22);
+      z-index:40;
+      backdrop-filter:blur(10px);
+    }
+    .map-tooltip.show{
+      display:flex;
+      animation:mapTipIn .18s ease both;
+    }
+    .map-tooltip::after{
+      content:"";
+      position:absolute;
+      left:50%;
+      bottom:-6px;
+      width:10px;
+      height:10px;
+      background:rgba(10,8,7,.94);
+      border-right:1px solid rgba(210,161,47,.18);
+      border-bottom:1px solid rgba(210,161,47,.18);
+      transform:translateX(-50%) rotate(45deg);
+    }
+    .map-tip-img{
+      width:44px;
+      height:44px;
+      border-radius:12px;
+      object-fit:cover;
+      background:#f6efe4;
+      box-shadow:0 8px 18px rgba(0,0,0,.18);
+    }
+    .map-tip-text{
+      display:flex;
+      flex-direction:column;
+      gap:3px;
+      align-items:flex-start;
+    }
+    .map-tip-city{
+      color:#d7c7b3;
+      font-size:.72rem;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+    }
+    .map-tip-product{
+      color:#fff7ea;
+      font-weight:700;
+      font-size:.96rem;
+      letter-spacing:.02em;
+    }
+    @keyframes mapTipIn{
+      from{opacity:0;transform:translate(-50%, calc(-100% - 8px)) scale(.96)}
+      to{opacity:1;transform:translate(-50%, calc(-100% - 18px)) scale(1)}
+    }
+    .city-note{margin-top:18px;color:var(--muted);line-height:1.85;max-width:860px}
+    .future-list{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
+    .future-pill{padding:10px 14px;border-radius:999px;background:rgba(210,161,47,.10);border:1px solid rgba(210,161,47,.18);color:var(--gold-soft);font-size:.9rem}
+    .subhero{position:relative;min-height:70vh;display:flex;align-items:center;justify-content:center;overflow:hidden;background:
+      radial-gradient(circle at 50% 42%, rgba(255,255,255,.04), transparent 20%),
+      radial-gradient(circle at 50% 42%, rgba(210,161,47,.12), transparent 34%),
+      linear-gradient(180deg, #0c0908 0%, #0c0909 58%, #0d0a08 100%)}
+    .subhero::before{content:'';position:absolute;inset:0;background:linear-gradient(180deg, transparent 0%, rgba(0,0,0,.18) 100%)}
+    .subhero-content{position:relative;z-index:3;text-align:center;padding:110px 0 120px}
+    .subhero h1{margin:0 0 18px;font-family:'Cormorant Garamond',serif;font-size:clamp(3.6rem,7vw,6.4rem);font-weight:500;line-height:.92}
+    .subhero p{margin:0 auto;max-width:760px;color:var(--muted);line-height:1.9;font-size:1.06rem}
+    .detail-nav{background:rgba(239,233,221,.97)}
+    .detail-nav .nav-links{gap:28px}
+    .kicker-inline{display:inline-flex;align-items:center;gap:10px;padding:10px 14px;border-radius:999px;background:rgba(210,161,47,.12);border:1px solid rgba(210,161,47,.18);color:var(--gold-soft);text-transform:uppercase;letter-spacing:.12em;font-size:.78rem;margin-bottom:18px}
+    @media (max-width: 1180px){
+      .about-grid{grid-template-columns:1fr}
+    }
+    @media (max-width: 820px){
+      .city-badge{font-size:.74rem;padding:8px 10px}
+      .city-dot{width:14px;height:14px}
+    }
+
+    /* SUPABASE MAP OVERRIDES */
+    .map-area svg path{
+      outline:none;
+    }
+    .map-area svg path:focus,
+    .map-area svg path:focus-visible{
+      outline:none;
+    }
+    .map-area svg path.map-city-active{
+      fill:rgba(210,161,47,.78);
+    }
+    .map-area svg path.map-city-active:hover{
+      fill:rgba(240,210,138,.95);
+      filter:brightness(1.05);
+    }
+    .map-area svg path.map-city-hover-only{
+      fill:rgba(210,161,47,.22);
+      cursor:default;
+    }
+    .map-area svg path.map-city-hover-only:hover{
+      fill:rgba(240,210,138,.34);
+      filter:brightness(1.03);
+    }
+
+    /* === DİL SEÇİCİ === */
+    .lang-switcher{
+      display:inline-flex;
+      align-items:center;
+      gap:2px;
+      background:rgba(35,27,21,.06);
+      border:1px solid rgba(35,27,21,.12);
+      border-radius:30px;
+      padding:3px;
+      margin-right:14px;
+    }
+    .lang-switcher button{
+      background:transparent;
+      border:none;
+      padding:6px 12px;
+      font-family:'Inter',sans-serif;
+      font-size:.78rem;
+      font-weight:600;
+      letter-spacing:.08em;
+      color:#7a6b5c;
+      cursor:pointer;
+      border-radius:30px;
+      transition:.2s ease;
+    }
+    .lang-switcher button:hover{ color:#231b15; }
+    .lang-switcher button.active{
+      background:#231b15;
+      color:var(--cream);
+    }
+    @media (max-width:760px){
+      .lang-switcher{margin-right:8px;}
+      .lang-switcher button{padding:5px 9px;font-size:.72rem;}
+    }
+
+    /* === HERO CTA BUTONU === */
+    .hero-cta{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      margin-top:38px;
+      padding:18px 38px;
+      background:transparent;
+      border:1.5px solid rgba(240,210,138,.6);
+      color:var(--cream);
+      font-family:'Inter',sans-serif;
+      font-weight:600;
+      font-size:.92rem;
+      letter-spacing:.16em;
+      text-transform:uppercase;
+      cursor:pointer;
+      border-radius:2px;
+      transition:.3s ease;
+      text-decoration:none;
+    }
+    .hero-cta:hover{
+      background:var(--gold);
+      border-color:var(--gold);
+      color:#24170a;
+      transform:translateY(-2px);
+    }
+    .hero-cta-arrow{
+      display:inline-block;
+      transition:transform .3s ease;
+    }
+    .hero-cta:hover .hero-cta-arrow{ transform:translateY(3px); }
+
+    /* === FOOTER NEWSLETTER === */
+    .footer-newsletter{
+      display:flex;
+      flex-direction:column;
+      gap:12px;
+      max-width:340px;
+    }
+    .footer-newsletter strong{
+      font-family:'Cormorant Garamond',serif;
+      font-size:1.3rem;
+      color:var(--cream);
+      font-weight:500;
+    }
+    .footer-newsletter p{
+      color:var(--muted);
+      font-size:.88rem;
+      line-height:1.5;
+      margin:0;
+    }
+    .footer-newsletter form{
+      display:flex;
+      gap:0;
+      border:1px solid rgba(240,210,138,.22);
+      border-radius:2px;
+      overflow:hidden;
+    }
+    .footer-newsletter input{
+      flex:1;
+      padding:12px 14px;
+      background:transparent;
+      border:none;
+      color:var(--cream);
+      font:inherit;
+      outline:none;
+    }
+    .footer-newsletter input::placeholder{ color:var(--muted); }
+    .footer-newsletter button{
+      padding:12px 20px;
+      background:var(--gold);
+      border:none;
+      color:#24170a;
+      font-weight:600;
+      letter-spacing:.06em;
+      text-transform:uppercase;
+      font-size:.78rem;
+      cursor:pointer;
+    }
+
+    /* === FOOTER LAYOUT İYİLEŞTİRME === */
+    .footer-grid{
+      display:grid;
+      grid-template-columns:1.2fr 1fr 1fr;
+      gap:40px;
+      padding:48px 0 28px;
+      border-bottom:1px solid rgba(255,255,255,.06);
+    }
+    .footer-grid h4{
+      color:var(--cream);
+      font-family:'Cormorant Garamond',serif;
+      font-size:1.3rem;
+      font-weight:500;
+      margin:0 0 14px;
+    }
+    .footer-grid ul{
+      list-style:none;
+      padding:0;
+      margin:0;
+      display:flex;
+      flex-direction:column;
+      gap:8px;
+    }
+    .footer-grid ul a{
+      color:var(--muted);
+      font-size:.92rem;
+      transition:color .2s ease;
+    }
+    .footer-grid ul a:hover{ color:var(--gold-soft); }
+    .footer-bottom{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:20px;
+      padding:24px 0;
+      flex-wrap:wrap;
+    }
+    .footer-bottom .copy{ color:var(--muted); font-size:.82rem; }
+    .footer-bottom .tagline{ color:var(--muted); font-size:.82rem; font-style:italic; }
+    @media (max-width:760px){
+      .footer-grid{grid-template-columns:1fr;gap:32px;padding:36px 0 22px;}
+      .footer-bottom{flex-direction:column;align-items:flex-start;}
+    }
+
+    /* CTA "Yakında" pill update */
+    .future-pill{
+      transition:.25s ease;
+    }
+    .future-pill:hover{
+      border-color:rgba(240,210,138,.4);
+      color:var(--gold-soft);
+    }
+
+    /* ============================================================
+       PROFESYONEL RAFINE KATMAN — Aesop / Hermès yolu
+       Sade, az, ölçülü, derin
+       ============================================================ */
+
+    /* ===== TİPOGRAFİ HİYERARŞİSİ ===== */
+    /* Eyebrow artık ince çizgi ile (─── KEŞFET) */
+    .eyebrow{
+      display:inline-flex;
+      align-items:center;
+      gap:14px;
+      font-family:'Inter',sans-serif;
+      font-size:.78rem;
+      font-weight:600;
+      letter-spacing:.32em;
+      text-transform:uppercase;
+      color:var(--gold-soft);
+      position:relative;
+    }
+    .eyebrow::before{
+      content:"";
+      display:inline-block;
+      width:38px;
+      height:1px;
+      background:linear-gradient(90deg, transparent, var(--gold) 50%, var(--gold));
+      flex-shrink:0;
+    }
+    /* eyebrow ortada (text-align:center) ise iki tarafta da çizgi */
+    [style*="text-align:center"] .eyebrow,
+    .home-about .eyebrow,
+    .contact-footer-intro .eyebrow{
+      justify-content:flex-start;
+    }
+    .map-eyebrow-wrap .eyebrow{
+      justify-content:center;
+    }
+    .map-eyebrow-wrap .eyebrow::after{
+      content:"";
+      display:inline-block;
+      width:38px;
+      height:1px;
+      background:linear-gradient(270deg, transparent, var(--gold) 50%, var(--gold));
+      flex-shrink:0;
+    }
+
+    /* Başlık altına ince altın ayraç */
+    .title{
+      position:relative;
+    }
+    .home-about .title::after,
+    .map-eyebrow-wrap .title::after,
+    .contact-footer-intro .title::after{
+      content:"";
+      display:block;
+      width:48px;
+      height:1px;
+      background:linear-gradient(90deg, var(--gold), rgba(210,161,47,.2));
+      margin-top:18px;
+    }
+    .map-eyebrow-wrap .title::after{
+      margin-left:auto;
+      margin-right:auto;
+      background:linear-gradient(90deg, transparent, var(--gold), transparent);
+    }
+
+    /* ===== ABOUT KARTLARI — REFINED ===== */
+    .about-card{
+      position:relative;
+      transition:transform .55s cubic-bezier(0.16, 1, 0.3, 1),
+                 box-shadow .55s cubic-bezier(0.16, 1, 0.3, 1),
+                 border-color .35s ease;
+      cursor:default;
+    }
+    /* Kart numaralandırması (Hermès kart sistemi) */
+    .about-card::before{
+      content:counter(card-counter, decimal-leading-zero);
+      position:absolute;
+      top:24px;
+      right:28px;
+      font-family:'Cormorant Garamond',serif;
+      font-size:1.05rem;
+      font-weight:500;
+      letter-spacing:.18em;
+      color:var(--gold);
+      opacity:.75;
+      transition:opacity .35s ease;
+    }
+    .about-grid{ counter-reset:card-counter; }
+    .about-card{ counter-increment:card-counter; }
+    /* Üst kenarda ince altın çizgi (hover'da büyür) */
+    .about-card::after{
+      content:"";
+      position:absolute;
+      top:0;
+      left:50%;
+      width:0;
+      height:1px;
+      background:linear-gradient(90deg, transparent, var(--gold), transparent);
+      transform:translateX(-50%);
+      transition:width .55s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .about-card:hover{
+      transform:translateY(-6px);
+      box-shadow:0 30px 60px rgba(0,0,0,.35), 0 0 0 1px rgba(210,161,47,.18);
+    }
+    .about-card:hover::after{ width:60%; }
+    .about-card:hover::before{ opacity:1; }
+
+    /* ===== PILL HOVER REFINEMENT ===== */
+    .future-pill{
+      transition:.45s cubic-bezier(0.16, 1, 0.3, 1);
+      cursor:default;
+    }
+    .future-pill:hover{
+      border-color:rgba(240,210,138,.5);
+      color:var(--gold-soft);
+      background:rgba(210,161,47,.18);
+      transform:translateY(-2px);
+      box-shadow:0 8px 20px rgba(210,161,47,.12);
+    }
+
+    /* ===== BÖLÜM AYRAÇLARI ===== */
+    .section-divider{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:18px;
+      padding:36px 0;
+      opacity:.5;
+    }
+    .section-divider::before,
+    .section-divider::after{
+      content:"";
+      width:80px;
+      height:1px;
+      background:linear-gradient(90deg, transparent, rgba(210,161,47,.4), transparent);
+    }
+    .section-divider .diamond{
+      color:var(--gold);
+      font-size:.6rem;
+      letter-spacing:.4em;
+    }
+
+    /* ===== SCROLL-TRIGGERED REVEAL ANIMATIONS ===== */
+    .reveal{
+      opacity:0;
+      transform:translateY(28px);
+      transition:opacity .85s cubic-bezier(0.16, 1, 0.3, 1),
+                 transform .85s cubic-bezier(0.16, 1, 0.3, 1);
+      will-change:opacity, transform;
+    }
+    .reveal.is-visible{
+      opacity:1;
+      transform:translateY(0);
+    }
+    /* Stagger için delay sınıfları */
+    .reveal.delay-1{ transition-delay:.08s; }
+    .reveal.delay-2{ transition-delay:.16s; }
+    .reveal.delay-3{ transition-delay:.24s; }
+    .reveal.delay-4{ transition-delay:.32s; }
+
+    /* prefers-reduced-motion uyumu */
+    @media (prefers-reduced-motion: reduce){
+      .reveal{ opacity:1 !important; transform:none !important; transition:none !important; }
+      *, *::before, *::after{ animation-duration:.001s !important; transition-duration:.001s !important; }
+    }
+
+    /* ===== CUSTOM CURSOR (SADECE INTERAKTIF ÖĞELERDE) ===== */
+    .ha-cursor{
+      position:fixed;
+      top:0;
+      left:0;
+      width:32px;
+      height:32px;
+      border:1.5px solid var(--gold);
+      border-radius:50%;
+      pointer-events:none;
+      z-index:99999;
+      opacity:0;
+      transform:translate(-50%, -50%) scale(.6);
+      transition:opacity .25s ease,
+                 transform .25s cubic-bezier(0.16, 1, 0.3, 1),
+                 background-color .25s ease,
+                 border-color .25s ease;
+      mix-blend-mode:difference;
+    }
+    .ha-cursor.visible{
+      opacity:1;
+      transform:translate(-50%, -50%) scale(1);
+    }
+    .ha-cursor.click{
+      transform:translate(-50%, -50%) scale(.7);
+      background:rgba(210,161,47,.28);
+    }
+    /* Touch device detection ile mobilde gizle */
+    @media (hover: none){ .ha-cursor{ display:none !important; } }
+
+    /* ===== HERO SCROLL-DOWN INDICATOR ===== */
+    .hero-scroll-indicator{
+      position:absolute;
+      bottom:40px;
+      left:50%;
+      transform:translateX(-50%);
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      gap:10px;
+      opacity:.6;
+      pointer-events:none;
+      z-index:4;
+    }
+    .hero-scroll-indicator span{
+      font-family:'Inter',sans-serif;
+      font-size:.65rem;
+      letter-spacing:.36em;
+      text-transform:uppercase;
+      color:var(--gold-soft);
+      writing-mode:vertical-rl;
+    }
+    .hero-scroll-line{
+      width:1px;
+      height:50px;
+      background:linear-gradient(180deg, var(--gold) 0%, transparent 100%);
+      position:relative;
+      overflow:hidden;
+    }
+    .hero-scroll-line::after{
+      content:"";
+      position:absolute;
+      top:-50%;
+      left:0;
+      width:100%;
+      height:50%;
+      background:linear-gradient(180deg, transparent, var(--cream));
+      animation:scrollLineFlow 2.4s cubic-bezier(0.16, 1, 0.3, 1) infinite;
+    }
+    @keyframes scrollLineFlow{
+      0%{ transform:translateY(0); opacity:0; }
+      30%{ opacity:1; }
+      100%{ transform:translateY(200%); opacity:0; }
+    }
+    @media (max-width:760px){
+      .hero-scroll-indicator{ display:none; }
+    }
+
+    /* ===== PAGE LOADING (cinematic open) ===== */
+    .page-loader{
+      position:fixed;
+      inset:0;
+      z-index:99998;
+      background:#0a0807;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      transition:opacity .8s cubic-bezier(0.16, 1, 0.3, 1) .15s,
+                 visibility .8s ease .15s;
+    }
+    .page-loader.hidden{
+      opacity:0;
+      visibility:hidden;
+    }
+    .page-loader-ring{
+      width:42px;
+      height:42px;
+      border:1px solid rgba(210,161,47,.2);
+      border-top-color:var(--gold);
+      border-radius:50%;
+      animation:loaderSpin 1.1s linear infinite;
+    }
+    @keyframes loaderSpin{
+      to{ transform:rotate(360deg); }
+    }
+
+    /* ===== NAV LINK REFINEMENT ===== */
+    .nav-links a{
+      transition:color .3s ease;
+    }
+    .nav-links a::after{
+      transition:width .45s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .nav-links a:hover{ color:#1a120c; }
+
+    /* ===== FOOTER REFINEMENT ===== */
+    footer{
+      position:relative;
+    }
+    footer::before{
+      content:"";
+      position:absolute;
+      top:0;
+      left:50%;
+      transform:translateX(-50%);
+      width:240px;
+      height:1px;
+      background:linear-gradient(90deg, transparent, rgba(210,161,47,.5), transparent);
+    }
+    .footer-grid h4{
+      letter-spacing:.04em;
+    }
+    .footer-grid ul a{
+      position:relative;
+      display:inline-block;
+      padding-bottom:1px;
+    }
+    .footer-grid ul a::after{
+      content:"";
+      position:absolute;
+      left:0;
+      bottom:0;
+      width:0;
+      height:1px;
+      background:var(--gold);
+      transition:width .35s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .footer-grid ul a:hover::after{ width:100%; }
+
+    /* ===== MAP TOOLTIP REFINEMENT (zaten var, hafif yumuşatma) ===== */
+    .map-tooltip{
+      transition:opacity .3s cubic-bezier(0.16, 1, 0.3, 1),
+                 transform .35s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    /* ===== CONTACT COL HOVER ===== */
+    .contact-footer-col{
+      transition:.4s cubic-bezier(0.16, 1, 0.3, 1);
+      cursor:default;
+    }
+    .contact-footer-col:hover{
+      transform:translateY(-3px);
+    }
+    .contact-footer-col:hover strong{
+      color:var(--gold);
+    }
+    .contact-footer-col strong{
+      transition:color .35s ease;
+    }
+
+    /* ===== NEWSLETTER FORM REFINEMENT ===== */
+    .footer-newsletter form{
+      transition:border-color .35s ease;
+    }
+    .footer-newsletter form:focus-within{
+      border-color:rgba(240,210,138,.6);
+    }
+    .footer-newsletter button{
+      transition:.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .footer-newsletter button:hover{
+      background:var(--gold-soft);
+      letter-spacing:.1em;
+    }
+    .footer-newsletter button:disabled{
+      opacity:.6;
+      cursor:wait;
+    }
+    .newsletter-status{
+      font-size:.82rem;
+      line-height:1.4;
+      margin:10px 0 0;
+      min-height:1.2em;
+      transition:color .3s ease;
+    }
+    .newsletter-status.success{ color:var(--gold-soft); }
+    .newsletter-status.error{ color:#d99284; }
+
+    /* ===== ABOUT — UZUN HİKAYE TASARIMI ===== */
+    .about-narrative{
+      max-width:760px;
+      margin:38px auto 0;
+      text-align:left;
+    }
+    .about-narrative p{
+      color:var(--muted);
+      font-size:1.04rem;
+      line-height:1.85;
+      margin:0 0 22px;
+      letter-spacing:.005em;
+    }
+    .about-narrative p:first-of-type::first-letter{
+      font-family:'Cormorant Garamond',serif;
+      font-size:3.6rem;
+      font-weight:500;
+      float:left;
+      line-height:.85;
+      margin:8px 14px 0 0;
+      color:var(--gold);
+    }
+    .about-narrative p:last-of-type{
+      margin-bottom:0;
+    }
+    .about-signature{
+      display:block;
+      margin-top:34px;
+      text-align:center;
+      font-family:'Cormorant Garamond',serif;
+      font-style:italic;
+      font-size:1.6rem;
+      font-weight:500;
+      color:var(--gold-soft);
+      letter-spacing:.02em;
+    }
+    .about-signature::before,
+    .about-signature::after{
+      content:"";
+      display:inline-block;
+      vertical-align:middle;
+      width:60px;
+      height:1px;
+      background:linear-gradient(90deg, transparent, rgba(210,161,47,.5), transparent);
+      margin:0 18px;
+    }
+    @media (max-width:760px){
+      .about-narrative p{font-size:.96rem;line-height:1.78}
+      .about-narrative p:first-of-type::first-letter{font-size:2.8rem}
+      .about-signature{font-size:1.25rem}
+      .about-signature::before,
+      .about-signature::after{width:30px;margin:0 10px}
+    }
+
+    /* ===== GI DEFINITION (Coğrafi İşaret tanımı, harita üstü) ===== */
+    .gi-definition{
+      max-width:720px;
+      margin:0 auto 40px;
+      padding:18px 28px;
+      text-align:center;
+      font-family:'Cormorant Garamond',serif;
+      font-style:italic;
+      font-size:1.05rem;
+      line-height:1.65;
+      color:var(--cream-2);
+      opacity:.78;
+      border-top:1px solid rgba(210,161,47,.18);
+      border-bottom:1px solid rgba(210,161,47,.18);
+    }
+    @media (max-width:760px){
+      .gi-definition{font-size:.95rem;padding:14px 18px;margin-bottom:30px}
+    }
+
+    /* ===== ORTALANMIŞ İLETİŞİM (yeni) ===== */
+    .contact-centered{
+      max-width:720px;
+      margin:0 auto;
+      text-align:center;
+    }
+    .contact-centered .contact-intro{
+      font-family:'Cormorant Garamond',serif;
+      font-style:italic;
+      font-weight:400;
+      font-size:1.05rem;
+      line-height:1.7;
+      color:var(--muted);
+      margin:0 auto 48px;
+      max-width:600px;
+    }
+    .contact-centered .contact-info-grid{
+      display:grid;
+      grid-template-columns:repeat(3, 1fr);
+      gap:34px;
+      align-items:start;
+    }
+    .contact-centered .contact-info-item{
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      gap:10px;
+      transition:.4s cubic-bezier(0.16, 1, 0.3, 1);
+      cursor:default;
+    }
+    .contact-centered .contact-info-item:hover{
+      transform:translateY(-3px);
+    }
+    .contact-centered .contact-info-item strong{
+      font-family:'Inter',sans-serif;
+      font-size:.72rem;
+      font-weight:600;
+      letter-spacing:.32em;
+      text-transform:uppercase;
+      color:var(--gold-soft);
+      transition:color .35s ease;
+    }
+    .contact-centered .contact-info-item:hover strong{
+      color:var(--gold);
+    }
+    .contact-centered .contact-info-item span{
+      font-family:'Cormorant Garamond',serif;
+      font-size:1.18rem;
+      font-weight:500;
+      color:var(--cream);
+      line-height:1.5;
+    }
+    .contact-centered .contact-info-item::before{
+      content:"";
+      width:1px;
+      height:20px;
+      background:linear-gradient(180deg, transparent, rgba(210,161,47,.5), transparent);
+      margin-bottom:8px;
+    }
+    @media (max-width:760px){
+      .contact-centered .contact-info-grid{
+        grid-template-columns:1fr;
+        gap:30px;
+      }
+    }
+
+</style></head>
+<body>
+
+<!-- Sayfa açılış loader'ı (cinematic) -->
+<div class="page-loader" id="page-loader">
+  <div class="page-loader-ring"></div>
+</div>
+
+<!-- Custom cursor (sadece interaktif öğelerde belirir) -->
+<div class="ha-cursor" id="ha-cursor" aria-hidden="true"></div>
+<header class="navbar"><div class="container nav-inner">
+<a href="index.html#home" class="brand brand-logo">
+  <img src="assets/logo_house_of_anatolia_transparent.png" alt="The House of Anatolia logosu">
+  <span class="sr-only">The House of Anatolia</span>
+</a>
+  <div class="nav-center"><ul class="nav-links">
+<li><a href="#home" data-i18n="nav_home">Ana Sayfa</a></li><li><a href="#about" data-i18n="nav_about">Hakkımızda</a></li><li><a href="#home" data-i18n="nav_products">Ürün Haritası</a></li><li><a href="#contact" data-i18n="nav_contact">İletişim</a></li>
+</ul></div>
+<div class="nav-cta-wrap">
+  <div class="lang-switcher" role="group" aria-label="Dil seçici / Language switcher">
+    <button type="button" data-lang="tr" class="active" aria-label="Türkçe">TR</button>
+    <button type="button" data-lang="en" aria-label="English">EN</button>
+  </div>
+</div>
+</div></header>
+<main>
+
+<section class="section map-section" id="home"><div class="container">
+        <div class="map-wrap">
+          <div class="map-branding" aria-hidden="true">
+<div class="map-slogan" id="map-slogan-words" data-i18n-slogan>
+              <span class="word">A</span>
+              <span class="word">Journey</span>
+              <span class="word">to</span>
+              <span class="word">the</span>
+              <span class="word">Roots</span>
+              <span class="word">of Taste</span>
+            </div>
+          </div>
+          <div class="map-area" id="map-area">
+            <?xml version="1.0"?>
+    
+<!--********* Copyright (c) 2024 Pareto Softare, LLC DBA Simplemaps.com ***************************************
+************* Free for Commercial Use, full terms at  https://simplemaps.com/resources/svg-license ************
+************* Attribution is appreciated! https://simplemaps.com *******************************************-->
+
+<svg baseprofile="tiny" fill="#6f9c76" height="auto" stroke="#ffffff" stroke-linecap="round" stroke-linejoin="round" stroke-width=".5" version="1.2" viewbox="0 0 1000 422" width="100%" xmlns="http://www.w3.org/2000/svg">
+ <g id="features">
+  <path d="M889.7 82.2l-3.1 1.1-4.8 2.7-7.7 3.3-7.8 3.3-5.7 3-1.1 4.8-0.7 7.5-0.9 4.5-5.7 0.6-5.5 1.1-1.4-2.6-1.9-1.9-1.4-2.1-1-2.4-1.3-1.7-1.8-1.2-2.4-3.7-1-4.9 3-5.9 4.1-4.6 4-2 1.2-4.2-1.3-4.4-0.9-2.3-0.4-0.7-0.5-1.5-0.3-2.7-0.7-3.6 0.5 0 1-0.7 1.4-2.2 1.1-1 0.5-1.1 0.4-2.6 0.5-1 0.9-0.8 0.1 0 0.2 0 0.9-0.4 2.4-0.2 6.7 0.6 0.9 0.4-0.4 0.6-0.1 0.7-0.1 0.6-0.2 0.6-0.4 0.4-1 0.8-0.4 0.7 1.3 0.7 0.9 1 0.9 0.3 1.1-1.4 0.7-0.4 0.3 0.4 0.3 0.8 0.4 0.7 0.3 0.3 1.4 0.4 0.3 0.3 0.2 0.3 0.2 0.2 0.5 0.2 0.3 0.4 1.4 2.7 0.7 0.8 3.5 2.4 2.3 2 1.5 0.7 1.4 0.2 0 0.3-0.6 0.9-0.7 0.6-2.6 1.3 1.3 0.4 1.1-0.1 0.9 0.1 1 1.1 1.1 2.8 0.7 0.5 4.4-1.2 1.3-0.1 1.5 0.4 1.3 0.8 1.3 1.2 0.7 1.5-0.5 1.6z" id="TR75" name="Ardahan">
+  </path>
+  <path d="M842.7 61.7l0.7 3.6 0.3 2.7 0.5 1.5 0.4 0.7 0.9 2.3 1.3 4.4-1.2 4.2-4 2-4.1 4.6-3 5.9-2.8 0.3-2.8 0.6-3.3-0.3-3.2 0.3-1.6 0.8-1.5 1.3-0.6 2.5 0.3 2.7-1.2 2.5-1.9 1.9-0.9 2.5-0.1 2.8-2.2 3.3-4-2.3-3.8-1.1-3.7 1.1-4 2.6-4.4 1.7-3.2-2.9 0.6-5.3 1.3-2.2-0.4-2.1-1.7-0.6-5.9-0.9-3.7-2.1 0.7-2.5 4.5-5.3 1.1-0.6 1-0.9 0.4-1.3 0.7-1.3 2.6-1.7 1.3-2.9-1.4-1.6-1.9-0.9-0.5-1.1-0.6-1.1-0.9-0.6-0.9-0.9-0.9-2.1-0.4-2.5-1.3-3.3-0.1-0.2 4.1-3.3 1.2-0.4 1-0.6 0.5-0.2 1.7-0.2 0.6-0.2 0.9-0.7 0.7-1.1 0.5-1.4 0.2-1.4 0.5-0.3 2.7-2.5 0.7-1.2 5 2.2 0.7 0.1 1.4-0.1 1.2-0.6 0.3 0 0.1 0.3-0.1 0.5 0 0.5 0.2 0.4 0.6 0.2 1.4 0.2 0.6 0.2 1.9 1.7 0.6 0.3 0.4-0.3 1.9-1.6 1.5-2.1 0.7-0.5 1.9-0.8 3.4 1.3 1.7-0.5 0.6-0.4 0.7-0.1 0.7 0.1 0.7 0.4 1.4-0.5 0.8 0 0.6 0.5 0.8 0.7 1.2 0.1 2.3-0.1 8.3 3.2 0.7 0z" id="TR08" name="Artvin">
+  </path>
+  <path d="M886 315.3l-1.3-0.9-0.6-0.1-0.8 0.1-0.5 0.2-0.4 0.4-0.4 0.1-0.4 0-0.4-0.2-6.2-3.3-0.8-0.3-1.5 0.2-1.9 0.5-1.8 0.8-1.2 0.9-2.1 0.7-1.9-0.3-3.9-1.3-0.4-0.3-0.2-1-0.4-0.4-0.6 0-0.4 0-2.4 1-0.3 0.2-0.3 0.5-0.1 0.4 0 0.4-0.2 0.5-6 8.7-0.5 1.6-0.2 0.3-0.8 0.4-4 0.7-2.8 0.9-2.1 0.2 0-1.7-0.1-0.8-0.4-0.4-0.5-0.7 0.8-3.4-0.3-0.7-0.3-0.2-1.6-1.3-0.2-0.3-0.3-0.6-0.2-0.3-0.3-0.1-0.3 0.2-0.3 0.4-0.3 0.1-1.4-0.7-0.7-0.1 0-0.3 0.1-0.6-0.1-0.7-0.5-0.6-0.9 0.7-0.7 0.4-2.4 3.2-3.5 3.3-2.1 1.3-5.4 1.3-0.9-3.8-3-2.4-5.5-1.7-0.8-2.5 2-2.2 4.5-2.5 3.5-1.7 0.6-4-1.3-5.2-2.8-7.5 6.7 3.3 9.4 0.7 3.7-3.7 6.3 0.3 9.6 2.5 10 1.4 8.1 0.8 2.9-3 0.5-3.4 3.8-2 4.1 0.5 3.6 1.5 1.2 0.3 2.3-0.1 2.3-0.3-0.3 5.5-1 3.5 0.8 3.2 1.6 3.9-0.4 5.2-1.2 3.2-0.6 1.2z" id="TR73" name="Sirnak">
+  </path>
+  <path d="M886 315.3l0.6-1.2 1.2-3.2 0.4-5.2-1.6-3.9-0.8-3.2 1-3.5 0.3-5.5 6.4 0 6.3-1.1 1.3-0.7 1.4-0.5 2 0.3 2 0.8 3 0 3.1-0.6 2.6-1.6 1.2-3.3 1.9-3.4 3.5-0.7 4.1 0.5 0.1 0-0.2 0.5 0.9 1.3 1.6 0.3 3.1-0.4 0.6 0.2 1.7 0.8 0.5 0.4 0.3 0.5 0.1 0.7 0.3 0.8 0.5 0.6 0.4 0.2 0.3-0.1 0.3-0.1 0.4 0.3 0 0.3-0.2 0.9 0 0.4 0.3 0.7 0.7 0 0.8-0.2 0.6-0.4 1.3-0.1 1.3 0.6 1.2 1 1.7 2.2 0.1 0.5-0.4 0.8-1.7 1.3-0.4 0.6-0.2 1.8 1 1.1 1 0.8 0.2 1-0.4 1.2-0.3 1.5-0.1 1.5 0.2 1.2 0.2 1-0.6 1.8 0.3 1 0.6 0.3 1.8 0.2 0.7 0.6 0.7 1.7 0.4 0.5 1.8-0.3 0.4 0.5 0.3 0.9 0.4 0.8 2.7 1.8 1.1 1.2-0.2 2-0.5 0.7-0.7 0.4-0.6 0.5-0.3 1 0.2 1.2 0.4 1 0.3 1.1-0.3 1.1-0.6-1-0.9-0.5-5-0.7-0.9 0-1.5 0.7-1.9 1.4-1.7 1.6-1.1 1.5-1.2 0.9-1.2 0.7-4.1 1.3-0.4 0.7-0.1 0.9-0.8 1.3-0.4 1-0.5 0.4-0.6 0.1-1.9-0.5-0.5-0.4-0.3-0.6-1.9-4.3-0.3-1.3 0-1.2 0.4-1.2 0.8-1.1 0.6-0.3 0.6-0.1 0.4-0.2 0.4-0.7 0.1-0.6-0.1-0.8-0.2-1.3-0.4-1.3-0.6-1.1-0.8-0.8-1-0.7-4.6-1.9-0.9-0.1-1.6-0.3-2.1 0.3-1.8 1.5-1.4 2.1-1.4 1.7-2.6 0.4-0.8 0.9-0.6 0.2-0.4-0.3-1-1-0.5-0.3-1.1-0.3-1.2-0.1-4.9 0.3-1.1-0.1-1.2-0.5-0.9-0.7-0.4-0.2-0.6-0.1-0.6 0.1-1.2 0.5-0.6 0.1-0.8-0.4-2.2-1.8-1.9-1-0.6-0.5z" id="TR30" name="Hakkari">
+  </path>
+  <path d="M938 173.5l-0.8-0.6-1.8-0.5-8.5 2-3.7-0.5-3.5-1.1-4.7 0.6-4.4-0.7-0.3-0.9-0.3-0.9-3-0.7-4.3-2-1.4-1.9-1.1-2.3-1.5-1.1-1 0-1.6-0.7-0.6-0.5-1.5-0.3-3.2 1.3-3.1 2.1-1.6-0.6-0.7-0.7-0.7-2.3 0-1.5 0.2-2.9-1-3.5 1.8-2.1 0-2.4 2.5-1.2 5.9-0.8 6.2-2.3 2.2 1.2 4.4 1.3 5.2 2.9 5.7 0.9 0.7-0.2 1.7-1.2 1-0.3 0.5 0.2 0.6 0.6 0.4 0.1 0.5-0.1 0.9-0.3 1.4-0.1 2.8-0.8 1.6 0 1.8 0.5 2.6 1.6 4 2.3 2.7 2.4 1.2 1.4 0.6 0.9 0.2 0.9 0.2 0.5 0.4 0.4 0.7 0.6 0.1 0.6 0.1 0.7 0.1 0.3 0.7-0.4 1.7 2 0.9 0.6 0.2 0 0.5-0.1 0.3 0.1 0.2 0.2 0.3 0.5 2.9 3.8 0.7 1.3 0.5 0.7 0.5 2.4 0.5 0.7-3.8-2.8-0.9-0.8-2.9-1.3-0.6-0.7-1.3-2-0.7-0.5-1.2 0.4-5.1 4.1-0.2 0.7 0.3 2-0.1 0.8z" id="TR76" name="Iğdir">
+  </path>
+  <path d="M938 173.5l0 0.2-0.3 0.8-1.6 3.2-0.2 0.8-0.1 1 0.1 0.9 0.1 0.8 0 0.7-0.5 0.7-0.2 1.4 0.2 1.2-0.1 1.1-0.8 1.2-0.9 0.7-2.4 1.1-1.1 0.3-1.2-0.1-3.3-1.7-1.1-0.1-2.6 0.7-1.1 0.1-1-0.1-0.8 0-0.7 0.2-0.9 0.7-0.6 0.7 0.3 0.7 1.3 1.5-6.7 1.8-1.8-0.3-0.8-0.3-2.8-0.3-2.4-0.7-1.8-0.3-1.8 0.2-1.3 1-1.2 1.3-1.7-0.1-4.1-0.8-2.1-1.3-2.8-2.9-3.2-1.5-3.7-0.2-2.1 1.6-1.7 2.3-1.6 0.5-2.9 0.6-1.1 0.4-0.4 1.9 1.8 1 1.9 0.8 0.3 1.9-0.3 2.1-0.1 2.1-1.2 1.3-5.5 2.3-8.8 1.9-1.6 1.3-1.6 1-2.3 0.7-2 1.3-0.2-3.2 0.4-3 0.5-2.4-0.1-0.9-0.2-0.8 0.2-4-1.7-2.5-1.2-1.2-0.8-1.7-1.5-1.7-1.5-1.4-1.9-3.4-1.4-3.8 1.5-2.5 0.5-2.9-0.1-8.3 0.5-1.7 0.6-0.4-6.7-2.8-3.9-4.7 1.7-0.7 3.6 0.6 1.7-0.6 1-1.5 1.2-0.5 0.6-0.1 1.2 0.1 1.6-0.9 1.3-1.5 9.2 1.8 14.6-4.2 5.2 0.1 2.2 0.6 2.1-0.5 2.6 1.1 1 3.5-0.2 2.9 0 1.5 0.7 2.3 0.7 0.7 1.6 0.6 3.1-2.1 3.2-1.3 1.5 0.3 0.6 0.5 1.6 0.7 1 0 1.5 1.1 1.1 2.3 1.4 1.9 4.3 2 3 0.7 0.3 0.9 0.3 0.9 4.4 0.7 4.7-0.6 3.5 1.1 3.7 0.5 8.5-2 1.8 0.5 0.8 0.6z" id="TR04" name="Agri">
+  </path>
+  <path d="M887.1 289.6l-2.3 0.3-2.3 0.1-1.2-0.3-3.6-1.5-4.1-0.5-3.8 2-1.9-4.5 0.5-1.6 0.7-1.5 0.2-3.5 0.6-2.4 0.2-2.6-0.3-2.4 0.2-2.5-0.5-4.3-3.4-1.3-3.8-0.7-3.7 0.3-2.5-0.9-0.9-3.1 0.5-2.1-0.1-1.6-0.2-0.7-1.7-3.9-0.3-1.3 0.5-2.5 0.8-0.9 5.1-2.9 3-2.1 1-1.7 0.8-1.9 4.4-6.5 2.6-2.8 3.4-2.6 1.4-4.5-1.9-3-5.6-3.4-1.4-3.1-0.1-4.6 5.5-2.3 1.2-1.3 0.1-2.1 0.3-2.1-0.3-1.9-1.9-0.8-1.8-1 0.4-1.9 1.1-0.4 2.9-0.6 1.6-0.5 1.7-2.3 2.1-1.6 3.7 0.2 3.2 1.5 2.8 2.9 2.1 1.3 4.1 0.8 1.7 0.1 1.2-1.3 1.3-1 1.8-0.2 1.8 0.3 2.4 0.7 2.8 0.3 0.8 0.3 1.8 0.3 6.7-1.8 0.2 0.6 0.3 1.3 0.5 1.2 0 0.5-0.1 0.4 0 0.6 0.2 0.5 0.5 1.2 0.1 0.5-0.3 1.1 0 0.6 1.2 0.9 2.2 1.1 1.8 1.3 0.4 1.5-1 1.9-0.2 1 0.4 2.4-0.4 0.7-0.8 0.6-0.7 1.2 0.3 0.4 0.1 0.4 0.2 1 0.3 0.4 0.5 0.3 0.3 0.4 0.1 0.6-0.1 0.5 0.2 0.5 0.2 0.4 0.4 1.4 0.7 0.9 0.8 0.8 2.5 1.2 0.2 1.8-1.3 4.4-0.2 1.2 0.1 0.7 0.3 0.8 0.2 1.1-0.2 0.4-0.4 0.4-0.2 0.4 0.6 0.3 0.9 0.3 0.3 0.2 0.4 0.4 0.3 1 0 1.3-0.2 2.4 0.4 3.1 0 1-0.6 2.5 0 0.7 0.1 1.5 0 0.6-0.2 1 0.2 0.5 0.4 0.3 0.7 0.3 2.4 0.5 1.5-0.9 0.6-0.2 0.8 0.3 0.7 0.6 0.5 0.8 0.4 1 0 0.9-1 1.6-1.8 1.3-1.3 1.5 0.2 2.9-0.2 1.2-0.2 1.2-0.4 0.9-0.3 0.5-0.9 0.3-0.3 0.4-0.1 0.5 0.4 1.1-0.3 0.4-0.9 0.4-0.6 0.5-0.5 0.8-0.4 1.3-0.4 0.9-1.1 1.3-0.5 0.9-0.4 0.7-0.3 0.8 0 0.7 0.2 0.9 0 0.8-0.4 0.6-0.5 0.6 0 0.2-0.1 0-4.1-0.5-3.5 0.7-1.9 3.4-1.2 3.3-2.6 1.6-3.1 0.6-3 0-2-0.8-2-0.3-1.4 0.5-1.3 0.7-6.3 1.1-6.4 0z" id="TR65" name="Van">
+  </path>
+  <path d="M166.1 54.8l-2.2 3-0.1 0-8.3 0.9-8.2 1.1-5.2 1.2-4.6 1.4-2.3 3.4-1.7 3.5-2.7 2.1-3.1 0.8-2.6-1.7-2.1-2.8-2.7-1.8-5.5 0-7.7 0.6-7.2 1.6-1.4-2.9 2.3-4.8 0.7-4.6 1.9-2.9 1.1-6.2-0.6-6.1-1.5-6.1-1.2-7.3 0-0.1 0.6-0.5 0.5-0.3 0.5 0 0.5 0.1 0.4 0 0.5-0.5 0.5-0.2 0.9 0.2 0.4-0.1 0.6-0.7 0.3-0.8 0.5-0.6 0.6-0.3 1-0.6 1-2 1.1-0.6 0.1 0 0.8 0 0.9 0.3 0.8 0.5 0.7 0.6 0.6-0.1 1 0.1 1.2 0.3 0.2-0.1 0-0.2 0.2-0.3 1-1.4 0.6-0.5 1-0.1 1.7 0.3 1.5 1 1.3 1.2 2 3.2 1.1 1.2 1.1 1 3.5 2 0.7 0.6 1.2 1.6 0.6 0.4 0.8-0.3-0.7-0.3 0.1-0.1 0.3-0.2 0.2-0.1-0.2-0.1-0.1-0.1-0.1-0.1-0.1-0.1 1-0.4 0.5-0.3 0.4-0.5 0.3 0.2 0.3 0 0.2-0.3 0.1-0.6 3.7-1 1.7 0.1 2.5 1.4 0.6 0.2 0.7-0.1 0.6-0.2 0.1-0.4-0.7-0.4 0.1-0.7 0-0.8 0.1-0.7 0.2 0 0.2-0.1 0.2 0.1 0.2 0 0.9-0.1 0.4 0 1.2 0.3 1.2 0.6 0.7 0.2 2.3-0.2 0.7 0.2 1.7 0.4 0.7 3 0 0.7 0.2 0.2 0.3 0.4 0.2 0.5 0 0.4-0.5 0.3-0.5-0.1-0.8-0.4-0.8 0.1-0.6 0.3-0.4 0.9-0.2 1.6 0.3 1.7 0.7 1.1 0.9 1 0.7 1.2 0.9 2.8 0.6 0.9 0.8 0.8 0.4 0.4 0.3 0.7 0.1 0.1 0.1 0.2 0.1 0.4-0.1 0.2-0.3 0-0.2 0-0.1 0.4 0.4 1 0.6 1.2 0.8 1 1.4 0.8 0.7 0.9 1 1.6 1.2 1.2z" id="TR39" name="Kirklareli">
+  </path>
+  <path d="M101.2 27.1l0 0.1 1.2 7.3 1.5 6.1 0.6 6.1-1.1 6.2-1.9 2.9-0.7 4.6-2.3 4.8 1.4 2.9 0.6 1.1 0.3 8.8-0.7 3.8-2.3 3-1.5 3.8-0.8 4.4 0.3 5.1 1.8 3.9 1.2 4.1 0 0.2-0.3 3.7 0 0.3-3.1 0.5-1.2 0.5-0.6 0.2-3.2 0-1.3 0.4-3.6 2.2-1.4-0.9-0.8-0.3-0.7-0.1-0.7 0.3-0.7 0.4-0.8 0.3-1.2-0.7-0.8 0.1-2.6 0.7-8.8 0-1.2-0.2-0.7-0.4-0.4-1-0.3-1.1-0.4-1 0.3-0.9-0.1-1.4-0.5-1.4-0.7-0.9 0.4-0.1 0.1-0.2 1.8 0.2 1.5-0.7 1-1.3 0.4-1.6 0.8-1.2 2.5-2.2-0.3-0.7 0-0.4 0.2-0.2 0.4-0.2-0.1-0.1-0.2 0 0-0.1 0-0.3 0.4-0.1 0.2-0.2 0.1-0.3 0-0.6 0.2 0.5 0.1 0.3 0.3 0 0.3-0.4 0.3-0.5 0.4-1.3 0.3 0 0.2 0.4 0.2 0.3 0.3 0.2 0.4 0 0.7-0.2-0.1-0.4-0.2-0.4-0.2-0.3 0.6-0.6 1.4-0.6 0.6-0.5 0.5-0.7-0.1-0.2-0.5-0.2-0.5-0.6-0.1-0.6 0.1-0.4 0.4-0.2 0.7-0.1 0.4-0.4 0.4-0.7-0.1-0.7-1.2-0.7-0.5-0.6-0.6-1.4-0.1-1 0.8-1.6-0.4-0.3-0.7-0.2 0-0.5 0.9-1.4-0.6-1.1-0.1-1.1 0.2-1.2 0.5-1.4-0.7-1.1 0.5-0.5 3-0.3 0.8-0.4 1.3-1.2 1.3-0.8 0.3-0.3 0.1-0.3 0.2-0.2 0.5-0.1 2.4-2.6 0.5 0.7 0.9 0.5 1 0.2 0.9 0 0.6-0.7 0.4-1 0.3-1.4 0-1.3-0.2-1.3-0.8-3.1-0.2-2.3-0.3-1.1-0.5-0.9 0.3-0.7-0.2-1.6 0.2-0.8-0.1-0.3-0.1-0.5-0.1-0.4 0-0.5-0.9 1.4-0.5-0.5-2.1-1.2-2.7-2 0.4-0.8 0.2-0.9-0.8-0.2-0.8-0.4-1.9-0.4-1.2-1.2-0.9-0.3-1.2 0.1-0.5-0.7-0.3-1.2 0.1-1.4 0.7-1.6 2-1.7 4.9 0.2 2.2-0.7 0.7-0.8 0.4-1.2 0.2-1.2 0-0.4 0-0.4 0.1-0.4 0.2-0.5 0-0.4-0.1-0.2-0.6-0.4-0.1-0.2 0.2-0.4 0.3-0.3 0.4-0.3 1.3-1.5 0.8-0.5 0.9-0.1 4.4 0.7 0.9-0.1 0.5-0.3 1-1.1 0.6-0.1 0.5 0.2 0.8 0.8 0.6 0.1 0.4-0.2 0.4-0.4z" id="TR22" name="Edirne">
+  </path>
+  <path d="M846.7 114.1l5.5-1.1 5.7-0.6 0.9-4.5 0.7-7.5 1.1-4.8 5.7-3 7.8-3.3 7.7-3.3 4.8-2.7 3.1-1.1-0.2 1.5 0.3 2 0.8 1.8 0.9 0.8 2 0.3 2.1 1.1 1.9 1.5 1.4 1.9 0.6 1.2 0.2 1.2 0.1 1.3 0.3 1.4 0.4 1.3 2 3.1 0.5 1.2 0.1 1 0.3 4.4-0.2 0.5-1 1.8-0.2 0.3 0.3 1.5-2 2.3-0.6 1.3 0 1.5-0.3-0.2-0.2-0.1-0.2 0-0.3-0.1 0.2 0.2 0.1 0.2 0.1 0.5-1.1 0.1-1.1 0.7-1.6 1.9 0.2 0.9 1 1.1 1.9 1.6 0 0.5 0 0.1-0.7 2.4-0.4 0.7-0.3 1 0.4 1 1.3 1.2 2.1 2.8 0.7 1.5 0.1 0.2-0.9 0.6 0.5 1.1 1.5 1.9 0.3 0.7-0.5 0.8-2.1 0.4-0.7 0.6 0.6 1.8-6.2 2.3-5.9 0.8-2.5 1.2 0 2.4-1.8 2.1-2.6-1.1-2.1 0.5-2.2-0.6-5.2-0.1-14.6 4.2-9.2-1.8-1.4-2.3-1.1-2.5-1.2-1.9-1.9-0.8-1-0.3-0.8-0.6-0.6-1.3-0.8-1.1-1.4-1-1.5-0.5-4.1-0.7-1.1-1.3-1-1.7-1.7-2 1.5-3.3 6.9-2.4 3-1.7 1.5-1.2 1.6-1.1 2-0.9 1.9-1.2-1.1-6.2 0.7-2.2 0.3-2.1z" id="TR36" name="Kars">
+  </path>
+  <path d="M812.6 290.8l2.8 7.5 1.3 5.2-0.6 4-3.5 1.7-4.5 2.5-2 2.2 0.8 2.5 5.5 1.7 3 2.4 0.9 3.8-19.8 4.7-13.2 0.6-1-0.3-2.1-0.9-11.4-2.2-8.9 1.3-2.3 0.9-6.4 3.5-2.1 0.7-1.1 0-1.1 0.2-1 0.4-0.9 0.6-6.3 4.2-2.1-1.1-4.3-7.5 0.5-4.8-0.6-1.2-2.4-2.5-1.5-1.3-1.4-1.5-0.6-7 4.6-6 2.1-2 5.2-3.6 2.4-0.9 5.2-4.1 3.8-0.3 2.3-3 0.6-1.4 5.2-1.1 16.6 0.5 3-1.5 1.2 0 0.9 0.4 3.4 4.3 3.3 6.9 5.1 3.2 7.3-1.5 5.3-3.9 8.8-6.3z" id="TR47" name="Mardin">
+  </path>
+  <path d="M726.3 311.1l0.6 7 1.4 1.5 1.5 1.3 2.4 2.5 0.6 1.2-0.5 4.8 4.3 7.5 2.1 1.1-3.4 2.3-1.8 0.9-1.8 0.3-1.7 0.6-4.7 2.8-10.2 3.9-15.3 2.9-9.6 1.9-2.6 0.1-7.3-2.5-2.5 0.2-1 0.3-7.7 0.3-3.4-0.4-2.9-1.5-1.3-1.5-5.1-5.3-2.3-1.3-9-2.7-3.2-0.4-1.6 0.2-3.2 1.2-4.6 3 0-0.1-0.2-0.5-0.1-0.8 0.1-0.8 0.4-0.3 0.5-0.2-0.2-0.5-0.8-0.9-0.2-0.6-0.1-0.6 0-1.5-0.2-0.5-1.3-1.2-0.7-0.8-0.1-0.5 0-0.9 0.6-1.4 0.1-0.7-0.5-0.3-0.7 0.1-1.1 0.6-0.4 0.1-0.4-0.3-0.5-0.5-0.4-0.3-0.6 0.3-0.6-0.6-0.1-0.8 0.3-1.7 0.1-1.4-0.1-0.6-0.3-0.7-0.8-1.3-0.3-0.8-0.2-0.9 0.2-1 0.4-0.4 0.4 0.1 0.3 0.7 0.3 0 0-1.3-0.3-0.9-0.6-0.6-0.7-0.5 0.6-2.1 0.2-0.6 0.4-0.3 0.4-0.2 0.2-0.2 0.4-1.5 0.5-0.8 1.6-1.6 2.1-2.7 0.7-0.6 0.8 0 0.8 0.1 0.8-0.1 0.7 0.5 0.5 0 1.4-1 0.6 0.8 0.9 0.4 2.1 0.5 0.2 0.2 0.1 0.5 0.2 0.1 0.2-0.1 0.1-0.1 0.1-0.1 0.2-0.1 0.2-0.3-0.1-0.7 0.1-0.8 0.4-0.3 2.1 0.3 0.7-0.3 0.3-1.4 0.5 0 2.8-1 1.5 0.6 5.8-1 1-0.6 2.8-3.1 0.6-1 0.5-0.3 2.3-2.4 10.5-1.6-2.3-1.8-0.9-1 1-0.6 0.1 0.2 0.6 0.6 0.2 0.1 0.4-0.1 0.3-0.1 0.3-0.1 0.2-0.1 0.2-0.2 0.2-0.5 0.4-0.3 0.8 0.6 0.4 0 0.4-0.2 0.3-0.3-1.2-1.3-0.4-0.3 0.6-0.7 1-0.2 1.1-0.1 0.9-0.2-0.6-0.9 0.1-1.5-0.5-0.5-0.6 0.1-1.3 0.9-0.7 0.2 0.4-0.9 0.5-0.8 0.7-0.5 0.7-0.2 0.4 0 0.9 0.3 0.3 0.1 0.3-0.5 0.1-0.5-0.1-0.4-0.3-0.3 0.6-0.9 0.3-0.8-0.1-0.7-0.4-0.9 2.3-0.8 0.6-0.4 0.5-0.9 0.2-2 0.2-0.9 0.6-0.7 0.8-0.4 2.9-0.9 1.9-1.3 3.7 2 3.8 0.7 2.9 0.1 2.6 1.2 2.8 3 3.1 2.6 1.5 0.8 1.6 0.5 1.8 1.7 2.3 1 0.5-0.7 0.4-0.8 1.4 0.6 1.2 1.1 0.8 0.5 0.9 0.2 0.7 1.5-0.3 6.5 0.7 4.5 0.4 1.7 0.2 0.9 1.7 4.9 1.6 3.1 2.2 2.5z" id="TR63" name="Sanliurfa">
+  </path>
+  <path d="M608.6 352.8l-3.6 2.4-2-0.1-7.7-1.4-1.1 0.1-3 0.8-0.9-0.1-0.7-0.3-0.8 0-0.9 0.4-0.8 0.7-0.3 0.6-0.5 0.1-0.9-0.5-0.9-0.8-0.2-0.7 0.4-1.9 0-1.2-0.4-0.8-1.4-1.3-0.8-0.7-0.9-0.6-0.9-0.3-0.9-0.2-3-0.2-8.8-3.1 2.6-2.5 4-1.8 3.2-2.2 0.4-3.9 1.5-1.3 1.7 1 1.5 3.3 3.2 0.6 3.7 2.5 3.9 4 2 2.4 1.4-0.9 3.5 1.9 4.4 2.4 4 3.6z" id="TR79" name="Kilis">
+  </path>
+  <path d="M633.2 306.9l-0.8 0.1-0.8-0.1-0.8 0-0.7 0.6-2.1 2.7-1.6 1.6-0.5 0.8-0.4 1.5-0.2 0.2-0.4 0.2-0.4 0.3-0.2 0.6-0.6 2.1 0.7 0.5 0.6 0.6 0.3 0.9 0 1.3-0.3 0-0.3-0.7-0.4-0.1-0.4 0.4-0.2 1 0.2 0.9 0.3 0.8 0.8 1.3 0.3 0.7 0.1 0.6-0.1 1.4-0.3 1.7 0.1 0.8 0.6 0.6 0.6-0.3 0.4 0.3 0.5 0.5 0.4 0.3 0.4-0.1 1.1-0.6 0.7-0.1 0.5 0.3-0.1 0.7-0.6 1.4 0 0.9 0.1 0.5 0.7 0.8 1.3 1.2 0.2 0.5 0 1.5 0.1 0.6 0.2 0.6 0.8 0.9 0.2 0.5-0.5 0.2-0.4 0.3-0.1 0.8 0.1 0.8 0.2 0.5 0 0.1-0.8 0.5-1.4 0.4-7.6 3.5-7.8 1.7-2.9 1.2-3.4 2.2-4-3.6-4.4-2.4-3.5-1.9-1.4 0.9-2-2.4-3.9-4-3.7-2.5-3.2-0.6-1.5-3.3-1.7-1-1.5 1.3-0.4 3.9-3.2 2.2-4 1.8-2.6 2.5-0.3-0.5-0.8-0.1-0.6-0.5-0.4-1.2-0.8-0.8-3.8-1.7-3.1-3.1 1.1-2.2 1.8-1.7 3.3-4.2 2.6-5.1 1.8-2.8 2.2-2.5 5.7-2.6 2.3-3.1 2.3 1.5 1.3 5.3 3.7 1.2 4.3-4.6 2.6-1.3 6-1.1 6.3-2.2 3-0.4 3 0.1 2-1.4 0.6-2.7-0.3-1.7 0.1-1.8 5.2-1.1 5.2 0.1 5.6 2.1 3.7 3.3z" id="TR27" name="Gaziantep">
+  </path>
+  <path d="M557.8 335.8l3.1 3.1 3.8 1.7 0.8 0.8 0.4 1.2 0.6 0.5 0.8 0.1 0.3 0.5-0.5-0.1-0.4 0.1 0.2 1.4-0.6 1.2-0.7 1-0.6 1.2-0.2 1.3-0.1 1.1-0.1 1.2-0.6 1.4-0.6 2.5 0 2.6-0.2 2.6-1.4 2.2-0.3 0.9 0.2 1 0.9 3.2 0.2 0.5 0.4 0.3 0.7 0.3 0.2 0.2 0.3 0.4 0.1 0.4 0.1 0.4-0.1 0.5-0.3 0.9-0.2 0.5-0.2 0.1 0.4 0.4 1.6 0.2 0.8 0.3 0.5 0.6 0 0.1 0.5 0.8 0.3 1 0.2 0.9 0 1.3-0.2 0.5-3.4 0.6-0.9 0-3.6-0.6-0.9 0.2-0.5 0.2-0.2 0.3 0 0.5-0.3 0.3-0.4 0.2-0.2 0-0.3-0.1-1.3-0.2-0.7-0.2-0.6-0.4-0.6-0.7-0.5 0.5 0.7 0.8-0.1 0.5-0.4 0.4-0.3 0.5 0 0.8-0.2 8.5 0.1 1.7-1 0.3-1.9-0.7-0.9 0.4-0.4 2.1-0.8 0.1-1.1-0.3-1.5 0.6-1.1 1.7-0.3 4.1-0.5 1.7-0.1 0.1-0.8 0.1-2.8-2-1.4-0.7-1.5 0-0.7-0.2-0.5-0.5-0.1-0.7 0.1-0.7 0-0.8-0.6-0.7-0.9 0.2-1 0.3-0.9 0.2-0.5-0.1 0-0.1 0.6-0.8 2-3.6 0.5-0.4 0-1.1-1.3-4-3.4-5.6-0.6-0.8-0.6-1-0.5-1.8-0.7-0.8-0.8-0.7-0.5-0.7-0.6-1.4 0.1-0.9 1.3-1.9 0.4-0.5 0.5-0.3 0.5-0.2 0.5 0 0.3-0.2 0.5-1.5 0.4-0.4 0.8-0.4 0.5-0.4 0.2-0.5 0.3-1.3 0.5-0.3 0.3-0.3 0.3-0.3 1.9-0.7 0.4-0.2 2.2-2.8 0.4-0.6 0.5-0.1 5.1-3.2 0.7-0.2 0.5-0.5 0.6-1 0.5-1.2 0.2-0.9 0-0.8-0.2-0.6-0.3-0.5-0.2-0.6 0-0.4 0-3.7-0.1-1-0.5-1-2.8-4-1.6-1.6-1.8-1.3-1.8-0.5-1.7 0.7-1.6 1.4-0.9 1.1-0.7-1.2 0-2.5 3.9-4.5 0.9-0.5 1 0.2 1 0.4 2.1-0.4 2 0.6 1.9 0 2.3-0.6 2.1 0.7 1.6 1.7 1.8 1.1 2.4 0.1 2.4-0.3z" id="TR31" name="Hatay">
+  </path>
+  <path d="M163.8 57.8l0.1 0 2.2-3 1.4 1.3 7.2 4.6 10.3 4.4 14.6 7 4.7 1.1 0.2 0.1 0.1 0.1 0.2 0.2 0.3 0 0.3-0.1 0.3-0.6 0.4-0.1 1.1 0.1 1.2 0.5 0.7 0.7-0.4 1.6-0.7 1.1-0.8 1.1-0.8 0.5-0.6 0.2 0.2 0.4 0.4 0.5 0.2 0.5 0.3 0.4 0.1 0.1 0.3 0.2-0.1 0.4-0.2 0.3-0.1 0-0.2 1.2-0.3 1.2-0.5 0.9-0.5 0.8-0.4 0.3-0.8 0.3-0.4 0.3-0.4 0.6-0.1 0.3 0.1 0.3 0 0.2 0.2 0.3-0.1 0.3-0.2 0.4-0.2 0-1.1-0.1-0.4-0.3-0.2-0.1-0.3 0.2-0.4 0.6-0.2 0.1-0.5 0.1-0.9 0.6-1.9 0.4-0.4 0.2-0.3 0.2-0.2 0.3-0.3 0.2-0.5 0.1-1.2 0-0.6-0.2-0.2-0.4-0.5-0.5-1.2 0-5.7 0.7-1.4-0.6 0.4-2-0.6-0.6-0.3-0.2-0.4-0.1 0.3-1.4-0.5-1.3-1-0.8-1.1-0.3 0.2 0.9 1.1 1 0.3 1.1 0 0.6-0.1 0.9-0.3 0.9-0.6 0.6-1.3-0.2-2.5-2.5-1.2-0.7-1.6-0.3-3.3-1.2-1.6-0.2-1.6 0-0.4-0.2-0.5-0.6-0.4-0.1-1.8 0.4-0.9 0-0.3-0.2-0.5-3.5-0.7-4.8 0.7-3.8 1.4-5.2-0.5-4.2-1.3-4.5z m52.2 38.9l-0.6-0.4-1 0.2-0.9-0.9-2.7-1.3-1-0.8-1-1.2-0.9-0.8-2.7-1.5 0.2-0.1 0.1 0 0-0.1 0.1-0.2-0.6-0.3-0.2-0.6-0.2-0.9-0.3-0.8 0.8-0.5 1-1.1 0.8-1.3 0.6-2.4 0.6-0.9 0.1-0.8-1-0.7 1.1-1.7 1.8-2 1.9-1.4 1.4 0.3 0.3 0 0.5-0.7 0.7-0.1 8.9 1.7 9.5 2.2 12.6 1.9-1 0.5 0.5 1.9 0.2 2-1.4 3.2-2.5 1.4-3.1 1.2-2.7 1.9-0.5 1.5-0.8 1.5-1.7 0.2-1.4-1.2-1.4-3.1-2.3-1.9-2.5-0.2-2.1 1.5-2 2-1.1 0.6-2.5 2.1-1.6 2.1z" id="TR34" name="Istanbul">
+  </path>
+  <path d="M99.9 68.1l7.2-1.6 7.7-0.6 5.5 0 2.7 1.8 2.1 2.8 2.6 1.7 3.1-0.8 2.7-2.1 1.7-3.5 2.3-3.4 4.6-1.4 5.2-1.2 8.2-1.1 8.3-0.9 1.3 4.5 0.5 4.2-1.4 5.2-0.7 3.8 0.7 4.8 0.5 3.5-0.4-0.2-2.3 0.8-0.4 0.3-0.4 0-2.6 1-0.7 0.2-0.9 0.5-0.7 0.5-0.5 0.5-1.1 1.8-0.3 0.8 0.1 0.5-0.9 0.2-3.8-0.4-0.7-0.5-0.7-0.6-0.8-0.4-1.8-0.6-1.8-0.1-10.2 1.5-1.4 0.9-1.1 2.1-1.2 5-1 1.9-4.5 4.4-2 3.6-4.3 3.2-0.2 0.3-0.5 0.7-0.2 0.3-0.5 0.1-1.2 0.2-1.3 0.9-2.2-0.1-1 0.1-0.8 0.7-1.4 2-0.6 0.4-1.2 0.1-1.5-4.6 0-5-6.9-0.7-1.2-4.1-1.8-3.9-0.3-5.1 0.8-4.4 1.5-3.8 2.3-3 0.7-3.8-0.3-8.8-0.6-1.1z" id="TR59" name="Tekirdag">
+  </path>
+  <path d="M98.5 110.3l0-0.3 0.3-3.7 0-0.2 6.9 0.7 0 5 1.5 4.6-0.6 0.1-1.9 0.6-2.7 1.7-0.7 0.7-0.9 0.6-2.9 0.4-0.9 0.5-1.5 1.4-0.7 0.3-0.5 0.3-0.4 1.9-0.5 0.8-1.6 0.8-0.3 0.5-0.1 1-0.3 1-0.7 0.9-2.6 2.4-0.3 0.2-1.4 0.3-0.6 0.6-1 1-0.1 0.2-0.2 0.3-1.2 1.5-0.9 0.7-1.1 0.6-1.1 0.6-1 0.1-0.6 0.6 0.1 1.1 0.6 1.2 0.7 0.5-2.3 2.2-0.7 0.5-1.9 1.1-1.4 1.4-0.6 0.3-2.5 0.9-0.5 0.1-0.5-0.4 0.1-0.7 0.4-0.7 0.3-0.4 0.8-0.6 0.5-1.3 0.4-1.3 0.2-0.6 2.2-3 0.6-2.2-0.3-1.7-0.9-1.4-1.4-1.1 0.5-0.4 0.2-0.4-0.3-0.3-0.6-0.1-0.2-0.3 0.4-0.6 0.7-0.6 0.3-0.1 0.5-0.5 2.5-0.9 0.9 0 0.7-1.3 2.4-1.5 2.2-1.9 2.8-1 2.1-1.8 1.4-0.9 1.4-0.7 1.3-0.3 2.3 0.3 0.6-0.3 0.7-0.7 1-1.6 0.6-0.7 1.2 0.5 1.5-0.5 1.3-1.1 0.6-1.3-1.4-3.1-0.4-0.6-0.5 0.1z m-5.4 68.8l-10 1.9-1 0.4-0.5 0.5-0.5 0-2.1 1.2-0.4 0.3-0.5 0-2.5-0.5-0.5 0.1-0.7 0.3-0.5 0.1-0.4 0.5-0.1 0.2-0.1 0.3-0.3-0.2-0.5-0.4-3.8 1-1.9 0-1.8-1-0.2-1.3 1.2-3.2 0.7-3.1 1.8-1.7 0.4-1.4 0.3-3.4-0.2-0.7-0.9-1.7-0.2-0.8 0.1-0.6 0.2-0.2 0.2-0.1 0.2-0.4 0-1.4 0.2-1.7-0.2-0.5-0.7-0.2 0.3-0.7 0.7-3.1 0-0.3-0.3-1.3 0-0.5 0.1-0.6 0.4-0.8 0.1-0.5 0.2-0.6 1-1.7 0.4-0.5 2.6 0.9 0.7-0.5 1.6-0.7 0.5-0.3 2-2.1 0.4-0.7 0.2-0.5 0-0.8 0.2-0.4 0-0.2 0-0.3 0-0.2 0.1-0.1 0.6 0 0.2-0.1 0.2-0.1 0.3-0.8 0.2-1.2 0-1.1-0.3-1 0.3-0.9 0.2-0.4 0.3 0 0.7 0 0.6-0.1 1.2-0.6 1.6-0.5 0.9-0.7 2.1-2.8 0.4-0.3 0.5-0.1 0.6-0.4 0.6-0.5 5.1-6.2 1-0.8 1.9-0.1 4.1 0.3 1.7-0.4 0.5 0.2 1.2 0.7 2.7 0.2 1.1-0.2 1.3-1.1 1.2-1.5 1.4-1.2 2.2-0.1 1.6 0.4 1.9 0 1-0.2 1.6-1 0.8-0.1 0.7 0.7 0.5 0.9 0.7 1.9-0.6 0.4-0.3 0-0.3-0.3 0 0.1-0.4 0.2 2.1 2.3 2.6 1.7 2.8 1.3 3.4 0.8 1.3 0 0.5-0.1 0.5-0.3 0.2 0.5-0.5 2.8-2.3 1.3-3.3 3.5-0.8 0.3-0.5 0.4 0.9 1.9 1.9 0.8 0.8 0.1 0.2 0.4-0.3 1.2-0.6 2.1-0.2 1.6-0.5 1.4-0.4 0.5-0.5 1 0.9 1.4 0.8 0.6-0.3 2.5-0.8 2.6-1 2.3-1.9 1.4-2 0.9-1.9 1.3-2 0.8-3.5-1.1-3.5-0.6-1.3 0.7-1.5-0.2-2.2 0-2 1.6-3.5 1.5-1.7 1.5-2.1 0.6-4.3-0.5-1.9 0.4-1.5 4.9 0.1 4.9z m-28.8-17.7l0.8-0.4 0.3 0.6-0.1 2.2-0.3 0.9-0.7-0.1-1.6-1.1-1.4-0.6-0.6-0.5-0.3-0.8 0.4-0.5 0.8-0.1 1.7 0 0.3 0 0.3 0 0.2 0.1 0.2 0.3z m-2.3-20.4l0 1.3-1 0.6-1.1 0.4-3.2 0.5-2.1 0.9-4.3 0.6-0.9 0-1.2-0.4-0.6-0.3-0.2-0.4-1.9-0.7 0-0.3 1-1.8 1.6-1.6 1.9-1.3 3.2-0.6 4.1-1.5 0.6-0.1 0.6 0.1 0.3 0.3 0.3 0.4 0.3 0.4 0.7 0.1 0 0.5-0.1 0.5-0.1 0.8 0 0.8 0.2 0.4-0.4 1 0.5 0.3 0.8-0.3 0.7-0.6 0.3 0z" id="TR17" name="Çanakkale">
+  </path>
+  <path d="M783.2 69.9l0.1 0.2 1.3 3.3 0.4 2.5 0.9 2.1 0.9 0.9 0.9 0.6 0.6 1.1 0.5 1.1 1.9 0.9 1.4 1.6-1.3 2.9-2.6 1.7-0.7 1.3-0.4 1.3-1 0.9-1.1 0.6-4.5 5.3-0.7 2.5-3.6 2.1-5.1 4.4-2 0.7-2.1 0-1.7 0.7-1.4 3.6-2.9 0.8-1.9 0.2-1.9 0.6-7.7 3.8-0.7-3.9 0.6-4.3-3-7.6-0.5-4.4-1.2-4.2-1.7-3.9 5.3-3.6 1.7 0.8 1.4 0.1 1.3-0.4 1.5-0.9 1.8-1.6 0.6-0.1 1.5-0.2 0.7-0.3 0.6-0.4 2.8-3.8 3.4-2.5 0.5-0.2 0.7 0.2 2.1 0.7 1.2-0.2 1.8-1.3 0.7-0.3 1-0.1 1.1-0.4 1.1-0.5 0.9-0.7 1.8-2 1-0.7 1.2-0.3 1.3 0 0.8-0.3 0.4-0.4z" id="TR53" name="Rize">
+  </path>
+  <path d="M743 89.3l1.7 3.9 1.2 4.2 0.5 4.4 3 7.6-0.6 4.3 0.7 3.9-0.9 0.2-1.9 0.6-4.9 0-2.4 0.4-2.3 0.8-2.1 0-3.9-1.3-4.1-0.1-1.9-1.1-2.9-3.3-1.5-0.5-0.3 0.2-0.6 0.6 0.3 1.5-0.7 0.8-1 0.1-2.3-3.9-3.3-2.2-1.4 1.1-0.6 2.6-0.7 0.8-1 0.2-2.8-0.3-11.1-4.5-3.2-3.3-0.7-3.7-2-1.2-0.8 1.1-1 0.9-1-0.1-0.9-0.7-0.8-2.4-0.4-5.8 0.1-3.1 1.3-7.6 0.4-0.4 0.6-0.1 1.5 0.1 0.9 0.3 1.5 1.3 1.1 0.1 0.8-0.2 1.2-0.9 1-0.1 0.6-0.2 2.5-1.6 0.3-0.2 0.2-0.3 0.2-0.2 0.6-0.2 3 0.8 0.7 0.6 1.2 1.7 2.8 2.4 1.8 1.1 1.9 0.4 0.9-0.4 1-0.4 1-0.2 1.2 1 0.6 0 1 0 0.4 0.1 2.9 2.3 0.8 0.4 0.9 0.2 0.8-0.6 3-1 1.1-0.2 2.8 2.6 1.3 0.9 2 0.4 0.8-0.1 1.4-0.6 1.1-0.3 1.7-0.6 1.1-0.8 2.2-0.6 2.4-1.6z" id="TR61" name="Trabzon">
+  </path>
+  <path d="M685.8 84.4l-1.3 7.6-0.1 3.1 0.4 5.8 0.8 2.4-5.7 0.7-0.3 0.7-0.2 0.9-0.9 0.5-1.2 0.3-1.4 1.2-1.5 1-0.6 1.6 0.6 1.9-0.9 1.7-1.4 1.5-0.5 0.7-0.1 0.5-0.3 2.8 0.1 2.2 1.3 1.6 5.6 1.4 1.3 1.1 1.3 1.3 1.1 0.3-0.3 2.3-1.4 1.2-4.8 2.6-1 1.3-0.1 2.1 0.2 2.1-0.2 2.2 0.4 2.2 1.3 1.7-0.4 2-1.9 0.9-4.2 0.3-2-0.1-4.8-2.4-5-1.6-4.8 1.2-3-1.8-2.9-2.2-2.7-1.4-1.7-2.6 0.1-3.5-3.9-14.9-4.5-5.1 0.2-1.7 0.6-1.2 0.2-2.1-0.2-2.1 0.2-2.1-0.2-2.1-0.8-1.8 0-2 0.8-1.5 1-1.2 0.7-1.9-0.1-2.2 0-0.2 2.3 0.3 1.9 0.7 1 0 2.1-0.6 0.9 0.2 2.1 1.9 1 0 1.8-0.6 1.8 0.5 1.2 0.2 0.5-0.5 3.6-0.2 0.7-0.5 1.8-1.7 0.6-0.4 1.5-0.5 0.6 0.1 0.3 0.2 0.8 1.1 0.3 0.4 0.5-0.3 0.9 0 0.5-0.1 0.3-0.3 0.4-0.4 0.5-0.4 0.6-0.2 0.9-1.2 0.2-0.3 0.2-0.2 1.1-0.4 3.3-0.7 0.8-0.5 0.7-0.7 0.9-0.3 5.5 0 3.8-0.9 0.4-0.3 0.8-0.6z" id="TR28" name="Giresun">
+  </path>
+  <path d="M636.7 91.6l0 0.2 0.1 2.2-0.7 1.9-1 1.2-0.8 1.5 0 2 0.8 1.8 0.2 2.1-0.2 2.1 0.2 2.1-0.2 2.1-0.6 1.2-0.2 1.7 4.5 5.1-1.4 1.2-1.6 0.8-2.2 0.2-1.9 0.4-0.5 0.8-0.1 1.8 0.5 0.7-0.2 1.1-1 0.6-4-0.2-1.7 1.3-1.4 1.9-1.4 1.1-1.7 0.2-3.6-2.9-2.6-5.1-0.9-3.8-1.6-3-6.4-0.4-10.9-7.6-3.1-0.3-3.3 0.5-3.4-0.3-3.1-1.3-2.5-1.5-3.9-1.4-2.7-1.6-2.1-0.5-0.6-0.4-0.5-1.9 0.8-1.6 1-0.3 0.9-0.5 2.1-0.2 1.9-0.6 1.7-1 0.7-0.6 1.9-2.1 3.8-2.1 2-3.9 2.7-2.8 2.5-3.5 0-0.3 5.3-0.1 1.7 0.5 1.1 1 0.5 0.3 1 0.3 1.2 0.1 0.8 0.3 1.1 1.3 0.8 0.6 2 0.7 0.2 0.3 1.1 1.2 0.9 0.4 1.9-0.2 0.8 0.2 0.3-0.3 0.6-0.3 0.4-0.3 0.3-0.5 0.6-1.6 0.6-1.1 0.7-1 0.8-0.8 0.9-0.6 0.4 1 0.8 0.6 0.9 0 0.8-0.7 0.3 0.4 1.2-0.2 0.1 3.9 0.8 1.1 2.5 1.2 0.6 0.5 0.5 0.7 0.8 1.4 1.9-0.8 2.2 0.3 5.8 2 0.5 0.1z" id="TR52" name="Ordu">
+  </path>
+  <path d="M591 79.7l0 0.3-2.5 3.5-2.7 2.8-2 3.9-3.8 2.1-1.9 2.1-0.7 0.6-1.7 1-1.9 0.6-2.1 0.2-0.9 0.5-1 0.3-0.8-1.6-1.7-1.1-2.5-0.1-0.3-0.2-0.3 0.4-1.6 0.8-5.2 1.3-5.1-3.7-0.8-1.4-0.6-1.4-1.3-1.5-1.7-0.6-1.9 1.2-0.9 2.9-1.4 2.5-2.2 1.5-1.7 1.4-2 0.5-3.7-1.8-6.3-0.1-1.8-0.3-3.6 0.2-1.6-0.4-1.6-2.8-6.9-5.3-1.6-0.9-2.9 0.5-14.7-4.2-1.8-0.4-3.7 0.4-0.7-2.3-0.3-2.5-0.6-2.3-2.5-4.4 0.8-0.6 1.1-0.5 0.7-0.8-0.4-1.1 0.5-0.5 0.4-0.3 1.2-0.1 0.6-0.2 1.6-1.5 2.5-1 1.2-0.7 0.5-0.9 0.5 0.5 0.4 0.9 0.3 1.2 0.1 1.1 0.3 0.6 0.8 0.5 1.5 0.8-0.5 0.8 0.5 0.3 2.1 0.3 0.4 0.2 0.8 0.9 1.5 0.8 2.1 0.3 2-0.4 1.5-1 0.9-0.4 2.5 0.6 0.9-0.7-0.4-3.8-0.3-1.8-0.6-1.3-0.3-1.5 0.2-1.9-0.1-1.8-0.8-3.1 0.2-3.2 1.9-4.2 1.4 0.4 2.2 0.3 2.1-0.2 1-0.4 1.8-1.1 2.9-0.5 5-2.2 1.2-0.2 1.1-0.3 1.9-1.6 1.1-0.3 0 0.5-0.2 0.4-0.3 0.3-0.4 0.4-0.5 0.2 0.1 0.9-0.9 2 0.2 1.1 0.4 0 0.1-1.6 0.4-1.4 0.6-1.1 0.7-0.8 0.5-0.4 0.3-0.1 2.8 2.7 0-0.9 0.4 0 3.5 4.7 0.7 1.9 0 2.5-0.2 0.7-0.4 1 0 0.3-0.1 2.1 0.2 1 0.5 1.1 2.1 2.6 1.2 0.9 1.6 3 0.7 0.6 2.4 1.3 1.4 0.3 0.2 0.3 0.2 0.5 0 0.7 0.1 0.7 0.4 0.3 0.6 0.2 0.5 0.3 0.3 0.3 0.4 0.7 0.3 0.3 0.5 0.1 0.8 0.2 0.5 0.3 0.8 0.4 1.2-0.3 2-1.1 2.5-2.3 0.4-0.6 0.2-0.6 0.7-1.1 0.1-0.4 0.1-0.2 0.3-1.3-0.1-0.1 0.7-0.5 0.6 0 0.8 0.3 1 0.2 4.1 0 3.8 1 7 3.5 1.4 1.3 0.8 2 0.1 2.8 0.3 1.1 0.8 0.4 1 0.3 1.8 1.1 0.9 0.4 0.8 0z" id="TR55" name="Samsun">
+  </path>
+  <path d="M512.6 48.4l-1.9 4.2-0.2 3.2 0.8 3.1 0.1 1.8-0.2 1.9 0.3 1.5 0.6 1.3 0.3 1.8 0.4 3.8-0.9 0.7-2.5-0.6-0.9 0.4-1.5 1-2 0.4-2.1-0.3-1.5-0.8-0.8-0.9-0.4-0.2-2.1-0.3-0.5-0.3 0.5-0.8-1.5-0.8-0.8-0.5-0.3-0.6-0.1-1.1-0.3-1.2-0.4-0.9-0.5-0.5-0.5 0.9-1.2 0.7-2.5 1-1.6 1.5-0.6 0.2-1.2 0.1-0.4 0.3-0.5 0.5 0.4 1.1-0.7 0.8-1.1 0.5-0.8 0.6-0.1 0.4-0.1 1.1-0.1 0.5-0.2 0.3-0.9 0.8-1 1.2-5.4-1.7-0.8-0.6-0.5-0.9-1.2-0.9-1.4-0.3-1.6 0.4-1.6-0.3-0.8-0.9-1-0.2-1.8 0.1-1.2-1.6 0.3-8.3-0.5-1.2-0.3-1.2 0.5-2.4 0.9-2.2 1.4-1.4 1.5-1 1.7-4.3-2.7-3.5-3.1-0.9-5.8-0.3-2.9-0.8-2-0.3-1.7 0.1-3.1-1.2 0.1-2.1 2.4-2.9 1.3-3.7-0.2-3.6 5.5 0.7 5.4-1.6 1.8-0.1 0.7 0.2 1.4 0.7 1.6 0.6 6.3 0.4 2.5-0.3 2.5-0.8 0.8-0.4 1.7-1.4 1.8-1.1 1.4-1.8 1.1-2.1 0.3-1.9 0.6 0.2 1.4 0.3 0.6 0.4 0.1-0.4 0.2-0.1 0.3 0 0.4 0 0.3 0.8 0.5 0.5 0.4 0.4-0.3 0.5 0 0.4 1.8 1.4 1.1 0.5 1.4-0.1 0.5-0.3 0.8-0.8 0.5-0.2 0.7 0.1 0.4 0.3 1 0.9 0 0.4-2.5-0.3-1.2 0.2-1 0.8-0.5 0.9-0.4 1.4-0.2 1.5-0.1 1.2 0.3 1 1.3 2.4 1.4 1.9 2.6 2.1 0 0.5-0.7 0 0.3 0.8 0.5 1 0.6 0.9 1.4 0.7 1.4 1.7 0.7 0.6 2.8 1.1 2.1 0.4 0.8 0.5 1.5 1.4 1.7 1 0.7 0.3z" id="TR57" name="Sinop">
+  </path>
+  <path d="M451.6 28.1l0.2 3.6-1.3 3.7-2.4 2.9-0.1 2.1 3.1 1.2 1.7-0.1 2 0.3 2.9 0.8 5.8 0.3 3.1 0.9 2.7 3.5-1.7 4.3-1.5 1-1.4 1.4-0.9 2.2-0.5 2.4 0.3 1.2 0.5 1.2-0.3 8.3-2.5 0.6-1.7 2.4-1.3 3.4-1.1 1.3-2.2 2-1.7 4.2-1.6 2-0.5 1.2 0.9 2.4 1 0.4 1.6 1.7-1.2 3.1-6.7 2.8-4.2 0.9-1.9-0.1-2-0.4-1.6-1.2-1.5-1.4-2.8-1-1.7-3 0.5-1.9 1.2-1.4 1.5-2-0.5-2.5-0.7-0.4-1.6 0.6-7.7 4.1-3.7 0.7-5 3-1.8 0.6-2.2-0.7-1.8-2.1-4.3-2.9-6.1-0.6-0.7-0.6-1.1-1.4-0.4-0.8-1-1.5-2.5-1.1-2.7-0.4-0.9-6.8 0.4-2.1 2.2-3 2.5-2.5 4.6-0.9-1.3-3.1-1.3-5.6-3.5-2.6-3.5 1.2-2.9 0.4-1.6-1.8-0.4-4.5 3-2.2-1.7-4.7-1.3-2.8-0.5-3.8 1.4-0.4 0.8-0.5 0.5 0.3 3.4-0.8 1.7-0.8 2.1-1.5 7.5-2.5 7.6-4 1.7-0.1 3.5 0.6 5 0 1.1 0.2 2.4 0.9 10.1 1 0.9-0.3 1.3 0.5 6.2-0.5 10.1 1.5z" id="TR37" name="Kastamonu">
+  </path>
+  <path d="M384.3 34.5l0.5 3.8 1.3 2.8 1.7 4.7-3 2.2 0.4 4.5-4.5 4.3-2.7 0.8-2.1 4.6-5.7 4.8-5 1.3-5.2-0.2 1-5.4-1.8-4.4-0.9-3.3-2.9-1.3-2.7-2.7 1.4-0.8 0.7-1.6 3.1-3.5 0.3-0.3 0.7-1.4 1.6-0.5 2.6-0.1 0.1-0.4 0.4-0.2 0.5-0.3 0-0.4 0.2-0.3 0.2-0.1 0.3 0.1 0.4 0.6 0.2 0.1 0.8-0.4 1-1.2 0.7-0.6 3.3-1.7 0.6-0.4 0.6-0.3 0.7-0.1 0.7 0.3 0.6-0.9 1.1-0.8 1.2-0.3 1.2 0.5 0.7 0 2.9-1.1 0.7-0.4 0.7 0.1 1.4-0.1z" id="TR74" name="Bartın">
+  </path>
+  <path d="M352.7 51l2.7 2.7 2.9 1.3 0.9 3.3 1.8 4.4-1 5.4-2.5 3.5-1.7 2.1-0.8 3.3-1.5 5.1 0 5.6-10.2-0.3-3-0.8-3.5-0.3-11.5-1.1-8.2-4-1.8-1.8 1.6-1.5 0.6-0.9 0.4-0.8 0.2-1 0.1-1.4 0.1-0.5 0.4-1.3 0.1-0.8-0.2-0.3-0.9-0.6-0.2-0.5 0.5-0.8 1.1-0.4 2.2-0.2 0.2-0.2 0.8-1.2 0.2-0.3 0.5-0.1 7.2-2.8 10.1-6.8 5.8-2.8 1.7-1.4 0.4-0.3 4.5-1.5z" id="TR67" name="Zinguldak">
+  </path>
+  <path d="M315.3 79.4l1.8 1.8 8.2 4 11.5 1.1-0.8 5.5-2.3 2.7-4.4 1.1-6.1 1-2.3 1.8-0.2 3.3-1.8 4.5-3.6 2.8-4.6 0.5-5.4-2.3-7.7 0.3-3.9-1.4 1-2-0.9-1.4-0.5-1.7 0.7-1.7-0.2-1.9-0.8-1.7-0.3-1.9 1.6-3.7 2.8-2.6-0.1-1.3-0.3-1.9 0.1-0.6 6.4-0.1 1.2-0.7 0.4-0.2 0.6 0.1 1 0.3 0.5 0 2-0.4 0.3 0.1 0.4 0.3 0.3 0 0.3-0.1 0.1-0.2 0.1-0.3 0.3-0.2 2-0.8 1.5-1 1.1-1.1z" id="TR81" name="Düzce">
+  </path>
+  <path d="M296.8 83.7l-0.1 0.6 0.3 1.9 0.1 1.3-2.8 2.6-1.6 3.7 0.3 1.9 0.8 1.7 0.2 1.9-0.7 1.7 0.5 1.7 0.9 1.4-1 2-3 2.3 0.1 2.1 0.4 1.9-0.6 1.9-3.1 1.5-3.3-0.2-1.9 2.9-1.3 3.9-0.8 0.4-0.6 0.7 0.3 1.6 1 1.2 1.1 2.2-0.9 2.3-2.5-0.6-3.5 0.1-0.8-0.7-1.2-1.8-1.5-0.9-1.8 0-1.7-0.5-2.1 0.2-6.6 1.7-4.2-1.3-1.7-1.9-1.9-1.6-1.7-2.5-1.3-2.8-0.5-1.3-0.2-1.5 3.3-0.3 1.5-0.5 1.5-0.9 3.1-0.7 2.8-1.9 1.9-3.9 1.9-9.3 3.1-3.3-0.6-0.4-0.6-0.2-0.4-1.4 0.9-0.5 1.8 0.4 1.6 0.7 2.6-0.1 0.9-0.1 0.3-2.2 1.1-1.9-0.3-2.1-3.4-0.6-0.9-3.2 1.5-3.9 0.3-0.9 12.8 3.1 1.6 1.4 0.7 0.4 4.1 0.8 5.8-0.2z" id="TR54" name="Sakarya">
+  </path>
+  <path d="M216 96.7l1.6-2.1 2.5-2.1 1.1-0.6 2-2 2.1-1.5 2.5 0.2 2.3 1.9 1.4 3.1 1.4 1.2 1.7-0.2 0.8-1.5 0.5-1.5 2.7-1.9 3.1-1.2 2.5-1.4 1.4-3.2-0.2-2-0.5-1.9 1-0.5 12 0.4 1.3-0.2 0.7-0.3 1.2-0.8 0.6-0.2 0.4-0.4 0.4-0.7 0.3-0.5 0.4 0.3 0.5-0.5 0.6-1 0.5-0.3 0.6 0.5 2 0.5 1.6 1.2 2.8 0.7-0.3 0.9-1.5 3.9 0.9 3.2 3.4 0.6 0.3 2.1-1.1 1.9-0.3 2.2-0.9 0.1-2.6 0.1-1.6-0.7-1.8-0.4-0.9 0.5 0.4 1.4 0.6 0.2 0.6 0.4-3.1 3.3-1.9 9.3-1.9 3.9-2.8 1.9-3.1 0.7-1.5 0.9-1.5 0.5-3.3 0.3-6.5-2.3-3.3 0.6-8.8 3.3-2.7 0.2-2.7-0.9 0.4-2.4 0-5.6 0.4-0.3 0.6-0.2 0.5-0.3 0.2-0.5 0.2-0.4 0.5-0.4 0.5-0.2 0.5-0.1 0.5 0.1 0.8 0.4 0.7 0.7 0.3 1.2 0.5 0 9.2-2.1 5.4-0.3 1.7 0.8 1 0 0.7-1.1-0.5-1.5-1.8-0.3-3.9 0.5-0.3 0.1-0.3 0.1-0.4 0.2-0.6 0-0.5-0.3-1-0.8-0.3-0.2-0.7-0.2-1.7-0.6-1-0.1-11.2 0.5-0.9 0.3-0.8 0.6-0.8 0.3-0.9-0.4-0.4-0.5-0.2-0.6-0.3-0.4-0.5-0.2 0.2-0.1 0.1-0.2 0.2-0.1 0.2-0.1-0.2-0.6-0.3-0.4-0.3-0.4-0.5-0.2-0.2 0.3-0.5-0.3-0.4 0.3-0.5 0.2-1.3 0.3 0-0.4 0.5 0 0.3-0.3 0.1-0.4 0-0.6 0.5 0.3 0.2 0.1 0-0.2 0-0.2 0.1 0 0.2 0-0.5-0.9-1-1.1-0.4-0.4z" id="TR41" name="Kocaeli">
+  </path>
+  <path d="M224.3 108.3l0 5.6-0.4 2.4-3-0.6-3 3.2-3 0.6-7.3-3.2-1.4 0.2-3.3-0.8 0.1 6.8-0.5 0.2-2.5-0.6-4.2-2.7-2.6-0.6 0.9-1.9 1.6-1.1 3.4-1.3 1.4-0.9 2-2.1 0.8-0.3 14-1.3 2-0.7 1.9-1.1 1-0.8 0.3 0 0.4 0.3 0.3 0.6 0.5 0.4 0.6-0.3z" id="TR77" name="Yalova">
+  </path>
+  <path d="M247.9 115.4l0.2 1.5 0.5 1.3-2.5 1.4-1.1 0.8-0.9 1-0.9 1.7-0.2 2-0.5 1.7-0.6 1.5 0.2 1.9 1.1 1.4 0.2 1.7-0.8 1.7-4.6 4.9-1.3 6.2 0 3.1 2.5 3.6 1.3 1 0.6 3.1-2.3 0.8-2.7-0.5-1.5 0.1-1.3 0.7-1.5 0.2-1.6-0.1-4.9-2-2.4 1.7-1 3.7-0.5 1.4-1 1-1.3 5-2.2 1.6-1 2.8-0.3 4.1-2.6 1.6-3.4 0.1-3.4-0.4-2.1-0.5-1.8-1.4-1.1-1.3-1.5-0.6-2.2-0.1-2.2 0.4-1.8-0.3-1.2-1.8-0.7-0.5-0.9 0-0.5-0.4-0.3-0.7-0.9-1.5-0.1-1.7 0.2-1.3-0.7-1-1.3 0.5-1 1.1-3.8-0.5-12.5-9.3-0.9-1.9-0.8-4.3-0.9-1.6-2.6-1.8-1.7-2.8-0.9-2.3-0.2-1.2 0.6-2.4 0.6-1 0.5-1.2-0.9-2-1.1-0.3-0.4-2.1 1.3-1.3 1.4-1.1 2.3-3.5 0.2-0.5 6.6-0.2 2.5 0.4 4.1-0.2-0.5 0.1-0.4 0.3-0.3 0.3-0.1 0.6 1.9-0.7 2.2-0.1 2.3 0.6 2.1 1.1 0.3-0.4 0.2 0.1 0.1 0.2 0.4 0.1 0.4-0.2 0.5-0.5 0.4-0.2 2.7-0.5 0.7-0.6 0.7-0.4 0.9 0.2 1.6 0.5 1.5 0.1 1.3 0.3 0.7 0.3 1.1 0.7 0.8 0.3 0.8 0.1 3.7-0.1 0.9-0.2 0.6-0.5 0.4-0.8 0.4-1.7 0.4-0.7 0.6 0.3 0.8-0.1 0.8-0.2 0.7-0.4-0.8-1.1-1.1-0.9-1.1-0.7-1.1-0.3-2.6 0-0.4 0.2-1 0.9-0.1-6.8 3.3 0.8 1.4-0.2 7.3 3.2 3-0.6 3-3.2 3 0.6 2.7 0.9 2.7-0.2 8.8-3.3 3.3-0.6 6.5 2.3z" id="TR16" name="Bursa">
+  </path>
+  <path d="M93.1 179.1l-0.1-4.9 1.5-4.9 1.9-0.4 4.3 0.5 2.1-0.6 1.7-1.5 3.5-1.5 2-1.6 2.2 0 1.5 0.2 1.3-0.7 3.5 0.6 3.5 1.1 2-0.8 1.9-1.3 2-0.9 1.9-1.4 1-2.3 0.8-2.6 0.3-2.5-0.8-0.6-0.9-1.4 0.5-1 0.4-0.5 0.5-1.4 0.2-1.6 0.6-2.1 0.3-1.2-0.2-0.4-0.8-0.1-1.9-0.8-0.9-1.9 0.5-0.4 0.8-0.3 3.3-3.5 2.3-1.3 0.5-2.8-0.2-0.5 1.2-0.8 0.7-0.2 1.4 0.3 1.1 0.5 1.1 0.3 1.2-0.7 0.9 0.5 1.5 0.1 1.2-0.3 1.2-1.7 2.5-1.4 0.8-1-0.9-0.1-2.4-0.8-0.7 0.4-0.4 0-0.2-0.6-0.1-0.6-0.2-0.2-0.3 0-0.3-0.3-0.3-0.5-0.2-0.2-0.2-0.4 0-0.8-0.1-0.4-0.4-0.1-0.4 0-0.4-0.1-1.5-1.6-0.5-0.6 0-0.4 0.6-0.2 0.5-0.4 0.7-0.9 0.5-0.2 0.5 0.2 0.4 0.1 0.4-0.8 0.9 1.2 0.1 0.2 0.4 0.1 0.2-0.2 0.1-0.2 0.4-0.2 7.9 1.3 2.1 0.7 1 1.1-0.9 1.4-4.1 2.1-1.2 1.1 0.2 1.6 1.7 0.5 3.9-0.4 4-1.5 4.6-0.2-0.2 0.5-2.3 3.5-1.4 1.1-1.3 1.3 0.4 2.1 1.1 0.3 0.9 2-0.5 1.2-0.6 1-0.6 2.4 0.2 1.2 0.9 2.3 1.7 2.8 2.6 1.8 0.9 1.6 0.8 4.3 0.9 1.9 12.5 9.3 3.8 0.5 1-1.1 1.3-0.5 0.7 1-0.2 1.3 0.1 1.7 0.9 1.5 0.3 0.7 0.5 0.4 0.9 0 0.7 0.5 1.2 1.8 1.8 0.3 2.2-0.4 2.2 0.1 1.5 0.6 1.1 1.3-0.9 1.8-0.3 1.2 0 1.2-0.3 0.7-0.6 0.6-0.6 1.8-0.6 4.3-1.1 1.8-1.1 1.4-0.4 0.9-1.4 2.6-1.6 1.1-3.5 1.2-1.8 0.9-0.4 2.1 0.2 0.8 0.2 1.5-0.4 0.6-4.1-0.6-4.4 2.2-1.8 0.5-1.8 0.2-2-0.2-1.9 0.4-1.3 1.7-1.8 1.1-2.1 0.4-2 0.8-2.1-0.7-2.5-5.5-3.9-4.3-0.3-0.9-0.8-0.4-3.5 1.3-1.9-0.9 0.6-2.1 1.4-2.6-1.2-1.9-0.8 0-1.5 0.3-0.7-0.1-1.9-0.9-2-0.2-3.3 0.5-3.3-1-2.1-1.7-2.2-1-3.6 1.9-1.4-2.7-2.1-1.9-2.6-0.6-8.7 5.6-1.5 0.6-1.3 0.8-0.9 1.3-0.8 1.4-1 1-10.2 7.4-0.3-0.2-1-0.7-0.6-0.8 0-0.6-0.3-1.2-0.3-1.2-0.3-1-0.8-0.4-2.3 0.2-1.2-0.1-0.9-0.4 0.5-0.5 0.2-1.3 0.4-0.6 0.6-0.2 0.4 0.2 0 0.4-0.9 0.3 0 0.3 0.6 0 0.4 0.2 0.4 0.3 0.3 0.4-0.3-0.9 0.3-0.5 0.5-0.3 0.5-0.4 0.8-1.2 5-3.9-0.4-0.3-0.2-0.1 0-0.4 0.1-0.4 0-0.3-0.1-0.6 1.7-0.1 0.6-0.2 0.6-0.5-0.5-0.9 0.8-0.6 2.7-0.9 0.2-0.1 0-0.2 0.1-0.7 0.6-2.3 0-1.3-0.3-0.8-0.8-0.5-1.3-0.1-1.1 0.4-0.9 0.9-0.9 0.4-1.2-0.9-6.7 1.2z m47.1-68.4l0.7-0.2 1.4 0.2 1.2 0.6 0.2 1.1-0.9 0.7-1.7 0.3-0.9 0.3-1.6 1.4-0.9 0.4-1.1-0.5-0.5 0-1-0.4-0.7-0.7 0.1-1.3-0.3-0.5-0.3-0.5 0.2-0.7 0.4-0.4 0.4-0.3 0.2 0.2 0.2 0.7 1.1-0.6 1.3-0.4 1.2-0.1 1.3 0.7z m-0.6 12.1l0.3-0.1 0.2 0.2 0 0.5-0.5 0.1-0.7-0.4-0.8-0.1-0.8-0.1-0.7-0.5-0.1-0.7 0.5-0.4 0.4-0.8 0.4-0.6 1.5 0.7 0.1 0.5-0.2 0.5-0.1 0.7 0.5 0.5z" id="TR10" name="Balikesir">
+  </path>
+  <path d="M98.4 202.5l10.2-7.4 1-1 0.8-1.4 0.9-1.3 1.3-0.8 1.5-0.6 8.7-5.6 2.6 0.6 2.1 1.9 1.4 2.7 1.8 4.7 1.6 7.4 0.8 2.2 1.7 3.3-0.3 3.2-1.3 1.5-3.1 2.6-3 1.2-2.6 1.8-0.6 2.2-0.3 2.4-0.8 2-1.5 1.5-1.3 2.2-0.2 1.3 1.3 1.3 0.7 0.3 1.1 1.4 1.3 4.2 2.8 2.5 3.3 0.3 5.4-0.2 0.9 0.2 1.5 1.4 0.8 3.4 3.3 2.3 3.7 1.7 0.4 0.9 0.5 1.9 0.4 0.9 2 1.9 2.4-0.6 1.1-2 0.8-1.9 2.3 0.1 2.3 1 1.4 0.1 1.4-0.4 2 2.1 1.3 3 4.6-0.7 1.8-0.6 1.3 0.2 0.9 1.1 1.7 0.5 1.1 0.1 2.1 0.6 1.3 1.7 2 6.2 2.1 3.2-7.5 2.7-1.9 0.3-1.9 0.6-1.6 0.9-1.7 0.7-9.2 0.1-11 3-11.7-1-2.4 0.4-5.8 3.9-3.8 1.4-3.1 0.1-0.1 0 0-0.3 0.1-0.5 0-0.5-0.2-0.5 0.7-0.6-0.4-1.4-1.3-2.2-1.2 0.4-1.7 0-1.8-0.3-1.1-0.4-0.3-0.4-0.2-0.4-0.2-0.4-0.5-0.1-0.4 0-0.4-0.1-0.2-0.2-0.1-0.3-0.2-1-0.4-0.3-1.4-0.2-2.4-0.9-1.3-0.2-1.5 0.3-0.8 0.4-0.3 0-0.3 0.2-0.1 0.4-0.2 0.5-0.4 0.2-0.4-0.3-1.1-2.2 0.3-0.8-0.1-0.8-0.2-0.9-0.3-0.8-0.5-0.8-1-1.1-0.5-0.6-0.8 0.4-0.2-0.7 0.1-1.8-0.7-0.6-0.7 0.1-0.8 0.3-0.9 0.2-3 0-0.5 0.2-0.6 3.9-0.2-0.1 0-0.1-0.1-0.1-0.3 0 0.1 0.8 0 0.8-0.2 0.6-0.6 0.2-0.3-0.2-0.6-1.5-0.4-0.7 0 1.2-0.5 0.1-0.7-0.5-0.9-1-0.3-0.5-0.1-0.6 0.2-0.8-1.3 0.3-1.2-1-1.2-1.3-1.1-0.5 0.2 0.9 0.1 0.3-0.3 0-0.3-0.4-1-1 0.1-0.6 0.1-0.6 0-0.5-0.2-0.6-0.4 0-0.3 1.6-1 0.4-1.2-0.4-1.6-1.3-0.4-0.3-2.5-0.7-0.1-0.4 0.3-1 1.2 0.6 0.6-0.8 0.4-1.1 1.1-0.3 0-0.5-0.9-0.6-0.2-1.1 0.4-0.6 0.7 0.7 0-0.6 0.2-0.2 0.1-0.2 0.3-0.2 0.2 0.7 0 0.7-0.1 0.5-0.4 0.6 0.2 0.1 0.3 0.2 0.2 0 0.4 0 0.4 0.1 0.1 0.3 0.1 0.3 0.3 0.2 0.6 0 0.7-0.1 0.4-0.4-0.5-0.7 0-0.5 0.8 0.5 0.3 0 0.6 0 0.5-0.3 1.2-0.8 0.4-0.2 0.6-0.6 0.1-1.2-0.4-1.2-0.8-0.7 0-0.5 1.2 0.6 0.6 0.6 0.4 0 0.7-1.6-0.7-0.4-1.1-1.1-1-0.3-0.6-0.6-0.5-0.1-0.4 0.3-0.4 0.8-0.3 0.2-0.9-0.1 0-0.2 0.4-0.6 0.3-1.2-0.2-0.7-1.4-2.2 0.3 0.4-0.1-0.7-0.6-1.8-0.1-0.4 0-0.4-0.5-2.3 0-0.9 0.1-0.9 0.3-0.7 0.4-0.2 0.7-0.2 1.1-0.5 0.5-0.1 1.3 0.1 1.2 0.3 1 0.5 0.9 0.7 1.6 1.8 0.7 1.1 0.3 0.9 1.1 1.8 1.2 1.5 0.4 0.4 0.3 0.3 0.3 0.3 0.2 0.7 0.1 0.6 0 0.6 0 0.6 0.3 0.6-0.3 0.3-0.2 0.1-0.2 0-0.3-0.3-0.5-0.1-0.6 0.1-0.5 0.3 0.8 0.5 0 0.5-0.4 0.7-0.4 0.9 1.1 0.1 0.5 0.7 0.3 0.9 0.5 1 0.8 2.7 0.8 1.3 1-0.3 0.3-0.8-0.3-0.5-0.8-0.6-0.3-2.5 0.2-1 0.6-1.1 0.7-0.6 0.8 0.2 0-0.4 0.3 0 0.5 0.6 0.6 1.1 0.9 2.5 0.2-0.1 0.5-0.2 0.2-0.1 0.4 0.7 0.7-0.1 0.8-0.4 0.9-0.2 3.8-0.4 2.3-1.1 0.7-0.2 0.3-0.1 0.6-0.6 0.3-0.1 0.5 0 0.4 0.2 0.5 0.1 0.5-0.3 0.1 0.2 0.2-0.2 1.3 0.6 1.1-0.7 1.2-1.2 1.3-0.8 0-0.4-0.4-0.4-0.2 0.1-0.4 0.3-0.3-0.5-0.9 0.5-1.6-0.2-0.4 0.2-1.2-0.6-1.3 0-3 1.3-1 0.5-0.1-0.1 0.4-0.7-0.8-0.6-1.4-2.3-0.7-0.4-1.2-0.4-0.4-0.3-1.1-0.8-0.6-1 0.7 0.7 0.9 0.6 1.3 0.8 0.7 0 0-0.4-0.6-0.7-0.6-0.6-0.6-0.4-0.8-0.4 0.2-0.7 0.3-1.5 0.2-0.8-0.7-0.6-0.5 0.2-0.5 0.4-1 0 0.2-0.6 0.2-0.2-1-0.4-0.6-0.1-0.7 0.1 0.1-0.3 0.1-0.7 0.1-0.2-0.6-0.1-0.5-0.2-0.8-0.6 0.3-0.4 0.4-0.3 0.4-0.1 0.5 0-0.9-1.5-0.4-0.8-0.3-1.1 0.9-0.6 2.4-0.5 1.4-1 0.3 0.1 0.1 0.3 0.1 0.1 0.1 0 0.5 0.1 0.5 0 1.1 0.5 0.6 0.2 0.8 0-0.3-0.8 0.4-0.4 0.4-0.3 0.4-0.2 0.4 0.5 0.1-0.5 0-0.5 0-0.5-0.1-0.6-0.3 0.4-1-1.7-0.3-0.4 1.9-0.8 0.3 1.3 0.8 0.1 0.5-0.7-0.6-1.6 0.8-0.2 0.7-0.4 0.6-0.5 0.5-0.5 0.9 0.6 1-0.6 0.4-1-1-0.3 0.8-1.6 0-0.7-0.8-0.6-0.8 0.7-0.6 0.4-0.5 0.1-0.9 0-0.2-0.2-0.5-0.8-0.3-0.2-0.5 0.2-0.4 0.3-0.4 0-0.4-0.5-0.6 0.5-1.6 0.9-0.6 0.2-0.5-0.2-0.8-1.2-0.7-0.2-0.9-0.6-0.4-1.4 0.1-1.6 0.7-1 0-0.4-0.2 0-0.8 0 0.6-0.8 1.1-0.8 1.2-0.7 0.9-0.2 0.5-0.6-0.4-1.1-1.1-1.9-1.3-1.7-0.7-0.5-1.5-0.8z" id="TR35" name="Izmir">
+  </path>
+  <path d="M121.4 280.3l0.1 0 3.1-0.1 3.8-1.4 5.8-3.9 2.4-0.4 11.7 1 11-3 9.2-0.1 1.7-0.7 1.6-0.9 1.9-0.6 1.9-0.3 7.5-2.7 6.5 0.1 0.5 1.4 0.6 1.3 2.7 1.9 0.6 1.7-0.1 2.1 0.7 3.6-0.4 1.3-1.1 0.8-0.1 1.5 1 1.4 0.8 1.6 1 1.5 3 0.6 0.5 1.4-0.2 1.7-1.4 1-1.9 0.1-2.2 3.1-2.5 2.4-3.7-0.4-3.3 1-1 2.2 0.6 2.2 0.5 0.2 0.5 0.4 0.4 0.8 0.2 0.9-6.2-0.9-3.5-1.9-2.9-2.5-3.5-0.7-2.5 1.8-1.7 3.3-1.9 1.5-5.7 0.4-3.4-0.1-2-1.1-2.2 0-2.1 0.6-2.2-0.4-3.3-2.3-3.8-0.5-1.9-0.7-1.6-1.1-1.6 0-1.5 0.9-0.6 1-2.5 5.6-0.6 1-0.8 0-0.8 0.4-0.4 0.8-0.2 0.8-0.5 0.5-1.2-0.1 0 0.5 0.7 0.5-0.3 0.2-2.8 0.2-0.6 0.2-0.6 0.5-0.3-0.4-0.4-0.3-0.3 0-0.3 0.3-0.1-0.5 0-0.2-0.2-0.1-0.4 0.2-0.1 0.1-0.1-0.2-0.4-0.1 0.5-0.6 0.3-0.6 0.1-0.6-0.2-0.7 0.7-0.3 0.3-0.1 0-0.4-0.4-1.2 0.2-2.7-0.8 0.3-0.3-0.4-0.3 0-0.4 0.3-0.3 0.4 0.2-1 0.3-0.9 0.1-0.8-0.3-1 0.2-0.3-0.2-0.3-0.2-0.3 0.2-0.7 0.7 0.5 0.5-1 0.1-1.3-0.2-0.7-0.7-0.2-2.7-1.8-4.1-1.2-1.8-0.9 0.4-1.2 0.9-0.3 3.1 0.3 1.1-0.2 4.1-1.5 0.6-0.4 1.1-1.4 0.3-0.9 0.2-1.4 0.1-1.3-0.1-0.7-0.4-0.6-0.4-0.5-0.3-0.7 0.1-1.1 0.2-0.3 0.6-0.5 0.2-0.4 0.1-0.3z" id="TR09" name="Aydin">
+  </path>
+  <path d="M128.1 308.9l0.6-1 2.5-5.6 0.6-1 1.5-0.9 1.6 0 1.6 1.1 1.9 0.7 3.8 0.5 3.3 2.3 2.2 0.4 2.1-0.6 2.2 0 2 1.1 3.4 0.1 5.7-0.4 1.9-1.5 1.7-3.3 2.5-1.8 3.5 0.7 2.9 2.5 3.5 1.9 6.2 0.9 0.6 1-0.2 1.2 0 1.7 0.5 1.8 1.2 0.4 1.7 0 2.2 0.9 1.4 2.5 0.7 2.7 1.6 2.3 3.5 0.6 0.6 0.6 0.8 1.6 0.6 0.6 3.5 1.6 2.8 2.8 0.7 2.3 0.4 2.3 0.1 1.9 0.2 1 1.2 1.1 2.6 0.2 4.7 2.6 1.7-0.8 0.9-1.3 0.6-1.5 0.3-3.9 2.2-1.8 1.1 3-0.8 3.5 1.9 0.7 2.3-2.9 5.7-0.8 4 5.6-5.1 11.8 0.6 3.7-0.9 3.2-2.3 1.7-2.1 2-0.5 1.6 0.3 1.6-1.1 0.6-1.4-0.6-3 1.2-1.6 3.2-0.3 1-0.4 0.9 0 0.7 0 0.8-0.3 1.5-0.9 1.2-1.3 0.7-0.2-0.2-0.4-0.9-0.6-0.7-2.9-1-0.8-1-0.6 0.5-0.2-0.8 0-0.2 0.2-0.2 0-0.5-1.3 0 0.3-0.3-0.5-0.4-0.3-0.1-0.5 0 0.2-0.5 0.4-0.4 0.5-0.2 0.5-0.1 0-0.2-0.1-0.1-0.2-0.1 0.3-1.1-0.3-1-0.6-0.7-0.7-0.4 0-0.4 0.6-0.5 0.3-0.2 0.4-0.1 0-0.5-0.2-2-0.2-1-0.6 0.3-0.3 0-0.6-0.8-2.3 0.9-1-0.1 0.9-0.3 0.2-0.5-0.3-0.8-0.5-0.9 0.2-0.4 0.5-1.1 0.3-0.6 0.7 0.6 0.5-0.5 0.7-0.9 0.7-0.3 0 0.3-0.3 0.7 0.4 0.2 0.6-0.2 0.3-0.4-0.2-0.6-0.2-0.5-0.3-0.5-0.3-0.3-3-2.1-3.7-1.6-0.4-0.5-0.4-0.9-0.8 0.6-0.8 1.1-0.7 0.6 0 0.4 0.4 0 0 0.4-0.9 0.1-0.4 0.1-0.4 0.2-0.1 0.5 0.1 0.5 0 0.5-0.6 0.1 0.2 0.5 0.2 0.2 0.2 0.2-0.3 0.4 0.5 0.5 0.2 0.3 0.3 0 0.2-0.6 0.3-0.5 0.1-0.5-0.3-0.9 0.8 0.8-0.3 1-0.8 0.9-0.7 0.6 0.3 0.6-0.5 0.3-0.8 0.1-0.6-0.2-0.5-0.5 0-0.6 0.4-0.4 0.7-0.1 0-0.5-0.8-0.4-0.5-0.4-0.5-0.2-0.8 0.3-0.2-1.6-1.7-1.2-2.2-0.4-1.4 0.7-0.3 0-0.2-1.1-0.6-0.4-0.6 0.2-0.6 0.9-0.3-0.4-0.6-1.6 0.4-0.8 0.2-1.2-0.1-1.1-0.5-0.6 0-0.2 0-0.1 0.2 0 0.1-0.1-0.1-0.2-0.1-0.1 0-0.2 0.2-0.3-0.3 0-0.2 0.5-0.1 0.3 0 0.4-0.3-0.2 0-0.1-0.1-0.4-0.6-0.7-1.4-0.3-1.1 0.6 0.2 1.5-0.5-0.4-0.5-0.1-0.4-0.1-0.6-0.2 0.7-0.4 0-0.4-1.1 0-0.7-0.2-0.3-0.6-0.2-1.2 0.3 0 0.3 0 0.1-0.2-0.1-0.4-0.1-0.1-0.1-0.2-0.1-0.1-0.1-0.7-0.2-0.3-0.2 0-0.1 0.6-0.5 0.5-0.9 0.3-1.4 0.1-0.5 0.2 0 0.4 0.3 0.4 0.4 0.3 0.3 0 0.4-0.1 0.4 0 0.5 0.5-0.5 0.9-0.4 0.8-0.5 0.7-0.9 0-2.4-1.3-0.5-0.3-0.3 0 0.2 0.9 0.1 0.3-1.3 0.1-0.5-0.2-0.2-0.5 0.2-0.5 0.5-0.3 1.3-0.2 0-0.4-0.6-0.4-0.7-0.6-0.7-0.4-0.8 0.4-0.6 1-0.3 0.9 0.1 0.9 0.7 0.6-0.3 1.3 1.9 1.4 0.3 1.4-0.5-0.4-0.8-0.3-0.7 0.2-0.3 0.9-0.3-0.2-0.3-0.2 0 0.3-0.1 0.2-0.1 0.1-0.2 0.2 0.3 0.1 0.1 0.3-2.4 0.9-1 0.7-0.8 1.3-0.7 1.3-0.9 1.4-1.1 0.9-1.2-0.4-0.2 0.4-0.2 0.2-0.2 0.1-0.4 0.1 0.1 0.2 0.1 0.4 0.1 0.2-0.6 0.3-0.4 0-0.4-0.2-0.2-0.5-0.5 0.8-0.6 0.2-0.6-0.4-0.6-0.6 0.1-0.2 0.1-0.4 0.1-0.2-0.2-0.2-0.2-0.2-0.2-0.4 3.6 0 0.9-0.4 0.5-0.6 0.5-0.7 0.7-0.7-0.7-0.8-0.9 0.8-0.4 0.3 0-0.3 0.5-0.5 0.1-0.8-0.1-0.7-0.5-0.5-0.5-0.3-0.1 0.2 0 0.7-0.3 0.3-0.5 0-0.5-0.3-0.4-0.2-0.4 0.2-0.5 0-0.5-0.2-0.2-0.6 0.3-0.2 1.7-0.4-0.4-0.4 1 0.1 0.3-0.1 0.3-0.2 0.2-0.3 0.2-0.2 0-0.1 1.8-0.1 0.5-0.3-0.2 0.9 0.7 0.1 0.7-0.6 0.1-0.8-0.5-0.4-0.9-0.1-0.3-0.3 0.1-0.4 0.4-0.4 0.5-0.4 0.3-0.5 0.2 0.4 0.2 0.3 0.6 0.6-0.2-1.1-0.1-1.2-0.3-0.5-0.5-0.1-0.6 0-0.4 0.3-0.8 1.3-1 0.7-0.4-0.1-0.2-0.6-0.7 0.7-1.9 0.6-0.7 0.4-0.3 0-0.3-0.8-0.4 0.2-0.6 0.6-0.7 0.4-0.2-0.8-0.4 0-0.3 0.5-0.4 0.3-0.3-0.2-0.3-0.5-0.3-0.1-0.4 0.8-0.3 0-0.6-0.5-0.8-0.5-1-0.2-0.9 0.4 0-0.4-0.5 0.2-0.6 0-0.6-0.2-0.7 0-0.8 0.2-1 1.3-0.7 0.5 0 0.4 0.2 0.5-0.7 1.9-0.1 1.3-1.6-0.8-0.8-0.3-0.8-0.2-0.9 0.1-0.7 0.2-0.5 0-0.2-0.7-3.3 1.2-0.2 0.4-0.2 0.3-0.2 0.2-0.2-0.2-0.6-0.5-0.4-0.2-1.1-0.2-0.4 0-0.6 0.2-0.1-0.7-0.4-0.4-0.5 0-0.6 0.3 0-0.2 0-0.1-0.2 0-0.1-0.1 0.2-0.3 0-0.4-0.2-0.3-0.4-0.2 0-0.4 0.6 0.3 0.8 0.2 0.8 0 0.6-0.3 0.4-0.6 0.2-1 0.6-0.6 0.5-0.4 0.4-0.1 1.2 0.1 3.5-0.6 1.7 0.2 0.9-0.3 0.2-0.7 0.1-0.8 0.2-0.7 1.1-0.3 2.2 1.4 0.6-0.3 0.8 0.4 0.6 0 0.7-0.1 0.5 0.1 1.2-1.1 0.7-0.4 4.1-0.1 0.5-0.2 0.3 0.4 0.8 0.3 1 0.3 0.9 0 1.6-0.2 0.8 0.3 0.8 0.7 0.2-0.6 0.3-0.3 0.9-0.7-0.3-0.7-0.5-0.3-0.7-0.2-0.8 0 0.3-0.4 0.4 0.2 0.1-0.4-0.3-0.6-0.5-0.5 0.2 0 0.1-0.1 0.1-0.1 0.2-0.1 0.4 0.2 0.3-0.2 0.5-0.3 0.5-0.2 0-0.3-1-1-0.4-0.6-0.3-0.5 0.7 0.4 0.3-0.4-0.3-0.2-0.1-0.2-0.1-0.2-0.2-0.2 0.4 0 0.8-0.1 0.5 0.1 0-0.4-1 0 0-0.4 1.1 0 0.5 0.1 0.3 0.3 0.3-0.3 0.3-0.1 0.2 0.1 0.2 0.3 0.3 0 0.5-0.3 1.1 0.5 0.4-0.2 0.3 0 0.1 0.4 0.3 0.8 0.1-0.3 0-0.1 0-0.1-0.1-0.3 0.1-0.3 0-0.2-0.2-0.2-0.3-0.1 0-0.4 0.4-0.1 0.4 0.1 0.3 0.1 0.2 0.3 1-1.6 0.3-0.4 0-0.5-0.6 0 0.3-0.6 0.3-0.6 0.8 0.6 0.7 0.2 0.4-0.4-0.3-0.8 2.6-1 1.4-0.4 0-0.3-0.4-0.5-0.3-0.2-0.5-0.2-6.2 1-2.3-0.1-0.9 0.2 0.1 0.7 0 0.4-0.8-0.4-5-0.8-0.5 0.1-0.6 0.6-0.6 0.1-0.5-0.1-1.4-0.3-1.2 0.1-3.9 1.3-0.5-0.2-0.3 0 0 0.2-0.3 0.6-0.4-0.1-0.4-0.1-0.6 0-0.5 0.2-1-0.7-1.5 0-1.5 0.6-0.9 0.9-0.9-0.5-1.3-0.5-1.1 0.1-0.3 1.4-1.1-0.9-0.5-0.2-0.7-0.2-1.4 0.2-0.5-0.2-0.5-0.4-0.8-1.3-0.3-0.3-0.8 0-0.7 0.7-0.3-0.5 0.1-0.2-0.3 0-0.1 0.6-0.6 1.4-0.1-0.3-0.1-0.1 0.1-0.1 0.1-0.3 0-0.1-0.1 0-0.1-0.1-0.1-0.2 0.2-0.2 0.1-0.1-0.1-0.1-0.2-0.4-0.4 0.3-1.3 0.3-0.6 0.2 0 0.4 0.2 0.6-0.3 0.7-0.5 0.5-0.7 0.3 0.2 0.5 0.2 0.3-0.5-0.2-0.2 0-0.3 0.2-0.3-0.5-0.9 0.2-0.5-0.9-0.2-1.3-0.1-1-0.2-1-0.4-0.8-0.2-0.8 0.5-1.3 0.4 0 0.8-0.3 0.8-0.6 0.6-0.7-0.3-0.3-0.4-0.1-0.4 0.1-0.5 0.3-0.2-0.2-0.1-0.2-0.1-0.4 0.4 0.3 0.5-0.6 1.5 0.5 0.9-0.2 0-0.4 0.1-0.5 0.1-0.5-0.2-0.7 0.5 0.2 0.4 0.3 0.1 0.5 0 0.7 0.3 0 0.3-0.6 0.3-0.5 0.4-0.1 0.3 0.4 0.2-0.2 0-0.1 0.1-0.2 0 1 0.2 0.3 0.3 0 0.5 0 0.4 0.3 0.3 0.2 0.3 0.1 0.7-0.2-0.2 0.1 0 0.1-0.1 0-0.1 0.1 0.7 1.3 0.7 0.4 0.7-0.1 1.2-0.9 1-0.5 0.4-0.3 0.5-0.3 1.2 0 0.5-0.3 0-0.4-0.7 0.1-0.1 0.1-0.2 0.2-0.4-1.9-0.3-1-0.6-0.4 0-0.4 2.2-0.5 0.6 0.1-0.5 1.2 0.5-0.1 0.4-0.3 0.7-0.8-0.7-0.3-0.3-0.4 0-1.2 0.1-0.2 0.6-0.5 0.3-0.3 0.1-0.4 0.1-0.8 0.1-0.4-0.6-0.4 0-0.1-0.4-0.1-0.2 0.2 0 0.3-0.1 0.1-1.1-0.1-0.6 0.2-0.2 0.5-0.3 0.9-0.6 0.8-0.7 0.4-0.7-0.3 0.8-0.7 0.1-0.8-0.5-0.5-1.1 0-0.1 0.2-0.5 0.5-0.4 0.2-0.3-0.3 0.1-0.6 0.4-0.5 0.8-1.1 0-0.5 0.2-0.6 0.1-0.9-0.6-0.9-0.3 0-0.2 1.6-1.1 0.6-1.3-0.2-1-0.8-0.4-1.3 0.4-1.2 0.9-1 1.1-0.5-0.6-0.9-0.9-0.5-0.2 0.1z" id="TR48" name="Mugla">
+  </path>
+  <path d="M216.3 375.3l1.3-0.7 0.9-1.2 0.3-1.5 0-0.8 0-0.7 0.4-0.9 0.3-1 1.6-3.2 3-1.2 1.4 0.6 1.1-0.6-0.3-1.6 0.5-1.6 2.1-2 2.3-1.7 0.9-3.2-0.6-3.7 5.1-11.8 1.4-0.2 1.3-0.7 1.1-1.6 1.3-1.3 1.9-3.5 0.7-4.4 2.6-3.6 8.6-4.4 2.9-0.5 7-3 2.9 0.4 2.9 3.6 1.1 0.4 6.6-0.3 4.3 0.5 3.7 0 1.8-0.5 2.9-3.1 0.9-2.6 3.3-2.9 4.2 1.7 4.9-1.7 2.6-0.4 2.2-1.6 2.4-0.9 2.5 0.4 1 1.3 1.2 1.2 1.8 1.5 2.1 0.8 4.7 0 12.2 2.6 4 2.6 3 2.8 3.3 2.3 2.4 2.5 2.1 3 1.4 1.3 1.4 1 3.2 3 1.8 0.8 1.5 0.9 0.2 1.9-1.2 0.9-0.5 1.8 0.7 1.6 2 0.8 2.2 0.2 1.5 0.3 1 1.4 0.8 4-0.4 4 1.7 4.3 1.9 4 1.3 1.6 1.6 1.1 1.9 1 0.9 1.9-0.4 3.5 0.2 6.5-0.7 2.8-0.8 1.5-0.6 1.6-0.2 1.5-0.4 1.4-0.7 1.1-0.2 0.4-0.2-0.1-1.7-0.2-0.8-0.2-3.7-2.1-0.5-0.5-0.3-0.7-0.8-0.4-1-0.3-0.8-0.4-2.2-3-0.4-0.1-0.2-0.3-0.9-0.6-0.2-0.3-0.2-1.7-0.1-0.5-1.1-1.6-2.9-2.6-0.6-1.6-0.1-0.5-0.2-0.4-0.5-0.8-0.5-0.9-0.2-0.2-0.6-0.3-0.2 0-0.8-1.8-0.6-1-0.7-0.4-2.9-3-0.3-0.2-0.5 0-0.5 0-0.5-0.2-0.4-0.2-0.3-0.3-0.2-0.2-1.9 0.1-1-0.1-0.4-0.6-0.5-0.5-1.3-0.5-1.3-0.2-0.8 0.2-0.5-0.4-1.8-0.8-0.9-1.3-0.6-0.6-0.6 0.1-1-0.2-3.6-1.6-0.8-0.7-0.7-0.8-9-4-1.3-0.2-0.1-1.5-1.7-1-19.1-2.9-7.8 0.5-1.3-0.4-1-0.6-1.9-1.5-2.8 1.9-1.2 1.3-0.7 1.8-0.6 1.1-0.2 0.4 0 1.9-0.3 1.9 0.1 1 0.5 0.9 0 0.4-0.4 0.5-0.3 0.5-0.2 0.6-0.1 0.8 0.1 1.1 0.3 0.6 0.3 0.5 0.3 0.7 0.3-0.4-0.1 1.2-0.7 2.1 0.2 0.7-1.7 1.4-0.7 0.9-0.5 2.1-1.1 1.6 0.1 0.5-0.7 1 0.1 1 0.5 0.8 0.7 0.4-0.3 0.9 1.2 0.4-0.7 0.9-1.3 1.1-0.5 1.2 0.3 0 0.2-0.3 0 0.1 0.1 0.1 0.4 0.1-0.5 0.5-0.7 0.5-0.6 0.5-0.5 1.4-0.6 0.7-1.4 1.2 0.1-2.5-0.2-1-0.6-0.5-1.1 0.3-5-2.3-1 0-3.6 0.6-0.4 0.5-0.2 0.9 0 1.2-0.3 0-0.1-0.4-0.3-0.8-0.3 1.1 0 0.5-0.7-0.4 0.1 0.4-0.1 0.4-1.7-0.4-0.4-0.2-0.4-0.3-0.4-0.2-0.6 0.3 1 0 0 0.4-3.3 1.7-0.7-0.1-0.5 0.4-0.6-0.1-0.5-0.2-0.6-0.1-0.5 0.1-0.2 0.1-0.6 0.6-0.8 0.5-1.8 0.4-0.7 0.3 0.2 0.1 0.1 0 0.1 0.1 0 0.3-0.5 0-1.2 0.3 0 0.4 1 0-0.6 0.7-0.7 0.5-0.8 0.3-0.8 0.2 0-0.5 0.2-0.2 0.2-0.1 0.1-0.2 0.1-0.3-0.6 0.1-0.1 0.1-0.2 0.3-0.6-0.6-0.6-0.2-0.5 0.1-0.6 0.2-0.2 0.3 0 0.2-0.2 0.2-0.5 0.1 0 0.2-0.8 1.1-0.2-1.2-1.6-0.8-0.5-1.2 0.7 0.3 0.3-0.3-0.1-0.6-0.4-0.2-2.4 0.3 0-0.3 0.4-0.3 0.5-0.1 0.5-0.1 0.5 0-1-0.4-3.8 0-1.3-0.3-3-1.7-0.5 0.6-0.3-0.6-0.1-1.6-0.3 0.4-0.2-0.1-0.2-0.2-0.3-0.1-0.5 0.2-0.2 0.1-0.1 0.2-0.2 0.3-0.3 0.3-0.1 0.4-0.2 0.4-0.4 0.2-0.4-0.3-0.3-0.6-0.3-0.4-0.3 0.4-2.9-2.7z" id="TR07" name="Antalya">
+  </path>
+  <path d="M373.5 387l0.2-0.4 0.7-1.1 0.4-1.4 0.2-1.5 0.6-1.6 0.8-1.5 0.7-2.8-0.2-6.5 0.4-3.5 3.1-0.4 3.1 0.8 2.9 0 2.7-1.3 2.8-0.6 2.9 0.1 1.5-0.2 1.2-1.2 0.5-2.1 0.7-1.9 0.7-0.3 0.7-0.1 1.7 0.9 1.8 0.7 1.2-1.6-1.1-1.8-2.2-1.6-2.5-0.7-1-0.8-0.9-1.2-1.2-0.5-0.7-1.6-0.4-1.7-0.8-1.4-1-1.2-0.1-1.9 1.8-0.3 0.8-0.3 2.1-1.4 1.4-0.5 0.6 0.3 0.1 0.5 0.4 0.7 1.7 0.4 1-1.7 0.6-2.6 1.5-1.9 1.8-0.6 1.6-1.1 1.5-1.4 1.7-1 2-0.6 6-0.5 3.8-1.5 3.9-0.4 1.6 0.5 1.2-0.1 1.7-0.9 3.5-0.7 4.6-3.5 1.7-0.7 3.6-0.3 3.3-1.3 1.6-1.9 1.3-0.8 4.2-1.5 2.7-1.3 2.1-2.1 1.4-0.7 2.5-0.9 0.9-0.6 0.6-1.9 3.5-0.1 1.6-0.6 1.5-0.9 3.3-1.4 3.3 0.8 1.6 3.6 1.8 3.3 2.3 1.8 0.1 6.1 1 3.4 2.3 1.7 2.9-0.2 1.8 1.9-1.4 3.7 0 3.4 0.7 3.3 0.2 1.7-0.2 1.6-1.8 1.6-2 0.6-2.5 1.7 0 0.1-0.2 0-0.8 0.2-0.6 0.3 0.1-0.3 0.3-0.9-0.7-0.4-2-2.1-3.9-2-0.2 0.4-1.4-0.8-2 0.5-3.2 1.5-1.4 0.2-0.6 0.2-1.4 0.9-0.3 0.2-0.5 1.1-0.2 0.3-1.5 0.8-4.1 3.8-5.2 3.2-1.4 1.2-4.1 5.3-0.4 0.9-0.2 0.6-0.5 0.3-1 0.5-1.6 1.7-1.7 1-0.1 1.5 0.2 1.9-0.1 1.6-0.9 0.8-1.5 0.3-1.3 0.4-0.5 1.3 0.3-0.1 0.2-0.2-0.1 0.4-0.9 1.2-0.4 0.7-0.2 0.9 0 0.7-0.3 0.4-0.8 0 0-0.4 0.4-1-0.2-1.7-0.7-1.5-1-0.6-0.7-0.2-0.6-0.4-0.6-0.2-0.7 0.6-0.9 1.4-0.4 0.6-0.8 0.2 0.3 0.1 0.2 0.1 0.1 0.2-0.5 0.5-0.7 1.3-0.6 0.2-0.4 0.1-1.7 0.7-0.3 0.3-1.5 1.6-0.2 0.6-0.3 1.6-0.3 0.4-0.1-0.4-1.2-1.8-0.2-0.9-0.4-0.2-0.6 0.1-0.7 0.3-1.1 1-1.1 1.4-1 1-1-0.2 0.6-0.3 0-0.5-1.1-0.1-2-0.5-1-0.2-1 0.2-1.7 0.9-0.7 0.2-1.8-0.7-1-0.1-0.9 1.1-1 0.1-2.2-0.1-1.4 0.4-0.5 0.1-0.6-0.2-1-0.5-0.5-0.1-1.1 0.3-0.6 0.7-0.4 1-0.7 0.8-0.5 0.4-0.2 0-0.1-0.2-0.5-0.2-0.6-0.1-1.5 0.1-3.1-0.8-0.9 0-3.1 1.6-0.5 0.2-0.4 0.7-2.6 1.9-2-0.1-4.3-1-1.8-0.9-2.9-1.9z" id="TR33" name="Mersin">
+  </path>
+  <path d="M539.2 332.9l-1-0.4-1-0.2-0.9 0.5-3.9 4.5 0 2.5 0.7 1.2-1.8 2.3-0.7 0.5-0.8 0.2-0.4 0.4-1.6 1.8-0.7 0.6-1.8 0.4-4 0.2-1.7 0.7-0.6 0.5-0.5 1.1-0.5 0.4 0.2-0.4 0-0.3-0.2-0.3-0.4-0.2-0.4 0.9-0.7 0.7-0.5 0.7 0.4 0.9 0.7-0.9 1 0.3 0.2-1 0.2 0.1 0.2 0.2 0.1 0.2 0.1 0.3 0.3-0.4 0-0.4 0-0.4-0.3-0.4 0.7-0.4 0.3 0.3 0.2 0.6 0.3 0.3 0.5-0.1 0.5-0.4 0.5-0.2 0.6 0.3-2.8 1.3-1.3 1-0.8 1.4 0.1 0.6 0.7-0.4 2.1-2.5 0.6-0.4 0.8-0.2-1.8 1.8-0.3 0.5-0.4 1.1-0.3 0.5-0.2 0.5 0 0.8-0.1 0.7-0.4 0.2-0.4 0.1-0.7 0.6-0.5 0.1-1.5 0.1-0.6-0.1-1.5-1.4-0.4-0.2-0.7 0.2-0.4 0.3-0.1 0.6 0.4 0.1 0.4 0.1 1.7 0.7-2.1-0.6-2-0.2-0.4 0.1-1.1 0.6-0.3 0.3-0.2 0.4-0.4 0.3-1 0.3-1.2 1.1-0.1 0.2-0.5-0.3-0.8-1.1-0.5-0.3-0.7-0.2-12-7.3-1.3-0.4-1.5-1.1-1-0.3-0.7-0.1-0.6 0 0-0.1 2.5-1.7 2-0.6 1.8-1.6 0.2-1.6-0.2-1.7-0.7-3.3 0-3.4 1.4-3.7-1.8-1.9-2.9 0.2-2.3-1.7-1-3.4-0.1-6.1-2.3-1.8-1.8-3.3-1.6-3.6 0-2.8 0.2-1.3 1.2-1.9 0.7-0.6 0.7-0.7 0.7-2.5-0.3-1.7-1.2-3-0.2-3 1.5-2.2 2.4 0.2 2.4 0.8 4.7-0.8 6.2-6.3 8.2 0.7 4.3 1.1 5.8 2.3 2.5-1.2-1-11 17.6-12.2 2.6-3.5 2-4.1 1.3-1.9 2.1-5 2-1.7 3.7-2.1 3.8-1 2.5 1.1 1.8 2.8 1.2 3.2 2 2.1-2.6 2.5-1.5 3.8-2.4 10.7-1.4 3.8-0.6 4-0.1 1.8 0.3 2.9 1.5 3.7-0.1 2.4-1.6 1.6-0.9 0.5-1.3 1.7-3.6 0-4.5 0.3-2.2 3.7-2.7 6.2-3.1 7.7 0 4.6 1.4 4.4 1-0.1 3.1 0.6 1.3 1.1 0.4 0.8 0.6 3.4-0.7 3.1-1.4 3.6z" id="TR01" name="Adana">
+  </path>
+  <path d="M336.8 86.3l3.5 0.3 3 0.8 10.2 0.3 2.3 0.1 4.1 0.9-0.3 1.7 0 1.8 1.1 0.7 1.4 0.2 2.2 1.4 5.4 2.7 1.8 3.3-0.1 1.7-0.1 0.8-0.1 1-0.7 3.4-1.7 0.7-1.4 1.3-0.2 3.4 1.8 5-0.8 1.5-1.7 1.9-1.3 2.3-3.9 2.1-6.5-1-2 0.6-2 1.4-5.6 1.3-3.3 1.5-4 0.9-5.9-0.1-1.9 0.3-4.2 1.7-1.6-0.2-1.5-0.6-1.4-0.2-1-0.5-1.6-1.7-8 0.9-4.2-2.6-4.4-1.5-1.2 1.3-0.5 2.4 0.2 3.7-1.5 3.2-3.9 2.2-2.9 3.9-3.1-0.5-2.8-1-1.8-2.3-2.9-5.2-0.7-2.7 0.9-2.3-1.1-2.2-1-1.2-0.3-1.6 0.6-0.7 0.8-0.4 1.3-3.9 1.9-2.9 3.3 0.2 3.1-1.5 0.6-1.9-0.4-1.9-0.1-2.1 3-2.3 3.9 1.4 7.7-0.3 5.4 2.3 4.6-0.5 3.6-2.8 1.8-4.5 0.2-3.3 2.3-1.8 6.1-1 4.4-1.1 2.3-2.7 0.8-5.5z" id="TR14" name="Bolu">
+  </path>
+  <path d="M292.4 142.5l2.9-3.9 3.9-2.2 1.5-3.2-0.2-3.7 0.5-2.4 1.2-1.3 4.4 1.5 4.2 2.6 8-0.9 1.6 1.7 1 0.5 1.4 0.2 1.5 0.6 1.6 0.2 4.2-1.7 1.9-0.3 5.9 0.1 4-0.9 3.3-1.5 5.6-1.3 2-1.4 2-0.6 6.5 1 3.9-2.1 1.3-2.3 1.7-1.9 0.8-1.5-1.8-5 0.2-3.4 1.4-1.3 1.7-0.7 3.7-0.1 3.8 0.6 13.9 6.5 1.4 1.8 1.1 2.2 1.5 1.8 1.8 1.3 0.8 0.4 2.1 1.8 1.5 0.9 1 1.6 0.5 2.1 3.1 2.5 3.5-0.4 0.2-1.6 0.6-1.8 0.8-0.3 1 0 1.5 0.6 1.4 0.9 6.4 2.1-0.6 5.1-0.6 3.5 0 4.2 0.3 3.7-0.6 3.6-5.5 0.6-3.5 1.5-2.2 5.3-1.2 5.2-1.4 5.2 1.2 5.3 3.8 4.6 1.3 2.3 1.9 8.8 3.8 7.4 0.9 3.4 5.4 3.4 2.4 2 0.8 0.3 0.7 0.6 0.7 1.2 1 0.7 2.5 0.2 1.6 0.6 0.6 0.7 3 1.1-0.4 2-1.6 4.1 1.9 5.1-0.1 3.6-4 3.8-1.8 0.9-4.2-0.2-4.2 1.2-3.9 2.2-4.1 1.1-1-2.4-1.5-2.2-1.3-2.3-1-2.5-0.1-3.5 0.6-3.6 0.2-3.3-0.3-3.3-2.5-5.9-4.7-3.4-2.7-0.8-0.8-0.5-2.1-1.6-2 0-0.9 1.3-0.5 1.6-0.4 3.2-0.7 1.1-2.1-0.3-2.7-2.2-2.3-0.7-4.8 4-1.8 2.3-2.1 1.2-3.6-1.5-3 1.4-2.8 2.4-2-0.2-1.7-1.6-1.6-0.9-4-1.4-2.4 0.3-5 1.5-1.7-0.5-6.8-5.7-2.1-1.3-2-0.9 1.1-0.8 2.5-1.2 0.5-0.6 0.4-0.7 1-0.3 1.1-0.1 1.1-1.2 0.9-1.4-0.3-1.9-1.5-1-1-1.6-0.1-2.4-0.1-0.3-0.2-0.8 0.5-1.9 0.2-1.8 0.1-1.9-0.6-1.3-0.7-1.1-0.2-1.9-0.6-1.3-2.4-2.1-2.4-6.5-0.3-3.1 2-2.2-0.1-1.6-0.6-0.4-0.7-1.1-0.4-0.9-1.6-0.1-1.4-0.7-1.2-1.9-0.6-1.9-0.2-1.6-0.6-1.1 0-1.8-2.2 0.3-1.9-1.3-1.7 0.6-3.5 0.1-1.8 0.4-1.6-0.5-1.4 0.4-1.9-2.1-1.2 0.2-1.2 0.4-4.4-0.6-1.3 1.1-1.3 1-1.3-0.5-1.2-0.7-2.7-0.3-4.6 1.9-1.9 0.2-1.1-0.4-0.3-1.3-0.4-3.7-2.1-2.6z" id="TR06" name="Ankara">
+  </path>
+  <path d="M248.6 118.2l1.3 2.8 1.7 2.5 1.9 1.6 1.7 1.9 4.2 1.3 6.6-1.7 2.1-0.2 1.7 0.5 1.8 0 1.5 0.9 1.2 1.8 0.8 0.7 3.5-0.1 2.5 0.6 0.7 2.7 2.9 5.2 1.8 2.3-4.9 0.2-3.8 3.1-0.9 3.1-0.6 3.3-1.6 2.8-2.4 1.8-2.6 0-2.4 1-0.8 1.4-0.8 1.2-1.4 0.7-1.3 1.1-0.4 6.3-2.1 3.6-2.6 3.1-1.8 0.5-3.6 0.4-3.7 1-2.1-0.5-5.2-3.8-1.7-0.7-1.9-1.2-0.7-1-1.7-3.3-0.2-2.7 0.8-5.2 2.7 0.5 2.3-0.8-0.6-3.1-1.3-1-2.5-3.6 0-3.1 1.3-6.2 4.6-4.9 0.8-1.7-0.2-1.7-1.1-1.4-0.2-1.9 0.6-1.5 0.5-1.7 0.2-2 0.9-1.7 0.9-1 1.1-0.8 2.5-1.4z" id="TR11" name="Bilecik">
+  </path>
+  <path d="M286.5 141l2.8 1 3.1 0.5 2.1 2.6 0.4 3.7 0.3 1.3 1.1 0.4 1.9-0.2 4.6-1.9 2.7 0.3 1.2 0.7 1.3 0.5 1.3-1 1.3-1.1 4.4 0.6 1.2-0.4 1.2-0.2 1.9 2.1 1.4-0.4 1.6 0.5 1.8-0.4 3.5-0.1 1.7-0.6 1.9 1.3 2.2-0.3 0 1.8 0.6 1.1 0.2 1.6 0.6 1.9 1.2 1.9 1.4 0.7 1.6 0.1 0.4 0.9 0.7 1.1 0.6 0.4 0.1 1.6-2 2.2 0.3 3.1 2.4 6.5 2.4 2.1 0.6 1.3 0.2 1.9 0.7 1.1 0.6 1.3-0.1 1.9-0.2 1.8-0.5 1.9 0.2 0.8 0.1 0.3 0.1 2.4 1 1.6 1.5 1 0.3 1.9-0.9 1.4-1.1 1.2-1.1 0.1-1 0.3-0.4 0.7-0.5 0.6-2.5 1.2-1.1 0.8-0.2 1.8-0.3 1.8-0.7 0.9-3.8 0.7-2.8-0.3-1.8-0.5-3.7-0.1-6.1 0.6-3.6-2.7-2.3-5.4-3.4-3.5-1.9 0.5-1.7 1.5-1.7 1.1-1.8 0.5-3.5 2.7-3.4 1.5-2.1-2.4-2.4-1.1-1.6 1.3-3 3-3.2 2.1-1.7 0.8-2.2 0.4-2.1-1.2-0.8-0.6-0.8-0.5-1.1-1.4-0.7-1.9-1.3-1.3-1.7-0.4-0.9-3.9-4.7-6.3-0.6-4.7-1.3-3.7-5.2-5-1.8-3 2.6-3.1 2.1-3.6 0.4-6.3 1.3-1.1 1.4-0.7 0.8-1.2 0.8-1.4 2.4-1 2.6 0 2.4-1.8 1.6-2.8 0.6-3.3 0.9-3.1 3.8-3.1 4.9-0.2z" id="TR26" name="Eskisehir">
+  </path>
+  <path d="M397.1 83.1l1.1 1.4 0.7 0.6 6.1 0.6 4.3 2.9 1.8 2.1 2.2 0.7 1.8-0.6 5-3 3.7-0.7 7.7-4.1 1.6-0.6 0.7 0.4 0.5 2.5-1.5 2-1.2 1.4-0.5 1.9 1.7 3 2.8 1 1.5 1.4 1.6 1.2 2 0.4 1.9 0.1 2.4 3.9-0.6 2.5-1 2.5 0.3 2.6 1.2 2.4 0.3 2.2-0.1 2.2 0.6 2.3 1.2 2 0.7 1.5 0.5 1.7 0.4 1.6-0.1 1.6-0.7 0.4-1.1 2.6-1.4 2.4-0.8 0.4-1 0.2-3.8 2.2-4.4-0.4-13.1-4.2-6.4-2.1-1.4-0.9-1.5-0.6-1 0-0.8 0.3-0.6 1.8-0.2 1.6-3.5 0.4-3.1-2.5-0.5-2.1-1-1.6-1.5-0.9-2.1-1.8-0.8-0.4-1.8-1.3-1.5-1.8-1.1-2.2-1.4-1.8-13.9-6.5-3.8-0.6-3.7 0.1 0.7-3.4 0.1-1 0.1-0.8 4.9-2.3 5.6-4.5 2.3-4.2 1.7-1 4.6 0.5 4.6-2.5 2-5.1z" id="TR18" name="Çankiri">
+  </path>
+  <path d="M385.2 52.5l1.6 1.8 2.9-0.4 3.5-1.2 3.5 2.6 1.3 5.6 1.3 3.1-4.6 0.9-2.5 2.5-2.2 3-0.4 2.1 0.9 6.8 2.7 0.4 2.5 1.1 1 1.5 0.4 0.8-2 5.1-4.6 2.5-4.6-0.5-1.7 1-2.3 4.2-5.6 4.5-4.9 2.3 0.1-1.7-1.8-3.3-5.4-2.7-2.2-1.4-1.4-0.2-1.1-0.7 0-1.8 0.3-1.7-4.1-0.9-2.3-0.1 0-5.6 1.5-5.1 0.8-3.3 1.7-2.1 2.5-3.5 5.2 0.2 5-1.3 5.7-4.8 2.1-4.6 2.7-0.8 4.5-4.3z" id="TR78" name="Karabük" style="cursor:pointer;pointer-events:auto" onclick="window.location.href='safran.html'">
+  </path>
+  <path d="M569.8 97.6l-0.8 1.6 0.5 1.9 0.6 0.4 2.1 0.5 2.7 1.6 3.9 1.4 2.5 1.5 3.1 1.3 3.4 0.3 3.3-0.5 3.1 0.3 10.9 7.6 6.4 0.4 1.6 3 0.9 3.8-2.5 4.9-2.8 4.1-1.7 0.7-1.8 0.4-0.7 0-0.6 0.2-1.7 1.3-1.7 1-4 0.6-4-0.2-4.4 0.6-6.3 1.6-1.7 0.8-5.4-0.8-1.8 0.6-1.7 1-1.3 3.6-1 3.7-0.9 2.4-1.5 1.6-7 2.7-7.9 0.4-11.1 2.2-0.5-1.3-0.9-0.9-0.9-1.8 0.1-2.4 0.3-3.5-2-1.9-2 0.6-1.9 0.8-2.3 0.5-2.2 0.2-3.7-0.8-4.4 0.4-3.8-2.6-3.3-3.7 1.9-4 1.4-1.6 2.6-1 0.9-0.3 1.6-0.7 1.4-1.6 1.3-1.9 1.4-2.5 2.1-4.7 1.2-1.5 4-0.3 3.8 1.1 1.2 1 1.3 0.7 1.1 0.3 0.9 0.4 0.8 0.7 0.9 0 2.9-1.4 3.9-2.6 0.7-0.7 0.4-0.1 0.4-0.2 0.3-3.2 3.8-0.8 2.1-3 0-2.4 0.8-2 1.7-2.5-1-2.5-0.8-0.3-0.7-0.6-1-0.9-0.5-1.1 0.6-0.8 0-0.5-0.4 0 0-0.4 1.4-0.7 5.2-1.3 1.6-0.8 0.3-0.4 0.3 0.2 2.5 0.1 1.7 1.1 0.8 1.6z" id="TR60" name="Tokat">
+  </path>
+  <path d="M638.8 118.8l3.9 14.9-0.1 3.5 1.7 2.6 2.7 1.4 2.9 2.2 3 1.8 4.8-1.2 5 1.6 4.8 2.4-0.2 3.1-1 2.4-2.2 0-2.1-0.4-2.5 0.6-2.3 1.6-2.3-0.4-2.2-1.7-2.1 1.2-1.8 5.2 0.4 1.9 3.3-0.1 3.5-0.9 1 1.2-0.5 1.7-1 0.2-0.9 0-1.8 0.9-1.2 2.1-2.3 3.1-0.6 6.4-1.1 2.2 0.6 2.3 1.7 1.6 1.5 1 1.1 1.5-0.4 1-1.7 1.1-0.5 0.5-0.4 0.5-0.4 0.5-0.6 0.1 0.2 0.7 0.1 1.1 0 2 0.6 1.8 0.3 1.8-0.2 1.1-0.1 1.2 0.3 0.9 0.2 1-0.4 2.1-1 1.6-3.7 1.3-3.4 2.6-3.1 0.9-3.2-0.5-1.7 0.3-1.6 0.7-3.7 0.1-1.8 0.9-1.7 1.1-1.8 0.8-1.7 1.1-3.9 0.9-4.1-2-2.1 0.5-1 2.4 0.5 2.9 0.8 2.7 0.6 1.3 0.3 1.3-0.8 2.3-3.4 3.7-2 1.3-1.1 0.4-2.4 2.9-2.4 2.2-2.8 1.3-10.7 0.9-1.2-0.6-1.2-0.7-6.1-0.9-6.3 1.5 0.1-2.5 1.2-2 0.3-0.9 0.2-1 1.9-5.6 1.3-4.8 0.9-2.3 1.1-2.2 2-5.8-1.7-5.4-3.8-2.1-4.1-0.7-4.4 0-4.3 1.4-2.4-0.8-2.3-1.8-7.9-1.1-3.6 1.3-4.7-0.7-4.5-3.3-1.6-0.2-1.5-0.6-0.4-0.5-0.6-1.3-0.4-0.6-2.3-1.2-2.5-0.2 1.8-2.1 2.1-1.6 1.5-2 1.2-2.3 1.4-2.3 1.7-2 4.1-3.2 3.4-3.4 1.4-5.1-0.1-1.4-0.5-1.4-1.6-0.9-2.3-4.1-1.4-4.5 11.1-2.2 7.9-0.4 7-2.7 1.5-1.6 0.9-2.4 1-3.7 1.3-3.6 1.7-1 1.8-0.6 5.4 0.8 1.7-0.8 6.3-1.6 4.4-0.6 4 0.2 4-0.6 1.7-1 1.7-1.3 0.6-0.2 0.7 0 1.8-0.4 1.7-0.7 2.8-4.1 2.5-4.9 2.6 5.1 3.6 2.9 1.7-0.2 1.4-1.1 1.4-1.9 1.7-1.3 4 0.2 1-0.6 0.2-1.1-0.5-0.7 0.1-1.8 0.5-0.8 1.9-0.4 2.2-0.2 1.6-0.8 1.4-1.2z" id="TR58" name="Sivas">
+  </path>
+  <path d="M483.5 71.9l2.5 4.4 0.6 2.3 0.3 2.5 0.7 2.3 3.7-0.4 1.8 0.4 0.4 1.8-0.7 1.6-1 1.2-0.6 1.9-0.2 6.3-0.7 4.1 0.5 1.7 1.9 4.2 1.3 2.2 1.5 1 7.9 1.3 3.6 2.2 1.6 0.3 0.8 0.3 1.2 2.9 0 2.3-1.1 4.5-4.1 6.3-0.5 1.4 0 1.7-0.5 4.2-1.9 0.7-4.6 0.4-0.5 2.8 0.6 0.7-0.1 1-0.5 1.4-0.1 1.2-1.3 1.7-3.7 2.3-2.2 0.2-4-1.2-7.2 3.5-3.8 0.2-1.9-0.2-2.8 1.1-7.3-1.3-4.6 1.5-4.5 2.1-7.5 0.9-2.7 1.3 0-3.2 1.2-2.5 1-1.5 0.2-2.1-0.7-1.8 0-0.7-0.1-0.7-0.9-1-1.2-0.1-1.2-1.2-1.9-4.5-0.6-2.9 3.8-2.2 1-0.2 0.8-0.4 1.4-2.4 1.1-2.6 0.7-0.4 0.1-1.6-0.4-1.6-0.5-1.7-0.7-1.5-1.2-2-0.6-2.3 0.1-2.2-0.3-2.2-1.2-2.4-0.3-2.6 1-2.5 0.6-2.5-2.4-3.9 4.2-0.9 6.7-2.8 1.2-3.1-1.6-1.7-1-0.4-0.9-2.4 0.5-1.2 1.6-2 1.7-4.2 2.2-2 1.1-1.3 1.3-3.4 1.7-2.4 2.5-0.6 1.2 1.6 1.8-0.1 1 0.2 0.8 0.9 1.6 0.3 1.6-0.4 1.4 0.3 1.2 0.9 0.5 0.9 0.8 0.6 5.4 1.7 1-1.2 0.9-0.8 0.2-0.3 0.1-0.5 0.1-1.1 0.1-0.4z" id="TR19" name="Çorum">
+  </path>
+  <path d="M493.1 83.4l14.7 4.2 2.9-0.5 1.6 0.9 6.9 5.3 1.6 2.8 1.6 0.4 3.6-0.2 1.8 0.3 6.3 0.1 3.7 1.8 2-0.5 1.7-1.4 2.2-1.5 1.4-2.5 0.9-2.9 1.9-1.2 1.7 0.6 1.3 1.5 0.6 1.4 0.8 1.4 5.1 3.7-1.4 0.7 0 0.4 0.4 0 0 0.5-0.6 0.8 0.5 1.1 1 0.9 0.7 0.6 0.8 0.3 1 2.5-1.7 2.5-0.8 2 0 2.4-2.1 3-3.8 0.8-0.3 3.2-0.4 0.2-0.4 0.1-0.7 0.7-3.9 2.6-2.9 1.4-0.9 0-0.8-0.7-0.9-0.4-1.1-0.3-1.3-0.7-1.2-1-3.8-1.1-4 0.3-1.2 1.5-2.1 4.7-1.4 2.5-1.3 1.9-1.4 1.6-1.6 0.7-0.9 0.3-2.6 1-1.4 1.6-1.9 4-2.3-0.8-2.5 0.2-2.1-0.2-0.9-0.6-0.4-1.3-0.4-0.2 0.5-4.2 0-1.7 0.5-1.4 4.1-6.3 1.1-4.5 0-2.3-1.2-2.9-0.8-0.3-1.6-0.3-3.6-2.2-7.9-1.3-1.5-1-1.3-2.2-1.9-4.2-0.5-1.7 0.7-4.1 0.2-6.3 0.6-1.9 1-1.2 0.7-1.6-0.4-1.8z" id="TR05" name="Amasya">
+  </path>
+  <path d="M202.3 176.8l1.8 1.4 2.1 0.5 3.4 0.4 3.4-0.1 2.6-1.6 0.3-4.1 1-2.8 2.2-1.6 1.3-5 1-1 0.5-1.4 1-3.7 2.4-1.7 4.9 2 1.6 0.1 1.5-0.2 1.3-0.7 1.5-0.1-0.8 5.2 0.2 2.7 1.7 3.3 0.7 1 1.9 1.2 1.7 0.7 5.2 3.8 2.1 0.5 3.7-1 3.6-0.4 1.8-0.5 1.8 3 5.2 5 1.3 3.7 0.6 4.7 4.7 6.3 0.9 3.9-3.3 5.1-5.7 2.6-0.9 2.5-0.7 2.7-1.3 2.6-1.3 4.1-1.9 3.2-1.4 1.8-9.8 5.9 0-6.3-2.2-2.6-1.4-0.6-5.9-1.4-3 0.1-1.4 0.4-1.2 0.7-0.8 3.5-1.2 2.8-2.7 0.2-6 1.7-3.4 0.1-3.2-0.4-2.9-1.9-2.8 0-2.6 2.3 0.2-3.9-1-2.8-1.5-2.9 0.4-3.7-0.3-1.1-0.5-1-3.1-4.7-1.3-1-7.2-1.5-1-0.8-2.4-2.7 0.4-0.6-0.2-1.5-0.2-0.8 0.4-2.1 1.8-0.9 3.5-1.2 1.6-1.1 1.4-2.6 0.4-0.9 1.1-1.4 1.1-1.8 0.6-4.3 0.6-1.8 0.6-0.6 0.3-0.7 0-1.2 0.3-1.2 0.9-1.8z" id="TR43" name="Kütahya">
+  </path>
+  <path d="M368 352.8l0.4-4-0.8-4-1-1.4-1.5-0.3-2.2-0.2-2-0.8-0.7-1.6 0.5-1.8 1.2-0.9-0.2-1.9-1.5-0.9-1.8-0.8-3.2-3-1.4-1-1.4-1.3-2.1-3-2.4-2.5-3.3-2.3-3-2.8-4-2.6-12.2-2.6-4.7 0-2.1-0.8-1.8-1.5-1.2-1.2-1-1.3 1.3-3.3 0.4-3.6-0.6-2.2-1.2-1.8 0-2.1 2.1-0.6 1.5-2 0.2-2.8 2-3.1-0.1-4.7-1.1-4.7 1-4 1.6-0.9 3.3-1.3 3-1.9 0.4-2-3.5-3-1.1-1.6-1.6-0.7-3.3-2.8-2.9-3.7-3.7-3-1.3-4.5 8.3-5.5 3.7-3.8 4.1-5.4 0.2-1.4-0.2-1.2-0.1-1.2 0.8-3.3 1.4-2.9 3.6-6 0.4-2.4-0.8-0.5-1.5-1.5 0.2-0.8 0.3-0.8 0.6-4 2.8 0.3 3.8-0.7 0.7-0.9 0.3-1.8 0.2-1.8 2 0.9 2.1 1.3 6.8 5.7 1.7 0.5 5-1.5 2.4-0.3 4 1.4 1.6 0.9 1.7 1.6 2 0.2 2.8-2.4 3-1.4 3.6 1.5 2.1-1.2 1.8-2.3 4.8-4 2.3 0.7 2.7 2.2 2.1 0.3 0.7-1.1 0.4-3.2 0.5-1.6 0.9-1.3 2 0 2.1 1.6 0.8 0.5 2.7 0.8 4.7 3.4 2.5 5.9 0.3 3.3-0.2 3.3-0.6 3.6 0.1 3.5 1 2.5 1.3 2.3 1.5 2.2 1 2.4-0.9 1.7-2.7 3.1-1.1 2-0.7 4.8-1.7 2.6-1.1 3.2-0.3 2.3-0.7 2-0.4 5 1.8 4.6 0.6 0.5 0.5 0.6 0.4 2.5 0.7 2.3 3.2 4 1.9 1.8 2.1 0.1 5.6-1.2 7.4-0.5 3.8 0.1 3.7-0.9 3.7-1.5 3.6-0.8 3.5 0.6 0.7 3.1 1.5 2.4 2.3 0.9 2.2 1.2 1.8 2.6 1.7 2.9 1.9 1.8 1.5 2.2 0.5 3.4-1.1 3.1-1.1 1.3-0.7 1.6-0.3 2.7 0 1.7 1.8 2.6 1.2 1 1.8 1.9 1.1 2.6-0.6 1.9-0.9 0.6-2.5 0.9-1.4 0.7-2.1 2.1-2.7 1.3-4.2 1.5-1.3 0.8-1.6 1.9-1.1-2.3-3.2-5.4-2.8-3.1-3.9-4.1-5.3-5.9-1.1-3.8 0.2-0.9-0.4-3-1.9-0.7-4.7-0.2-2.2 1.4-1.4 1.8-2.3 3.1-4.8 1.8-7.4 0.5-7.1 0.9-4.5 1.8-2.5 2.8-5.6 6.2-5.7 7.9-4.5 5.8-1.2 4 0.3 2.1 2.9 1.3 2.9 0.2 0.7 1.6-0.2 1.8-1.4 2.2-6.8 6.7-5.4 4.1z" id="TR42" name="Konya">
+  </path>
+  <path d="M377.3 366.7l-0.9-1.9-1.9-1-1.6-1.1-1.3-1.6-1.9-4-1.7-4.3 5.4-4.1 6.8-6.7 1.4-2.2 0.2-1.8-0.7-1.6-2.9-0.2-2.9-1.3-0.3-2.1 1.2-4 4.5-5.8 5.7-7.9 5.6-6.2 2.5-2.8 4.5-1.8 7.1-0.9 7.4-0.5 4.8-1.8 2.3-3.1 1.4-1.8 2.2-1.4 4.7 0.2 1.9 0.7 0.4 3-0.2 0.9 1.1 3.8 5.3 5.9 3.9 4.1 2.8 3.1 3.2 5.4 1.1 2.3-3.3 1.3-3.6 0.3-1.7 0.7-4.6 3.5-3.5 0.7-1.7 0.9-1.2 0.1-1.6-0.5-3.9 0.4-3.8 1.5-6 0.5-2 0.6-1.7 1-1.5 1.4-1.6 1.1-1.8 0.6-1.5 1.9-0.6 2.6-1 1.7-1.7-0.4-0.4-0.7-0.1-0.5-0.6-0.3-1.4 0.5-2.1 1.4-0.8 0.3-1.8 0.3 0.1 1.9 1 1.2 0.8 1.4 0.4 1.7 0.7 1.6 1.2 0.5 0.9 1.2 1 0.8 2.5 0.7 2.2 1.6 1.1 1.8-1.2 1.6-1.8-0.7-1.7-0.9-0.7 0.1-0.7 0.3-0.7 1.9-0.5 2.1-1.2 1.2-1.5 0.2-2.9-0.1-2.8 0.6-2.7 1.3-2.9 0-3.1-0.8-3.1 0.4z" id="TR70" name="Karaman">
+  </path>
+  <path d="M478.9 310.3l-3.3-0.8-3.3 1.4-1.5 0.9-1.6 0.6-3.5 0.1-1.1-2.6-1.8-1.9-1.2-1-1.8-2.6 0-1.7 0.3-2.7 0.7-1.6 1.1-1.3 1.1-3.1-0.5-3.4-1.5-2.2-1.9-1.8-1.7-2.9-1.8-2.6-2.2-1.2-2.3-0.9-1.5-2.4-0.7-3.1 15.7-23.4 2.7 0.4 4.1-1.2 2.7-0.1 1.3 0.7 2 2 2.4 0.7 5-1.9 3.3 9.2 2.8 2.9 7.7 0.1 1.3 4.1-0.5 2.5 0.3 2.6 0.9 2.1 0.5 2.2-2.2 1.4-0.2 3.1-0.8 3.6-6.2 6.3-4.7 0.8-2.4-0.8-2.4-0.2-1.5 2.2 0.2 3 1.2 3 0.3 1.7-0.7 2.5-0.7 0.7-0.7 0.6-1.2 1.9-0.2 1.3 0 2.8z" id="TR51" name="Nigde">
+  </path>
+  <path d="M560.3 254.1l-2-2.1-1.2-3.2-1.8-2.8-2.5-1.1-3.8 1-3.7 2.1-2 1.7-2.1 5-1.3 1.9-2 4.1-2.6 3.5-17.6 12.2 1 11-2.5 1.2-5.8-2.3-4.3-1.1-8.2-0.7 0.8-3.6 0.2-3.1 2.2-1.4-0.5-2.2-0.9-2.1-0.3-2.6 0.5-2.5-1.3-4.1-7.7-0.1-2.8-2.9-3.3-9.2 1.3-2.6 1.9-2 4.2-6.7 0.2-2.9-0.5-2.8 0.2-2.8-3.3-4.3-2.2-4.4 1.3-3.1 1-3.3 0-1.5 0.1-1.5 0.5-1.3 0.7-1.1 10.7 1.7 5.4-3.4 2.1-0.7 15.4-10 4-5.6 2.5 0.2 2.3 1.2 0.4 0.6 0.6 1.3 0.4 0.5 1.5 0.6 1.6 0.2 4.5 3.3 4.7 0.7 3.6-1.3 7.9 1.1 2.3 1.8 2.4 0.8 4.3-1.4 4.4 0 4.1 0.7 3.8 2.1 1.7 5.4-2 5.8-1.1 2.2-0.9 2.3-1.3 4.8-1.9 5.6-0.2 1-0.3 0.9-1.2 2-0.1 2.5-1.6 1-0.9 1.9-0.6 3.2-1.5 2.4-3.7 4.3-1.5 2.2-1.7 1.8z" id="TR38" name="Kayseri">
+  </path>
+  <path d="M314.6 308.3l-2.5-0.4-2.4 0.9-2.2 1.6-2.6 0.4-4.9 1.7-4.2-1.7-0.7-1.7-1-1.4-1.4-0.2-0.7 0.1-0.9-1.1-0.4-1-2.9-4.4-1.3-2.9-1.6-4.8-2.8-1.8-3 0.1-3.3-0.6-2.1-1.6-1.8-2-2.2-3-2.3-1.6-2.2 2.3-1.3 0.9-1.4 0.7-5.2 3.8-1.8 0.8-1.8-0.6-0.9-1.8-0.7-2 3.7-0.1 3.4-1.9 1.6-2.9 0.6-6.2 1-1.9 3.2-1.9 4.3-4.2 1.9-1.1 2.4-2.2 2.4-2.7 1.7-0.7 1.9-0.5 2.6-2.2 1-0.2 1.1-0.1 3.6-1.4 3-2.8 2.9-3.4 5.9-4.8 2.4-2.6 0.9-0.8 1.2 0.2 0.9 0.6 0.9 0.7 2.1 3.1 1.1 0.7 1.2 0.3 1.3 4.5 3.7 3 2.9 3.7 3.3 2.8 1.6 0.7 1.1 1.6 3.5 3-0.4 2-3 1.9-3.3 1.3-1.6 0.9-1 4 1.1 4.7 0.1 4.7-2 3.1-0.2 2.8-1.5 2-2.1 0.6 0 2.1 1.2 1.8 0.6 2.2-0.4 3.6-1.3 3.3z" id="TR32" name="Isparta">
+  </path>
+  <path d="M128.9 189.6l3.6-1.9 2.2 1 2.1 1.7 3.3 1 3.3-0.5 2 0.2 1.9 0.9 0.7 0.1 1.5-0.3 0.8 0 1.2 1.9-1.4 2.6-0.6 2.1 1.9 0.9 3.5-1.3 0.8 0.4 0.3 0.9 3.9 4.3 2.5 5.5 2.1 0.7 2-0.8 2.1-0.4 1.8-1.1 1.3-1.7 1.9-0.4 2 0.2 1.8-0.2 1.8-0.5 4.4-2.2 4.1 0.6 2.4 2.7 1 0.8 7.2 1.5 1.3 1 3.1 4.7 0.5 1 0.3 1.1-0.4 3.7 1.5 2.9 1 2.8-0.2 3.9-1.7 1.7-3.7 2.9-0.5 1.2-1.4 1.6-1.4 0.5 0.2 2.1 1.3 0.5 1.1 1.3 0.2 1.4 0 1.4 0.4 3-0.3 2.8-0.7 1.9-0.9 1.5-1.3 1.2-0.5 0.9 1.2 0.9 1.5 0 1.7 2-4.4 1-2.1 4.1 0.2 1.6-0.6 1.5-2 0.9-2.1 0-6.5-0.1-2.1-3.2-2-6.2-1.3-1.7-2.1-0.6-1.1-0.1-1.7-0.5-0.9-1.1-1.3-0.2-1.8 0.6-4.6 0.7-1.3-3-2-2.1-1.4 0.4-1.4-0.1-2.3-1-2.3-0.1-0.8 1.9-1.1 2-2.4 0.6-2-1.9-0.4-0.9-0.5-1.9-0.4-0.9-3.7-1.7-3.3-2.3-0.8-3.4-1.5-1.4-0.9-0.2-5.4 0.2-3.3-0.3-2.8-2.5-1.3-4.2-1.1-1.4-0.7-0.3-1.3-1.3 0.2-1.3 1.3-2.2 1.5-1.5 0.8-2 0.3-2.4 0.6-2.2 2.6-1.8 3-1.2 3.1-2.6 1.3-1.5 0.3-3.2-1.7-3.3-0.8-2.2-1.6-7.4-1.8-4.7z" id="TR45" name="Manisa">
+  </path>
+  <path d="M185.3 305l-0.2-0.9-0.4-0.8-0.5-0.4-0.5-0.2-0.6-2.2 1-2.2 3.3-1 3.7 0.4 2.5-2.4 2.2-3.1 1.9-0.1 1.4-1 0.2-1.7-0.5-1.4-3-0.6-1-1.5-0.8-1.6-1-1.4 0.1-1.5 1.1-0.8 0.4-1.3-0.7-3.6 0.1-2.1-0.6-1.7-2.7-1.9-0.6-1.3-0.5-1.4 2.1 0 2-0.9 0.6-1.5-0.2-1.6 2.1-4.1 4.4-1 2.9 0.6 2.5 1.6 2.7 0 2.4-1.7 1.7 0.3 1.5 1.7 1.6 0.1 1.5-0.5 0.7-0.4 0.6-0.3 1.2 0.8 0.5-0.1 0.7-1.2 0-0.7 2.4-1.9 3.4 0.4 3.6-0.1 1.7-0.5 1.5-1.4-0.4-3.6 0.5-3.6 5.9-1.3 6.5 1.5 5.1 8.6 1.3 1.5 0.7 4-1.3 1.5-12.8 9.6-1.5 0.8-1.5 0.6-0.7 1.8-0.1 6.1 1.2 0.5 2.2-0.1 0.6 0.3 1.3 0.7 0.7 0.2 0.5 0.4 2.2 3.7-3.4 2.8-2 1.2-0.7 0.3-1.4 0.8-0.6 1.3-0.5 1.3-6 3.3-0.1 1.5 0.5 1.7-0.1 2.4 0.6 2.2 0.4 0 0.2 0 0.3 0.3 0.3 0.4 0.2 0.9-0.1 0.5-2.1 4.2-4.7 7-1.3 2.9-0.8 3.1-0.4 3.2-2.2 1.8-0.3 3.9-0.6 1.5-0.9 1.3-1.7 0.8-4.7-2.6-2.6-0.2-1.2-1.1-0.2-1-0.1-1.9-0.4-2.3-0.7-2.3-2.8-2.8-3.5-1.6-0.6-0.6-0.8-1.6-0.6-0.6-3.5-0.6-1.6-2.3-0.7-2.7-1.4-2.5-2.2-0.9-1.7 0-1.2-0.4-0.5-1.8 0-1.7 0.2-1.2-0.6-1z" id="TR20" name="Denizli">
+  </path>
+  <path d="M236.6 338.5l-4-5.6-5.7 0.8-2.3 2.9-1.9-0.7 0.8-3.5-1.1-3 0.4-3.2 0.8-3.1 1.3-2.9 4.7-7 2.1-4.2 0.1-0.5-0.2-0.9-0.3-0.4-0.3-0.3-0.2 0-0.4 0-0.6-2.2 0.1-2.4-0.5-1.7 0.1-1.5 6-3.3 0.5-1.3 0.6-1.3 1.4-0.8 0.7-0.3 2-1.2 3.4-2.8 3.8-1.4 4.2 0.3 0.7 2 0.9 1.8 1.8 0.6 1.8-0.8 5.2-3.8 1.4-0.7 1.3-0.9 2.2-2.3 2.3 1.6 2.2 3 1.8 2 2.1 1.6 3.3 0.6 3-0.1 2.8 1.8 1.6 4.8 1.3 2.9 2.9 4.4 0.4 1 0.9 1.1 0.7-0.1 1.4 0.2 1 1.4 0.7 1.7-3.3 2.9-0.9 2.6-2.9 3.1-1.8 0.5-3.7 0-4.3-0.5-6.6 0.3-1.1-0.4-2.9-3.6-2.9-0.4-7 3-2.9 0.5-8.6 4.4-2.6 3.6-0.7 4.4-1.9 3.5-1.3 1.3-1.1 1.6-1.3 0.7-1.4 0.2z" id="TR15" name="Burdur">
+  </path>
+  <path d="M416 234.6l4.1-1.1 3.9-2.2 4.2-1.2 4.2 0.2 1.8-0.9 4-3.8 0.1-3.6-1.9-5.1 1.6-4.1 0.7 1 1.9 0.4 1.1-0.1 1.8 0.8 0.7 2.5 1.9 1.6 2.4-1.4 1-0.3 2 0.3 1-0.2-0.5 2.5 1.6 5.4-0.8 3.1-1.7 2.7 0.7 3.1 2.2 1.4 2.4 0.7 2-0.4 1 0.3 0.4 2.8-1.4 3.1 0 2.9 0.9 0.8 1.9 1.5 1.6 1.7 1.8 1.1-15.7 23.4-3.5-0.6-3.6 0.8-3.7 1.5-3.7 0.9-3.8-0.1-7.4 0.5-5.6 1.2-2.1-0.1-1.9-1.8-3.2-4-0.7-2.3-0.4-2.5-0.5-0.6-0.6-0.5-1.8-4.6 0.4-5 0.7-2 0.3-2.3 1.1-3.2 1.7-2.6 0.7-4.8 1.1-2 2.7-3.1 0.9-1.7z" id="TR68" name="Aksaray">
+  </path>
+  <path d="M484.8 250.7l-5 1.9-2.4-0.7-2-2-1.3-0.7-2.7 0.1-4.1 1.2-2.7-0.4-1.8-1.1-1.6-1.7-1.9-1.5-0.9-0.8 0-2.9 1.4-3.1-0.4-2.8-1-0.3-2 0.4-2.4-0.7-2.2-1.4-0.7-3.1 1.7-2.7 0.8-3.1-1.6-5.4 0.5-2.5 5.3 4.5 1.9-0.5-0.2-1.4-0.5-2.7 1-3.3 5.7-2.4 2.6-1.6 3-1.3 1.9-2.6-1-2.3-1.4-2.5 0.6-4-0.6-3.1-1-1.9-0.4-2.2 0.2-1.4 1-0.6 3 0.8 2.8-0.5 0.7 0.2 1.4 0.6 0.4 0.8 0.2 1.3 0.4 1.2 1.2 1.4 1.5 0.8 1 1.9 0.6 2.4 3.8 2.4 1.1 1.9-0.5 1.4 0.2 1.4 0.4 1.3 0.7 1.5 0.7 1.5-0.7 1.1-0.5 1.3-0.1 1.5 0 1.5-1 3.3-1.3 3.1 2.2 4.4 3.3 4.3-0.2 2.8 0.5 2.8-0.2 2.9-4.2 6.7-1.9 2-1.3 2.6z" id="TR50" name="Nevsehir">
+  </path>
+  <path d="M513 139.7l3.3 3.7 3.8 2.6 4.4-0.4 3.7 0.8 2.2-0.2 2.3-0.5 1.9-0.8 2-0.6 2 1.9-0.3 3.5-0.1 2.4 0.9 1.8 0.9 0.9 0.5 1.3 1.4 4.5 2.3 4.1 1.6 0.9 0.5 1.4 0.1 1.4-1.4 5.1-3.4 3.4-4.1 3.2-1.7 2-1.4 2.3-1.2 2.3-1.5 2-2.1 1.6-1.8 2.1-4 5.6-15.4 10-2.1 0.7-5.4 3.4-10.7-1.7-0.7-1.5-0.7-1.5-0.4-1.3-0.2-1.4 0.5-1.4-1.1-1.9-3.8-2.4-0.6-2.4-1-1.9-1.5-0.8-1.2-1.4-0.4-1.2-0.2-1.3-0.4-0.8-1.4-0.6-0.7-0.2-1.3-2.9-2-1.8-2.4-0.4-2.1-1.4-6.6-8-0.6-1.3-0.4-1.4-0.9-1.3-3.7-0.1-2.2-0.7-2.4-2.7-2.5-2.3-2.6-0.1-0.9-0.8-1-1-0.5-1.3 0.2-1.3-0.2-1.3-0.5-1.2 2.7-1.3 7.5-0.9 4.5-2.1 4.6-1.5 7.3 1.3 2.8-1.1 1.9 0.2 3.8-0.2 7.2-3.5 4 1.2 2.2-0.2 3.7-2.3 1.3-1.7 0.1-1.2 0.5-1.4 0.1-1-0.6-0.7 0.5-2.8 4.6-0.4 1.9-0.7 0.4 0.2 0.4 1.3 0.9 0.6 2.1 0.2 2.5-0.2 2.3 0.8z" id="TR66" name="Yozgat">
+  </path>
+  <path d="M438 212.8l0.4-2-3-1.1-0.6-0.7-1.6-0.6-2.5-0.2-1-0.7-0.7-1.2-0.7-0.6-0.8-0.3-2.4-2-5.4-3.4-0.9-3.4 5.3-9.3 7.7-6.3 3.3-5.2 2.1-6.3 7.6-7.3 1 1 0.9 0.8 2.6 0.1 2.5 2.3 2.4 2.7 2.2 0.7 3.7 0.1 0.9 1.3 0.4 1.4 0.6 1.3 6.6 8 2.1 1.4 2.4 0.4 2 1.8 1.3 2.9-2.8 0.5-3-0.8-1 0.6-0.2 1.4 0.4 2.2 1 1.9 0.6 3.1-0.6 4 1.4 2.5 1 2.3-1.9 2.6-3 1.3-2.6 1.6-5.7 2.4-1 3.3 0.5 2.7 0.2 1.4-1.9 0.5-5.3-4.5-1 0.2-2-0.3-1 0.3-2.4 1.4-1.9-1.6-0.7-2.5-1.8-0.8-1.1 0.1-1.9-0.4-0.7-1z" id="TR40" name="Kirsehir">
+  </path>
+  <path d="M205.4 229.4l2.6-2.3 2.8 0 2.9 1.9 3.2 0.4 3.4-0.1 6-1.7 2.7-0.2 1.2-2.8 0.8-3.5 1.2-0.7 1.4-0.4 3-0.1 5.9 1.4 1.4 0.6 2.2 2.6 0 6.3-0.3 2.5-0.7 2.3-2.9 2.8-0.6 2.4-0.9 2.5-1.1 1.4 0.1 1.7-5.9 1.3-0.5 3.6 0.4 3.6-1.5 1.4-1.7 0.5-3.6 0.1-3.4-0.4-2.4 1.9 0 0.7-0.7 1.2-0.5 0.1-1.2-0.8-0.6 0.3-0.7 0.4-1.5 0.5-1.6-0.1-1.5-1.7-1.7-0.3-2.4 1.7-2.7 0-2.5-1.6-2.9-0.6-1.7-2-1.5 0-1.2-0.9 0.5-0.9 1.3-1.2 0.9-1.5 0.7-1.9 0.3-2.8-0.4-3 0-1.4-0.2-1.4-1.1-1.3-1.3-0.5-0.2-2.1 1.4-0.5 1.4-1.6 0.5-1.2 3.7-2.9 1.7-1.7z" id="TR64" name="Usak">
+  </path>
+  <path d="M667.5 148l2 0.1 4.2-0.3 1.9-0.9 1.3 0.8 1.4 0.6 1.4 0.3 1.4 0.3 5.2 3.1 1.8 0.7 1.8 1.1 0.7 1.1 0.8 0.8 2.9 0.9 2.8 1.4 2.9 0.3 2.8-0.3 2.8 0.2 2.7-0.2 2.6-1.3 5.3-1.3 2.1-2.2 1.8-2.7 2.5-1 2.7 0.3 2.4-0.3 1.9-1.8 2.3-0.8 7.7 1.5-1.4 3.3-0.4 3.6 2.5 1.3 8.1 0.1 3.2 4.2-0.1 1.8 0.2 1.7 0.7 1.2 0.8 1.1 1.8 1.4 2 0.8 1.6 1.8-1.1 2.6-1.7 3.1-0.1 3.9-3.1-1.1-3.9-0.1-3.8-0.6-7.1-0.2-0.9-0.5-1.8-0.7-0.5 0-0.2 0.2-1.5 0.4-1.8 0.9-1 0.1-4.4 1.6-3.7-1-2.5-1.5-1.8 0.6-2.2 2.7-3.3 1.1-7.2 1.1-3.8 0.1-3.6-1-3.7-0.2-1.9 1-2 0.5-2.4-0.4-2.5 0.5-4.7 1.8-1.3 1-0.9 1.7-1.2 0.6-1.3-0.1-0.7 1-0.6 1-0.5 0.3-2.9 1.1-0.7 1.9 0.6 1.9 0.7 1.1-1.3 0.8-1.3 0.3-1.1 0.7-0.7 3.5-1.1 0.5-0.2 0-0.4 0.4-0.2 1.4 0.2 1.4 0.4 0.3 0.4 0.4 0.4 3.8-1.5 0.3-1.2 0.6-3.1-3.6-2-1.2-2.2-0.9-4.5-0.2-3.7-1.9 1-1.6 0.4-2.1-0.2-1-0.3-0.9 0.1-1.2 0.2-1.1-0.3-1.8-0.6-1.8 0-2-0.1-1.1-0.2-0.7 0.6-0.1 0.4-0.5 0.4-0.5 0.5-0.5 1.7-1.1 0.4-1-1.1-1.5-1.5-1-1.7-1.6-0.6-2.3 1.1-2.2 0.6-6.4 2.3-3.1 1.2-2.1 1.8-0.9 0.9 0 1-0.2 0.5-1.7-1-1.2-3.5 0.9-3.3 0.1-0.4-1.9 1.8-5.2 2.1-1.2 2.2 1.7 2.3 0.4 2.3-1.6 2.5-0.6 2.1 0.4 2.2 0 1-2.4 0.2-3.1z" id="TR24" name="Erzincan">
+  </path>
+  <path d="M666.7 210.6l-0.4-3.8-0.4-0.4-0.4-0.3-0.2-1.4 0.2-1.4 0.4-0.4 0.2 0 1.1-0.5 0.7-3.5 1.1-0.7 1.3-0.3 1.3-0.8-0.7-1.1-0.6-1.9 0.7-1.9 2.9-1.1 0.5-0.3 0.6-1 0.7-1 1.3 0.1 1.2-0.6 0.9-1.7 1.3-1 4.7-1.8 2.5-0.5 2.4 0.4 2-0.5 1.9-1 3.7 0.2 3.6 1 3.8-0.1 7.2-1.1 3.3-1.1 2.2-2.7 1.8-0.6 2.5 1.5 3.7 1 4.4-1.6 1-0.1 1.8-0.9 1.5-0.4 0.2-0.2 0.5 0 1.8 0.7 0.9 0.5 7.1 0.2 3.8 0.6 3.9 0.1-1.8 2.3-2.4 1.1-1.3-0.1-2.2-0.4-0.8 0.7-1.3 2.7-2.2 1.6-2.3 0-2.2 0.8-0.4 1.2-0.4 1-0.7 0.3-3.3-0.2-2.4 0.8-0.7 1.2-0.2 3-0.6 1.6-0.2 1.6 1 4.6-0.4 2.1-0.8 1.9-2.6 0.1-2.3 0.6-0.9 0.6-0.7 1 0.5 2.3 0.3 2.2-0.7 2.9-1.3 2.6-2.9 3.2-4.4 1.7-4.6 0.4-1.7-0.2-1.7 0.4-1.2 1.5-1.4 1.1-1.2-0.4-1.2-0.6-0.8 0.2-0.4 0.1-1.1-1.3-0.9-0.7-2.1-0.6-2-1.5-2.2-1-2-0.2-1.9-0.6-1.5-0.1-1.5-0.9-0.5 0-0.9 0.2-0.5 0.1-2-0.9-3.7 0.3-3.7 1-1.4-0.1-2-2 0-1.7 0.7-1.6-0.1-1.8-1.8-2.7z" id="TR62" name="Tunceli">
+  </path>
+  <path d="M272.4 200.3l1.7 0.4 1.3 1.3 0.7 1.9 1.1 1.4 0.8 0.5 0.8 0.6 2.1 1.2 2.2-0.4 1.7-0.8 3.2-2.1 3-3 1.6-1.3 2.4 1.1 2.1 2.4 3.4-1.5 3.5-2.7 1.8-0.5 1.7-1.1 1.7-1.5 1.9-0.5 3.4 3.5 2.3 5.4 3.6 2.7 6.1-0.6 3.7 0.1 1.8 0.5-0.6 4-0.3 0.8-0.2 0.8 1.5 1.5 0.8 0.5-0.4 2.4-3.6 6-1.4 2.9-0.8 3.3 0.1 1.2 0.2 1.2-0.2 1.4-4.1 5.4-3.7 3.8-8.3 5.5-1.2-0.3-1.1-0.7-2.1-3.1-0.9-0.7-0.9-0.6-1.2-0.2-0.9 0.8-2.4 2.6-5.9 4.8-2.9 3.4-3 2.8-3.6 1.4-1.1 0.1-1 0.2-2.6 2.2-1.9 0.5-1.7 0.7-2.4 2.7-2.4 2.2-1.9 1.1-4.3 4.2-3.2 1.9-1 1.9-0.6 6.2-1.6 2.9-3.4 1.9-3.7 0.1-4.2-0.3-3.8 1.4-2.2-3.7-0.5-0.4-0.7-0.2-1.3-0.7-0.6-0.3-2.2 0.1-1.2-0.5 0.1-6.1 0.7-1.8 1.5-0.6 1.5-0.8 12.8-9.6 1.3-1.5-0.7-4-1.3-1.5-5.1-8.6-6.5-1.5-0.1-1.7 1.1-1.4 0.9-2.5 0.6-2.4 2.9-2.8 0.7-2.3 0.3-2.5 9.8-5.9 1.4-1.8 1.9-3.2 1.3-4.1 1.3-2.6 0.7-2.7 0.9-2.5 5.7-2.6 3.3-5.1z" id="TR03" name="Afyonkarahisar">
+  </path>
+  <path d="M418.8 196.6l-3.8-7.4-1.9-8.8-1.3-2.3-3.8-4.6-1.2-5.3 1.4-5.2 1.2-5.2 2.2-5.3 3.5-1.5 5.5-0.6 0.6-3.6-0.3-3.7 0-4.2 0.6-3.5 0.6-5.1 13.1 4.2 4.4 0.4 0.6 2.9 1.9 4.5 1.2 1.2 1.2 0.1 0.9 1 0.1 0.7 0 0.7 0.7 1.8-0.2 2.1-1 1.5-1.2 2.5 0 3.2 0.5 1.2 0.2 1.3-0.2 1.3 0.5 1.3-7.6 7.3-2.1 6.3-3.3 5.2-7.7 6.3-5.3 9.3z" id="TR71" name="Kinkkale">
+  </path>
+  <path d="M613.5 302.5l-0.1 1.8 0.3 1.7-0.6 2.7-2 1.4-3-0.1-3 0.4-6.3 2.2-6 1.1-2.6 1.3-4.3 4.6-3.7-1.2-1.3-5.3-2.3-1.5-2.3 3.1-5.7 2.6-2.1-3.1-2.6-2.4-1.6-1.1-1.8-0.5-3.9 0.8-1.3 0.3-1.8 0.6-1.6 0.3-0.8-0.9-0.6 0.3-0.5 0.2-0.5 0.2-0.3 0.6-0.5 0.1-1.9-2.4-0.3-4-0.5-0.7-0.6-0.7-0.6-1.7 0.4-1.8 1.3-1.4 1.1-1.8 0-4.7 1.3-1.7 0.9-0.5 1.6-1.6 0.1-2.4-1.5-3.7-0.3-2.9 0.1-1.8 0.6-4 1.4-3.8 2.4-10.7 1.5-3.8 2.6-2.5 1.7-1.8 1.5-2.2 3.7-4.3 1.5-2.4 0.6-3.2 0.9-1.9 1.6-1 6.3-1.5 6.1 0.9 1.2 0.7 1.2 0.6 10.7-0.9-2.8 4.7 0.6 3.6 0.8 0 1.8-0.4 0.9-0.1 7 1.5 6.1 3.6 3.2 1 3.7 1.7 2.4 4.1-0.3 2.5-2.6 6.9-0.3 1.8-0.9 1.4-0.7 0.8-1.1 1.8-2.5 8.8-1.9 3.6-2.3 2.9-2.7 2.3-1.8 2.4-0.1 3.5 1.7 2.8 2.8 1 5.2 3.2z" id="TR46" name="K. Maras">
+  </path>
+  <path d="M841.7 182.8l1.4 3.8 1.9 3.4 1.5 1.4 1.5 1.7 0.8 1.7 1.2 1.2 1.7 2.5-0.2 4 0.2 0.8 0.1 0.9-0.5 2.4-0.4 3 0.2 3.2-3.5 2.8-3.9 1.5-7.7-0.9-1.7 0.6-1.5 1.1-1.9 0.8-2.1 0.2-0.9 0.7-0.6 2.8-1 0.9-4.2-0.1-0.9 2.2 1.5 2.4 0.3 2.6-2 1.7-2.8 3.1-3.3 1.9-8.1-0.6-7.3 2.8-0.5 0.8-2.7 0.3-2.6 0.9-1.4-0.5-0.6-1.6 0.6-2.5-0.6-2.4-3.2-2.3-2.4-3.2-0.3-1.6-0.6-1.4-1-0.9-0.6-0.2-1-1.4-1-3.5 1.4-4.8 3.3-4.1 0.6-2.4-0.3-2.7-1.3-2.4-0.9-0.9-1.1-1.9 0.1-1.9 0-1-0.4-1.1-0.3-0.5-0.8-1.8 0.3-1.4 1.3-2.4 7.6-1.3 3.8 0.9 1.8 1.2 4.6 4.6 2.8 3.9 1.1 1 4.1 1.6 4.1 0.2 1.8-1.4 2-1.2 5.8-1 1.5-1.3 0.9-1.1 3.2-2 1.4-2.3-0.3-2.8 1-2.7 6.5-3.3 1.8-0.1 1.8-0.3 0.9-0.3z" id="TR49" name="Mus">
+  </path>
+  <path d="M834.5 93.6l1 4.9 2.4 3.7 1.8 1.2 1.3 1.7 1 2.4 1.4 2.1 1.9 1.9 1.4 2.6-0.3 2.1-0.7 2.2 1.1 6.2-1.9 1.2-2 0.9-1.6 1.1-1.5 1.2-3 1.7-6.9 2.4-1.5 3.3 1.7 2 1 1.7 1.1 1.3 4.1 0.7 1.5 0.5 1.4 1 0.8 1.1 0.6 1.3 0.8 0.6 1 0.3 1.9 0.8 1.2 1.9 1.1 2.5 1.4 2.3-1.3 1.5-1.6 0.9-1.2-0.1-0.6 0.1-1.2 0.5-1 1.5-1.7 0.6-3.6-0.6-1.7 0.7 3.9 4.7 6.7 2.8-0.6 0.4-0.5 1.7 0.1 8.3-0.5 2.9-1.5 2.5-0.9 0.3-1.8 0.3-1.8 0.1-6.5 3.3-1 2.7 0.3 2.8-1.4 2.3-3.2 2-0.9 1.1-1.5 1.3-5.8 1-2 1.2-1.8 1.4-4.1-0.2-4.1-1.6-1.1-1-2.8-3.9-4.6-4.6-1.8-1.2-3.8-0.9-7.6 1.3-2-3.5-2.1-2.5-2.9-0.3-3.5-1.7-4.6-4.3-1.5-0.9-1.4 0.7-1.4 1-4.2 1.9-4.2-0.6 0.1-3.9 1.7-3.1 1.1-2.6-1.6-1.8-2-0.8-1.8-1.4-0.8-1.1-0.7-1.2-0.2-1.7 0.1-1.8-3.2-4.2-8.1-0.1-2.5-1.3 0.4-3.6 1.4-3.3 7.8 1 1.7-0.3 2.1-1.6 2-2 2.7-1.3 5.9-2.1 1.3-1.7 1.2-2.2-0.2-1.2-3.1-0.3-1.4-0.6-3.1-0.7-2.9-1.7-1.2-3.8-1.4-8.5-1.5-3.8 7.7-3.8 1.9-0.6 1.9-0.2 2.9-0.8 1.4-3.6 1.7-0.7 2.1 0 2-0.7 5.1-4.4 3.6-2.1 3.7 2.1 5.9 0.9 1.7 0.6 0.4 2.1-1.3 2.2-0.6 5.3 3.2 2.9 4.4-1.7 4-2.6 3.7-1.1 3.8 1.1 4 2.3 2.2-3.3 0.1-2.8 0.9-2.5 1.9-1.9 1.2-2.5-0.3-2.7 0.6-2.5 1.5-1.3 1.6-0.8 3.2-0.3 3.3 0.3 2.8-0.6 2.8-0.3z" id="TR25" name="Erzurum">
+  </path>
+  <path d="M597.3 237.1l2.8-1.3 2.4-2.2 2.4-2.9 1.1-0.4 2-1.3 3.4-3.7 0.8-2.3-0.3-1.3-0.6-1.3-0.8-2.7-0.5-2.9 1-2.4 2.1-0.5 4.1 2 3.9-0.9 1.7-1.1 1.8-0.8 1.7-1.1 1.8-0.9 3.7-0.1 1.6-0.7 1.7-0.3 3.2 0.5 3.1-0.9 3.4-2.6 3.7-1.3 3.7 1.9 4.5 0.2 2.2 0.9 2 1.2 3.1 3.6-3.4 0.2-1.3 1.7 0 2.5 0.8 1.6 0.6 1.8 0.2 3.7 0 1.4 0.6 1.8-0.2 0.4 0.1 0.8-0.1 0.6-0.6 0.3-5.2-0.5-1.2 0.2-0.6 0.7 0.3 1-0.3 1.1-0.5 0.9-0.7 0.4-1.2 0.2-0.9 0.5-0.7 0.8-0.6 0.9-0.2 0.7-0.3 1.1-0.7 1.3 0.1 0.4 0.3 0.3 0.2 0.6 0.1 1 0.4 1.2 0.7 1.1 0.7 0.7 0.6-0.6 0.5 0.3 0.8 1.1 0.7 0.6 0.6 0.3 0.6 0.2 2.7 0.4 1.3 0.3 0.2 0.1 0.8 0.8 0.3 0 0.3-0.2 0.4 0 3.8 2 1.4 0.1 2.9-1.1 1.5-0.2 1.1 0.8-0.3 0.5 1.2 0.8 0.4 0.4 1.1 1.8 0 0.3 1.3 0.2 0.8 0.5 1.4 1.3 1.6 0.3 3.9-1.3 1.9 0.2 0.9 0.9 0.6 1.3 0.1 1.4-1.6 5.6-2.1 2.5-2.6 1.2-2 0.5-1.9 0.9-1.3 0.3-1.4 0-3.5 0.7-3.3-0.4-3.3 0-2.8-0.8-0.8-0.5-0.8-0.4-0.3-1.3 1-0.6 1.8-1.8-0.2-1.9-2.8-0.6-2.8 0.8-3.3 0.1-3.5 3.9-3 4.5-3.7 2.1-1.2 2.3-0.1 3.2-2.9 2.6-4 1-1.7 0.8-1.7 0.6-2-0.3-2-0.6-4.4 0.6-4.2 1.7-6.7 1.3 1.9-3.6 2.5-8.8 1.1-1.8 0.7-0.8 0.9-1.4 0.3-1.8 2.6-6.9 0.3-2.5-2.4-4.1-3.7-1.7-3.2-1-6.1-3.6-7-1.5-0.9 0.1-1.8 0.4-0.8 0-0.6-3.6 2.8-4.7z" id="TR44" name="Malatya">
+  </path>
+  <path d="M664 211.5l1.2-0.6 1.5-0.3 1.8 2.7 0.1 1.8-0.7 1.6 0 1.7 2 2 1.4 0.1 3.7-1 3.7-0.3 2 0.9 0.5-0.1 0.9-0.2 0.5 0 1.5 0.9 1.5 0.1 1.9 0.6 2 0.2 2.2 1 2 1.5 2.1 0.6 0.9 0.7 1.1 1.3 0.4-0.1 0.8-0.2 1.2 0.6 1.2 0.4 1.4-1.1 1.2-1.5 1.7-0.4 1.7 0.2 4.6-0.4 4.4-1.7 2.9-3.2 1.3-2.6 0.7-2.9-0.3-2.2-0.5-2.3 0.7-1 0.9-0.6 2.3-0.6 2.6-0.1 10.9-5.9 1.6-0.5 3.9-1.7 1.5 2.9-2 3.9-2.4 3.3-1 4.3 1.2 4.8 2.9 3.5 0.8 2-0.3 2.2-0.6 2.4-0.9 1.6-1.6-0.5-1.4-0.3-2.3 6.4 2.6 3.8 0.5 2.7 0.2 2.8-15.9 0.5-0.8-0.3-1.7-1.3-1-0.5-2.2 0.4-0.7 2-1.1 1.9-1.2 1.9-1.4 0.9-1.6 0.6-3.7-0.2-3.6 0.3-1.3 0.8-3.7 0.5-2 0.8-4-0.3-3.9-1-6.6 1.1-1.9-0.2-3.9 1.3-1.6-0.3-1.4-1.3-0.8-0.5-1.3-0.2 0-0.3-1.1-1.8-0.4-0.4-1.2-0.8 0.3-0.5-1.1-0.8-1.5 0.2-2.9 1.1-1.4-0.1-3.8-2-0.4 0-0.3 0.2-0.3 0-0.8-0.8-0.2-0.1-1.3-0.3-2.7-0.4-0.6-0.2-0.6-0.3-0.7-0.6-0.8-1.1-0.5-0.3-0.6 0.6-0.7-0.7-0.7-1.1-0.4-1.2-0.1-1-0.2-0.6-0.3-0.3-0.1-0.4 0.7-1.3 0.3-1.1 0.2-0.7 0.6-0.9 0.7-0.8 0.9-0.5 1.2-0.2 0.7-0.4 0.5-0.9 0.3-1.1-0.3-1 0.6-0.7 1.2-0.2 5.2 0.5 0.6-0.3 0.1-0.6-0.1-0.8 0.2-0.4-0.6-1.8 0-1.4-0.2-3.7-0.6-1.8-0.8-1.6 0-2.5 1.3-1.7 3.4-0.2z" id="TR23" name="Elazig">
+  </path>
+  <path d="M851.1 212.8l2-1.3 2.3-0.7 1.6-1 1.6-1.3 8.8-1.9 0.1 4.6 1.4 3.1 5.6 3.4 1.9 3-1.4 4.5-3.4 2.6-2.6 2.8-4.4 6.5-0.8 1.9-1 1.7-3 2.1-5.1 2.9-0.8 0.9-0.5 2.5 0.3 1.3 1.7 3.9 0.2 0.7 0.1 1.6-0.5 2.1 0.9 3.1 2.5 0.9-1.3 4-0.6 0.7-0.5 0.8 0 1.8 0.2 1.9-0.2 2.8-1.4 2.1-1.8 0.2-3.2-2.4-4.8-2.7-3-2.2-2.1-0.9-3.3-0.8-3.4-1.4-3.1-2.4-2.8-2.8-3.2-1.5-4.1 1.6-4.1 1-5.1-0.4-4.9-1.9-0.1-1.3 0.2-1.4 0-2.2-0.2-2.2-1.1-3.3-1.7-8.2-4-1.5 0.5-0.8 7.3-2.8 8.1 0.6 3.3-1.9 2.8-3.1 2-1.7-0.3-2.6-1.5-2.4 0.9-2.2 4.2 0.1 1-0.9 0.6-2.8 0.9-0.7 2.1-0.2 1.9-0.8 1.5-1.1 1.7-0.6 7.7 0.9 3.9-1.5 3.5-2.8z" id="TR13" name="Bitlis">
+  </path>
+  <path d="M752.6 179.2l3.1 1.1 4.2 0.6 4.2-1.9 1.4-1 1.4-0.7 1.5 0.9 4.6 4.3 3.5 1.7 2.9 0.3 2.1 2.5 2 3.5-1.3 2.4-0.3 1.4 0.8 1.8 0.3 0.5 0.4 1.1 0 1-0.1 1.9 1.1 1.9 0.9 0.9 1.3 2.4 0.3 2.7-0.6 2.4-3.3 4.1-1.4 4.8 1 3.5 1 1.4 0.6 0.2 1 0.9 0.6 1.4 0.3 1.6-2.3 1.7-5.8 2.2-5.9 3.6-3.1 0.9-8.1-0.3-2.3-0.6-1.7-0.2-4.6 0.7-2.7 1.3-0.3 1.7 0 1.8-1.3 2-1.9 0.9-5.5 0.2-0.2-2.8-0.5-2.7-2.6-3.8 2.3-6.4 1.4 0.3 1.6 0.5 0.9-1.6 0.6-2.4 0.3-2.2-0.8-2-2.9-3.5-1.2-4.8 1-4.3 2.4-3.3 2-3.9-1.5-2.9-3.9 1.7-1.6 0.5-10.9 5.9 0.8-1.9 0.4-2.1-1-4.6 0.2-1.6 0.6-1.6 0.2-3 0.7-1.2 2.4-0.8 3.3 0.2 0.7-0.3 0.4-1 0.4-1.2 2.2-0.8 2.3 0 2.2-1.6 1.3-2.7 0.8-0.7 2.2 0.4 1.3 0.1 2.4-1.1 1.8-2.3z" id="TR12" name="Bingöl">
+  </path>
+  <path d="M570.6 317.3l-2.2 2.5-1.8 2.8-2.6 5.1-3.3 4.2-1.8 1.7-1.1 2.2-2.4 0.3-2.4-0.1-1.8-1.1-1.6-1.7-2.1-0.7-2.3 0.6-1.9 0-2-0.6-2.1 0.4 1.4-3.6 0.7-3.1-0.6-3.4-0.4-0.8-1.3-1.1-3.1-0.6-1 0.1-1.4-4.4 0-4.6 3.1-7.7 2.7-6.2 2.2-3.7 4.5-0.3 3.6 0 0 4.7-1.1 1.8-1.3 1.4-0.4 1.8 0.6 1.7 0.6 0.7 0.5 0.7 0.3 4 1.9 2.4 0.5-0.1 0.3-0.6 0.5-0.2 0.5-0.2 0.6-0.3 0.8 0.9 1.6-0.3 1.8-0.6 1.3-0.3 3.9-0.8 1.8 0.5 1.6 1.1 2.6 2.4 2.1 3.1z" id="TR80" name="Osmaniye">
+  </path>
+  <path d="M687.8 271l-1.9 1.3-2.9 0.9-0.8 0.4-0.6 0.7-0.2 0.9-0.2 2-0.5 0.9-0.6 0.4-2.3 0.8 0.4 0.9 0.1 0.7-0.3 0.8-0.6 0.9 0.3 0.3 0.1 0.4-0.1 0.5-0.3 0.5-0.3-0.1-0.9-0.3-0.4 0-0.7 0.2-0.7 0.5-0.5 0.8-0.4 0.9 0.7-0.2 1.3-0.9 0.6-0.1 0.5 0.5-0.1 1.5 0.6 0.9-0.9 0.2-1.1 0.1-1 0.2-0.6 0.7 0.4 0.3 1.2 1.3-0.3 0.3-0.4 0.2-0.4 0-0.8-0.6-0.4 0.3-0.2 0.5-0.2 0.2-0.2 0.1-0.3 0.1-0.3 0.1-0.4 0.1-0.2-0.1-0.6-0.6-0.1-0.2-1 0.6 0.9 1 2.3 1.8-10.5 1.6-2.3 2.4-0.5 0.3-0.6 1-2.8 3.1-1 0.6-5.8 1-1.5-0.6-2.8 1-0.5 0-0.3 1.4-0.7 0.3-2.1-0.3-0.4 0.3-0.1 0.8 0.1 0.7-0.2 0.3-0.2 0.1-0.1 0.1-0.1 0.1-0.2 0.1-0.2-0.1-0.1-0.5-0.2-0.2-2.1-0.5-0.9-0.4-0.6-0.8-1.4 1-0.5 0-0.7-0.5-3.7-3.3-5.6-2.1-5.2-0.1-5.2 1.1-5.2-3.2-2.8-1-1.7-2.8 0.1-3.5 1.8-2.4 2.7-2.3 2.3-2.9 6.7-1.3 4.2-1.7 4.4-0.6 2 0.6 2 0.3 1.7-0.6 1.7-0.8 4-1 2.9-2.6 0.1-3.2 1.2-2.3 3.7-2.1 3-4.5 3.5-3.9 3.3-0.1 2.8-0.8 2.8 0.6 0.2 1.9-1.8 1.8-1 0.6 0.3 1.3 0.8 0.4 0.8 0.5 2.8 0.8 3.3 0 3.3 0.4 3.5-0.7 1.4 0 1.3-0.3 1.9-0.9 2-0.5 2.6-1.2 2.1-2.5 1.3 0.8 3.8-1.6 1.5 1.6 0.2 1.6-0.4 1.3-1.1 2.5 0.4 0.8-0.4 0.8-1.7 1.2z" id="TR02" name="Adiyaman">
+  </path>
+  <path d="M777.3 287.7l-3 1.5-16.6-0.5-5.2 1.1-0.6 1.4-2.3 3-3.8 0.3-5.2 4.1-2.4 0.9-5.2 3.6-2.1 2-4.6 6-2.2-2.5-1.6-3.1-1.7-4.9-0.2-0.9-0.4-1.7-0.7-4.5 0.3-6.5-0.7-1.5-0.9-0.2-0.8-0.5-1.2-1.1-1.4-0.6-0.4 0.8-0.5 0.7-2.3-1-1.8-1.7-1.6-0.5-1.5-0.8-3.1-2.6-2.8-3-2.6-1.2-2.9-0.1-3.8-0.7-3.7-2 1.7-1.2 0.4-0.8-0.4-0.8 1.1-2.5 0.4-1.3-0.2-1.6-1.5-1.6-3.8 1.6-1.3-0.8 1.6-5.6-0.1-1.4-0.6-1.3-0.9-0.9 6.6-1.1 3.9 1 4 0.3 2-0.8 3.7-0.5 1.3-0.8 3.6-0.3 3.7 0.2 1.6-0.6 1.4-0.9 1.2-1.9 1.1-1.9 0.7-2 2.2-0.4 1 0.5 1.7 1.3 0.8 0.3 15.9-0.5 5.5-0.2 1.9-0.9 1.3-2 0-1.8 0.3-1.7 2.7-1.3 4.6-0.7 1.7 0.2 2.3 0.6 8.1 0.3 3.1-0.9 5.9-3.6 5.8-2.2 2.3-1.7 2.4 3.2 3.2 2.3 0.6 2.4-0.6 2.5 0.6 1.6 1.4 0.5 0.3 2-1.8 1-1.5 0.2-1.5 0.5-2.5 1.2-1.1 1.5-0.4 2.2-1 3.3-0.5 3.5 0.6 6.6-0.4 3.4-0.7 1.4-0.9 1.3-2.2 7.3-1.9 2.2-2.3 1.6-0.5 1.4 0.5 1.7 0.4 2.3 1 1.8z" id="TR21" name="Diyarbakir">
+  </path>
+  <path d="M812.6 290.8l-8.8 6.3-5.3 3.9-7.3 1.5-5.1-3.2-3.3-6.9-3.4-4.3-0.9-0.4-1.2 0-1-1.8-0.4-2.3-0.5-1.7 0.5-1.4 2.3-1.6 1.9-2.2 2.2-7.3 0.9-1.3 0.7-1.4 0.4-3.4-0.6-6.6 0.5-3.5 1-3.3 0.4-2.2 1.1-1.5 2.5-1.2 1.5-0.5 1.5-0.2 1.8-1-0.3-2 2.6-0.9 2.7-0.3 4 1.5 1.7 8.2 1.1 3.3 0.2 2.2 0 2.2-0.2 1.4 0.1 1.3-2.1 2.6-1 3.2-2.4 2.7-5.5 1.5-1.5 2.8 0.4 4 5.1 4.7 8.6 3.5 5.1 5.6z" id="TR72" name="Batman">
+  </path>
+  <path d="M869.8 289.7l-0.5 3.4-2.9 3-8.1-0.8-10-1.4-9.6-2.5-6.3-0.3-3.7 3.7-9.4-0.7-6.7-3.3-5.1-5.6-8.6-3.5-5.1-4.7-0.4-4 1.5-2.8 5.5-1.5 2.4-2.7 1-3.2 2.1-2.6 4.9 1.9 5.1 0.4 4.1-1 4.1-1.6 3.2 1.5 2.8 2.8 3.1 2.4 3.4 1.4 3.3 0.8 2.1 0.9 3 2.2 4.8 2.7 3.2 2.4 1.8-0.2 1.4-2.1 0.2-2.8-0.2-1.9 0-1.8 0.5-0.8 0.6-0.7 1.3-4 3.7-0.3 3.8 0.7 3.4 1.3 0.5 4.3-0.2 2.5 0.3 2.4-0.2 2.6-0.6 2.4-0.2 3.5-0.7 1.5-0.5 1.6 1.9 4.5z" id="TR56" name="Siirt">
+  </path>
+  <path d="M718.4 116.5l1-0.1 0.7-0.8-0.3-1.5 0.6-0.6 0.3-0.2 1.5 0.5 2.9 3.3 1.9 1.1 4.1 0.1 3.9 1.3 2.1 0 2.3-0.8 2.4-0.4 4.9 0 1.9-0.6 0.9-0.2 1.5 3.8 1.4 8.5 1.2 3.8 2.9 1.7 3.1 0.7 1.4 0.6 3.1 0.3 0.2 1.2-1.2 2.2-1.3 1.7-5.9 2.1-2.7 1.3-2 2-2.1 1.6-1.7 0.3-7.8-1-7.7-1.5-2.3 0.8-1.9 1.8-2.4 0.3-2.7-0.3-2.5 1-1.8-3.9-1-4.2 0.2-2 0.6-2 1.5-3.6 0.4-9.1-1.6-9.2z" id="TR69" name="Bayburt">
+  </path>
+  <path d="M685.6 103.3l0.9 0.7 1 0.1 1-0.9 0.8-1.1 2 1.2 0.7 3.7 3.2 3.3 11.1 4.5 2.8 0.3 1-0.2 0.7-0.8 0.6-2.6 1.4-1.1 3.3 2.2 2.3 3.9 1.6 9.2-0.4 9.1-1.5 3.6-0.6 2-0.2 2 1 4.2 1.8 3.9-1.8 2.7-2.1 2.2-5.3 1.3-2.6 1.3-2.7 0.2-2.8-0.2-2.8 0.3-2.9-0.3-2.8-1.4-2.9-0.9-0.8-0.8-0.7-1.1-1.8-1.1-1.8-0.7-5.2-3.1-1.4-0.3-1.4-0.3-1.4-0.6-1.3-0.8 0.4-2-1.3-1.7-0.4-2.2 0.2-2.2-0.2-2.1 0.1-2.1 1-1.3 4.8-2.6 1.4-1.2 0.3-2.3-1.1-0.3-1.3-1.3-1.3-1.1-5.6-1.4-1.3-1.6-0.1-2.2 0.3-2.8 0.1-0.5 0.5-0.7 1.4-1.5 0.9-1.7-0.6-1.9 0.6-1.6 1.5-1 1.4-1.2 1.2-0.3 0.9-0.5 0.2-0.9 0.3-0.7 5.7-0.7z" id="TR29" name="Gümüshane">
+  </path>
+ </g>
+ <g id="points">
+  <circle class="36.13372868983344|26.620445987274163" cx="90.9" cy="384.7" id="0">
+  </circle>
+  <circle class="38.645329944972325|36.192312755397474" cx="545.5" cy="234.5" id="1">
+  </circle>
+  <circle class="41.78483151389593|43.84980616989612" cx="909.1" cy="39.2" id="2">
+  </circle>
+ </g>
+ <g id="label_points">
+  <circle class="Ardahan" cx="859.9" cy="77.1" id="TR75">
+  </circle>
+  <circle class="Artvin" cx="807.8" cy="83.6" id="TR08">
+  </circle>
+  <circle class="Sirnak" cx="843.9" cy="306.9" id="TR73">
+  </circle>
+  <circle class="Hakkari" cx="925.7" cy="298.3" id="TR30">
+  </circle>
+  <circle class="Iğdir" cx="915.7" cy="161.9" id="TR76">
+  </circle>
+  <circle class="Agri" cx="869.6" cy="173.1" id="TR04">
+  </circle>
+  <circle class="Van" cx="900.1" cy="246.9" id="TR65">
+  </circle>
+  <circle class="Kirklareli" cx="126.1" cy="47.6" id="TR39">
+  </circle>
+  <circle class="Edirne" cx="87.9" cy="81.4" id="TR22">
+  </circle>
+  <circle class="Kars" cx="875.3" cy="126.2" id="TR36">
+  </circle>
+  <circle class="Mardin" cx="770.8" cy="307.9" id="TR47">
+  </circle>
+  <circle class="Sanliurfa" cx="688.5" cy="321" id="TR63">
+  </circle>
+  <circle class="Kilis" cx="586.2" cy="344.3" id="TR79">
+  </circle>
+  <circle class="Gaziantep" cx="604.7" cy="330" id="TR27">
+  </circle>
+  <circle class="Hatay" cx="546" cy="370.8" id="TR31">
+  </circle>
+  <circle class="Istanbul" cx="176.3" cy="73.8" id="TR34">
+  </circle>
+  <circle class="Tekirdag" cx="115.5" cy="87.1" id="TR59">
+  </circle>
+  <circle class="Çanakkale" cx="100.3" cy="147.9" id="TR17">
+  </circle>
+  <circle class="Rize" cx="768.1" cy="92.4" id="TR53">
+  </circle>
+  <circle class="Trabzon" cx="716.4" cy="101" id="TR61">
+  </circle>
+  <circle class="Giresun" cx="656.3" cy="115.1" id="TR28">
+  </circle>
+  <circle class="Ordu" cx="609.4" cy="101.2" id="TR52">
+  </circle>
+  <circle class="Samsun" cx="529.3" cy="74" id="TR55">
+  </circle>
+  <circle class="Sinop" cx="483.6" cy="48.4" id="TR57">
+  </circle>
+  <circle class="Kastamonu" cx="421" cy="56.5" id="TR37">
+  </circle>
+  <circle class="Bartın" cx="369.3" cy="53.1" id="TR74">
+  </circle>
+  <circle class="Zinguldak" cx="343.3" cy="71.5" id="TR67">
+  </circle>
+  <circle class="Düzce" cx="311.3" cy="95.8" id="TR81">
+  </circle>
+  <circle class="Sakarya" cx="274.8" cy="107.5" id="TR54">
+  </circle>
+  <circle class="Kocaeli" cx="254.3" cy="93.2" id="TR41">
+  </circle>
+  <circle class="Yalova" cx="215.4" cy="114.7" id="TR77">
+  </circle>
+  <circle class="Bursa" cx="205.6" cy="151.1" id="TR16">
+  </circle>
+  <circle class="Balikesir" cx="151.2" cy="166.5" id="TR10">
+  </circle>
+  <circle class="Izmir" cx="127.6" cy="259" id="TR35">
+  </circle>
+  <circle class="Aydin" cx="157" cy="289.6" id="TR09">
+  </circle>
+  <circle class="Mugla" cx="184.9" cy="328.4" id="TR48">
+  </circle>
+  <circle class="Antalya" cx="260.9" cy="341.5" id="TR07">
+  </circle>
+  <circle class="Mersin" cx="432.7" cy="353.6" id="TR33">
+  </circle>
+  <circle class="Adana" cx="511.6" cy="315.2" id="TR01">
+  </circle>
+  <circle class="Bolu" cx="331.9" cy="112.6" id="TR14">
+  </circle>
+  <circle class="Ankara" cx="374.2" cy="163.1" id="TR06">
+  </circle>
+  <circle class="Bilecik" cx="254.6" cy="145.8" id="TR11">
+  </circle>
+  <circle class="Eskisehir" cx="302.9" cy="174.3" id="TR26">
+  </circle>
+  <circle class="Çankiri" cx="422" cy="108.9" id="TR18">
+  </circle>
+  <circle class="Karabük" cx="378.4" cy="77.9" id="TR78">
+  </circle>
+  <circle class="Tokat" cx="568.3" cy="122.1" id="TR60">
+  </circle>
+  <circle class="Sivas" cx="600.3" cy="177.5" id="TR58">
+  </circle>
+  <circle class="Çorum" cx="471.6" cy="120.2" id="TR19">
+  </circle>
+  <circle class="Amasya" cx="520.5" cy="110" id="TR05">
+  </circle>
+  <circle class="Kütahya" cx="231.8" cy="194.5" id="TR43">
+  </circle>
+  <circle class="Konya" cx="368.1" cy="267.4" id="TR42">
+  </circle>
+  <circle class="Karaman" cx="398.4" cy="323.7" id="TR70">
+  </circle>
+  <circle class="Nigde" cx="472.6" cy="272.5" id="TR51">
+  </circle>
+  <circle class="Kayseri" cx="519.8" cy="237.9" id="TR38">
+  </circle>
+  <circle class="Isparta" cx="299.1" cy="277.4" id="TR32">
+  </circle>
+  <circle class="Manisa" cx="175.1" cy="230.6" id="TR45">
+  </circle>
+  <circle class="Denizli" cx="216.6" cy="283.6" id="TR20">
+  </circle>
+  <circle class="Burdur" cx="247.3" cy="305" id="TR15">
+  </circle>
+  <circle class="Aksaray" cx="434.1" cy="252.8" id="TR68">
+  </circle>
+  <circle class="Nevsehir" cx="473.8" cy="226.7" id="TR50">
+  </circle>
+  <circle class="Yozgat" cx="504.6" cy="176.7" id="TR66">
+  </circle>
+  <circle class="Kirsehir" cx="448.9" cy="192.6" id="TR40">
+  </circle>
+  <circle class="Usak" cx="223.2" cy="242.7" id="TR64">
+  </circle>
+  <circle class="Erzincan" cx="675.3" cy="168.3" id="TR24">
+  </circle>
+  <circle class="Tunceli" cx="704.7" cy="204" id="TR62">
+  </circle>
+  <circle class="Afyonkarahisar" cx="277.4" cy="233.6" id="TR03">
+  </circle>
+  <circle class="Kinkkale" cx="424.4" cy="166.1" id="TR71">
+  </circle>
+  <circle class="K. Maras" cx="580.1" cy="277.2" id="TR46">
+  </circle>
+  <circle class="Mus" cx="808.6" cy="219.4" id="TR49">
+  </circle>
+  <circle class="Erzurum" cx="799.5" cy="154" id="TR25">
+  </circle>
+  <circle class="Malatya" cx="630.1" cy="234.9" id="TR44">
+  </circle>
+  <circle class="Elazig" cx="686.5" cy="236.8" id="TR23">
+  </circle>
+  <circle class="Bitlis" cx="837.3" cy="242.3" id="TR13">
+  </circle>
+  <circle class="Bingöl" cx="763.2" cy="210.5" id="TR12">
+  </circle>
+  <circle class="Osmaniye" cx="550.1" cy="322.8" id="TR80">
+  </circle>
+  <circle class="Adiyaman" cx="654.1" cy="282.2" id="TR02">
+  </circle>
+  <circle class="Diyarbakir" cx="737.1" cy="269.4" id="TR21">
+  </circle>
+  <circle class="Batman" cx="794.5" cy="257.1" id="TR72">
+  </circle>
+  <circle class="Siirt" cx="822.5" cy="277.5" id="TR56">
+  </circle>
+  <circle class="Bayburt" cx="736.9" cy="133.7" id="TR69">
+  </circle>
+  <circle class="Gümüshane" cx="698.7" cy="135" id="TR29">
+  </circle>
+ </g>
+</svg>
+            <div class="map-tooltip" id="map-tooltip" data-i18n="map_tooltip_default">Karabük • Safran</div>
+          </div>
+        </div>
+
+        <p class="gi-definition reveal" data-i18n="gi_definition" style="margin-top:42px">Coğrafi işaret, bir ürünün belirli bir yörede, geleneksel yöntemlerle üretildiğinde kazandığı kimliğin yasal güvencesidir.</p>
+
+        <div class="map-eyebrow-wrap reveal" style="text-align:center">
+          <div class="eyebrow" data-i18n="map_eyebrow">KEŞFET</div>
+          <h2 class="title" data-i18n="map_title" style="margin:8px 0 14px">Bir şehir seçin, mirasını görün.</h2>
+          <p class="desc" data-i18n="map_description" style="max-width:680px;margin:0 auto;color:var(--muted)">Türkiye haritasında aktif şehirlere tıklayarak o yörenin coğrafi işaretli ürün sayfasına ulaşabilirsiniz.</p>
+        </div>
+        <p class="city-note reveal delay-1" data-i18n="city_note">Vitrinimiz büyüyor. Şu an <strong>Karabük safranı</strong> yayında; Kastamonu, Gaziantep, Trabzon, Edirne ve daha fazlası yolda.</p>
+        <div class="future-list reveal delay-2">
+          <span class="future-pill" data-i18n="pill_1">Yakında — Kastamonu Sarımsağı</span>
+          <span class="future-pill" data-i18n="pill_2">Yakında — Antep Fıstığı</span>
+          <span class="future-pill" data-i18n="pill_3">Yakında — Trabzon Hamsisi</span>
+          <span class="future-pill" data-i18n="pill_4">Yakında — Maraş Dondurması</span>
+        </div>
+</div></section>
+
+<div class="container"><div class="section-divider" aria-hidden="true"><span class="diamond">◆</span></div></div>
+
+    <section class="section home-about" id="about"><div class="container">
+<div class="eyebrow reveal" data-i18n="about_eyebrow">HİKÂYEMİZ</div>
+<h2 class="title reveal delay-1" data-i18n="about_title">Anadolu'nun binlerce yıllık üretim kültüründen ilham alarak.</h2>
+
+<div class="about-narrative reveal delay-2">
+  <p data-i18n="about_p1">Anadolu'nun binlerce yıllık üretim kültüründen ilham alarak yola çıktık. Toprağın bereketini, emeğin değerini ve gerçek lezzetin kökenini dünyaya ulaştırma hedefiyle markamızı kurduk.</p>
+  <p data-i18n="about_p2">Bizim için her ürün sadece bir ticari mal değil; bir hikâye, bir gelenek ve bir mirastır. Bu anlayışla, üretimin en değerli örneklerinden biri olan Safranbolu safranı ile başladık. Coğrafi işaretli, yüksek kaliteli ve özenle seçilmiş ürünleri doğrudan kaynağından temin ederek sizlere ulaştırıyoruz.</p>
+  <p data-i18n="about_p3">Amacımız Anadolu'nun dört bir yanındaki coğrafi işaretli ve özgün ürünleri, kalite standartlarından ödün vermeden hem Türkiye'ye hem de dünyaya sunmak. Üreticiyi destekleyen, sürdürülebilir ve şeffaf bir tedarik zinciri oluşturmayı önemsiyoruz.</p>
+  <p data-i18n="about_p4">Kalite, güven ve doğallık bizim temel değerlerimizdir. Her ürünümüz, titizlikle kontrol edilerek sizlere ulaştırılır.</p>
+  <p data-i18n="about_p5">Bugün safran ile başlayan bu yolculuk, yarın Anadolu'nun farklı lezzetleriyle büyümeye devam edecek.</p>
+  <span class="about-signature" data-i18n="about_signature">Lezzetin Kökenine Yolculuk.</span>
+</div>
+
+</div></section>
+
+<div class="container"><div class="section-divider" aria-hidden="true"><span class="diamond">◆</span></div></div>
+
+<section class="section contact-footer-like" id="contact">
+      <div class="container">
+        <div class="contact-centered">
+          <p class="contact-intro reveal" data-i18n="contact_description">Toptan satış, iş birliği, üretici tanıtımı veya basın talepleriniz için doğrudan iletişime geçebilirsiniz.</p>
+          <div class="contact-info-grid">
+            <div class="contact-info-item reveal delay-1">
+              <strong data-i18n="contact_address_label">Adres</strong>
+              <span data-i18n="contact_address_value">Safranbolu, Karabük / Türkiye</span>
+            </div>
+            <div class="contact-info-item reveal delay-2">
+              <strong data-i18n="contact_phone_label">Telefon</strong>
+              <span>+90 (5XX) XXX XX XX</span>
+            </div>
+            <div class="contact-info-item reveal delay-3">
+              <strong data-i18n="contact_email_label">E-posta</strong>
+              <span>info@thehouseofanatolia.com</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+</main>
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-newsletter">
+        <strong data-i18n="footer_newsletter_title">Bültenimize Katılın</strong>
+        <p data-i18n="footer_newsletter_desc">Yeni şehirler ve ürünler eklendiğinde haberdar olun.</p>
+        <form id="newsletter-form" novalidate>
+          <input type="email" required data-i18n-attr="placeholder:footer_newsletter_placeholder" placeholder="E-posta adresiniz" maxlength="200" autocomplete="email">
+          <button type="submit" data-i18n="footer_newsletter_button">Abone Ol</button>
+        </form>
+        <p id="newsletter-status" class="newsletter-status" aria-live="polite"></p>
+      </div>
+      <div>
+        <h4 data-i18n="footer_links_title">Hızlı Bağlantılar</h4>
+        <ul>
+          <li><a href="#home" data-i18n="nav_home">Ana Sayfa</a></li>
+          <li><a href="#about" data-i18n="nav_about">Hakkımızda</a></li>
+          <li><a href="#home" data-i18n="nav_products">Ürünler</a></li>
+          <li><a href="#contact" data-i18n="nav_contact">İletişim</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 data-i18n="footer_legal_title">Yasal</h4>
+        <ul>
+          <li><a href="gizlilik.html" data-i18n="footer_privacy">Gizlilik Politikası</a></li>
+          <li><a href="kullanim.html" data-i18n="footer_terms">Kullanım Koşulları</a></li>
+          <li><a href="cerez.html" data-i18n="footer_cookies">Çerez Politikası</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span class="copy">© <span id="footer-year">2025</span> The House of Anatolia. <span data-i18n="footer_rights">Tüm hakları saklıdır.</span></span>
+      <span class="tagline" data-i18n="footer_tagline">Türkiye'de tasarlandı, dünyaya hizmet edilir.</span>
+    </div>
+  </div>
+</footer>
+
+
+<script>
+  // ============================================================
+  // i18n DICTIONARY — STATIC TEXTS
+  // Tüm sabit metinler burada. Dil değişince DOM güncellenir.
+  // ============================================================
+  const I18N = {
+    tr: {
+      // Document title & meta
+      doc_title: "The House of Anatolia — Anadolu'nun Coğrafi İşaretli Kıymetleri",
+      meta_description: "Türkiye'nin coğrafi işaretli ürünlerini, üretildikleri topraktan doğrudan size ulaştırıyoruz. Karabük safranı ile başladık; Anadolu'nun mirası dijital vitrinimizde sizi bekliyor.",
+
+      // Navbar
+      nav_home: "Ana Sayfa",
+      nav_about: "Hakkımızda",
+      nav_products: "Ürünler",
+      nav_contact: "İletişim",
+
+      // Slogan (haritanın üstünde, brand'ın altında)
+      slogan: "Lezzetin Kökenine Yolculuk",
+
+      // Hero
+      hero_subtitle: "Coğrafi işaretli kıymetleri, üretildikleri topraktan size ulaştırıyoruz.",
+      hero_cta: "Ürünleri Keşfet",
+
+      // Map section
+      gi_definition: "Coğrafi işaret, bir ürünün belirli bir yörede, geleneksel yöntemlerle üretildiğinde kazandığı kimliğin yasal güvencesidir.",
+      map_eyebrow: "KEŞFET",
+      map_title: "Bir şehir seçin, mirasını görün.",
+      map_description: "Türkiye haritasında aktif şehirlere tıklayarak o yörenin coğrafi işaretli ürün sayfasına ulaşabilirsiniz.",
+      map_tooltip_default: "Karabük • Safran",
+      city_note_html: 'Vitrinimiz büyüyor. Şu an <strong>Karabük safranı</strong> yayında; Kastamonu, Gaziantep, Trabzon, Edirne ve daha fazlası yolda.',
+      pill_1: "Yakında — Kastamonu Sarımsağı",
+      pill_2: "Yakında — Antep Fıstığı",
+      pill_3: "Yakında — Trabzon Hamsisi",
+      pill_4: "Yakında — Maraş Dondurması",
+
+      // About — uzun hikaye
+      about_eyebrow: "HİKÂYEMİZ",
+      about_title: "Anadolu'nun binlerce yıllık üretim kültüründen ilham alarak.",
+      about_p1: "Anadolu'nun binlerce yıllık üretim kültüründen ilham alarak yola çıktık. Toprağın bereketini, emeğin değerini ve gerçek lezzetin kökenini dünyaya ulaştırma hedefiyle markamızı kurduk.",
+      about_p2: "Bizim için her ürün sadece bir ticari mal değil; bir hikâye, bir gelenek ve bir mirastır. Bu anlayışla, üretimin en değerli örneklerinden biri olan Safranbolu safranı ile başladık. Coğrafi işaretli, yüksek kaliteli ve özenle seçilmiş ürünleri doğrudan kaynağından temin ederek sizlere ulaştırıyoruz.",
+      about_p3: "Amacımız Anadolu'nun dört bir yanındaki coğrafi işaretli ve özgün ürünleri, kalite standartlarından ödün vermeden hem Türkiye'ye hem de dünyaya sunmak. Üreticiyi destekleyen, sürdürülebilir ve şeffaf bir tedarik zinciri oluşturmayı önemsiyoruz.",
+      about_p4: "Kalite, güven ve doğallık bizim temel değerlerimizdir. Her ürünümüz, titizlikle kontrol edilerek sizlere ulaştırılır.",
+      about_p5: "Bugün safran ile başlayan bu yolculuk, yarın Anadolu'nun farklı lezzetleriyle büyümeye devam edecek.",
+      about_signature: "Lezzetin Kökenine Yolculuk.",
+      about_card1_title: "Doğrudan Üreticiden",
+      about_card1_text: "Her ürünün ardında bir köy, bir aile, kuşaklarca süzülmüş bir bilgi var. Aracı koymadan, üreticiden alıp size ulaştırıyoruz.",
+      about_card2_title: "Coğrafi Mühür",
+      about_card2_text: "Coğrafi işaret, bir ürünün ancak belirli bir yörede, belirli bir yöntemle üretildiğinde aynı kıymeti taşıyabileceğinin yasal güvencesidir. Vitrinimizdeki her ürün bu mührü taşır.",
+
+      // Contact
+      contact_eyebrow: "İLETİŞİM",
+      contact_title: "Bizimle bağlantıya geçin.",
+      contact_description: "Toptan satış, iş birliği, üretici tanıtımı veya basın talepleriniz için doğrudan iletişime geçebilirsiniz.",
+      contact_address_label: "Adres",
+      contact_address_value: "Safranbolu, Karabük / Türkiye",
+      contact_phone_label: "Telefon",
+      contact_email_label: "E-posta",
+
+      // Footer
+      footer_newsletter_title: "Bültenimize Katılın",
+      footer_newsletter_desc: "Yeni şehirler ve ürünler eklendiğinde haberdar olun.",
+      footer_newsletter_placeholder: "E-posta adresiniz",
+      footer_newsletter_button: "Abone Ol",
+      footer_newsletter_loading: "Kaydediliyor…",
+      footer_newsletter_success: "Teşekkürler! Bültenimize abone oldunuz.",
+      footer_newsletter_error_invalid: "Lütfen geçerli bir e-posta adresi girin.",
+      footer_newsletter_error_duplicate: "Bu e-posta zaten kayıtlı.",
+      footer_newsletter_error_rate: "Çok hızlı denediniz. Birkaç dakika sonra tekrar deneyin.",
+      footer_newsletter_error_generic: "Bir sorun oluştu. Lütfen tekrar deneyin.",
+      footer_links_title: "Hızlı Bağlantılar",
+      footer_legal_title: "Yasal",
+      footer_privacy: "Gizlilik Politikası",
+      footer_terms: "Kullanım Koşulları",
+      footer_cookies: "Çerez Politikası",
+      footer_rights: "Tüm hakları saklıdır.",
+      footer_tagline: "Türkiye'de tasarlandı, dünyaya hizmet edilir."
+    },
+    en: {
+      // Document title & meta
+      doc_title: "The House of Anatolia — Geographically Protected Treasures of Anatolia",
+      meta_description: "We bring Turkey's geographically protected products directly from their place of origin to you. Beginning with Karabük saffron, the heritage of Anatolia awaits in our digital atelier.",
+
+      // Navbar
+      nav_home: "Home",
+      nav_about: "About",
+      nav_products: "Products",
+      nav_contact: "Contact",
+
+      // Slogan
+      slogan: "A Journey to the Roots of Taste",
+
+      // Hero
+      hero_subtitle: "Bringing geographically protected treasures from their soil of origin to you.",
+      hero_cta: "Discover the Collection",
+
+      // Map section
+      gi_definition: "A geographical indication is the legal recognition of a product's identity when crafted in a specific region using traditional methods.",
+      map_eyebrow: "DISCOVER",
+      map_title: "Choose a city, uncover its heritage.",
+      map_description: "Click on an active city on the map of Turkey to reach the page for its geographically protected product.",
+      map_tooltip_default: "Karabük • Saffron",
+      city_note_html: 'Our atelier is growing. <strong>Karabük saffron</strong> is now live; Kastamonu, Gaziantep, Trabzon, Edirne, and more are on their way.',
+      pill_1: "Coming Soon — Kastamonu Garlic",
+      pill_2: "Coming Soon — Antep Pistachio",
+      pill_3: "Coming Soon — Trabzon Anchovy",
+      pill_4: "Coming Soon — Maraş Ice Cream",
+
+      // About — long story
+      about_eyebrow: "OUR STORY",
+      about_title: "Inspired by the millennia-old craft of Anatolia.",
+      about_p1: "We set out inspired by Anatolia's millennia-old craft. We founded our brand with one purpose: to bring the abundance of the soil, the value of labor, and the true origin of taste to the world.",
+      about_p2: "For us, each product is more than merchandise — it is a story, a tradition, an inheritance. With this understanding, we began with one of the most distinguished examples of this craft: Safranbolu saffron. We bring geographically protected, premium, carefully selected products directly from their source to you.",
+      about_p3: "Our aim is to present Anatolia's geographically protected and authentic products to both Turkey and the world, never compromising on quality. We believe in a supply chain that is transparent, sustainable, and supports the producer.",
+      about_p4: "Quality, trust, and authenticity are our core values. Every product reaches you through careful inspection.",
+      about_p5: "A journey that begins today with saffron will continue to grow tomorrow with new flavors of Anatolia.",
+      about_signature: "A Journey to the Roots of Taste.",
+      about_card1_title: "Direct from the Maker",
+      about_card1_text: "Behind every product is a village, a family, knowledge refined across generations. No middlemen — we source directly and deliver to you.",
+      about_card2_title: "The Geographical Seal",
+      about_card2_text: "A geographical indication is a legal guarantee that a product can carry its true value only when made in a specific region, by a specific method. Every product in our atelier bears this seal.",
+
+      // Contact
+      contact_eyebrow: "CONTACT",
+      contact_title: "Get in touch.",
+      contact_description: "For wholesale, partnerships, producer introductions, or press inquiries, please reach out directly.",
+      contact_address_label: "Address",
+      contact_address_value: "Safranbolu, Karabük / Turkey",
+      contact_phone_label: "Phone",
+      contact_email_label: "Email",
+
+      // Footer
+      footer_newsletter_title: "Join Our Newsletter",
+      footer_newsletter_desc: "Be the first to know when new cities and products arrive.",
+      footer_newsletter_placeholder: "Your email",
+      footer_newsletter_button: "Subscribe",
+      footer_newsletter_loading: "Subscribing…",
+      footer_newsletter_success: "Thank you! You've joined our newsletter.",
+      footer_newsletter_error_invalid: "Please enter a valid email address.",
+      footer_newsletter_error_duplicate: "This email is already subscribed.",
+      footer_newsletter_error_rate: "Too many attempts. Please try again in a few minutes.",
+      footer_newsletter_error_generic: "Something went wrong. Please try again.",
+      footer_links_title: "Quick Links",
+      footer_legal_title: "Legal",
+      footer_privacy: "Privacy Policy",
+      footer_terms: "Terms of Use",
+      footer_cookies: "Cookie Policy",
+      footer_rights: "All rights reserved.",
+      footer_tagline: "Designed in Turkey, serving the world."
+    }
+  };
+
+  // ============================================================
+  // LANGUAGE STATE & SWITCHER
+  // ============================================================
+  const LANG_STORAGE_KEY = "ha_language";
+  const SUPPORTED_LANGS = ["tr", "en"];
+
+  function detectInitialLang() {
+    // 1) URL parametresi (?lang=en) en yüksek öncelik
+    const urlLang = new URLSearchParams(window.location.search).get("lang");
+    if (urlLang && SUPPORTED_LANGS.includes(urlLang)) return urlLang;
+
+    // 2) localStorage'da kayıtlı tercih
+    try {
+      const stored = localStorage.getItem(LANG_STORAGE_KEY);
+      if (stored && SUPPORTED_LANGS.includes(stored)) return stored;
+    } catch {}
+
+    // 3) Browser dili
+    const browserLang = (navigator.language || "tr").toLowerCase().split("-")[0];
+    if (SUPPORTED_LANGS.includes(browserLang)) return browserLang;
+
+    // 4) Default
+    return "tr";
+  }
+
+  let currentLang = detectInitialLang();
+
+  function applyLanguage(lang) {
+    if (!SUPPORTED_LANGS.includes(lang)) lang = "tr";
+    currentLang = lang;
+    const dict = I18N[lang];
+
+    // <html lang="...">
+    document.documentElement.lang = lang;
+
+    // Document title
+    if (dict.doc_title) document.title = dict.doc_title;
+
+    // Meta description
+    const metaDesc = document.querySelector('meta[name="description"]');
+    if (metaDesc && dict.meta_description) metaDesc.setAttribute("content", dict.meta_description);
+    const ogDesc = document.querySelector('meta[property="og:description"]');
+    if (ogDesc && dict.meta_description) ogDesc.setAttribute("content", dict.meta_description);
+
+    // data-i18n elementleri
+    document.querySelectorAll("[data-i18n]").forEach((el) => {
+      const key = el.getAttribute("data-i18n");
+      if (dict[key] !== undefined) {
+        // city_note için HTML içeriği var (strong tag)
+        if (key === "city_note" && dict.city_note_html) {
+          el.innerHTML = dict.city_note_html;
+        } else {
+          el.textContent = dict[key];
+        }
+      }
+    });
+
+    // city_note özel handle
+    const cityNoteEl = document.querySelector('[data-i18n="city_note"]');
+    if (cityNoteEl && dict.city_note_html) cityNoteEl.innerHTML = dict.city_note_html;
+
+    // Slogan özel handle — kelime kelime span'lara böl (animasyon için)
+    const sloganEl = document.querySelector('[data-i18n-slogan]');
+    if (sloganEl && dict.slogan) {
+      const words = dict.slogan.split(/\s+/);
+      sloganEl.innerHTML = words.map(w => `<span class="word">${w.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')}</span>`).join("");
+      // Animasyonu yeniden tetiklemek için reflow
+      // Span'lar zaten CSS ile animasyon alıyor (nth-child delays)
+    }
+
+    // data-i18n-attr (attribute çevirileri, örn: placeholder)
+    // Format: "placeholder:key_name" ya da "title:key_name,placeholder:key_name"
+    document.querySelectorAll("[data-i18n-attr]").forEach((el) => {
+      const spec = el.getAttribute("data-i18n-attr");
+      spec.split(",").forEach((pair) => {
+        const [attr, key] = pair.split(":").map(s => s.trim());
+        if (attr && key && dict[key] !== undefined) {
+          el.setAttribute(attr, dict[key]);
+        }
+      });
+    });
+
+    // Dil seçici butonları aktif state
+    document.querySelectorAll(".lang-switcher [data-lang]").forEach((btn) => {
+      btn.classList.toggle("active", btn.dataset.lang === lang);
+    });
+
+    // localStorage kaydet
+    try { localStorage.setItem(LANG_STORAGE_KEY, lang); } catch {}
+
+    // Custom event — diğer kodlar dil değişimine tepki verebilsin diye
+    window.dispatchEvent(new CustomEvent("languagechange", { detail: { lang } }));
+  }
+
+  // Dil seçici tıklamaları
+  document.addEventListener("click", (e) => {
+    const btn = e.target.closest(".lang-switcher [data-lang]");
+    if (!btn) return;
+    applyLanguage(btn.dataset.lang);
+  });
+
+  // Sayfa yüklenirken hemen uygula
+  applyLanguage(currentLang);
+
+  // Footer dinamik yıl
+  const footerYearEl = document.getElementById("footer-year");
+  if (footerYearEl) footerYearEl.textContent = new Date().getFullYear();
+
+  // i18n dışarı export et (Supabase scripti kullanacak)
+  window.HA_I18N = {
+    get current() { return currentLang; },
+    t: (key) => I18N[currentLang]?.[key] ?? I18N.tr[key] ?? key
+  };
+
+  // ============================================================
+  // PROFESYONEL UX KATMANI
+  // ============================================================
+
+  // ----- PAGE LOADER -----
+  // DOM hazır + biraz nefes aldıktan sonra fade-out
+  function hideLoader() {
+    const loader = document.getElementById("page-loader");
+    if (!loader) return;
+    loader.classList.add("hidden");
+    setTimeout(() => loader.remove(), 1000);
+  }
+  if (document.readyState === "complete") {
+    setTimeout(hideLoader, 250);
+  } else {
+    window.addEventListener("load", () => setTimeout(hideLoader, 250));
+  }
+
+  // ----- SCROLL REVEAL (Intersection Observer) -----
+  function setupScrollReveal() {
+    if (!("IntersectionObserver" in window)) {
+      // Eski tarayıcı: hepsini görünür yap
+      document.querySelectorAll(".reveal").forEach(el => el.classList.add("is-visible"));
+      return;
+    }
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("is-visible");
+          obs.unobserve(entry.target); // Bir kere açıldı, tekrar tetiklenmesin
+        }
+      });
+    }, {
+      threshold: 0.12,
+      rootMargin: "0px 0px -8% 0px"
+    });
+    document.querySelectorAll(".reveal").forEach(el => obs.observe(el));
+  }
+  setupScrollReveal();
+
+  // Dil değişince yeni eklenen reveal elementleri için (gerekirse)
+  // Şimdilik static olduğu için tek seferlik yeterli
+
+  // ----- CUSTOM CURSOR -----
+  // Sadece pointer:fine olan cihazlarda (yani gerçek mouse'lu)
+  const supportsHover = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+  if (supportsHover) {
+    const cursor = document.getElementById("ha-cursor");
+    if (cursor) {
+      // Hangi elementlerde aktif olacak?
+      const interactiveSelectors = [
+        "a", "button",
+        ".future-pill",
+        ".about-card",
+        ".contact-footer-col",
+        ".lang-switcher [data-lang]",
+        "[role='button']",
+        "input[type='submit']",
+        "input[type='button']",
+        ".map-area svg path.map-city-active",
+        ".map-area svg path.map-city-hover-only"
+      ].join(",");
+
+      let isVisible = false;
+      let rafId = null;
+      let targetX = 0, targetY = 0;
+      let currentX = 0, currentY = 0;
+
+      // Smooth follow ile cursor hareketi
+      function animate() {
+        // Lerp (linear interpolation) — yumuşak takip
+        currentX += (targetX - currentX) * 0.22;
+        currentY += (targetY - currentY) * 0.22;
+        cursor.style.transform = `translate(${currentX}px, ${currentY}px) translate(-50%, -50%) ${isVisible ? "scale(1)" : "scale(.6)"}`;
+        rafId = requestAnimationFrame(animate);
+      }
+
+      document.addEventListener("mousemove", (e) => {
+        targetX = e.clientX;
+        targetY = e.clientY;
+        if (!rafId) animate();
+
+        // Hover üzerinde mi?
+        const hoveringInteractive = e.target.closest(interactiveSelectors);
+        if (hoveringInteractive && !isVisible) {
+          isVisible = true;
+          cursor.classList.add("visible");
+        } else if (!hoveringInteractive && isVisible) {
+          isVisible = false;
+          cursor.classList.remove("visible");
+        }
+      });
+
+      document.addEventListener("mousedown", () => cursor.classList.add("click"));
+      document.addEventListener("mouseup", () => cursor.classList.remove("click"));
+
+      // Sayfa dışına çıkınca gizle
+      document.addEventListener("mouseleave", () => {
+        isVisible = false;
+        cursor.classList.remove("visible");
+      });
+    }
+  }
+
+  // ----- SMOOTH SCROLL FOR INTERNAL LINKS -----
+  // Native smooth scroll zaten CSS'te var (html{scroll-behavior:smooth})
+  // Ama navbar yüksekliği için offset gerekiyor
+  document.addEventListener("click", (e) => {
+    const link = e.target.closest('a[href^="#"]');
+    if (!link) return;
+    const href = link.getAttribute("href");
+    if (href === "#" || href.length < 2) return;
+    const target = document.querySelector(href);
+    if (!target) return;
+    e.preventDefault();
+    const navbar = document.querySelector(".navbar");
+    const offset = navbar ? navbar.offsetHeight + 20 : 80;
+    const top = target.getBoundingClientRect().top + window.scrollY - offset;
+    window.scrollTo({ top, behavior: "smooth" });
+  });
+
+</script>
+
+<script type="module">
+  import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
+
+  const supabaseUrl = "https://owcgcyvgibyawxfxwlbn.supabase.co";
+  const supabaseAnonKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im93Y2djeXZnaWJ5YXd4Znh3bGJuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzc5MjEyMTksImV4cCI6MjA5MzQ5NzIxOX0.ynMQBYGOMibnmeT_7bkSdWAdkEJYgZ9F6bRn5-8tkmk";
+  const supabase = createClient(supabaseUrl, supabaseAnonKey);
+
+  const mapArea = document.getElementById("map-area");
+  const tooltip = document.getElementById("map-tooltip");
+  const svg = mapArea ? mapArea.querySelector("svg") : null;
+
+  // Çekilen veriyi cache'le, dil değişince yeniden render edebilmek için
+  let citiesCache = [];
+
+  // Aktif dile göre değer seç: EN seçili ama EN değer boşsa TR'ye düş
+  function pickLang(item, baseField) {
+    const lang = window.HA_I18N?.current || "tr";
+    if (lang === "en") {
+      const enValue = item[baseField + "_en"];
+      if (enValue && String(enValue).trim()) return enValue;
+    }
+    return item[baseField];
+  }
+
+  // Güvenli HTML escape
+  function escHtml(value) {
+    return String(value ?? "")
+      .replaceAll("&", "&amp;")
+      .replaceAll("<", "&lt;")
+      .replaceAll(">", "&gt;")
+      .replaceAll('"', "&quot;")
+      .replaceAll("'", "&#039;");
+  }
+
+  function productPageUrl(product) {
+    // URL'e dil parametresi de ekleyelim, ürün sayfasında dil korunsun
+    const lang = window.HA_I18N?.current || "tr";
+    return `product.html?slug=${encodeURIComponent(product.slug)}&lang=${lang}`;
+  }
+
+  function getFirstActiveProduct(city) {
+    const products = city.products || [];
+    return products.find((product) => product.is_active) || products[0] || null;
+  }
+
+  function showTooltip(path, city, product) {
+    if (!tooltip || !mapArea || !path || !product) return;
+
+    const cityName = pickLang(city, "name");
+    const productName = pickLang(product, "short_name") || pickLang(product, "name");
+    const altText = product.short_name || product.name;
+
+    tooltip.innerHTML = `
+      <img class="map-tip-img" src="${escHtml(product.mini_image || "assets/logo_house_of_anatolia_transparent.png")}" alt="${escHtml(altText)}">
+      <span class="map-tip-text">
+        <span class="map-tip-city">${escHtml(cityName)}</span>
+        <span class="map-tip-product">${escHtml(productName)}</span>
+      </span>
+    `;
+
+    const areaRect = mapArea.getBoundingClientRect();
+    const cityRect = path.getBoundingClientRect();
+
+    tooltip.style.left = (cityRect.left - areaRect.left + cityRect.width / 2) + "px";
+    tooltip.style.top = (cityRect.top - areaRect.top) + "px";
+    tooltip.classList.add("show");
+  }
+
+  function hideTooltip() {
+    if (!tooltip) return;
+    tooltip.classList.remove("show");
+  }
+
+  async function loadMapProducts() {
+    if (!svg || !mapArea) return;
+
+    const { data, error } = await supabase
+      .from("cities")
+      .select(`
+        id,
+        name,
+        name_en,
+        plate_code,
+        svg_id,
+        is_active,
+        is_clickable,
+        products (
+          id,
+          name,
+          name_en,
+          slug,
+          short_name,
+          short_name_en,
+          mini_image,
+          is_active
+        )
+      `)
+      .order("sort_order", { ascending: true });
+
+    if (error) {
+      console.error("Harita verisi alınamadı:", error.message);
+      return;
+    }
+
+    citiesCache = data || [];
+    bindMapInteractions();
+  }
+
+  function bindMapInteractions() {
+    if (!svg) return;
+
+    citiesCache.forEach((city) => {
+      if (!city.is_active) return;
+
+      const path = svg.querySelector("#" + city.svg_id);
+      const product = getFirstActiveProduct(city);
+
+      if (!path || !product) return;
+
+      path.classList.remove("map-city-active", "map-city-hover-only");
+      path.classList.add(city.is_clickable ? "map-city-active" : "map-city-hover-only");
+      path.style.cursor = city.is_clickable ? "pointer" : "default";
+
+      // Daha önce eklediğimiz listener'ları temizle (dil değişince yeniden bağlanır)
+      // Yeni bir element oluşturmadan, ama duplicate listener eklemekten kaçınalım
+      // Çözüm: data-listener flag'i tut
+      if (!path.dataset.haBound) {
+        path.dataset.haBound = "1";
+        path.addEventListener("mouseenter", () => {
+          const c = citiesCache.find(x => x.svg_id === path.id);
+          const p = c ? getFirstActiveProduct(c) : null;
+          if (c && p) showTooltip(path, c, p);
+        });
+        path.addEventListener("mousemove", () => {
+          const c = citiesCache.find(x => x.svg_id === path.id);
+          const p = c ? getFirstActiveProduct(c) : null;
+          if (c && p) showTooltip(path, c, p);
+        });
+        path.addEventListener("mouseleave", hideTooltip);
+        path.addEventListener("click", () => {
+          const c = citiesCache.find(x => x.svg_id === path.id);
+          const p = c ? getFirstActiveProduct(c) : null;
+          if (!c || !p || !c.is_clickable) return;
+          window.location.assign(productPageUrl(p));
+        });
+      }
+    });
+  }
+
+  // Dil değişince tooltip görünüyorsa yeniden render et (kapalıysa zaten bir sonraki hover'da güncel olur)
+  window.addEventListener("languagechange", () => {
+    // Tooltip açıkken dil değişirse, kapatıp bir sonraki hover'da güncel açılmasını bekle
+    hideTooltip();
+  });
+
+  loadMapProducts();
+
+  // ============================================================
+  // PAGE VIEW TRACKER → Supabase
+  // KVKK uyumlu — IP saklanmaz, sadece anonim sayım yapılır.
+  // Aynı tarayıcıda 30 dk içinde tekrar açılış sayılmaz.
+  // ============================================================
+  (function trackPageView() {
+    try {
+      // 30 dakikalık deduplication: aynı sekme/tarayıcı 30 dk içinde sayılmasın
+      const STORAGE_KEY = "ha_pv_last";
+      const DEDUP_MINUTES = 30;
+      const now = Date.now();
+
+      try {
+        const last = parseInt(sessionStorage.getItem(STORAGE_KEY) || "0", 10);
+        if (last && (now - last) < DEDUP_MINUTES * 60 * 1000) {
+          return; // 30 dk içinde zaten loglandı, atla
+        }
+      } catch {} // sessionStorage erişimi başarısızsa devam
+
+      // Cihaz türü (basit kestirim)
+      const ua = navigator.userAgent || "";
+      let deviceType = "desktop";
+      if (/iPad|Tablet/i.test(ua)) deviceType = "tablet";
+      else if (/Mobi|Android|iPhone/i.test(ua)) deviceType = "mobile";
+
+      // Referrer (sadece domain — privacy için tam URL göndermiyoruz)
+      let referrer = null;
+      try {
+        if (document.referrer) {
+          const refUrl = new URL(document.referrer);
+          // Aynı site içi geçişleri kaydetme
+          if (refUrl.hostname !== location.hostname) {
+            referrer = refUrl.hostname;
+          }
+        }
+      } catch {}
+
+      // Sayfa yolu — ana sayfa için "/"
+      let pagePath = location.pathname || "/";
+      if (pagePath === "" || pagePath === "/index_supabase.html" || pagePath.endsWith("/index.html")) {
+        pagePath = "/";
+      }
+
+      // Lang
+      const lang = window.HA_I18N?.current || "tr";
+
+      // Async olarak gönder, sayfa yüklemesini engelleme
+      // requestIdleCallback varsa onu kullan, yoksa setTimeout
+      const sendLog = async () => {
+        try {
+          await supabase.from("page_views").insert({
+            page_path: pagePath,
+            page_title: (document.title || "").substring(0, 300),
+            language: lang,
+            referrer: referrer,
+            device_type: deviceType
+          });
+          // Başarılı log — sessionStorage'a kaydet
+          try { sessionStorage.setItem(STORAGE_KEY, String(now)); } catch {}
+        } catch (e) {
+          // Sessizce yut — analytics hatası kullanıcıyı etkilemesin
+          // console.warn("Page view log failed:", e);
+        }
+      };
+
+      if ("requestIdleCallback" in window) {
+        requestIdleCallback(() => sendLog(), { timeout: 3000 });
+      } else {
+        setTimeout(sendLog, 1500);
+      }
+    } catch (e) {
+      // En dış try-catch: hiçbir şey çalışmazsa sessizce devam et
+    }
+  })();
+
+  // ============================================================
+  // NEWSLETTER FORM → Supabase
+  // ============================================================
+  (function setupNewsletter() {
+    const form = document.getElementById("newsletter-form");
+    const statusEl = document.getElementById("newsletter-status");
+    if (!form) return;
+
+    const button = form.querySelector("button");
+    const input = form.querySelector("input[type='email']");
+    const originalButtonText = button ? button.textContent : "Abone Ol";
+
+    // Basit e-posta regex (ön kontrol — DB de zaten kontrol ediyor)
+    const EMAIL_RE = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
+
+    function t(key) {
+      return window.HA_I18N?.t(key) ?? key;
+    }
+
+    function setStatus(message, type) {
+      if (!statusEl) return;
+      statusEl.textContent = message || "";
+      statusEl.classList.remove("success", "error");
+      if (type) statusEl.classList.add(type);
+    }
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      const email = (input?.value || "").trim();
+
+      // Frontend validation
+      if (!email || !EMAIL_RE.test(email) || email.length < 5 || email.length > 200) {
+        setStatus(t("footer_newsletter_error_invalid"), "error");
+        return;
+      }
+
+      // Loading state
+      if (button) {
+        button.disabled = true;
+        button.textContent = t("footer_newsletter_loading");
+      }
+      setStatus("");
+
+      try {
+        const lang = window.HA_I18N?.current || "tr";
+        const { error } = await supabase
+          .from("newsletter_subscribers")
+          .insert({
+            email: email,
+            source: "footer",
+            language: lang,
+            // ip ve user_agent zaten trigger ile null'a çekilecek
+            ip_address: null,
+            user_agent: null
+          });
+
+        if (error) throw error;
+
+        // Başarı
+        setStatus(t("footer_newsletter_success"), "success");
+        input.value = "";
+        if (button) {
+          button.textContent = "✓";
+          // 3 saniye sonra eski haline dön
+          setTimeout(() => {
+            if (button) {
+              button.disabled = false;
+              button.textContent = window.HA_I18N?.t("footer_newsletter_button") || originalButtonText;
+            }
+          }, 3000);
+        }
+      } catch (err) {
+        const msg = (err?.message || "").toLowerCase();
+
+        if (msg.includes("rate_limit") || msg.includes("rate limit")) {
+          setStatus(t("footer_newsletter_error_rate"), "error");
+        } else if (msg.includes("duplicate") || msg.includes("unique") || err?.code === "23505") {
+          setStatus(t("footer_newsletter_error_duplicate"), "error");
+        } else if (msg.includes("invalid") || msg.includes("check") || err?.code === "23514") {
+          setStatus(t("footer_newsletter_error_invalid"), "error");
+        } else {
+          setStatus(t("footer_newsletter_error_generic"), "error");
+          console.error("Newsletter error:", err);
+        }
+
+        if (button) {
+          button.disabled = false;
+          button.textContent = window.HA_I18N?.t("footer_newsletter_button") || originalButtonText;
+        }
+      }
+    });
+  })();
+</script>
+
+</body></html>

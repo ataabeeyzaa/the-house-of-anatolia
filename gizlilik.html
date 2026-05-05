@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="tr"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Gizlilik Politikası — The House of Anatolia</title>
+<meta name="description" content="The House of Anatolia gizlilik politikası ve KVKK aydınlatma metni.">
+<meta name="robots" content="noindex,follow">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0a0807;
+    --bg-soft:#120e0c;
+    --panel:#15110e;
+    --gold:#d2a12f;
+    --gold-soft:#f0d28a;
+    --cream:#efe9dd;
+    --cream-2:#d8cebf;
+    --muted:#9f8e7a;
+    --text:#e8e1d2;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--text);
+    font-family:'Inter',sans-serif;
+    line-height:1.7;
+  }
+  .container{max-width:880px;margin:0 auto;padding:0 28px}
+
+  /* === NAVBAR (sade) === */
+  .navbar{
+    background:var(--cream);
+    color:#1a120c;
+    padding:18px 0;
+    border-bottom:1px solid rgba(35,27,21,.08);
+  }
+  .nav-inner{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:20px;
+    max-width:880px;
+    margin:0 auto;
+    padding:0 28px;
+  }
+  .brand-logo{display:flex;align-items:center;text-decoration:none;color:#1a120c}
+  .brand-logo img{width:84px;height:auto}
+  .nav-back{
+    font-family:'Inter',sans-serif;
+    font-size:.78rem;
+    font-weight:600;
+    letter-spacing:.18em;
+    text-transform:uppercase;
+    color:#7a6b5c;
+    text-decoration:none;
+    transition:color .25s ease;
+  }
+  .nav-back:hover{color:var(--gold)}
+
+  /* === DOC === */
+  .legal-doc{
+    padding:80px 0 100px;
+  }
+  .legal-eyebrow{
+    display:inline-flex;
+    align-items:center;
+    gap:14px;
+    font-size:.78rem;
+    font-weight:600;
+    letter-spacing:.32em;
+    text-transform:uppercase;
+    color:var(--gold-soft);
+    margin-bottom:20px;
+  }
+  .legal-eyebrow::before{
+    content:"";
+    width:38px;
+    height:1px;
+    background:linear-gradient(90deg, transparent, var(--gold) 50%, var(--gold));
+  }
+  .legal-title{
+    font-family:'Cormorant Garamond',serif;
+    font-weight:500;
+    font-size:clamp(2rem, 4vw, 3rem);
+    color:var(--cream);
+    margin:0 0 12px;
+    letter-spacing:-.01em;
+  }
+  .legal-meta{
+    color:var(--muted);
+    font-size:.88rem;
+    margin-bottom:48px;
+    padding-bottom:36px;
+    border-bottom:1px solid rgba(255,255,255,.08);
+  }
+  .legal-meta strong{color:var(--cream-2);font-weight:500}
+
+  .legal-doc h2{
+    font-family:'Cormorant Garamond',serif;
+    font-weight:500;
+    font-size:1.55rem;
+    color:var(--cream);
+    margin:48px 0 14px;
+    padding-top:8px;
+    position:relative;
+  }
+  .legal-doc h2::before{
+    content:"";
+    display:block;
+    width:32px;
+    height:1px;
+    background:var(--gold);
+    margin-bottom:16px;
+  }
+  .legal-doc h3{
+    font-family:'Inter',sans-serif;
+    font-size:.95rem;
+    font-weight:600;
+    color:var(--gold-soft);
+    letter-spacing:.04em;
+    margin:30px 0 10px;
+  }
+  .legal-doc p{
+    color:var(--cream-2);
+    font-size:.98rem;
+    line-height:1.85;
+    margin:0 0 16px;
+  }
+  .legal-doc strong{color:var(--cream);font-weight:600}
+  .legal-doc ul, .legal-doc ol{
+    margin:8px 0 18px 0;
+    padding-left:24px;
+    color:var(--cream-2);
+  }
+  .legal-doc li{
+    margin-bottom:8px;
+    line-height:1.75;
+  }
+  .legal-doc a{
+    color:var(--gold-soft);
+    text-decoration:underline;
+    text-decoration-color:rgba(210,161,47,.4);
+    text-underline-offset:3px;
+  }
+  .legal-doc a:hover{color:var(--gold)}
+
+  /* === PLACEHOLDER VURGUSU === */
+  .placeholder{
+    display:inline-block;
+    padding:1px 8px;
+    background:rgba(210,161,47,.12);
+    border:1px dashed rgba(210,161,47,.4);
+    border-radius:3px;
+    color:var(--gold);
+    font-family:'Inter',sans-serif;
+    font-size:.85em;
+    font-weight:500;
+  }
+
+  /* === NOTE BOX === */
+  .legal-note{
+    margin:30px 0;
+    padding:20px 24px;
+    background:rgba(210,161,47,.05);
+    border-left:2px solid var(--gold);
+    border-radius:2px;
+    font-size:.92rem;
+    color:var(--cream-2);
+  }
+  .legal-note strong{color:var(--gold-soft)}
+
+  /* === FOOTER === */
+  footer{
+    background:#070504;
+    border-top:1px solid rgba(255,255,255,.05);
+    padding:30px 0;
+    text-align:center;
+    color:var(--muted);
+    font-size:.82rem;
+  }
+  footer a{
+    color:var(--muted);
+    margin:0 14px;
+    text-decoration:none;
+    transition:color .25s ease;
+  }
+  footer a:hover{color:var(--gold-soft)}
+
+  @media (max-width:600px){
+    .nav-inner{padding:0 18px}
+    .container{padding:0 18px}
+    .legal-doc{padding:50px 0 70px}
+    .legal-doc h2{font-size:1.35rem;margin:36px 0 12px}
+  }
+</style>
+</head>
+<body>
+
+<header class="navbar">
+  <div class="nav-inner">
+    <a href="index.html" class="brand-logo">
+      <img src="assets/logo_house_of_anatolia_transparent.png" alt="The House of Anatolia">
+    </a>
+    <a href="index.html" class="nav-back">← Ana Sayfa</a>
+  </div>
+</header>
+
+<main class="legal-doc">
+  <div class="container">
+
+    <div class="legal-eyebrow">YASAL</div>
+    <h1 class="legal-title">Gizlilik Politikası ve KVKK Aydınlatma Metni</h1>
+    <p class="legal-meta">
+      <strong>Son güncelleme:</strong> <span id="last-update"></span>
+    </p>
+
+    <div class="legal-note">
+      <strong>Bu sayfa hakkında:</strong> Aşağıdaki metin, 6698 sayılı Kişisel Verilerin Korunması Kanunu (KVKK) ile ilgili mevzuat çerçevesinde hazırlanmış bir aydınlatma metnidir. <span class="placeholder">[ŞİRKET ADI]</span>, <span class="placeholder">[VERGİ NO]</span>, <span class="placeholder">[MERSİS NO]</span>, <span class="placeholder">[ADRES]</span> ve <span class="placeholder">[TELEFON]</span> alanlarını şirket bilgilerinizle doldurmanız gerekmektedir.
+    </div>
+
+    <h2>1. Veri Sorumlusu</h2>
+    <p>
+      6698 sayılı Kişisel Verilerin Korunması Kanunu ("KVKK") uyarınca, kişisel verileriniz; veri sorumlusu sıfatıyla <strong><span class="placeholder">[ŞİRKET ADI]</span></strong> ("The House of Anatolia", "Şirket", "biz") tarafından aşağıda açıklanan kapsamda işlenebilecektir.
+    </p>
+    <ul>
+      <li><strong>Ticari Unvan:</strong> <span class="placeholder">[ŞİRKET ADI]</span></li>
+      <li><strong>Vergi Dairesi / No:</strong> <span class="placeholder">[VERGİ DAİRESİ / VERGİ NO]</span></li>
+      <li><strong>MERSİS No:</strong> <span class="placeholder">[MERSİS NO]</span></li>
+      <li><strong>Adres:</strong> <span class="placeholder">[ŞİRKET ADRESİ]</span></li>
+      <li><strong>E-posta:</strong> info@thehouseofanatolia.com</li>
+      <li><strong>Telefon:</strong> <span class="placeholder">[TELEFON]</span></li>
+    </ul>
+
+    <h2>2. İşlenen Kişisel Veriler</h2>
+    <p>thehouseofanatolia.com web sitesi (bundan sonra "Site") aracılığıyla aşağıdaki kişisel verileriniz işlenmektedir:</p>
+
+    <h3>2.1. Kimlik ve İletişim Bilgileri</h3>
+    <ul>
+      <li>Ad, soyad</li>
+      <li>E-posta adresi</li>
+      <li>Telefon numarası</li>
+      <li>Firma adı (varsa, kurumsal taleplerde)</li>
+      <li>Teslimat lokasyonu / adres bilgisi</li>
+    </ul>
+
+    <h3>2.2. Talep ve Sipariş Bilgileri</h3>
+    <ul>
+      <li>Talep edilen ürün, gramaj, paket türü</li>
+      <li>Paket adedi</li>
+      <li>Talep tipi (bireysel, kurumsal, bayilik vb.)</li>
+      <li>Tarafımıza ilettiğiniz mesajlar</li>
+    </ul>
+
+    <h3>2.3. Pazarlama Tercihleri</h3>
+    <ul>
+      <li>Bültene abonelik durumu</li>
+      <li>Tercih edilen iletişim dili</li>
+    </ul>
+
+    <h3>2.4. Teknik Veriler (Çerezler aracılığıyla)</h3>
+    <ul>
+      <li>Tarayıcı türü ve sürümü</li>
+      <li>Site içi gezinme verileri (yalnızca anonim performans amaçlı)</li>
+    </ul>
+    <p>Çerezlere ilişkin detaylı bilgi için lütfen <a href="cerez.html">Çerez Politikamızı</a> inceleyin.</p>
+
+    <h2>3. Kişisel Verilerin İşlenme Amaçları</h2>
+    <p>Kişisel verileriniz, KVKK'nın 5. ve 6. maddelerinde belirtilen kişisel veri işleme şartları çerçevesinde aşağıdaki amaçlarla işlenmektedir:</p>
+    <ul>
+      <li>Tarafınızdan iletilen ürün taleplerinin değerlendirilmesi ve karşılanması</li>
+      <li>Sipariş oluşturulması, faturalandırma ve teslimat süreçlerinin yürütülmesi</li>
+      <li>Müşteri ilişkilerinin yönetimi ve iletişim faaliyetlerinin sürdürülmesi</li>
+      <li>Bültenlerimize abone olmanız halinde tarafınıza tanıtım ve bilgilendirme amaçlı ileti gönderilmesi</li>
+      <li>Yasal yükümlülüklerimizin yerine getirilmesi (vergi, ticaret, tüketici mevzuatı)</li>
+      <li>Site güvenliğinin sağlanması ve hukuki uyuşmazlıkların çözülmesi</li>
+      <li>Hizmet kalitemizin geliştirilmesi ve süreçlerimizin iyileştirilmesi</li>
+    </ul>
+
+    <h2>4. Kişisel Verilerin Aktarılması</h2>
+    <p>Kişisel verileriniz, KVKK'nın 8. ve 9. maddeleri uyarınca aşağıdaki taraflarla, yalnızca işleme amacıyla sınırlı olarak ve gerekli güvenlik tedbirleri alınarak paylaşılabilir:</p>
+    <ul>
+      <li><strong>Hizmet sağlayıcılarımız:</strong> Web altyapısı (Supabase), e-posta servisi (FormSubmit), barındırma hizmetleri</li>
+      <li><strong>Lojistik ortakları:</strong> Sipariş teslim edilmesi gereken kargo firmaları</li>
+      <li><strong>Yasal merciler:</strong> Yasal zorunluluk veya talep halinde ilgili kamu kurumları, mahkemeler ve denetim makamları</li>
+      <li><strong>Mali müşavir / hukuk danışmanı:</strong> Yasal yükümlülüklerimizin yürütülmesi amacıyla</li>
+    </ul>
+    <p>Verileriniz, açık rızanız olmaksızın yurt dışına aktarılmaz. Supabase ve benzeri altyapı sağlayıcılarının veri merkezleri yurt dışında bulunabilir; bu durum aydınlatma kapsamında size bildirilir ve gerekli teknik tedbirler (şifreleme, erişim kontrolü) alınır.</p>
+
+    <h2>5. Kişisel Verilerin Toplanma Yöntemi ve Hukuki Sebebi</h2>
+    <p>Kişisel verileriniz; Site üzerindeki talep formu, bülten abonelik formu ve çerezler aracılığıyla otomatik veya kısmen otomatik yöntemlerle elektronik ortamda toplanmaktadır.</p>
+    <p>Hukuki sebepleri:</p>
+    <ul>
+      <li><strong>Sözleşmenin kurulması ve ifası</strong> (KVKK m.5/2-c) — talep ve siparişlerinizin yerine getirilmesi</li>
+      <li><strong>Hukuki yükümlülüğün yerine getirilmesi</strong> (KVKK m.5/2-ç) — vergi ve ticari mevzuat</li>
+      <li><strong>Meşru menfaat</strong> (KVKK m.5/2-f) — site güvenliği ve hizmet iyileştirme</li>
+      <li><strong>Açık rıza</strong> (KVKK m.5/1) — bülten aboneliği ve pazarlama iletişimi</li>
+    </ul>
+
+    <h2>6. Veri Sahibinin Hakları (KVKK m.11)</h2>
+    <p>KVKK kapsamında kişisel veri sahibi olarak aşağıdaki haklara sahipsiniz:</p>
+    <ul>
+      <li>Kişisel verilerinizin işlenip işlenmediğini öğrenme</li>
+      <li>İşlenmişse bilgi talep etme</li>
+      <li>İşlenme amacını ve amacına uygun kullanılıp kullanılmadığını öğrenme</li>
+      <li>Yurt içinde veya yurt dışında aktarıldığı üçüncü kişileri bilme</li>
+      <li>Eksik veya yanlış işlenmişse düzeltilmesini isteme</li>
+      <li>KVKK'da öngörülen şartlar çerçevesinde silinmesini veya yok edilmesini isteme</li>
+      <li>Düzeltme, silme ve yok edilme taleplerinin aktarıldığı üçüncü kişilere bildirilmesini isteme</li>
+      <li>Otomatik sistemlerle analiz edilmesi sonucu aleyhinize bir sonuç çıkmasına itiraz etme</li>
+      <li>Kanuna aykırı işlenme nedeniyle zarara uğramanız halinde zararın giderilmesini talep etme</li>
+    </ul>
+    <p>Bu haklarınızı kullanmak için <strong>info@thehouseofanatolia.com</strong> adresine, kimliğinizi tespit edici belgelerle birlikte yazılı olarak başvurabilirsiniz. Başvurunuz, KVKK'nın 13. maddesi uyarınca en geç <strong>30 gün</strong> içinde yanıtlanacaktır.</p>
+
+    <h2>7. Kişisel Verilerin Saklanma Süresi</h2>
+    <p>Kişisel verileriniz, işleme amacının gerektirdiği süre boyunca ve ilgili mevzuatın öngördüğü asgari sürelere uygun olarak saklanır:</p>
+    <ul>
+      <li><strong>Talep / sipariş kayıtları:</strong> Türk Borçlar Kanunu uyarınca 10 yıl</li>
+      <li><strong>Mali kayıtlar:</strong> Vergi mevzuatı uyarınca 5 yıl</li>
+      <li><strong>Bülten abonelik bilgileri:</strong> Aboneliğiniz aktif olduğu sürece + 1 yıl</li>
+      <li><strong>Çerez verileri:</strong> Çerez Politikasında belirtilen süreler</li>
+    </ul>
+
+    <h2>8. Veri Güvenliği</h2>
+    <p>The House of Anatolia, kişisel verilerinizin güvenliği için aşağıdaki önlemleri almaktadır:</p>
+    <ul>
+      <li>HTTPS / SSL şifreleme</li>
+      <li>Veritabanı düzeyinde Row Level Security (RLS) politikaları</li>
+      <li>Yetkisiz erişime karşı kimlik doğrulama</li>
+      <li>Düzenli güvenlik denetimi ve loglama</li>
+      <li>Veriye erişimi yalnızca yetkili personel ile sınırlama</li>
+    </ul>
+
+    <h2>9. Politika Değişiklikleri</h2>
+    <p>Bu Gizlilik Politikası ihtiyaç halinde güncellenebilir. Önemli değişiklikler bu sayfanın üst kısmındaki tarih bilgisi ile birlikte yayımlanır. Site'yi kullanmaya devam etmeniz, güncel politikayı kabul ettiğiniz anlamına gelir.</p>
+
+    <h2>10. İletişim</h2>
+    <p>Bu metne veya kişisel verilerinizin işlenmesine ilişkin her türlü soru ve talep için:</p>
+    <ul>
+      <li><strong>E-posta:</strong> info@thehouseofanatolia.com</li>
+      <li><strong>Adres:</strong> <span class="placeholder">[ŞİRKET ADRESİ]</span></li>
+    </ul>
+
+  </div>
+</main>
+
+<footer>
+  <div class="container">
+    <a href="index.html">Ana Sayfa</a>
+    <a href="kullanim.html">Kullanım Koşulları</a>
+    <a href="cerez.html">Çerez Politikası</a>
+    <div style="margin-top:14px">© <span id="year"></span> The House of Anatolia. Tüm hakları saklıdır.</div>
+  </div>
+</footer>
+
+<script>
+  document.getElementById("year").textContent = new Date().getFullYear();
+  // Son güncelleme tarihi — bugünün tarihi
+  const today = new Date();
+  const months = ["Ocak","Şubat","Mart","Nisan","Mayıs","Haziran","Temmuz","Ağustos","Eylül","Ekim","Kasım","Aralık"];
+  document.getElementById("last-update").textContent = today.getDate() + " " + months[today.getMonth()] + " " + today.getFullYear();
+</script>
+
+</body></html>

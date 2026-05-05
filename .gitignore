@@ -1,0 +1,27 @@
+# OS junk
+.DS_Store
+Thumbs.db
+ehthumbs.db
+desktop.ini
+
+# Editor / IDE
+.vscode/
+.idea/
+*.sublime-*
+*.swp
+*.swo
+
+# Logs
+*.log
+gh_auth.log
+gh_auth.pid
+
+# Claude Code workspace
+.claude/
+
+# Backup files
+*.bak
+*~
+
+# Dependencies (defensive — none yet)
+node_modules/

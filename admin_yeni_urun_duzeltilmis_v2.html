@@ -1,0 +1,4809 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The House of Anatolia | Yönetici Paneli</title>
+  <style>
+    :root {
+      --dark:#0d0908;
+      --panel:#15110e;
+      --cream:#efe9dd;
+      --gold:#d2a12f;
+      --gold-soft:#f0d28a;
+      --muted:#c2b4a4;
+      --text:#f4eee6;
+      --line:rgba(255,255,255,.10);
+      --danger:#ffb4a9;
+      --ok:#b9f6ca;
+    }
+    * { box-sizing:border-box; }
+    body {
+      margin:0;
+      font-family: Arial, sans-serif;
+      background:
+        radial-gradient(circle at 20% 0%, rgba(210,161,47,.10), transparent 28%),
+        linear-gradient(180deg,#090706,#0d0908);
+      color:var(--text);
+      min-height:100vh;
+    }
+    a { color:inherit; }
+    .container {
+      width:min(calc(100% - 36px), 1180px);
+      margin:0 auto;
+      padding:34px 0 60px;
+    }
+    .topbar {
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:18px;
+      padding:18px 0 28px;
+    }
+    .brand {
+      display:flex;
+      align-items:center;
+      gap:14px;
+    }
+    .brand img {
+      height:58px;
+      width:auto;
+      object-fit:contain;
+    }
+    .brand-title {
+      display:flex;
+      flex-direction:column;
+      gap:4px;
+    }
+    .brand-title strong {
+      font-size:1.08rem;
+      letter-spacing:.04em;
+    }
+    .brand-title span {
+      color:var(--muted);
+      font-size:.88rem;
+    }
+    .card {
+      background:rgba(255,255,255,.045);
+      border:1px solid var(--line);
+      border-radius:24px;
+      box-shadow:0 24px 70px rgba(0,0,0,.28);
+      overflow:hidden;
+    }
+    .login-card {
+      max-width:480px;
+      margin:50px auto;
+      padding:30px;
+    }
+    h1,h2,h3,p { margin-top:0; }
+    h1 { color:var(--gold-soft); font-size:2rem; margin-bottom:10px; }
+    h2 { color:var(--gold-soft); margin-bottom:18px; }
+    .muted { color:var(--muted); line-height:1.65; }
+    label {
+      display:block;
+      margin:18px 0 8px;
+      color:var(--gold-soft);
+      font-size:.8rem;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+    }
+    input {
+      width:100%;
+      padding:14px 16px;
+      border:1px solid rgba(210,161,47,.24);
+      background:rgba(255,255,255,.04);
+      color:var(--text);
+      border-radius:12px;
+      outline:none;
+      font:inherit;
+    }
+    input:focus { border-color:rgba(210,161,47,.65); }
+    button {
+      border:0;
+      min-height:46px;
+      padding:0 18px;
+      border-radius:12px;
+      background:var(--gold);
+      color:#24170a;
+      font-weight:700;
+      cursor:pointer;
+      letter-spacing:.04em;
+    }
+    button.secondary {
+      background:transparent;
+      color:var(--text);
+      border:1px solid rgba(255,255,255,.16);
+    }
+    button.danger {
+      background:rgba(255,180,169,.14);
+      color:var(--danger);
+      border:1px solid rgba(255,180,169,.22);
+    }
+    .actions {
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      margin-top:22px;
+      align-items:center;
+    }
+    .hidden { display:none !important; }
+    .status {
+      margin-top:16px;
+      color:var(--muted);
+      line-height:1.6;
+      white-space:pre-wrap;
+    }
+    .status.error { color:var(--danger); }
+    .status.ok { color:var(--ok); }
+    .dashboard-grid {
+      display:grid;
+      grid-template-columns:1fr;
+      gap:22px;
+    }
+    .section-head {
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:18px;
+      padding:24px 24px 0;
+    }
+    .section-body { padding:24px; }
+    table {
+      width:100%;
+      border-collapse:collapse;
+      overflow:hidden;
+      border-radius:16px;
+    }
+    th,td {
+      padding:14px 12px;
+      border-bottom:1px solid rgba(255,255,255,.08);
+      text-align:left;
+      vertical-align:middle;
+      font-size:.95rem;
+    }
+    th {
+      color:var(--gold-soft);
+      font-size:.78rem;
+      text-transform:uppercase;
+      letter-spacing:.12em;
+      background:rgba(255,255,255,.04);
+    }
+    tr:hover td { background:rgba(255,255,255,.025); }
+    .pill {
+      display:inline-flex;
+      align-items:center;
+      gap:6px;
+      padding:7px 10px;
+      border-radius:999px;
+      background:rgba(210,161,47,.10);
+      border:1px solid rgba(210,161,47,.18);
+      color:var(--gold-soft);
+      font-size:.82rem;
+    }
+    .switch-row {
+      display:flex;
+      align-items:center;
+      gap:8px;
+    }
+    .switch-row input {
+      width:auto;
+      transform:scale(1.15);
+    }
+    .product-mini {
+      display:flex;
+      align-items:center;
+      gap:10px;
+    }
+    .product-mini img {
+      width:42px;
+      height:42px;
+      object-fit:cover;
+      border-radius:10px;
+      background:#efe9dd;
+    }
+    .note {
+      padding:14px 16px;
+      border:1px dashed rgba(210,161,47,.26);
+      color:var(--muted);
+      background:rgba(210,161,47,.06);
+      border-radius:16px;
+      line-height:1.65;
+      margin-bottom:18px;
+    }
+
+    .edit-panel{
+      margin-top:20px;
+      padding:22px;
+      border-radius:20px;
+      border:1px solid rgba(210,161,47,.18);
+      background:rgba(210,161,47,.055);
+    }
+    .edit-grid{
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:16px;
+    }
+    .edit-grid .full{grid-column:1 / -1}
+    textarea, select{
+      width:100%;
+      padding:14px 16px;
+      border:1px solid rgba(210,161,47,.24);
+      background:rgba(255,255,255,.04);
+      color:var(--text);
+      border-radius:12px;
+      outline:none;
+      font:inherit;
+    }
+    textarea{min-height:92px;resize:vertical;line-height:1.6}
+    select option{color:#24170a}
+    .preview-img{
+      width:72px;
+      height:72px;
+      object-fit:cover;
+      border-radius:14px;
+      background:#efe9dd;
+      border:1px solid rgba(255,255,255,.12);
+    }
+    .tiny-help{
+      color:var(--muted);
+      font-size:.82rem;
+      line-height:1.55;
+      margin-top:6px;
+    }
+
+    .subsection{
+      margin-top:24px;
+      padding-top:22px;
+      border-top:1px solid rgba(255,255,255,.10);
+    }
+    .mini-table-actions{
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
+    }
+
+
+
+
+
+
+
+
+    .city-edit-panel,
+    .product-create-panel{
+      margin-top:18px;
+      padding:18px;
+      border-radius:18px;
+      background:rgba(255,255,255,.035);
+      border:1px solid rgba(255,255,255,.10);
+    }
+    .settings-edit-panel,
+    .section-edit-panel{
+      margin-top:18px;
+      padding:18px;
+      border-radius:18px;
+      background:rgba(255,255,255,.035);
+      border:1px solid rgba(255,255,255,.10);
+    }
+    .settings-grid{
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:16px;
+    }
+    .settings-grid .full{grid-column:1 / -1}
+    @media (max-width:760px){
+      .settings-grid{grid-template-columns:1fr}
+    }
+
+    .field-upload-row{
+      display:grid;
+      grid-template-columns:1fr auto auto;
+      gap:10px;
+      align-items:center;
+    }
+    .field-upload-row input[type="file"]{
+      padding:10px;
+      font-size:.9rem;
+    }
+    .field-upload-row .upload-field-btn{
+      min-height:44px;
+      white-space:nowrap;
+    }
+    .field-upload-status{
+      grid-column:1 / -1;
+      color:var(--muted);
+      font-size:.82rem;
+      line-height:1.45;
+      word-break:break-all;
+      min-height:18px;
+    }
+    .field-upload-status.ok{color:var(--ok)}
+    .field-upload-status.error{color:var(--danger)}
+    @media (max-width:760px){
+      .field-upload-row{grid-template-columns:1fr}
+    }
+
+    .upload-box{
+      margin:18px 0 22px;
+      padding:18px;
+      border-radius:18px;
+      border:1px dashed rgba(210,161,47,.32);
+      background:rgba(210,161,47,.06);
+    }
+    .upload-grid{
+      display:grid;
+      grid-template-columns:1fr auto;
+      gap:12px;
+      align-items:end;
+    }
+    .upload-result{
+      margin-top:12px;
+      padding:12px;
+      border-radius:12px;
+      background:rgba(0,0,0,.18);
+      color:var(--muted);
+      word-break:break-all;
+      line-height:1.55;
+      font-size:.92rem;
+    }
+    .upload-result.ok{color:var(--ok)}
+    .upload-result.error{color:var(--danger)}
+    .image-path-input:focus{
+      border-color:rgba(240,210,138,.8);
+      box-shadow:0 0 0 3px rgba(210,161,47,.12);
+    }
+    @media (max-width:760px){
+      .upload-grid{grid-template-columns:1fr}
+    }
+
+    .request-detail-panel{
+      margin-top:18px;
+      padding:18px;
+      border-radius:18px;
+      background:rgba(255,255,255,.035);
+      border:1px solid rgba(255,255,255,.10);
+    }
+    .request-detail-grid{
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:14px;
+      margin-top:14px;
+    }
+    .request-detail-item{
+      padding:14px;
+      border-radius:14px;
+      background:rgba(255,255,255,.035);
+      border:1px solid rgba(255,255,255,.08);
+    }
+    .request-detail-item strong{
+      display:block;
+      color:var(--gold-soft);
+      font-size:.78rem;
+      text-transform:uppercase;
+      letter-spacing:.12em;
+      margin-bottom:6px;
+    }
+    .request-message-box{
+      white-space:pre-wrap;
+      line-height:1.65;
+      color:var(--muted);
+    }
+    @media (max-width:760px){
+      .request-detail-grid{grid-template-columns:1fr}
+    }
+
+    .weight-edit-panel{
+      margin-top:18px;
+      padding:18px;
+      border-radius:18px;
+      background:rgba(255,255,255,.035);
+      border:1px solid rgba(255,255,255,.10);
+    }
+
+    .option-edit-panel,
+    .package-edit-panel{
+      margin-top:18px;
+      padding:18px;
+      border-radius:18px;
+      background:rgba(255,255,255,.035);
+      border:1px solid rgba(255,255,255,.10);
+    }
+
+    .gallery-edit-panel{
+      margin-top:18px;
+      padding:18px;
+      border-radius:18px;
+      background:rgba(255,255,255,.035);
+      border:1px solid rgba(255,255,255,.10);
+    }
+
+    .usage-edit-panel{
+      margin-top:18px;
+      padding:18px;
+      border-radius:18px;
+      background:rgba(255,255,255,.035);
+      border:1px solid rgba(255,255,255,.10);
+    }
+
+    .part-edit-panel{
+      margin-top:18px;
+      padding:18px;
+      border-radius:18px;
+      background:rgba(255,255,255,.035);
+      border:1px solid rgba(255,255,255,.10);
+    }
+    .part-list-title{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      margin-bottom:14px;
+    }
+
+    .row-actions{
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
+    }
+
+    @media (max-width:760px) {
+      .topbar { align-items:flex-start; flex-direction:column; }
+      table { display:block; overflow-x:auto; }
+      .brand img { height:50px; }
+    }
+
+    /* === GÜVENLİK KOMPONENTLERİ === */
+    /* Konfirmasyon modalı (kritik silme işlemleri için) */
+    .modal-overlay {
+      position:fixed; inset:0; z-index:9999;
+      background:rgba(0,0,0,.72); backdrop-filter:blur(4px);
+      display:none; align-items:center; justify-content:center;
+      padding:20px;
+    }
+    .modal-overlay.show { display:flex; }
+    .modal-box {
+      background:#15110e; border:1px solid var(--line);
+      border-radius:18px; padding:28px; max-width:480px; width:100%;
+      box-shadow:0 30px 80px rgba(0,0,0,.5);
+    }
+    .modal-box h3 { color:var(--gold-soft); margin:0 0 12px; font-size:1.25rem; }
+    .modal-box p { color:var(--muted); margin:0 0 8px; line-height:1.5; }
+    .modal-box .modal-warning {
+      background:rgba(220,90,80,.08);
+      border:1px solid rgba(220,90,80,.32);
+      color:#f5c4bf; padding:12px 14px; border-radius:10px;
+      margin:14px 0 18px; font-size:.9rem;
+    }
+    .modal-box .modal-input {
+      width:100%; padding:12px 14px; margin-top:10px;
+      background:#0d0908; border:1px solid var(--line);
+      color:var(--text); border-radius:8px; font:inherit;
+    }
+    .modal-box .modal-actions {
+      display:flex; gap:10px; justify-content:flex-end; margin-top:20px;
+    }
+    .modal-box .modal-actions button {
+      padding:10px 18px; border-radius:8px; cursor:pointer;
+      font-weight:600; letter-spacing:.04em; border:none; font:inherit;
+    }
+    .modal-box .modal-actions .modal-cancel {
+      background:transparent; border:1px solid var(--line); color:var(--text);
+    }
+    .modal-box .modal-actions .modal-confirm {
+      background:#a13328; color:#fff;
+    }
+    .modal-box .modal-actions .modal-confirm:disabled {
+      opacity:.4; cursor:not-allowed;
+    }
+
+    /* Idle timeout uyarısı (sağ alt toast) */
+    .idle-warning {
+      position:fixed; bottom:24px; right:24px; z-index:9998;
+      background:#15110e; border:1px solid rgba(210,161,47,.4);
+      border-radius:14px; padding:18px 22px; max-width:340px;
+      box-shadow:0 18px 40px rgba(0,0,0,.45);
+      display:none;
+    }
+    .idle-warning.show { display:block; }
+    .idle-warning strong { color:var(--gold-soft); display:block; margin-bottom:6px; }
+    .idle-warning p { color:var(--muted); margin:0 0 12px; font-size:.9rem; line-height:1.5; }
+    .idle-warning button {
+      background:var(--gold); color:#24170a; border:none;
+      padding:8px 16px; border-radius:6px; cursor:pointer;
+      font-weight:600; font:inherit;
+    }
+
+    /* ============================================================
+       TR/EN LANGUAGE TABS — i18n form düzenleme
+       ============================================================ */
+    .lang-tabs {
+      display: inline-flex;
+      gap: 0;
+      margin: 0 0 18px 0;
+      padding: 4px;
+      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: 8px;
+      align-items: center;
+    }
+    .lang-tabs button {
+      background: transparent;
+      border: none;
+      padding: 7px 18px;
+      font-family: inherit;
+      font-size: .82rem;
+      font-weight: 600;
+      letter-spacing: .12em;
+      color: #9f8e7a;
+      cursor: pointer;
+      border-radius: 6px;
+      transition: all .25s ease;
+      text-transform: uppercase;
+    }
+    .lang-tabs button:hover {
+      color: var(--cream, #efe9dd);
+    }
+    .lang-tabs button.active {
+      background: var(--gold, #d2a12f);
+      color: #24170a;
+    }
+    .lang-tabs .tab-hint {
+      margin-left: 12px;
+      font-size: .75rem;
+      color: #9f8e7a;
+      font-style: italic;
+      letter-spacing: 0;
+      text-transform: none;
+    }
+
+    /* Bir formdaki .lang-pane elementleri: aktif olan görünür, diğeri gizli */
+    .lang-pane {
+      display: none;
+    }
+    .lang-pane.active {
+      display: block;
+    }
+
+    /* EN inputlar için subtle hint */
+    .lang-pane[data-lang="en"] .field-hint {
+      color: #9f8e7a;
+      font-size: .78rem;
+      font-style: italic;
+      margin-top: 3px;
+      display: block;
+    }
+    .lang-pane[data-lang="en"] label::after {
+      content: " (English)";
+      color: #d2a12f;
+      font-size: .82em;
+      font-weight: 400;
+      letter-spacing: 0;
+    }
+
+    /* ============================================================
+       BÜLTEN ABONELERİ TABLOSU
+       ============================================================ */
+    .subs-stats {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-bottom: 8px;
+    }
+    .subs-stat-card {
+      flex: 1;
+      min-width: 140px;
+      background: rgba(255,255,255,.03);
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: 8px;
+      padding: 14px 18px;
+    }
+    .subs-stat-card .label {
+      display: block;
+      font-size: .72rem;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: #9f8e7a;
+      margin-bottom: 6px;
+    }
+    .subs-stat-card .value {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2rem;
+      font-weight: 500;
+      color: #efe9dd;
+      line-height: 1;
+    }
+    .subs-stat-card.gold .value { color: #d2a12f; }
+
+    .subs-row {
+      display: grid;
+      grid-template-columns: 2fr 1fr 80px 100px auto;
+      gap: 12px;
+      align-items: center;
+      padding: 12px 14px;
+      border-bottom: 1px solid rgba(255,255,255,.05);
+      font-size: .9rem;
+    }
+    .subs-row.header {
+      font-weight: 600;
+      font-size: .76rem;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: #9f8e7a;
+      border-bottom: 2px solid rgba(210,161,47,.3);
+    }
+    .subs-row .email {
+      color: #efe9dd;
+      font-family: monospace;
+      font-size: .88rem;
+      word-break: break-all;
+    }
+    .subs-row .date {
+      color: #d8cebf;
+      font-size: .82rem;
+    }
+    .subs-row .lang-badge,
+    .subs-row .source-badge,
+    .subs-row .status-badge {
+      display: inline-block;
+      padding: 3px 8px;
+      border-radius: 3px;
+      font-size: .72rem;
+      font-weight: 600;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+    }
+    .subs-row .lang-badge {
+      background: rgba(210,161,47,.12);
+      color: #d2a12f;
+      border: 1px solid rgba(210,161,47,.25);
+    }
+    .subs-row .status-badge.active {
+      background: rgba(95,180,120,.12);
+      color: #6fb886;
+      border: 1px solid rgba(95,180,120,.25);
+    }
+    .subs-row .status-badge.inactive {
+      background: rgba(180,90,90,.12);
+      color: #b56a6a;
+      border: 1px solid rgba(180,90,90,.25);
+    }
+    .subs-row .actions {
+      display: flex;
+      gap: 6px;
+      justify-content: flex-end;
+    }
+    .subs-row .actions button {
+      padding: 5px 10px;
+      font-size: .72rem;
+      letter-spacing: .04em;
+    }
+    .subs-empty {
+      text-align: center;
+      padding: 60px 20px;
+      color: #9f8e7a;
+      font-style: italic;
+    }
+    @media (max-width: 720px) {
+      .subs-row {
+        grid-template-columns: 1fr;
+        gap: 6px;
+      }
+      .subs-row.header { display: none; }
+      .subs-row .email::before { content: "E-posta: "; color: #9f8e7a; font-family: inherit; font-weight: 600; }
+      .subs-row .date::before { content: "Tarih: "; color: #9f8e7a; font-weight: 600; }
+      .subs-row .actions { justify-content: flex-start; margin-top: 6px; }
+    }
+
+    /* ============================================================
+       ZİYARET İSTATİSTİKLERİ — GRAFİK
+       ============================================================ */
+    .analytics-chart {
+      background: rgba(255,255,255,.02);
+      border: 1px solid rgba(255,255,255,.06);
+      border-radius: 8px;
+      padding: 20px;
+    }
+    .analytics-chart-title {
+      font-size: .82rem;
+      font-weight: 600;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: #9f8e7a;
+      margin: 0 0 18px;
+    }
+    .analytics-bars {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      height: 180px;
+      gap: 4px;
+      padding: 0 4px;
+      border-bottom: 1px solid rgba(255,255,255,.08);
+      position: relative;
+    }
+    .analytics-bar-col {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-end;
+      height: 100%;
+      min-width: 0;
+      position: relative;
+    }
+    .analytics-bar {
+      width: 100%;
+      max-width: 22px;
+      background: linear-gradient(180deg, #d2a12f 0%, rgba(210,161,47,.4) 100%);
+      border-radius: 3px 3px 0 0;
+      transition: all .3s ease;
+      cursor: pointer;
+      position: relative;
+      min-height: 2px;
+    }
+    .analytics-bar:hover {
+      background: linear-gradient(180deg, #f0d28a 0%, #d2a12f 100%);
+      transform: translateY(-2px);
+    }
+    .analytics-bar-tooltip {
+      position: absolute;
+      bottom: calc(100% + 6px);
+      left: 50%;
+      transform: translateX(-50%);
+      background: #1a120c;
+      border: 1px solid rgba(210,161,47,.4);
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-size: .72rem;
+      color: #efe9dd;
+      white-space: nowrap;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .2s;
+      z-index: 10;
+    }
+    .analytics-bar:hover .analytics-bar-tooltip { opacity: 1; }
+    .analytics-bar-label {
+      margin-top: 6px;
+      font-size: .65rem;
+      color: #9f8e7a;
+      transform: rotate(-45deg);
+      transform-origin: top center;
+      white-space: nowrap;
+    }
+    @media (max-width: 720px) {
+      .analytics-bar-label { display: none; }
+      .analytics-bars { height: 140px; }
+    }
+
+    .analytics-list {
+      background: rgba(255,255,255,.02);
+      border: 1px solid rgba(255,255,255,.06);
+      border-radius: 8px;
+      padding: 20px;
+    }
+    .analytics-list h4 {
+      font-size: .82rem;
+      font-weight: 600;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: #9f8e7a;
+      margin: 0 0 18px;
+    }
+    .analytics-list-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(255,255,255,.05);
+      font-size: .9rem;
+    }
+    .analytics-list-row:last-child { border-bottom: none; }
+    .analytics-list-row .name {
+      color: #d8cebf;
+      font-family: monospace;
+      font-size: .85rem;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      max-width: 70%;
+    }
+    .analytics-list-row .count {
+      color: #d2a12f;
+      font-weight: 600;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem;
+    }
+    .analytics-empty {
+      text-align: center;
+      padding: 60px 20px;
+      color: #9f8e7a;
+      font-style: italic;
+    }
+    @media (max-width: 720px) {
+      #analytics-breakdown {
+        grid-template-columns: 1fr !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Konfirmasyon modalı (kritik silme işlemlerinde kullanılır) -->
+  <div id="confirm-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="modal-box">
+      <h3 id="confirm-modal-title">Onay</h3>
+      <p id="confirm-modal-message"></p>
+      <div id="confirm-modal-warning" class="modal-warning" style="display:none"></div>
+      <div id="confirm-modal-input-wrap" style="display:none">
+        <p style="font-size:.85rem;margin-top:14px">Devam etmek için aşağıya <strong id="confirm-modal-keyword"></strong> yazın:</p>
+        <input type="text" id="confirm-modal-input" class="modal-input" autocomplete="off">
+      </div>
+      <div class="modal-actions">
+        <button type="button" class="modal-cancel" id="confirm-modal-cancel">İptal</button>
+        <button type="button" class="modal-confirm" id="confirm-modal-confirm">Onayla</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Idle timeout uyarı toast'ı -->
+  <div id="idle-warning" class="idle-warning" role="alert" aria-live="polite">
+    <strong>Oturum sona eriyor</strong>
+    <p>Hareketsizlik nedeniyle <span id="idle-countdown">60</span> saniye sonra çıkış yapılacak.</p>
+    <button type="button" id="idle-stay-btn">Oturumda Kal</button>
+  </div>
+
+  <div class="container">
+    <div class="topbar">
+      <div class="brand">
+        <img src="assets/logo_house_of_anatolia_transparent.png" alt="The House of Anatolia">
+        <div class="brand-title">
+          <strong>The House of Anatolia</strong>
+          <span>Yönetici Paneli</span>
+        </div>
+      </div>
+      <div id="user-actions" class="actions hidden" style="margin-top:0">
+        <a href="index_supabase.html" target="_blank"><button class="secondary" type="button">Siteyi Aç</button></a>
+        <button id="logout-btn" class="danger" type="button">Çıkış Yap</button>
+      </div>
+    </div>
+
+    <section id="login-view" class="card login-card">
+      <h1>Admin Girişi</h1>
+      <p class="muted">Sadece Supabase Auth içinde oluşturulan ve <strong>admins</strong> tablosuna eklenen kullanıcılar giriş yapabilir.</p>
+
+      <form id="login-form">
+        <label for="email">E-posta</label>
+        <input id="email" type="email" autocomplete="email" required>
+
+        <label for="password">Şifre</label>
+        <input id="password" type="password" autocomplete="current-password" required>
+
+        <div class="actions">
+          <button type="submit">Giriş Yap</button>
+        </div>
+
+        <div id="login-status" class="status"></div>
+      </form>
+    </section>
+
+    <section id="dashboard-view" class="hidden">
+      <div class="dashboard-grid">
+        <div class="card">
+          <div class="section-head">
+            <div>
+              <h2>Şehir Yönetimi</h2>
+              <p class="muted">Haritadaki illerin hover ve tıklanabilirlik durumunu buradan yönetiyoruz.</p>
+            </div>
+            <div class="actions" style="margin-top:0">
+              <button id="add-city-btn" type="button">Yeni Şehir Ekle</button>
+              <button id="refresh-btn" class="secondary" type="button">Yenile</button>
+            </div>
+          </div>
+          <div class="section-body">
+            <div class="note">
+              <strong>Not:</strong> Şimdilik ilk güvenli admin panel adımındayız. Buradan şehirlerin aktif/tıklanabilir durumunu değiştirebilirsin. Bir sonraki adımda ürün düzenleme ve görsel alanlarını ekleyeceğiz.
+            </div>
+            <div id="cities-table">Yükleniyor...</div>
+            <div id="city-edit-panel"></div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="section-head">
+            <div>
+              <h2>Ana Sayfa Yönetimi</h2>
+              <p class="muted">Harita sloganı, iletişim bilgileri, hakkımızda ve vizyon alanlarını buradan yönetebilirsin.</p>
+            </div>
+            <button id="refresh-homepage-btn" class="secondary" type="button">Ana Sayfayı Yenile</button>
+          </div>
+          <div class="section-body">
+            <div class="note">
+              Burada yaptığın değişikliklerin ana sayfaya yansıması için bir sonraki adımda <strong>index.html</strong> dosyasını bu ayarları okuyacak hale getireceğiz.
+            </div>
+
+            <h3>Site Ayarları</h3>
+            <div id="site-settings-manager">Yükleniyor...</div>
+
+            <div class="subsection">
+              <div class="part-list-title">
+                <div>
+                  <h3>Ana Sayfa Bölümleri</h3>
+                  <p class="muted">Hakkımızda, vizyon ve iletişim gibi bölümlerin başlık/metinlerini düzenle.</p>
+                </div>
+                <button type="button" id="add-home-section-btn">Yeni Bölüm Ekle</button>
+              </div>
+
+              <div id="homepage-sections-manager">Yükleniyor...</div>
+              <div id="homepage-section-edit-panel"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="section-head">
+            <div>
+              <h2>Ürünler</h2>
+              <p class="muted">Ürün hero alanı, görseller, kısa ad ve aktiflik durumunu buradan düzenleyebilirsin.</p>
+            </div>
+            <button id="add-product-btn" type="button">Yeni Ürün Ekle</button>
+          </div>
+          <div class="section-body">
+            <div id="new-product-panel"></div>
+            <div id="products-table">Yükleniyor...</div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="section-head">
+            <div>
+              <h2>Gelen Teklif Talepleri</h2>
+              <p class="muted">Müşterilerin ürün sayfasındaki formdan gönderdiği talepleri buradan takip edebilirsin.</p>
+            </div>
+            <button id="refresh-requests-btn" class="secondary" type="button">Talepleri Yenile</button>
+          </div>
+          <div class="section-body">
+            <div id="requests-table">Yükleniyor...</div>
+            <div id="request-detail-panel"></div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="section-head">
+            <div>
+              <h2>Bülten Aboneleri</h2>
+              <p class="muted">Footer'daki "Bültenimize Katılın" formundan gelen e-posta adreslerini buradan yönetebilirsin.</p>
+            </div>
+            <div style="display:flex;gap:8px;flex-wrap:wrap">
+              <button id="refresh-subs-btn" class="secondary" type="button">Yenile</button>
+              <button id="export-subs-btn" type="button">CSV İndir</button>
+            </div>
+          </div>
+          <div class="section-body">
+            <div id="subs-stats" class="subs-stats"></div>
+            <div style="margin:14px 0;">
+              <input id="subs-search" type="search" placeholder="E-posta ile ara..." style="width:100%;max-width:360px;">
+            </div>
+            <div id="subs-table">Yükleniyor...</div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="section-head">
+            <div>
+              <h2>Ziyaret İstatistikleri</h2>
+              <p class="muted">Sitenize gelen ziyaretçilerin günlük, haftalık ve aylık dağılımı. KVKK uyumlu — IP bilgisi saklanmaz.</p>
+            </div>
+            <button id="refresh-analytics-btn" class="secondary" type="button">Yenile</button>
+          </div>
+          <div class="section-body">
+            <div id="analytics-stats" class="subs-stats"></div>
+            <div id="analytics-chart-wrap" style="margin-top:24px;"></div>
+            <div id="analytics-breakdown" style="margin-top:24px;display:grid;grid-template-columns:1fr 1fr;gap:24px;"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <script type="module">
+    import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
+
+    const supabaseUrl = "https://owcgcyvgibyawxfxwlbn.supabase.co";
+    const supabaseAnonKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im93Y2djeXZnaWJ5YXd4Znh3bGJuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzc5MjEyMTksImV4cCI6MjA5MzQ5NzIxOX0.ynMQBYGOMibnmeT_7bkSdWAdkEJYgZ9F6bRn5-8tkmk";
+    const supabase = createClient(supabaseUrl, supabaseAnonKey);
+
+    const loginView = document.getElementById("login-view");
+    const dashboardView = document.getElementById("dashboard-view");
+    const userActions = document.getElementById("user-actions");
+    const loginForm = document.getElementById("login-form");
+    const loginStatus = document.getElementById("login-status");
+    const logoutBtn = document.getElementById("logout-btn");
+    const refreshBtn = document.getElementById("refresh-btn");
+    const addCityBtn = document.getElementById("add-city-btn");
+    const addProductBtn = document.getElementById("add-product-btn");
+    const citiesTable = document.getElementById("cities-table");
+    const productsTable = document.getElementById("products-table");
+    const requestsTable = document.getElementById("requests-table");
+    const refreshRequestsBtn = document.getElementById("refresh-requests-btn");
+    const refreshHomepageBtn = document.getElementById("refresh-homepage-btn");
+    const siteSettingsManager = document.getElementById("site-settings-manager");
+    const homepageSectionsManager = document.getElementById("homepage-sections-manager");
+
+    function setStatus(element, message, type = "") {
+      element.textContent = message || "";
+      element.className = "status " + type;
+    }
+
+    function escapeHtml(value) {
+      return String(value ?? "")
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+    }
+
+    // ==========================================================
+    // TR/EN TAB SİSTEMİ — i18n FORM DÜZENLEME
+    // ==========================================================
+    // Form içine TR/EN sekmeli arayüz koyar. Her formun üstüne yerleşir.
+    // Kullanım: form HTML'inin başına langTabsHtml() koy ve form sonrasında
+    // setupLangTabs(form) çağır.
+
+    function langTabsHtml() {
+      return `
+        <div class="lang-tabs" data-tab-group role="tablist">
+          <button type="button" class="active" data-tab-target="tr" role="tab" aria-selected="true">TR</button>
+          <button type="button" data-tab-target="en" role="tab" aria-selected="false">EN</button>
+          <span class="tab-hint">İçeriği iki dilde girebilirsiniz. EN boş bırakılırsa site İngilizce'de TR'ye düşer.</span>
+        </div>
+      `;
+    }
+
+    function setupLangTabs(formOrContainer) {
+      if (!formOrContainer) return;
+      const tabGroups = formOrContainer.querySelectorAll("[data-tab-group]");
+      tabGroups.forEach((group) => {
+        const buttons = group.querySelectorAll("button[data-tab-target]");
+        buttons.forEach((btn) => {
+          btn.addEventListener("click", () => {
+            const target = btn.dataset.tabTarget;
+            // Aktif tab buton state'i
+            buttons.forEach((b) => {
+              b.classList.toggle("active", b === btn);
+              b.setAttribute("aria-selected", b === btn ? "true" : "false");
+            });
+            // Aynı container içindeki .lang-pane elementlerini güncelle
+            const container = group.closest("form, .editor-card, .modal-content") || formOrContainer;
+            const panes = container.querySelectorAll(".lang-pane");
+            panes.forEach((pane) => {
+              pane.classList.toggle("active", pane.dataset.lang === target);
+            });
+          });
+        });
+      });
+    }
+
+    // ==========================================================
+    // GÜVENLİK ALTYAPISI
+    // ==========================================================
+
+    // Mevcut admin bilgisi (audit log için)
+    let currentAdmin = null;
+
+    // -------- AUDIT LOG --------
+    async function logAdminAction(action, details = {}) {
+      try {
+        const payload = {
+          admin_id: currentAdmin?.id || null,
+          admin_email: currentAdmin?.email || details.admin_email || null,
+          action,
+          table_name: details.table_name || null,
+          record_id: details.record_id || null,
+          record_summary: details.record_summary || null,
+          metadata: details.metadata || null
+        };
+        // Audit log yazımı bir hata verirse ana akışı bozmayalım
+        const { error } = await supabase.from("admin_audit_log").insert(payload);
+        if (error) {
+          console.warn("Audit log yazılamadı:", error.message);
+        }
+      } catch (err) {
+        console.warn("Audit log hata:", err);
+      }
+    }
+
+    // -------- ÇİFT ONAYLI MODAL --------
+    // Kullanım: const ok = await confirmAction({title, message, warning, dangerKeyword})
+    // dangerKeyword verilirse kullanıcının o kelimeyi yazması istenir (kritik silmeler için)
+    function confirmAction(options) {
+      return new Promise((resolve) => {
+        const overlay = document.getElementById("confirm-modal");
+        const titleEl = document.getElementById("confirm-modal-title");
+        const messageEl = document.getElementById("confirm-modal-message");
+        const warningEl = document.getElementById("confirm-modal-warning");
+        const inputWrap = document.getElementById("confirm-modal-input-wrap");
+        const keywordEl = document.getElementById("confirm-modal-keyword");
+        const inputEl = document.getElementById("confirm-modal-input");
+        const cancelBtn = document.getElementById("confirm-modal-cancel");
+        const confirmBtn = document.getElementById("confirm-modal-confirm");
+
+        titleEl.textContent = options.title || "Onay";
+        messageEl.textContent = options.message || "";
+
+        if (options.warning) {
+          warningEl.textContent = options.warning;
+          warningEl.style.display = "block";
+        } else {
+          warningEl.style.display = "none";
+        }
+
+        // Eski event listener'ları temizlemek için button'ları clone'la
+        const newCancel = cancelBtn.cloneNode(true);
+        const newConfirm = confirmBtn.cloneNode(true);
+        cancelBtn.replaceWith(newCancel);
+        confirmBtn.replaceWith(newConfirm);
+
+        if (options.dangerKeyword) {
+          inputWrap.style.display = "block";
+          keywordEl.textContent = options.dangerKeyword;
+          inputEl.value = "";
+          newConfirm.disabled = true;
+          inputEl.oninput = () => {
+            newConfirm.disabled = inputEl.value.trim() !== options.dangerKeyword;
+          };
+        } else {
+          inputWrap.style.display = "none";
+          newConfirm.disabled = false;
+        }
+
+        const close = (result) => {
+          overlay.classList.remove("show");
+          overlay.setAttribute("aria-hidden", "true");
+          resolve(result);
+        };
+
+        newCancel.addEventListener("click", () => close(false));
+        newConfirm.addEventListener("click", () => close(true));
+        overlay.onclick = (e) => { if (e.target === overlay) close(false); };
+
+        overlay.classList.add("show");
+        overlay.setAttribute("aria-hidden", "false");
+        if (options.dangerKeyword) {
+          setTimeout(() => inputEl.focus(), 100);
+        }
+      });
+    }
+
+    // -------- BRUTE FORCE KORUMASI --------
+    // localStorage'da deneme sayısı tutulur. Aynı tarayıcıdan max 5 deneme/15 dk.
+    // Not: Bu sadece UX katmanı; gerçek koruma Supabase Auth'un kendi rate limit'idir.
+    const BRUTE_KEY = "ha_login_attempts";
+    const BRUTE_MAX = 5;
+    const BRUTE_WINDOW_MS = 15 * 60 * 1000; // 15 dakika
+
+    function getLoginAttempts() {
+      try {
+        const raw = localStorage.getItem(BRUTE_KEY);
+        if (!raw) return [];
+        const arr = JSON.parse(raw);
+        if (!Array.isArray(arr)) return [];
+        const cutoff = Date.now() - BRUTE_WINDOW_MS;
+        return arr.filter(t => typeof t === "number" && t > cutoff);
+      } catch { return []; }
+    }
+    function recordLoginAttempt() {
+      const attempts = getLoginAttempts();
+      attempts.push(Date.now());
+      try { localStorage.setItem(BRUTE_KEY, JSON.stringify(attempts)); } catch {}
+    }
+    function clearLoginAttempts() {
+      try { localStorage.removeItem(BRUTE_KEY); } catch {}
+    }
+    function isBruteLocked() {
+      return getLoginAttempts().length >= BRUTE_MAX;
+    }
+    function bruteLockMinutesLeft() {
+      const attempts = getLoginAttempts();
+      if (attempts.length < BRUTE_MAX) return 0;
+      const oldest = Math.min(...attempts);
+      const unlockAt = oldest + BRUTE_WINDOW_MS;
+      return Math.max(1, Math.ceil((unlockAt - Date.now()) / 60000));
+    }
+
+    // -------- IDLE TIMEOUT --------
+    // 15 dk hareketsizlikten sonra 60sn uyarı, sonra otomatik logout
+    const IDLE_TIMEOUT_MS = 15 * 60 * 1000; // 15 dk
+    const IDLE_WARNING_MS = 60 * 1000; // 60 sn uyarı süresi
+    let idleTimer = null;
+    let warningTimer = null;
+    let countdownInterval = null;
+
+    function startIdleTracking() {
+      stopIdleTracking();
+      ["mousemove", "keydown", "click", "scroll", "touchstart"].forEach(evt => {
+        document.addEventListener(evt, resetIdleTimer, { passive: true });
+      });
+      resetIdleTimer();
+    }
+    function stopIdleTracking() {
+      ["mousemove", "keydown", "click", "scroll", "touchstart"].forEach(evt => {
+        document.removeEventListener(evt, resetIdleTimer);
+      });
+      clearTimeout(idleTimer);
+      clearTimeout(warningTimer);
+      clearInterval(countdownInterval);
+      hideIdleWarning();
+    }
+    function resetIdleTimer() {
+      clearTimeout(idleTimer);
+      clearTimeout(warningTimer);
+      clearInterval(countdownInterval);
+      hideIdleWarning();
+      idleTimer = setTimeout(showIdleWarning, IDLE_TIMEOUT_MS);
+    }
+    function showIdleWarning() {
+      const warningEl = document.getElementById("idle-warning");
+      const countdownEl = document.getElementById("idle-countdown");
+      if (!warningEl || !countdownEl) return;
+      let remaining = Math.floor(IDLE_WARNING_MS / 1000);
+      countdownEl.textContent = remaining;
+      warningEl.classList.add("show");
+      countdownInterval = setInterval(() => {
+        remaining--;
+        countdownEl.textContent = remaining;
+        if (remaining <= 0) clearInterval(countdownInterval);
+      }, 1000);
+      warningTimer = setTimeout(async () => {
+        await forceLogout("idle_timeout");
+      }, IDLE_WARNING_MS);
+    }
+    function hideIdleWarning() {
+      const warningEl = document.getElementById("idle-warning");
+      if (warningEl) warningEl.classList.remove("show");
+    }
+    document.getElementById("idle-stay-btn")?.addEventListener("click", resetIdleTimer);
+
+    async function forceLogout(reason) {
+      stopIdleTracking();
+      try {
+        await logAdminAction("logout", { metadata: { reason } });
+      } catch {}
+      await supabase.auth.signOut();
+      currentAdmin = null;
+      showLogin();
+      setStatus(loginStatus, "Hareketsizlik nedeniyle oturumunuz sonlandırıldı. Tekrar giriş yapın.", "");
+    }
+
+    async function checkAdmin() {
+      const { data: sessionData } = await supabase.auth.getSession();
+      const session = sessionData.session;
+
+      if (!session) {
+        currentAdmin = null;
+        stopIdleTracking();
+        showLogin();
+        return false;
+      }
+
+      const { data: admin, error } = await supabase
+        .from("admins")
+        .select("id, full_name, email, role, is_active")
+        .eq("user_id", session.user.id)
+        .eq("is_active", true)
+        .single();
+
+      if (error || !admin) {
+        await supabase.auth.signOut();
+        currentAdmin = null;
+        stopIdleTracking();
+        showLogin();
+        // Generic mesaj — "admins tablosunda yok" gibi detay vermiyoruz
+        setStatus(loginStatus, "Bu hesabın admin paneline erişim yetkisi yok.", "error");
+        return false;
+      }
+
+      currentAdmin = admin;
+      showDashboard();
+      startIdleTracking();
+      await loadDashboard();
+      return true;
+    }
+
+    // Auth state değişince (token refresh, başka sekmede logout vs.) tepki ver
+    supabase.auth.onAuthStateChange((event, session) => {
+      if (event === "SIGNED_OUT") {
+        currentAdmin = null;
+        stopIdleTracking();
+        showLogin();
+      }
+    });
+
+
+    function showLogin() {
+      loginView.classList.remove("hidden");
+      dashboardView.classList.add("hidden");
+      userActions.classList.add("hidden");
+    }
+
+    function showDashboard() {
+      loginView.classList.add("hidden");
+      dashboardView.classList.remove("hidden");
+      userActions.classList.remove("hidden");
+    }
+
+    loginForm.addEventListener("submit", async (event) => {
+      event.preventDefault();
+
+      // Brute force kontrolü (client-side)
+      if (isBruteLocked()) {
+        const mins = bruteLockMinutesLeft();
+        setStatus(loginStatus, `Çok fazla başarısız deneme. Lütfen ${mins} dakika sonra tekrar deneyin.`, "error");
+        return;
+      }
+
+      setStatus(loginStatus, "Giriş yapılıyor...");
+
+      const email = document.getElementById("email").value.trim();
+      const password = document.getElementById("password").value;
+
+      // Basit input validation
+      if (!email || !password) {
+        setStatus(loginStatus, "E-posta ve şifre gereklidir.", "error");
+        return;
+      }
+      if (password.length < 6) {
+        // Min 6 karakter — Supabase'in default'u zaten bu
+        setStatus(loginStatus, "Geçersiz e-posta veya şifre.", "error");
+        return;
+      }
+
+      const { error } = await supabase.auth.signInWithPassword({ email, password });
+
+      if (error) {
+        recordLoginAttempt();
+        // Generic mesaj — user enumeration koruması.
+        // "Bu email kayıtlı değil" demiyoruz, "şifre yanlış" demiyoruz.
+        setStatus(loginStatus, "Geçersiz e-posta veya şifre.", "error");
+        // Başarısız giriş denemesini logla (admin_email var ama admin_id yok)
+        try {
+          await supabase.from("admin_audit_log").insert({
+            admin_email: email,
+            action: "login_failed",
+            metadata: { error_code: error.code || null }
+          });
+        } catch {}
+        // 4. veya 5. denemede uyar
+        const remaining = BRUTE_MAX - getLoginAttempts().length;
+        if (remaining > 0 && remaining <= 2) {
+          setTimeout(() => {
+            setStatus(loginStatus, `Geçersiz e-posta veya şifre. Kalan deneme hakkı: ${remaining}`, "error");
+          }, 50);
+        }
+        return;
+      }
+
+      // Başarılı giriş — sayacı sıfırla
+      clearLoginAttempts();
+      setStatus(loginStatus, "Giriş başarılı.", "ok");
+      const ok = await checkAdmin();
+      if (ok && currentAdmin) {
+        await logAdminAction("login");
+      }
+    });
+
+    logoutBtn.addEventListener("click", async () => {
+      try {
+        await logAdminAction("logout", { metadata: { reason: "manual" } });
+      } catch {}
+      stopIdleTracking();
+      currentAdmin = null;
+      await supabase.auth.signOut();
+      showLogin();
+    });
+
+    refreshBtn.addEventListener("click", loadDashboard);
+    addCityBtn.addEventListener("click", () => renderCityEditor({
+      name: "",
+      plate_code: "",
+      svg_id: "",
+      sort_order: 0,
+      is_active: true,
+      is_clickable: false
+    }, true));
+    addProductBtn.addEventListener("click", () => renderNewProductEditor());
+    refreshRequestsBtn.addEventListener("click", loadRequests);
+    refreshHomepageBtn.addEventListener("click", loadHomepageManagement);
+
+    async function safeLoad(name, fn, targetElement) {
+      try {
+        await fn();
+      } catch (error) {
+        console.error(name + " yükleme hatası:", error);
+        if (targetElement) {
+          targetElement.innerHTML = `<p class="status error">${name} yüklenemedi: ${escapeHtml(error.message || error)}</p>`;
+        }
+      }
+    }
+
+    async function loadDashboard() {
+      await Promise.all([
+        safeLoad("Şehirler", loadCities, citiesTable),
+        safeLoad("Ana sayfa yönetimi", loadHomepageManagement, siteSettingsManager),
+        safeLoad("Ürünler", loadProducts, productsTable),
+        safeLoad("Talepler", loadRequests, requestsTable),
+        safeLoad("Aboneler", loadSubscribers, document.getElementById("subs-table")),
+        safeLoad("Analytics", loadAnalytics, document.getElementById("analytics-stats"))
+      ]);
+    }
+
+
+    async function loadCities() {
+      citiesTable.textContent = "Yükleniyor...";
+
+      const { data, error } = await supabase
+        .from("cities")
+        .select("id, name, plate_code, svg_id, is_active, is_clickable, sort_order")
+        .order("sort_order", { ascending: true });
+
+      if (error) {
+        citiesTable.innerHTML = `<p class="status error">Şehirler alınamadı: ${escapeHtml(error.message)}</p>`;
+        return;
+      }
+
+      allCitiesCache = data || [];
+
+      citiesTable.innerHTML = `
+        <table>
+          <thead>
+            <tr>
+              <th>Şehir</th>
+              <th>SVG ID</th>
+              <th>Hover Aktif</th>
+              <th>Tıklanabilir</th>
+              <th>Durum</th>
+              <th>İşlem</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${allCitiesCache.map(city => `
+              <tr>
+                <td><strong>${escapeHtml(city.name)}</strong><br><span class="muted">Plaka ${escapeHtml(city.plate_code)}</span></td>
+                <td><code>${escapeHtml(city.svg_id)}</code></td>
+                <td>
+                  <label class="switch-row">
+                    <input type="checkbox" data-city-id="${city.id}" data-field="is_active" ${city.is_active ? "checked" : ""}>
+                    <span>Göster</span>
+                  </label>
+                </td>
+                <td>
+                  <label class="switch-row">
+                    <input type="checkbox" data-city-id="${city.id}" data-field="is_clickable" ${city.is_clickable ? "checked" : ""}>
+                    <span>Sayfaya gitsin</span>
+                  </label>
+                </td>
+                <td>
+                  <span class="pill">${city.is_active ? "Aktif" : "Pasif"} / ${city.is_clickable ? "Linkli" : "Sadece hover"}</span>
+                </td>
+                <td>
+                  <div class="mini-table-actions">
+                    <button type="button" data-edit-city="${city.id}">Düzenle</button>
+                    <button class="danger" type="button" data-delete-city="${city.id}">Sil</button>
+                  </div>
+                </td>
+              </tr>
+            `).join("")}
+          </tbody>
+        </table>
+      `;
+
+      citiesTable.querySelectorAll("input[type='checkbox']").forEach((checkbox) => {
+        checkbox.addEventListener("change", async () => {
+          const cityId = checkbox.dataset.cityId;
+          const field = checkbox.dataset.field;
+          const value = checkbox.checked;
+
+          const { error } = await supabase
+            .from("cities")
+            .update({ [field]: value })
+            .eq("id", cityId);
+
+          if (error) {
+            alert("Güncelleme başarısız: " + error.message);
+            checkbox.checked = !value;
+            return;
+          }
+
+          await loadCities();
+        });
+      });
+
+      citiesTable.querySelectorAll("[data-edit-city]").forEach((button) => {
+        button.addEventListener("click", () => {
+          const city = allCitiesCache.find(item => item.id === button.dataset.editCity);
+          if (city) renderCityEditor(city, false);
+        });
+      });
+
+      citiesTable.querySelectorAll("[data-delete-city]").forEach((button) => {
+        button.addEventListener("click", async () => {
+          const city = allCitiesCache.find(item => item.id === button.dataset.deleteCity);
+          if (!city) return;
+
+          // Çift onaylı modal — şehir adını yazmasını iste (yanlışlıkla silmeyi imkansız hale getirir)
+          const ok = await confirmAction({
+            title: "Şehri Kalıcı Olarak Sil",
+            message: `"${city.name}" şehrini silmek üzeresin.`,
+            warning: "Bu işlem geri alınamaz. Bu şehre bağlı tüm ürünler de silinir!",
+            dangerKeyword: city.name
+          });
+          if (!ok) return;
+
+          const { error } = await supabase
+            .from("cities")
+            .delete()
+            .eq("id", city.id);
+
+          if (error) {
+            alert("Silme başarısız: " + error.message);
+            return;
+          }
+
+          // Audit log
+          await logAdminAction("delete", {
+            table_name: "cities",
+            record_id: city.id,
+            record_summary: `Şehir silindi: ${city.name} (Plaka: ${city.plate_code})`
+          });
+
+          await loadCities();
+          document.getElementById("city-edit-panel").innerHTML = "";
+        });
+      });
+    }
+
+    function renderCityEditor(city, isNew) {
+      const panel = document.getElementById("city-edit-panel");
+      if (!panel) return;
+
+      panel.innerHTML = `
+        <div class="city-edit-panel">
+          <h3>${isNew ? "Yeni Şehir Ekle" : "Şehri Düzenle"}</h3>
+          <p class="muted">SVG ID, haritadaki ilin path id değeridir. Örnek: Kayseri için genelde <code>TR38</code>.</p>
+
+          <form id="city-edit-form">
+            <input type="hidden" name="id" value="${escapeHtml(city.id || "")}">
+            <input type="hidden" name="is_new" value="${isNew ? "true" : "false"}">
+
+            ${langTabsHtml()}
+
+            <!-- ===== TR İçerik ===== -->
+            <div class="lang-pane active" data-lang="tr">
+              <div class="edit-grid">
+                <div>
+                  <label>Şehir Adı</label>
+                  <input name="name" value="${escapeHtml(city.name || "")}" required placeholder="Kayseri">
+                </div>
+              </div>
+            </div>
+
+            <!-- ===== EN İçerik ===== -->
+            <div class="lang-pane" data-lang="en">
+              <div class="edit-grid">
+                <div>
+                  <label>Şehir Adı</label>
+                  <input name="name_en" value="${escapeHtml(city.name_en || "")}" placeholder="Kayseri">
+                  <div class="tiny-help">Boş bırakılırsa İngilizce versiyonda Türkçe ad gösterilir.</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- ===== Dil-Bağımsız Teknik Alanlar ===== -->
+            <div class="edit-grid" style="margin-top:14px">
+              <div>
+                <label>Plaka Kodu</label>
+                <input name="plate_code" value="${escapeHtml(city.plate_code || "")}" required placeholder="38">
+              </div>
+
+              <div>
+                <label>SVG ID</label>
+                <input name="svg_id" value="${escapeHtml(city.svg_id || "")}" required placeholder="TR38">
+                <div class="tiny-help">Harita SVG dosyasında ilin <code>id</code> değeriyle aynı olmalı.</div>
+              </div>
+
+              <div>
+                <label>Sıralama</label>
+                <input name="sort_order" type="number" value="${escapeHtml(city.sort_order ?? 0)}">
+              </div>
+
+              <div>
+                <label>Hover Aktif</label>
+                <select name="is_active">
+                  <option value="true" ${city.is_active ? "selected" : ""}>Aktif</option>
+                  <option value="false" ${!city.is_active ? "selected" : ""}>Pasif</option>
+                </select>
+              </div>
+
+              <div>
+                <label>Tıklanabilir</label>
+                <select name="is_clickable">
+                  <option value="true" ${city.is_clickable ? "selected" : ""}>Tıklanınca ürün sayfasına gitsin</option>
+                  <option value="false" ${!city.is_clickable ? "selected" : ""}>Sadece hover görünsün</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="actions">
+              <button type="submit">${isNew ? "Ekle" : "Kaydet"}</button>
+              <button class="secondary" type="button" id="cancel-city-edit">Vazgeç</button>
+            </div>
+
+            <div id="city-edit-status" class="status"></div>
+          </form>
+        </div>
+      `;
+
+      const form = document.getElementById("city-edit-form");
+      setupLangTabs(form);
+
+      document.getElementById("cancel-city-edit").addEventListener("click", () => {
+        panel.innerHTML = "";
+      });
+
+      form.addEventListener("submit", async (event) => {
+        event.preventDefault();
+        await saveCityEdit(event.currentTarget);
+      });
+
+      panel.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+
+    async function saveCityEdit(form) {
+      const status = document.getElementById("city-edit-status");
+      setStatus(status, "Kaydediliyor...");
+
+      const formData = new FormData(form);
+      const isNew = formData.get("is_new") === "true";
+      const id = formData.get("id");
+
+      const payload = {
+        name: String(formData.get("name") || "").trim(),
+        name_en: String(formData.get("name_en") || "").trim() || null,
+        plate_code: String(formData.get("plate_code") || "").trim().padStart(2, "0"),
+        svg_id: String(formData.get("svg_id") || "").trim().toUpperCase(),
+        sort_order: Number(formData.get("sort_order") || 0),
+        is_active: formData.get("is_active") === "true",
+        is_clickable: formData.get("is_clickable") === "true"
+      };
+
+      const query = isNew
+        ? supabase.from("cities").insert(payload)
+        : supabase.from("cities").update(payload).eq("id", id);
+
+      const { error } = await query;
+
+      if (error) {
+        setStatus(status, "Kaydetme hatası: " + error.message, "error");
+        return;
+      }
+
+      setStatus(status, "Şehir kaydedildi.", "ok");
+      allCitiesCache = [];
+      await loadCities();
+      document.getElementById("city-edit-panel").innerHTML = "";
+    }
+
+    function statusLabel(status) {
+      const labels = {
+        new: "Yeni",
+        contacted: "İletişime Geçildi",
+        quoted: "Teklif Verildi",
+        completed: "Tamamlandı",
+        cancelled: "İptal"
+      };
+      return labels[status] || status || "Yeni";
+    }
+
+    let allRequestsCache = [];
+
+    async function loadRequests() {
+      if (!requestsTable) return;
+
+      requestsTable.textContent = "Yükleniyor...";
+
+      const { data, error } = await supabase
+        .from("requests")
+        .select(`
+          id,
+          quantity,
+          request_type,
+          full_name,
+          company,
+          email,
+          phone,
+          delivery_location,
+          message,
+          status,
+          created_at,
+          products (
+            name,
+            slug,
+            short_name
+          ),
+          cities (
+            name
+          ),
+          product_options (
+            name
+          ),
+          package_options (
+            name
+          ),
+          weight_options (
+            label
+          )
+        `)
+        .order("created_at", { ascending: false });
+
+      if (error) {
+        requestsTable.innerHTML = `<p class="status error">Talepler alınamadı: ${escapeHtml(error.message)}</p>`;
+        return;
+      }
+
+      allRequestsCache = data || [];
+
+      if (!allRequestsCache.length) {
+        requestsTable.innerHTML = `<p class="muted">Henüz teklif talebi yok.</p>`;
+        return;
+      }
+
+      requestsTable.innerHTML = `
+        <table>
+          <thead>
+            <tr>
+              <th>Tarih</th>
+              <th>Müşteri</th>
+              <th>Ürün</th>
+              <th>Seçimler</th>
+              <th>Durum</th>
+              <th>İşlem</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${allRequestsCache.map(request => `
+              <tr>
+                <td>${escapeHtml(new Date(request.created_at).toLocaleString("tr-TR"))}</td>
+                <td>
+                  <strong>${escapeHtml(request.full_name)}</strong><br>
+                  <span class="muted">${escapeHtml(request.email)}</span><br>
+                  <span class="muted">${escapeHtml(request.phone)}</span>
+                </td>
+                <td>
+                  <strong>${escapeHtml(request.products?.name || "-")}</strong><br>
+                  <span class="muted">${escapeHtml(request.cities?.name || "")}</span>
+                </td>
+                <td>
+                  <span class="muted">Ürün:</span> ${escapeHtml(request.product_options?.name || "-")}<br>
+                  <span class="muted">Paket:</span> ${escapeHtml(request.package_options?.name || "-")}<br>
+                  <span class="muted">Gramaj:</span> ${escapeHtml(request.weight_options?.label || "-")}<br>
+                  <span class="muted">Adet:</span> ${escapeHtml(request.quantity || "-")}
+                </td>
+                <td>
+                  <select data-request-status="${escapeHtml(request.id)}">
+                    <option value="new" ${request.status === "new" ? "selected" : ""}>Yeni</option>
+                    <option value="contacted" ${request.status === "contacted" ? "selected" : ""}>İletişime Geçildi</option>
+                    <option value="quoted" ${request.status === "quoted" ? "selected" : ""}>Teklif Verildi</option>
+                    <option value="completed" ${request.status === "completed" ? "selected" : ""}>Tamamlandı</option>
+                    <option value="cancelled" ${request.status === "cancelled" ? "selected" : ""}>İptal</option>
+                  </select>
+                </td>
+                <td>
+                  <button type="button" data-view-request="${escapeHtml(request.id)}">Detay</button>
+                </td>
+              </tr>
+            `).join("")}
+          </tbody>
+        </table>
+      `;
+
+      requestsTable.querySelectorAll("[data-request-status]").forEach((select) => {
+        select.addEventListener("change", async () => {
+          const id = select.dataset.requestStatus;
+          const status = select.value;
+
+          const { error } = await supabase
+            .from("requests")
+            .update({ status })
+            .eq("id", id);
+
+          if (error) {
+            alert("Durum güncellenemedi: " + error.message);
+            return;
+          }
+
+          await loadRequests();
+        });
+      });
+
+      requestsTable.querySelectorAll("[data-view-request]").forEach((button) => {
+        button.addEventListener("click", () => {
+          const request = allRequestsCache.find(item => item.id === button.dataset.viewRequest);
+          if (request) renderRequestDetail(request);
+        });
+      });
+    }
+
+    function renderRequestDetail(request) {
+      const panel = document.getElementById("request-detail-panel");
+      if (!panel) return;
+
+      panel.innerHTML = `
+        <div class="request-detail-panel">
+          <div class="part-list-title">
+            <div>
+              <h3>Talep Detayı</h3>
+              <p class="muted">${escapeHtml(new Date(request.created_at).toLocaleString("tr-TR"))} tarihinde gönderildi.</p>
+            </div>
+            <button class="secondary" type="button" id="close-request-detail">Kapat</button>
+          </div>
+
+          <div class="request-detail-grid">
+            <div class="request-detail-item">
+              <strong>Ad Soyad</strong>
+              ${escapeHtml(request.full_name)}
+            </div>
+            <div class="request-detail-item">
+              <strong>Firma</strong>
+              ${escapeHtml(request.company || "-")}
+            </div>
+            <div class="request-detail-item">
+              <strong>E-posta</strong>
+              ${escapeHtml(request.email)}
+            </div>
+            <div class="request-detail-item">
+              <strong>Telefon</strong>
+              ${escapeHtml(request.phone)}
+            </div>
+            <div class="request-detail-item">
+              <strong>Ürün</strong>
+              ${escapeHtml(request.products?.name || "-")}
+            </div>
+            <div class="request-detail-item">
+              <strong>Şehir</strong>
+              ${escapeHtml(request.cities?.name || "-")}
+            </div>
+            <div class="request-detail-item">
+              <strong>Ürün Türü</strong>
+              ${escapeHtml(request.product_options?.name || "-")}
+            </div>
+            <div class="request-detail-item">
+              <strong>Paket</strong>
+              ${escapeHtml(request.package_options?.name || "-")}
+            </div>
+            <div class="request-detail-item">
+              <strong>Gramaj</strong>
+              ${escapeHtml(request.weight_options?.label || "-")}
+            </div>
+            <div class="request-detail-item">
+              <strong>Adet</strong>
+              ${escapeHtml(request.quantity || "-")}
+            </div>
+            <div class="request-detail-item">
+              <strong>Talep Tipi</strong>
+              ${escapeHtml(request.request_type || "-")}
+            </div>
+            <div class="request-detail-item">
+              <strong>Durum</strong>
+              ${escapeHtml(statusLabel(request.status))}
+            </div>
+            <div class="request-detail-item full" style="grid-column:1/-1">
+              <strong>Teslimat Lokasyonu</strong>
+              ${escapeHtml(request.delivery_location || "-")}
+            </div>
+            <div class="request-detail-item full" style="grid-column:1/-1">
+              <strong>Mesaj</strong>
+              <div class="request-message-box">${escapeHtml(request.message || "-")}</div>
+            </div>
+          </div>
+        </div>
+      `;
+
+      document.getElementById("close-request-detail").addEventListener("click", () => {
+        panel.innerHTML = "";
+      });
+
+      panel.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+
+
+    function safeFileName(fileName) {
+      const extension = fileName.includes(".") ? fileName.split(".").pop().toLowerCase() : "png";
+      const baseName = fileName
+        .replace(/\.[^/.]+$/, "")
+        .toLowerCase()
+        .replaceAll("ı", "i")
+        .replaceAll("ğ", "g")
+        .replaceAll("ü", "u")
+        .replaceAll("ş", "s")
+        .replaceAll("ö", "o")
+        .replaceAll("ç", "c")
+        .replace(/[^a-z0-9]+/g, "-")
+        .replace(/^-+|-+$/g, "")
+        .slice(0, 42) || "gorsel";
+
+      return `${baseName}-${Date.now()}.${extension}`;
+    }
+
+    function setupFieldUploaders(product) {
+      setupFieldUploadersByContainer(document, product);
+    }
+
+    function setupFieldUploadersByContainer(container, product) {
+      const rows = container.querySelectorAll(".field-upload-row");
+      rows.forEach((row) => {
+        const fileInput = row.querySelector('input[type="file"]');
+        const pathInput = row.querySelector(".image-path-input");
+        const uploadBtn = row.querySelector(".upload-field-btn");
+        const status = row.querySelector(".field-upload-status");
+
+        if (!fileInput || !pathInput || !uploadBtn || !status) return;
+        if (uploadBtn.dataset.ready === "true") return;
+
+        uploadBtn.dataset.ready = "true";
+        uploadBtn.addEventListener("click", async () => {
+          status.className = "field-upload-status";
+
+          const file = fileInput.files?.[0];
+
+          if (!file) {
+            status.textContent = "Önce bu alandan bir dosya seç.";
+            status.classList.add("error");
+            return;
+          }
+
+          const allowedTypes = ["image/png", "image/jpeg", "image/jpg", "image/webp", "image/gif"];
+          if (!allowedTypes.includes(file.type)) {
+            status.textContent = "Sadece PNG, JPG, WEBP veya GIF yükleyebilirsin.";
+            status.classList.add("error");
+            return;
+          }
+
+          if (file.size > 5 * 1024 * 1024) {
+            status.textContent = "Görsel 5 MB'dan küçük olmalı.";
+            status.classList.add("error");
+            return;
+          }
+
+          uploadBtn.disabled = true;
+          uploadBtn.textContent = "Yükleniyor...";
+          status.textContent = "Görsel yükleniyor...";
+
+          const folder = product.slug || product.id || "urun";
+          const fieldName = row.dataset.uploadField || "gorsel";
+          const filePath = `${folder}/${fieldName}/${safeFileName(file.name)}`;
+
+          const { error: uploadError } = await supabase.storage
+            .from("product-assets")
+            .upload(filePath, file, {
+              cacheControl: "3600",
+              upsert: false
+            });
+
+          uploadBtn.disabled = false;
+          uploadBtn.textContent = "Yükle";
+
+          if (uploadError) {
+            // textContent kullandığımız için XSS riski yok ama mesaj çok teknik olabilir.
+            // Yaygın hataları kullanıcı dostu mesaja çevir.
+            const errMsg = (uploadError.message || "").toLowerCase();
+            let userMessage = "Yükleme sırasında hata oluştu.";
+            if (errMsg.includes("mime") || errMsg.includes("invalid_mime")) {
+              userMessage = "Bu dosya türü kabul edilmiyor. Sadece PNG, JPG, WEBP veya GIF yükleyebilirsin.";
+            } else if (errMsg.includes("size") || errMsg.includes("too large")) {
+              userMessage = "Dosya 5 MB'dan büyük. Daha küçük bir görsel yükle.";
+            } else if (errMsg.includes("duplicate") || errMsg.includes("already exists")) {
+              userMessage = "Bu isimde dosya zaten var. Adı değiştirip tekrar dene.";
+            } else if (uploadError.message) {
+              // Yine de teknik mesajı göster ama kısa tut (XSS textContent ile zaten engellenmiş)
+              userMessage = "Yükleme hatası: " + uploadError.message.slice(0, 200);
+            }
+            status.textContent = userMessage;
+            status.classList.add("error");
+            return;
+          }
+
+          const { data } = supabase.storage
+            .from("product-assets")
+            .getPublicUrl(filePath);
+
+          const publicUrl = data.publicUrl;
+          pathInput.value = publicUrl;
+          pathInput.dispatchEvent(new Event("input", { bubbles: true }));
+
+          status.textContent = "Yüklendi. URL bu alana yazıldı. Şimdi bu bölümde Kaydet'e bas.";
+          status.classList.add("ok");
+          fileInput.value = "";
+        });
+      });
+    }
+
+
+
+    async function loadHomepageManagement() {
+      await Promise.all([loadSiteSettings(), loadHomepageSections()]);
+    }
+
+    async function loadSiteSettings() {
+      if (!siteSettingsManager) return;
+
+      siteSettingsManager.textContent = "Yükleniyor...";
+
+      const { data, error } = await supabase
+        .from("site_settings")
+        .select("id, setting_key, setting_value, setting_type, label, sort_order")
+        .order("sort_order", { ascending: true });
+
+      if (error) {
+        siteSettingsManager.innerHTML = `<p class="status error">Site ayarları alınamadı: ${escapeHtml(error.message)}</p>`;
+        return;
+      }
+
+      siteSettingsManager.innerHTML = `
+        <form id="site-settings-form" class="settings-edit-panel">
+          <div class="settings-grid">
+            ${data.map(setting => `
+              <div class="${setting.setting_type === "textarea" ? "full" : ""}">
+                <label>${escapeHtml(setting.label || setting.setting_key)}</label>
+                ${setting.setting_type === "textarea"
+                  ? `<textarea name="${escapeHtml(setting.setting_key)}">${escapeHtml(setting.setting_value || "")}</textarea>`
+                  : `<input name="${escapeHtml(setting.setting_key)}" value="${escapeHtml(setting.setting_value || "")}">`
+                }
+                <div class="tiny-help"><code>${escapeHtml(setting.setting_key)}</code></div>
+              </div>
+            `).join("")}
+          </div>
+
+          <div class="actions">
+            <button type="submit">Site Ayarlarını Kaydet</button>
+          </div>
+
+          <div id="site-settings-status" class="status"></div>
+        </form>
+      `;
+
+      document.getElementById("site-settings-form").addEventListener("submit", async (event) => {
+        event.preventDefault();
+        await saveSiteSettings(event.currentTarget, data);
+      });
+    }
+
+    async function saveSiteSettings(form, settings) {
+      const status = document.getElementById("site-settings-status");
+      setStatus(status, "Kaydediliyor...");
+
+      const formData = new FormData(form);
+
+      for (const setting of settings) {
+        const value = String(formData.get(setting.setting_key) || "").trim();
+
+        const { error } = await supabase
+          .from("site_settings")
+          .update({ setting_value: value })
+          .eq("id", setting.id);
+
+        if (error) {
+          setStatus(status, "Kaydetme hatası: " + error.message, "error");
+          return;
+        }
+      }
+
+      setStatus(status, "Site ayarları kaydedildi.", "ok");
+      await loadSiteSettings();
+    }
+
+    async function loadHomepageSections() {
+      if (!homepageSectionsManager) return;
+
+      homepageSectionsManager.textContent = "Yükleniyor...";
+
+      const { data, error } = await supabase
+        .from("homepage_sections")
+        .select("id, section_key, title, subtitle, content, image, button_text, button_link, is_active, sort_order")
+        .order("sort_order", { ascending: true });
+
+      if (error) {
+        homepageSectionsManager.innerHTML = `<p class="status error">Ana sayfa bölümleri alınamadı: ${escapeHtml(error.message)}</p>`;
+        return;
+      }
+
+      if (!data.length) {
+        homepageSectionsManager.innerHTML = `<p class="muted">Henüz ana sayfa bölümü yok.</p>`;
+        return;
+      }
+
+      homepageSectionsManager.innerHTML = `
+        <table>
+          <thead>
+            <tr>
+              <th>Sıra</th>
+              <th>Bölüm</th>
+              <th>Başlık</th>
+              <th>Durum</th>
+              <th>İşlem</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${data.map(section => `
+              <tr>
+                <td><code>${escapeHtml(section.sort_order)}</code></td>
+                <td><code>${escapeHtml(section.section_key)}</code></td>
+                <td>
+                  <strong>${escapeHtml(section.title || "-")}</strong><br>
+                  <span class="muted">${escapeHtml(section.subtitle || "")}</span>
+                </td>
+                <td><span class="pill">${section.is_active ? "Aktif" : "Pasif"}</span></td>
+                <td>
+                  <div class="mini-table-actions">
+                    <button type="button" data-edit-home-section="${escapeHtml(section.id)}">Düzenle</button>
+                    <button class="danger" type="button" data-delete-home-section="${escapeHtml(section.id)}">Sil</button>
+                  </div>
+                </td>
+              </tr>
+            `).join("")}
+          </tbody>
+        </table>
+      `;
+
+      homepageSectionsManager.querySelectorAll("[data-edit-home-section]").forEach((button) => {
+        button.addEventListener("click", () => {
+          const section = data.find(item => item.id === button.dataset.editHomeSection);
+          if (section) renderHomepageSectionEditor(section, false);
+        });
+      });
+
+      homepageSectionsManager.querySelectorAll("[data-delete-home-section]").forEach((button) => {
+        button.addEventListener("click", async () => {
+          const section = data.find(item => item.id === button.dataset.deleteHomeSection);
+          if (!section) return;
+
+          const sectionLabel = section.title || section.section_key;
+          const ok = await confirmAction({
+            title: "Ana Sayfa Bölümünü Sil",
+            message: `"${sectionLabel}" bölümünü silmek istiyor musun?`,
+            warning: "Bu işlem geri alınamaz."
+          });
+          if (!ok) return;
+
+          const { error } = await supabase
+            .from("homepage_sections")
+            .delete()
+            .eq("id", section.id);
+
+          if (error) {
+            alert("Silme başarısız: " + error.message);
+            return;
+          }
+
+          await logAdminAction("delete", {
+            table_name: "homepage_sections",
+            record_id: section.id,
+            record_summary: `Ana sayfa bölümü silindi: ${sectionLabel}`
+          });
+
+          await loadHomepageSections();
+          document.getElementById("homepage-section-edit-panel").innerHTML = "";
+        });
+      });
+    }
+
+    document.addEventListener("click", (event) => {
+      if (event.target && event.target.id === "add-home-section-btn") {
+        renderHomepageSectionEditor({
+          section_key: "",
+          title: "",
+          subtitle: "",
+          content: "",
+          image: "",
+          button_text: "",
+          button_link: "",
+          is_active: true,
+          sort_order: 0
+        }, true);
+      }
+    });
+
+    function renderHomepageSectionEditor(section, isNew) {
+      const panel = document.getElementById("homepage-section-edit-panel");
+      if (!panel) return;
+
+      panel.innerHTML = `
+        <div class="section-edit-panel">
+          <h3>${isNew ? "Yeni Ana Sayfa Bölümü Ekle" : "Ana Sayfa Bölümünü Düzenle"}</h3>
+
+          <form id="homepage-section-form">
+            <input type="hidden" name="id" value="${escapeHtml(section.id || "")}">
+            <input type="hidden" name="is_new" value="${isNew ? "true" : "false"}">
+
+            ${langTabsHtml()}
+
+            <!-- TR -->
+            <div class="lang-pane active" data-lang="tr">
+              <div class="edit-grid">
+                <div>
+                  <label>Başlık</label>
+                  <input name="title" value="${escapeHtml(section.title || "")}">
+                </div>
+                <div>
+                  <label>Alt Başlık</label>
+                  <input name="subtitle" value="${escapeHtml(section.subtitle || "")}">
+                </div>
+                <div>
+                  <label>Buton Yazısı</label>
+                  <input name="button_text" value="${escapeHtml(section.button_text || "")}">
+                </div>
+                <div></div>
+                <div class="full">
+                  <label>İçerik</label>
+                  <textarea name="content">${escapeHtml(section.content || "")}</textarea>
+                </div>
+              </div>
+            </div>
+
+            <!-- EN -->
+            <div class="lang-pane" data-lang="en">
+              <div class="edit-grid">
+                <div>
+                  <label>Başlık</label>
+                  <input name="title_en" value="${escapeHtml(section.title_en || "")}" placeholder="English title">
+                </div>
+                <div>
+                  <label>Alt Başlık</label>
+                  <input name="subtitle_en" value="${escapeHtml(section.subtitle_en || "")}" placeholder="English subtitle">
+                </div>
+                <div>
+                  <label>Buton Yazısı</label>
+                  <input name="button_text_en" value="${escapeHtml(section.button_text_en || "")}" placeholder="Discover, Learn More">
+                </div>
+                <div></div>
+                <div class="full">
+                  <label>İçerik</label>
+                  <textarea name="content_en" placeholder="English content">${escapeHtml(section.content_en || "")}</textarea>
+                  <div class="tiny-help">Boş bırakılırsa İngilizce sayfada Türkçe metin gösterilir.</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Dil-Bağımsız -->
+            <div class="edit-grid" style="margin-top:14px">
+              <div>
+                <label>Bölüm Anahtarı</label>
+                <input name="section_key" value="${escapeHtml(section.section_key || "")}" required>
+                <div class="tiny-help">Örnek: <code>about</code>, <code>vision</code>, <code>contact</code></div>
+              </div>
+
+              <div>
+                <label>Sıralama</label>
+                <input name="sort_order" type="number" value="${escapeHtml(section.sort_order ?? 0)}">
+              </div>
+
+              <div>
+                <label>Görsel</label>
+                <div class="field-upload-row" data-upload-field="homepage_section">
+                  <input class="image-path-input" name="image" value="${escapeHtml(section.image || "")}" placeholder="assets/hakkimizda.jpg">
+                  <input type="file" accept="image/png,image/jpeg,image/webp,image/gif">
+                  <button class="upload-field-btn secondary" type="button">Yükle</button>
+                  <div class="field-upload-status">Bu ana sayfa bölümü için opsiyonel görsel.</div>
+                </div>
+              </div>
+
+              <div>
+                <label>Durum</label>
+                <select name="is_active">
+                  <option value="true" ${section.is_active ? "selected" : ""}>Aktif</option>
+                  <option value="false" ${!section.is_active ? "selected" : ""}>Pasif</option>
+                </select>
+              </div>
+
+              <div>
+                <label>Buton Linki</label>
+                <input name="button_link" value="${escapeHtml(section.button_link || "")}">
+              </div>
+            </div>
+
+            <div class="actions">
+              <button type="submit">${isNew ? "Ekle" : "Kaydet"}</button>
+              <button class="secondary" type="button" id="cancel-home-section-edit">Vazgeç</button>
+            </div>
+
+            <div id="homepage-section-status" class="status"></div>
+          </form>
+        </div>
+      `;
+
+      const form = document.getElementById("homepage-section-form");
+      setupLangTabs(form);
+
+      document.getElementById("cancel-home-section-edit").addEventListener("click", () => {
+        panel.innerHTML = "";
+      });
+
+      form.addEventListener("submit", async (event) => {
+        event.preventDefault();
+        await saveHomepageSection(event.currentTarget);
+      });
+
+      setupFieldUploadersByContainer(panel, { slug: "homepage" });
+      panel.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+
+    async function saveHomepageSection(form) {
+      const status = document.getElementById("homepage-section-status");
+      setStatus(status, "Kaydediliyor...");
+
+      const formData = new FormData(form);
+      const isNew = formData.get("is_new") === "true";
+      const id = formData.get("id");
+
+      const payload = {
+        section_key: String(formData.get("section_key") || "").trim(),
+        title: String(formData.get("title") || "").trim(),
+        title_en: String(formData.get("title_en") || "").trim() || null,
+        subtitle: String(formData.get("subtitle") || "").trim(),
+        subtitle_en: String(formData.get("subtitle_en") || "").trim() || null,
+        content: String(formData.get("content") || "").trim(),
+        content_en: String(formData.get("content_en") || "").trim() || null,
+        image: String(formData.get("image") || "").trim(),
+        button_text: String(formData.get("button_text") || "").trim(),
+        button_text_en: String(formData.get("button_text_en") || "").trim() || null,
+        button_link: String(formData.get("button_link") || "").trim(),
+        sort_order: Number(formData.get("sort_order") || 0),
+        is_active: formData.get("is_active") === "true"
+      };
+
+      const query = isNew
+        ? supabase.from("homepage_sections").insert(payload)
+        : supabase.from("homepage_sections").update(payload).eq("id", id);
+
+      const { error } = await query;
+
+      if (error) {
+        setStatus(status, "Kaydetme hatası: " + error.message, "error");
+        return;
+      }
+
+      setStatus(status, "Ana sayfa bölümü kaydedildi.", "ok");
+      await loadHomepageSections();
+      document.getElementById("homepage-section-edit-panel").innerHTML = "";
+    }
+
+
+
+    let allCitiesCache = [];
+    let allProductsCache = [];
+
+    async function getCitiesForSelect() {
+      const { data, error } = await supabase
+        .from("cities")
+        .select("id, name, svg_id, sort_order")
+        .order("sort_order", { ascending: true });
+
+      if (error) {
+        console.error("Şehir seçimi alınamadı:", error.message);
+        alert("Şehir listesi alınamadı: " + error.message);
+        return [];
+      }
+
+      allCitiesCache = data || [];
+      return allCitiesCache;
+    }
+
+    async function loadProducts() {
+      productsTable.textContent = "Yükleniyor...";
+
+      const { data, error } = await supabase
+        .from("products")
+        .select(`
+          id,
+          city_id,
+          name,
+          slug,
+          short_name,
+          mini_image,
+          hero_image,
+          parts_main_image,
+          hero_badge,
+          hero_title,
+          hero_subtitle,
+          hero_left_text,
+          hero_right_text,
+          meta_description,
+          is_active,
+          cities (
+            name,
+            svg_id
+          )
+        `)
+        .order("created_at", { ascending: true });
+
+      if (error) {
+        productsTable.innerHTML = `<p class="status error">Ürünler alınamadı: ${escapeHtml(error.message)}</p>`;
+        return;
+      }
+
+      allProductsCache = data || [];
+
+      productsTable.innerHTML = `
+        <table>
+          <thead>
+            <tr>
+              <th>Ürün</th>
+              <th>Şehir</th>
+              <th>Slug</th>
+              <th>Sayfa</th>
+              <th>Durum</th>
+              <th>İşlem</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${allProductsCache.map(product => `
+              <tr>
+                <td>
+                  <div class="product-mini">
+                    <img src="${escapeHtml(product.mini_image || "assets/logo_house_of_anatolia_transparent.png")}" alt="${escapeHtml(product.name)}">
+                    <div>
+                      <strong>${escapeHtml(product.name)}</strong><br>
+                      <span class="muted">${escapeHtml(product.short_name || "")}</span>
+                    </div>
+                  </div>
+                </td>
+                <td>${escapeHtml(product.cities?.name || "")}<br><span class="muted">${escapeHtml(product.cities?.svg_id || "")}</span></td>
+                <td><code>${escapeHtml(product.slug)}</code></td>
+                <td><a href="product.html?slug=${escapeHtml(product.slug)}" target="_blank"><button class="secondary" type="button">Aç</button></a></td>
+                <td><span class="pill">${product.is_active ? "Aktif" : "Pasif"}</span></td>
+                <td>
+                  <div class="row-actions">
+                    <button type="button" data-edit-product="${product.id}">Düzenle</button>
+                  </div>
+                </td>
+              </tr>
+            `).join("")}
+          </tbody>
+        </table>
+
+        <div id="product-edit-panel"></div>
+      `;
+
+      productsTable.querySelectorAll("[data-edit-product]").forEach((button) => {
+        button.addEventListener("click", async () => {
+          const product = allProductsCache.find(item => item.id === button.dataset.editProduct);
+          if (product) await renderProductEditor(product);
+        });
+      });
+    }
+
+
+    async function renderNewProductEditor() {
+      const cities = await getCitiesForSelect();
+      const panel = document.getElementById("new-product-panel");
+
+      if (!panel) {
+        alert("Yeni ürün paneli bulunamadı. Sayfayı Ctrl + F5 ile yenile.");
+        return;
+      }
+
+      panel.innerHTML = `
+        <div class="product-create-panel">
+          <h3>Yeni Ürün Ekle</h3>
+          <p class="muted">Örnek: Kayseri Pastırması. Önce şehir yoksa yukarıdan şehri ekle, sonra ürünü bu şehre bağla.</p>
+
+          <form id="new-product-form">
+            <div class="edit-grid">
+              <div>
+                <label>Şehir</label>
+                <select name="city_id" required>
+                  <option value="">Şehir seçiniz</option>
+                  ${cities.map(city => `
+                    <option value="${escapeHtml(city.id)}">${escapeHtml(city.name)} (${escapeHtml(city.svg_id)})</option>
+                  `).join("")}
+                </select>
+              </div>
+
+              <div>
+                <label>Aktif</label>
+                <select name="is_active">
+                  <option value="true">Aktif</option>
+                  <option value="false">Pasif</option>
+                </select>
+              </div>
+
+              <div>
+                <label>Ürün Adı</label>
+                <input name="name" required placeholder="Kayseri Pastırması">
+              </div>
+
+              <div>
+                <label>Kısa Ad</label>
+                <input name="short_name" required placeholder="Pastırma">
+              </div>
+
+              <div>
+                <label>Slug</label>
+                <input name="slug" required placeholder="kayseri-pastirmasi">
+              </div>
+
+              <div>
+                <label>Hero Badge</label>
+                <input name="hero_badge" placeholder="Kayseri • Coğrafi İşaretli Ürün">
+              </div>
+
+              <div>
+                <label>Hero Başlığı</label>
+                <input name="hero_title" required placeholder="Kayseri Pastırması">
+              </div>
+
+              <div>
+                <label>Hero Alt Yazısı</label>
+                <input name="hero_subtitle" placeholder="Kayseri’nin coğrafi işaretli güçlü lezzeti">
+              </div>
+
+              <div>
+                <label>Hero Sol Yazı</label>
+                <input name="hero_left_text" placeholder="PAST">
+              </div>
+
+              <div>
+                <label>Hero Sağ Yazı</label>
+                <input name="hero_right_text" placeholder="IRMA">
+              </div>
+
+              <div>
+                <label>Mini Görsel</label>
+                <div class="field-upload-row" data-upload-field="mini_image">
+                  <input class="image-path-input" name="mini_image" placeholder="Yükle veya URL yaz">
+                  <input type="file" accept="image/png,image/jpeg,image/webp,image/gif">
+                  <button class="upload-field-btn secondary" type="button">Yükle</button>
+                  <div class="field-upload-status">Haritada hover kartında görünecek küçük görsel.</div>
+                </div>
+              </div>
+
+              <div>
+                <label>Hero Görsel</label>
+                <div class="field-upload-row" data-upload-field="hero_image">
+                  <input class="image-path-input" name="hero_image" placeholder="Yükle veya URL yaz">
+                  <input type="file" accept="image/png,image/jpeg,image/webp,image/gif">
+                  <button class="upload-field-btn secondary" type="button">Yükle</button>
+                  <div class="field-upload-status">Ürün sayfasının üst kısmındaki büyük görsel.</div>
+                </div>
+              </div>
+
+              <div>
+                <label>Bölümler Ana Görsel</label>
+                <div class="field-upload-row" data-upload-field="parts_main_image">
+                  <input class="image-path-input" name="parts_main_image" placeholder="Yükle veya URL yaz">
+                  <input type="file" accept="image/png,image/jpeg,image/webp,image/gif">
+                  <button class="upload-field-btn secondary" type="button">Yükle</button>
+                  <div class="field-upload-status">Ürün kısımları bölümündeki ana görsel.</div>
+                </div>
+              </div>
+
+              <div class="full">
+                <label>Meta Açıklama</label>
+                <textarea name="meta_description" placeholder="Ürün sayfası için kısa açıklama"></textarea>
+              </div>
+            </div>
+
+            <div class="actions">
+              <button type="submit">Ürünü Ekle</button>
+              <button class="secondary" type="button" id="cancel-new-product">Vazgeç</button>
+            </div>
+
+            <div id="new-product-status" class="status"></div>
+          </form>
+        </div>
+      `;
+
+      document.getElementById("cancel-new-product").addEventListener("click", () => {
+        panel.innerHTML = "";
+      });
+
+      document.getElementById("new-product-form").addEventListener("submit", async (event) => {
+        event.preventDefault();
+        await saveNewProduct(event.currentTarget);
+      });
+
+      setupFieldUploadersByContainer(panel, { slug: "new-product" });
+      panel.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+
+    async function saveNewProduct(form) {
+      const status = document.getElementById("new-product-status");
+      setStatus(status, "Ürün ekleniyor...");
+
+      const formData = new FormData(form);
+
+      const payload = {
+        city_id: formData.get("city_id"),
+        name: String(formData.get("name") || "").trim(),
+        slug: String(formData.get("slug") || "").trim(),
+        short_name: String(formData.get("short_name") || "").trim(),
+        mini_image: String(formData.get("mini_image") || "").trim(),
+        hero_image: String(formData.get("hero_image") || "").trim(),
+        parts_main_image: String(formData.get("parts_main_image") || "").trim(),
+        hero_badge: String(formData.get("hero_badge") || "").trim(),
+        hero_title: String(formData.get("hero_title") || "").trim(),
+        hero_subtitle: String(formData.get("hero_subtitle") || "").trim(),
+        hero_left_text: String(formData.get("hero_left_text") || "").trim(),
+        hero_right_text: String(formData.get("hero_right_text") || "").trim(),
+        meta_description: String(formData.get("meta_description") || "").trim(),
+        is_active: formData.get("is_active") === "true"
+      };
+
+      const { error } = await supabase
+        .from("products")
+        .insert(payload);
+
+      if (error) {
+        setStatus(status, "Ürün ekleme hatası: " + error.message, "error");
+        return;
+      }
+
+      setStatus(status, "Ürün eklendi. Liste yenileniyor...", "ok");
+      await loadProducts();
+      document.getElementById("new-product-panel").innerHTML = "";
+    }
+
+
+    async function renderProductEditor(product) {
+      const panel = document.getElementById("product-edit-panel");
+      if (!panel) return;
+
+      const cities = await getCitiesForSelect();
+
+      panel.innerHTML = `
+        <div class="edit-panel">
+          <h3>${escapeHtml(product.name)} ürününü düzenle</h3>
+          <p class="muted">Her görsel alanının yanında kendi dosya seçme ve yükleme butonu var. Görseli seçip yükledikten sonra ilgili bölümde <strong>Kaydet</strong> butonuna basmayı unutma.</p>
+          <form id="product-edit-form">
+            <input type="hidden" name="id" value="${escapeHtml(product.id)}">
+
+            ${langTabsHtml()}
+
+            <!-- ===== TR ===== -->
+            <div class="lang-pane active" data-lang="tr">
+              <div class="edit-grid">
+                <div>
+                  <label>Ürün Adı</label>
+                  <input name="name" value="${escapeHtml(product.name)}" required>
+                </div>
+
+                <div>
+                  <label>Kısa Ad</label>
+                  <input name="short_name" value="${escapeHtml(product.short_name || "")}" required>
+                </div>
+
+                <div>
+                  <label>Hero Badge</label>
+                  <input name="hero_badge" value="${escapeHtml(product.hero_badge || "")}">
+                </div>
+
+                <div>
+                  <label>Hero Başlığı</label>
+                  <input name="hero_title" value="${escapeHtml(product.hero_title || "")}" required>
+                </div>
+
+                <div class="full">
+                  <label>Hero Alt Yazısı</label>
+                  <input name="hero_subtitle" value="${escapeHtml(product.hero_subtitle || "")}">
+                </div>
+
+                <div class="full">
+                  <label>Meta Açıklama</label>
+                  <textarea name="meta_description">${escapeHtml(product.meta_description || "")}</textarea>
+                  <div class="tiny-help">SEO için (Google arama sonuçlarında görünür).</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- ===== EN ===== -->
+            <div class="lang-pane" data-lang="en">
+              <div class="edit-grid">
+                <div>
+                  <label>Ürün Adı</label>
+                  <input name="name_en" value="${escapeHtml(product.name_en || "")}" placeholder="Safranbolu Saffron">
+                </div>
+
+                <div>
+                  <label>Kısa Ad</label>
+                  <input name="short_name_en" value="${escapeHtml(product.short_name_en || "")}" placeholder="Saffron">
+                </div>
+
+                <div>
+                  <label>Hero Badge</label>
+                  <input name="hero_badge_en" value="${escapeHtml(product.hero_badge_en || "")}" placeholder="Safranbolu • Geographically Protected">
+                </div>
+
+                <div>
+                  <label>Hero Başlığı</label>
+                  <input name="hero_title_en" value="${escapeHtml(product.hero_title_en || "")}" placeholder="Safranbolu Saffron">
+                </div>
+
+                <div class="full">
+                  <label>Hero Alt Yazısı</label>
+                  <input name="hero_subtitle_en" value="${escapeHtml(product.hero_subtitle_en || "")}" placeholder="Crafted by hand, kept in glass">
+                </div>
+
+                <div class="full">
+                  <label>Meta Açıklama</label>
+                  <textarea name="meta_description_en" placeholder="English meta description for SEO">${escapeHtml(product.meta_description_en || "")}</textarea>
+                  <div class="tiny-help">Boş bırakılırsa İngilizce sayfada Türkçe metinler gösterilir.</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- ===== Dil-Bağımsız Teknik Alanlar ===== -->
+            <div class="edit-grid" style="margin-top:14px">
+              <div>
+                <label>Şehir</label>
+                <select name="city_id" required>
+                  ${cities.map(city => `
+                    <option value="${escapeHtml(city.id)}" ${city.id === product.city_id ? "selected" : ""}>
+                      ${escapeHtml(city.name)} (${escapeHtml(city.svg_id)})
+                    </option>
+                  `).join("")}
+                </select>
+              </div>
+
+              <div>
+                <label>Aktif</label>
+                <select name="is_active">
+                  <option value="true" ${product.is_active ? "selected" : ""}>Aktif</option>
+                  <option value="false" ${!product.is_active ? "selected" : ""}>Pasif</option>
+                </select>
+              </div>
+
+              <div>
+                <label>Slug</label>
+                <input name="slug" value="${escapeHtml(product.slug)}" required>
+                <div class="tiny-help">URL için kullanılır. Örnek: <code>karabuk-safrani</code></div>
+              </div>
+
+              <div>
+                <label>Hero Sol Yazı</label>
+                <input name="hero_left_text" value="${escapeHtml(product.hero_left_text || "")}">
+              </div>
+
+              <div>
+                <label>Hero Sağ Yazı</label>
+                <input name="hero_right_text" value="${escapeHtml(product.hero_right_text || "")}">
+              </div>
+
+              <div>
+                <label>Mini Görsel</label>
+                <div class="field-upload-row" data-upload-field="mini_image">
+                  <input class="image-path-input" name="mini_image" value="${escapeHtml(product.mini_image || "")}" placeholder="assets/mini_safran.png">
+                  <input type="file" accept="image/png,image/jpeg,image/webp,image/gif">
+                  <button class="upload-field-btn secondary" type="button">Yükle</button>
+                  <div class="field-upload-status">Haritada il üzerine gelince görünen küçük görsel.</div>
+                </div>
+              </div>
+
+              <div>
+                <label>Hero Görsel</label>
+                <div class="field-upload-row" data-upload-field="hero_image">
+                  <input class="image-path-input" name="hero_image" value="${escapeHtml(product.hero_image || "")}" placeholder="assets/safran-cicegi.png">
+                  <input type="file" accept="image/png,image/jpeg,image/webp,image/gif">
+                  <button class="upload-field-btn secondary" type="button">Yükle</button>
+                  <div class="field-upload-status">Ürün sayfasının üst kısmındaki büyük orta görsel.</div>
+                </div>
+              </div>
+
+              <div>
+                <label>Bölümler Ana Görsel</label>
+                <div class="field-upload-row" data-upload-field="parts_main_image">
+                  <input class="image-path-input" name="parts_main_image" value="${escapeHtml(product.parts_main_image || "")}" placeholder="assets/safran_soganli.png">
+                  <input type="file" accept="image/png,image/jpeg,image/webp,image/gif">
+                  <button class="upload-field-btn secondary" type="button">Yükle</button>
+                  <div class="field-upload-status">Ürün kısımları bölümündeki ana görsel.</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="actions">
+              <button type="submit">Kaydet</button>
+              <button class="secondary" type="button" id="cancel-product-edit">Vazgeç</button>
+              <a href="product.html?slug=${escapeHtml(product.slug)}" target="_blank"><button class="secondary" type="button">Sayfayı Aç</button></a>
+            </div>
+
+            <div id="product-edit-status" class="status"></div>
+          </form>
+
+          <div class="subsection">
+            <div class="part-list-title">
+              <div>
+                <h3>Ürün Kısımları</h3>
+                <p class="muted">İplik / Çiçek / Soğan gibi ürün kısımlarını buradan düzenleyebilirsin.</p>
+              </div>
+              <button type="button" id="add-part-btn">Yeni Kısım Ekle</button>
+            </div>
+
+            <div id="parts-manager">Yükleniyor...</div>
+            <div id="part-edit-panel"></div>
+          </div>
+
+          <div class="subsection">
+            <div class="part-list-title">
+              <div>
+                <h3>Nasıl Kullanılır?</h3>
+                <p class="muted">Hazırlama, demleme, kullanım ve saklama gibi rehber adımlarını buradan yönetebilirsin.</p>
+              </div>
+              <button type="button" id="add-usage-btn">Yeni Adım Ekle</button>
+            </div>
+
+            <div id="usage-manager">Yükleniyor...</div>
+            <div id="usage-edit-panel"></div>
+          </div>
+
+          <div class="subsection">
+            <div class="part-list-title">
+              <div>
+                <h3>Galeri</h3>
+                <p class="muted">Ürün sayfasındaki galeri görsellerini buradan yönetebilirsin.</p>
+              </div>
+              <button type="button" id="add-gallery-btn">Yeni Görsel Ekle</button>
+            </div>
+
+            <div id="gallery-manager">Yükleniyor...</div>
+            <div id="gallery-edit-panel"></div>
+          </div>
+
+          <div class="subsection">
+            <div class="part-list-title">
+              <div>
+                <h3>Form Ürün Seçenekleri</h3>
+                <p class="muted">Talep formunda müşterinin seçtiği ürün türlerini buradan yönetebilirsin.</p>
+              </div>
+              <button type="button" id="add-option-btn">Yeni Ürün Seçeneği Ekle</button>
+            </div>
+
+            <div id="options-manager">Yükleniyor...</div>
+            <div id="option-edit-panel"></div>
+          </div>
+
+          <div class="subsection">
+            <div class="part-list-title">
+              <div>
+                <h3>Paket Seçenekleri</h3>
+                <p class="muted">Talep formunda müşterinin seçtiği paket/sunum seçeneklerini buradan yönetebilirsin.</p>
+              </div>
+              <button type="button" id="add-package-btn">Yeni Paket Ekle</button>
+            </div>
+
+            <div id="packages-manager">Yükleniyor...</div>
+            <div id="package-edit-panel"></div>
+          </div>
+
+          <div class="subsection">
+            <div class="part-list-title">
+              <div>
+                <h3>Gramaj Seçenekleri</h3>
+                <p class="muted">Talep formundaki 1 gr, 5 gr, 10 gr gibi gramaj seçeneklerini buradan yönetebilirsin.</p>
+              </div>
+              <button type="button" id="add-weight-btn">Yeni Gramaj Ekle</button>
+            </div>
+
+            <div id="weights-manager">Yükleniyor...</div>
+            <div id="weight-edit-panel"></div>
+          </div>
+        </div>
+      `;
+
+      const productForm = document.getElementById("product-edit-form");
+      setupLangTabs(productForm);
+
+      document.getElementById("cancel-product-edit").addEventListener("click", () => {
+        panel.innerHTML = "";
+      });
+
+      productForm.addEventListener("submit", async (event) => {
+        event.preventDefault();
+        await saveProductEdit(event.currentTarget);
+      });
+
+      setupFieldUploaders(product);
+
+      document.getElementById("add-part-btn").addEventListener("click", () => {
+        renderPartEditor({
+          product_id: product.id,
+          title: "",
+          subtitle: "",
+          description: "",
+          image: "",
+          sort_order: 0,
+          is_active: true
+        }, true);
+      });
+
+      document.getElementById("add-usage-btn").addEventListener("click", () => {
+        renderUsageEditor({
+          product_id: product.id,
+          title: "",
+          description: "",
+          sort_order: 0,
+          is_active: true
+        }, true);
+      });
+
+      document.getElementById("add-gallery-btn").addEventListener("click", () => {
+        renderGalleryEditor({
+          product_id: product.id,
+          image: "",
+          caption: "",
+          sort_order: 0,
+          is_active: true
+        }, true);
+      });
+
+      document.getElementById("add-option-btn").addEventListener("click", () => {
+        renderOptionEditor({
+          product_id: product.id,
+          name: "",
+          image: "",
+          description: "",
+          sort_order: 0,
+          is_active: true
+        }, true);
+      });
+
+      document.getElementById("add-package-btn").addEventListener("click", () => {
+        renderPackageEditor({
+          product_id: product.id,
+          name: "",
+          image: "",
+          description: "",
+          sort_order: 0,
+          is_active: true
+        }, true);
+      });
+
+      document.getElementById("add-weight-btn").addEventListener("click", () => {
+        renderWeightEditor({
+          product_id: product.id,
+          label: "",
+          sort_order: 0,
+          is_active: true
+        }, true);
+      });
+
+      await loadProductParts(product.id);
+      await loadUsageSteps(product.id);
+      await loadGalleryImages(product.id);
+      await loadProductOptions(product.id);
+      await loadPackageOptions(product.id);
+      await loadWeightOptions(product.id);
+      panel.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+
+
+    async function loadProductParts(productId) {
+      const holder = document.getElementById("parts-manager");
+      if (!holder) return;
+
+      holder.textContent = "Yükleniyor...";
+
+      const { data, error } = await supabase
+        .from("product_parts")
+        .select("id, product_id, title, subtitle, description, image, sort_order, is_active")
+        .eq("product_id", productId)
+        .order("sort_order", { ascending: true });
+
+      if (error) {
+        holder.innerHTML = `<p class="status error">Kısımlar alınamadı: ${escapeHtml(error.message)}</p>`;
+        return;
+      }
+
+      if (!data.length) {
+        holder.innerHTML = `<p class="muted">Bu ürün için henüz kısım eklenmemiş.</p>`;
+        return;
+      }
+
+      holder.innerHTML = `
+        <table>
+          <thead>
+            <tr>
+              <th>Sıra</th>
+              <th>Görsel</th>
+              <th>Başlık</th>
+              <th>Alt Başlık</th>
+              <th>Durum</th>
+              <th>İşlem</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${data.map(part => `
+              <tr>
+                <td><code>${escapeHtml(part.sort_order)}</code></td>
+                <td><img class="preview-img" src="${escapeHtml(part.image || "assets/logo_house_of_anatolia_transparent.png")}" alt="${escapeHtml(part.title)}"></td>
+                <td><strong>${escapeHtml(part.title)}</strong><br><span class="muted">${escapeHtml((part.description || "").slice(0, 80))}${(part.description || "").length > 80 ? "..." : ""}</span></td>
+                <td>${escapeHtml(part.subtitle || "")}</td>
+                <td><span class="pill">${part.is_active ? "Aktif" : "Pasif"}</span></td>
+                <td>
+                  <div class="mini-table-actions">
+                    <button type="button" data-edit-part="${part.id}">Düzenle</button>
+                    <button class="danger" type="button" data-delete-part="${part.id}">Sil</button>
+                  </div>
+                </td>
+              </tr>
+            `).join("")}
+          </tbody>
+        </table>
+      `;
+
+      holder.querySelectorAll("[data-edit-part]").forEach((button) => {
+        button.addEventListener("click", () => {
+          const part = data.find(item => item.id === button.dataset.editPart);
+          if (part) renderPartEditor(part, false);
+        });
+      });
+
+      holder.querySelectorAll("[data-delete-part]").forEach((button) => {
+        button.addEventListener("click", async () => {
+          const part = data.find(item => item.id === button.dataset.deletePart);
+          if (!part) return;
+          const ok = await confirmAction({
+            title: "Ürün Kısmını Sil",
+            message: `"${part.title}" kısmını silmek istiyor musun?`
+          });
+          if (!ok) return;
+
+          const { error } = await supabase
+            .from("product_parts")
+            .delete()
+            .eq("id", part.id);
+
+          if (error) {
+            alert("Silme başarısız: " + error.message);
+            return;
+          }
+
+          await logAdminAction("delete", {
+            table_name: "product_parts",
+            record_id: part.id,
+            record_summary: `Ürün kısmı silindi: ${part.title}`,
+            metadata: { product_id: part.product_id }
+          });
+
+          await loadProductParts(part.product_id);
+          document.getElementById("part-edit-panel").innerHTML = "";
+        });
+      });
+    }
+
+    function renderPartEditor(part, isNew) {
+      const panel = document.getElementById("part-edit-panel");
+      if (!panel) return;
+
+      panel.innerHTML = `
+        <div class="part-edit-panel">
+          <h3>${isNew ? "Yeni Kısım Ekle" : "Kısmı Düzenle"}</h3>
+
+          <form id="part-edit-form">
+            <input type="hidden" name="id" value="${escapeHtml(part.id || "")}">
+            <input type="hidden" name="product_id" value="${escapeHtml(part.product_id)}">
+            <input type="hidden" name="is_new" value="${isNew ? "true" : "false"}">
+
+            ${langTabsHtml()}
+
+            <!-- ===== TR İçerik ===== -->
+            <div class="lang-pane active" data-lang="tr">
+              <div class="edit-grid">
+                <div>
+                  <label>Başlık</label>
+                  <input name="title" value="${escapeHtml(part.title || "")}" required>
+                </div>
+                <div>
+                  <label>Alt Başlık</label>
+                  <input name="subtitle" value="${escapeHtml(part.subtitle || "")}">
+                </div>
+                <div class="full">
+                  <label>Açıklama</label>
+                  <textarea name="description" required>${escapeHtml(part.description || "")}</textarea>
+                </div>
+              </div>
+            </div>
+
+            <!-- ===== EN İçerik ===== -->
+            <div class="lang-pane" data-lang="en">
+              <div class="edit-grid">
+                <div>
+                  <label>Başlık</label>
+                  <input name="title_en" value="${escapeHtml(part.title_en || "")}" placeholder="English title">
+                </div>
+                <div>
+                  <label>Alt Başlık</label>
+                  <input name="subtitle_en" value="${escapeHtml(part.subtitle_en || "")}" placeholder="English subtitle">
+                </div>
+                <div class="full">
+                  <label>Açıklama</label>
+                  <textarea name="description_en" placeholder="English description">${escapeHtml(part.description_en || "")}</textarea>
+                  <div class="tiny-help">Boş bırakılırsa İngilizce sayfada Türkçe metin gösterilir.</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- ===== Dil-Bağımsız Alanlar ===== -->
+            <div class="edit-grid" style="margin-top:14px">
+              <div>
+                <label>Kısım Görseli</label>
+                <div class="field-upload-row" data-upload-field="part_image">
+                  <input class="image-path-input" name="image" value="${escapeHtml(part.image || "")}" placeholder="assets/safran_iplik.png">
+                  <input type="file" accept="image/png,image/jpeg,image/webp,image/gif">
+                  <button class="upload-field-btn secondary" type="button">Yükle</button>
+                  <div class="field-upload-status">Bu kısım kartında görünecek görsel.</div>
+                </div>
+              </div>
+
+              <div>
+                <label>Sıralama</label>
+                <input name="sort_order" type="number" value="${escapeHtml(part.sort_order ?? 0)}">
+              </div>
+
+              <div>
+                <label>Durum</label>
+                <select name="is_active">
+                  <option value="true" ${part.is_active ? "selected" : ""}>Aktif</option>
+                  <option value="false" ${!part.is_active ? "selected" : ""}>Pasif</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="actions">
+              <button type="submit">${isNew ? "Ekle" : "Kaydet"}</button>
+              <button class="secondary" type="button" id="cancel-part-edit">Vazgeç</button>
+            </div>
+
+            <div id="part-edit-status" class="status"></div>
+          </form>
+        </div>
+      `;
+
+      const form = document.getElementById("part-edit-form");
+      setupLangTabs(form);
+
+      document.getElementById("cancel-part-edit").addEventListener("click", () => {
+        panel.innerHTML = "";
+      });
+
+      form.addEventListener("submit", async (event) => {
+        event.preventDefault();
+        await savePartEdit(event.currentTarget);
+      });
+
+      setupFieldUploadersByContainer(panel, { slug: "product-part" });
+      panel.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+
+    async function savePartEdit(form) {
+      const status = document.getElementById("part-edit-status");
+      setStatus(status, "Kaydediliyor...");
+
+      const formData = new FormData(form);
+      const isNew = formData.get("is_new") === "true";
+      const id = formData.get("id");
+      const productId = formData.get("product_id");
+
+      const payload = {
+        product_id: productId,
+        title: String(formData.get("title") || "").trim(),
+        title_en: String(formData.get("title_en") || "").trim() || null,
+        subtitle: String(formData.get("subtitle") || "").trim(),
+        subtitle_en: String(formData.get("subtitle_en") || "").trim() || null,
+        description: String(formData.get("description") || "").trim(),
+        description_en: String(formData.get("description_en") || "").trim() || null,
+        image: String(formData.get("image") || "").trim(),
+        sort_order: Number(formData.get("sort_order") || 0),
+        is_active: formData.get("is_active") === "true"
+      };
+
+      const query = isNew
+        ? supabase.from("product_parts").insert(payload)
+        : supabase.from("product_parts").update(payload).eq("id", id);
+
+      const { error } = await query;
+
+      if (error) {
+        setStatus(status, "Kaydetme hatası: " + error.message, "error");
+        return;
+      }
+
+      setStatus(status, "Kısım kaydedildi.", "ok");
+      await loadProductParts(productId);
+      document.getElementById("part-edit-panel").innerHTML = "";
+    }
+
+
+
+    async function loadUsageSteps(productId) {
+      const holder = document.getElementById("usage-manager");
+      if (!holder) return;
+
+      holder.textContent = "Yükleniyor...";
+
+      const { data, error } = await supabase
+        .from("usage_steps")
+        .select("id, product_id, title, description, sort_order, is_active")
+        .eq("product_id", productId)
+        .order("sort_order", { ascending: true });
+
+      if (error) {
+        holder.innerHTML = `<p class="status error">Kullanım adımları alınamadı: ${escapeHtml(error.message)}</p>`;
+        return;
+      }
+
+      if (!data.length) {
+        holder.innerHTML = `<p class="muted">Bu ürün için henüz kullanım adımı eklenmemiş.</p>`;
+        return;
+      }
+
+      holder.innerHTML = `
+        <table>
+          <thead>
+            <tr>
+              <th>Sıra</th>
+              <th>Başlık</th>
+              <th>Açıklama</th>
+              <th>Durum</th>
+              <th>İşlem</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${data.map(step => `
+              <tr>
+                <td><code>${escapeHtml(step.sort_order)}</code></td>
+                <td><strong>${escapeHtml(step.title)}</strong></td>
+                <td><span class="muted">${escapeHtml((step.description || "").slice(0, 120))}${(step.description || "").length > 120 ? "..." : ""}</span></td>
+                <td><span class="pill">${step.is_active ? "Aktif" : "Pasif"}</span></td>
+                <td>
+                  <div class="mini-table-actions">
+                    <button type="button" data-edit-usage="${step.id}">Düzenle</button>
+                    <button class="danger" type="button" data-delete-usage="${step.id}">Sil</button>
+                  </div>
+                </td>
+              </tr>
+            `).join("")}
+          </tbody>
+        </table>
+      `;
+
+      holder.querySelectorAll("[data-edit-usage]").forEach((button) => {
+        button.addEventListener("click", () => {
+          const step = data.find(item => item.id === button.dataset.editUsage);
+          if (step) renderUsageEditor(step, false);
+        });
+      });
+
+      holder.querySelectorAll("[data-delete-usage]").forEach((button) => {
+        button.addEventListener("click", async () => {
+          const step = data.find(item => item.id === button.dataset.deleteUsage);
+          if (!step) return;
+
+          const ok = await confirmAction({
+            title: "Kullanım Adımını Sil",
+            message: `"${step.title}" kullanım adımını silmek istiyor musun?`
+          });
+          if (!ok) return;
+
+          const { error } = await supabase
+            .from("usage_steps")
+            .delete()
+            .eq("id", step.id);
+
+          if (error) {
+            alert("Silme başarısız: " + error.message);
+            return;
+          }
+
+          await logAdminAction("delete", {
+            table_name: "usage_steps",
+            record_id: step.id,
+            record_summary: `Kullanım adımı silindi: ${step.title}`,
+            metadata: { product_id: step.product_id }
+          });
+
+          await loadUsageSteps(step.product_id);
+          document.getElementById("usage-edit-panel").innerHTML = "";
+        });
+      });
+    }
+
+    function renderUsageEditor(step, isNew) {
+      const panel = document.getElementById("usage-edit-panel");
+      if (!panel) return;
+
+      panel.innerHTML = `
+        <div class="usage-edit-panel">
+          <h3>${isNew ? "Yeni Kullanım Adımı Ekle" : "Kullanım Adımını Düzenle"}</h3>
+
+          <form id="usage-edit-form">
+            <input type="hidden" name="id" value="${escapeHtml(step.id || "")}">
+            <input type="hidden" name="product_id" value="${escapeHtml(step.product_id)}">
+            <input type="hidden" name="is_new" value="${isNew ? "true" : "false"}">
+
+            ${langTabsHtml()}
+
+            <!-- ===== TR ===== -->
+            <div class="lang-pane active" data-lang="tr">
+              <div class="edit-grid">
+                <div>
+                  <label>Başlık</label>
+                  <input name="title" value="${escapeHtml(step.title || "")}" required>
+                  <div class="tiny-help">Örnek: Hazırlama, Demlenme, Kullanım, Saklama</div>
+                </div>
+                <div class="full">
+                  <label>Açıklama</label>
+                  <textarea name="description" required>${escapeHtml(step.description || "")}</textarea>
+                </div>
+              </div>
+            </div>
+
+            <!-- ===== EN ===== -->
+            <div class="lang-pane" data-lang="en">
+              <div class="edit-grid">
+                <div>
+                  <label>Başlık</label>
+                  <input name="title_en" value="${escapeHtml(step.title_en || "")}" placeholder="Preparation, Brewing, etc.">
+                </div>
+                <div class="full">
+                  <label>Açıklama</label>
+                  <textarea name="description_en" placeholder="English description">${escapeHtml(step.description_en || "")}</textarea>
+                  <div class="tiny-help">Boş bırakılırsa İngilizce sayfada Türkçe metin gösterilir.</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- ===== Dil-Bağımsız ===== -->
+            <div class="edit-grid" style="margin-top:14px">
+              <div>
+                <label>Sıralama</label>
+                <input name="sort_order" type="number" value="${escapeHtml(step.sort_order ?? 0)}">
+              </div>
+
+              <div>
+                <label>Durum</label>
+                <select name="is_active">
+                  <option value="true" ${step.is_active ? "selected" : ""}>Aktif</option>
+                  <option value="false" ${!step.is_active ? "selected" : ""}>Pasif</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="actions">
+              <button type="submit">${isNew ? "Ekle" : "Kaydet"}</button>
+              <button class="secondary" type="button" id="cancel-usage-edit">Vazgeç</button>
+            </div>
+
+            <div id="usage-edit-status" class="status"></div>
+          </form>
+        </div>
+      `;
+
+      const form = document.getElementById("usage-edit-form");
+      setupLangTabs(form);
+
+      document.getElementById("cancel-usage-edit").addEventListener("click", () => {
+        panel.innerHTML = "";
+      });
+
+      form.addEventListener("submit", async (event) => {
+        event.preventDefault();
+        await saveUsageEdit(event.currentTarget);
+      });
+
+      panel.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+
+    async function saveUsageEdit(form) {
+      const status = document.getElementById("usage-edit-status");
+      setStatus(status, "Kaydediliyor...");
+
+      const formData = new FormData(form);
+      const isNew = formData.get("is_new") === "true";
+      const id = formData.get("id");
+      const productId = formData.get("product_id");
+
+      const payload = {
+        product_id: productId,
+        title: String(formData.get("title") || "").trim(),
+        title_en: String(formData.get("title_en") || "").trim() || null,
+        description: String(formData.get("description") || "").trim(),
+        description_en: String(formData.get("description_en") || "").trim() || null,
+        sort_order: Number(formData.get("sort_order") || 0),
+        is_active: formData.get("is_active") === "true"
+      };
+
+      const query = isNew
+        ? supabase.from("usage_steps").insert(payload)
+        : supabase.from("usage_steps").update(payload).eq("id", id);
+
+      const { error } = await query;
+
+      if (error) {
+        setStatus(status, "Kaydetme hatası: " + error.message, "error");
+        return;
+      }
+
+      setStatus(status, "Kullanım adımı kaydedildi.", "ok");
+      await loadUsageSteps(productId);
+      document.getElementById("usage-edit-panel").innerHTML = "";
+    }
+
+
+
+    async function loadGalleryImages(productId) {
+      const holder = document.getElementById("gallery-manager");
+      if (!holder) return;
+
+      holder.textContent = "Yükleniyor...";
+
+      const { data, error } = await supabase
+        .from("gallery_images")
+        .select("id, product_id, image, caption, sort_order, is_active")
+        .eq("product_id", productId)
+        .order("sort_order", { ascending: true });
+
+      if (error) {
+        holder.innerHTML = `<p class="status error">Galeri görselleri alınamadı: ${escapeHtml(error.message)}</p>`;
+        return;
+      }
+
+      if (!data.length) {
+        holder.innerHTML = `<p class="muted">Bu ürün için henüz galeri görseli eklenmemiş.</p>`;
+        return;
+      }
+
+      holder.innerHTML = `
+        <table>
+          <thead>
+            <tr>
+              <th>Sıra</th>
+              <th>Görsel</th>
+              <th>Başlık</th>
+              <th>Görsel Yolu</th>
+              <th>Durum</th>
+              <th>İşlem</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${data.map(image => `
+              <tr>
+                <td><code>${escapeHtml(image.sort_order)}</code></td>
+                <td><img class="preview-img" src="${escapeHtml(image.image || "assets/logo_house_of_anatolia_transparent.png")}" alt="${escapeHtml(image.caption || "Galeri görseli")}"></td>
+                <td><strong>${escapeHtml(image.caption || "-")}</strong></td>
+                <td><code>${escapeHtml(image.image || "")}</code></td>
+                <td><span class="pill">${image.is_active ? "Aktif" : "Pasif"}</span></td>
+                <td>
+                  <div class="mini-table-actions">
+                    <button type="button" data-edit-gallery="${image.id}">Düzenle</button>
+                    <button class="danger" type="button" data-delete-gallery="${image.id}">Sil</button>
+                  </div>
+                </td>
+              </tr>
+            `).join("")}
+          </tbody>
+        </table>
+      `;
+
+      holder.querySelectorAll("[data-edit-gallery]").forEach((button) => {
+        button.addEventListener("click", () => {
+          const image = data.find(item => item.id === button.dataset.editGallery);
+          if (image) renderGalleryEditor(image, false);
+        });
+      });
+
+      holder.querySelectorAll("[data-delete-gallery]").forEach((button) => {
+        button.addEventListener("click", async () => {
+          const image = data.find(item => item.id === button.dataset.deleteGallery);
+          if (!image) return;
+
+          const label = image.caption || "(başlıksız görsel)";
+          const ok = await confirmAction({
+            title: "Galeri Görselini Sil",
+            message: `"${label}" galeri görselini silmek istiyor musun?`
+          });
+          if (!ok) return;
+
+          const { error } = await supabase
+            .from("gallery_images")
+            .delete()
+            .eq("id", image.id);
+
+          if (error) {
+            alert("Silme başarısız: " + error.message);
+            return;
+          }
+
+          await logAdminAction("delete", {
+            table_name: "gallery_images",
+            record_id: image.id,
+            record_summary: `Galeri görseli silindi: ${label}`,
+            metadata: { product_id: image.product_id }
+          });
+
+          await loadGalleryImages(image.product_id);
+          document.getElementById("gallery-edit-panel").innerHTML = "";
+        });
+      });
+    }
+
+    function renderGalleryEditor(image, isNew) {
+      const panel = document.getElementById("gallery-edit-panel");
+      if (!panel) return;
+
+      panel.innerHTML = `
+        <div class="gallery-edit-panel">
+          <h3>${isNew ? "Yeni Galeri Görseli Ekle" : "Galeri Görselini Düzenle"}</h3>
+
+          <form id="gallery-edit-form">
+            <input type="hidden" name="id" value="${escapeHtml(image.id || "")}">
+            <input type="hidden" name="product_id" value="${escapeHtml(image.product_id)}">
+            <input type="hidden" name="is_new" value="${isNew ? "true" : "false"}">
+
+            ${langTabsHtml()}
+
+            <!-- ===== TR ===== -->
+            <div class="lang-pane active" data-lang="tr">
+              <div class="edit-grid">
+                <div>
+                  <label>Başlık / Etiket</label>
+                  <input name="caption" value="${escapeHtml(image.caption || "")}">
+                  <div class="tiny-help">Galeri görselinin altında görünen kısa yazı.</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- ===== EN ===== -->
+            <div class="lang-pane" data-lang="en">
+              <div class="edit-grid">
+                <div>
+                  <label>Başlık / Etiket</label>
+                  <input name="caption_en" value="${escapeHtml(image.caption_en || "")}" placeholder="English caption">
+                  <div class="tiny-help">Boş bırakılırsa İngilizce sayfada Türkçe metin gösterilir.</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- ===== Dil-Bağımsız ===== -->
+            <div class="edit-grid" style="margin-top:14px">
+              <div>
+                <label>Galeri Görseli</label>
+                <div class="field-upload-row" data-upload-field="gallery_image">
+                  <input class="image-path-input" name="image" value="${escapeHtml(image.image || "")}" required placeholder="assets/resim1.jpg">
+                  <input type="file" accept="image/png,image/jpeg,image/webp,image/gif">
+                  <button class="upload-field-btn secondary" type="button">Yükle</button>
+                  <div class="field-upload-status">Galeri bölümünde görünecek fotoğraf.</div>
+                </div>
+              </div>
+
+              <div>
+                <label>Sıralama</label>
+                <input name="sort_order" type="number" value="${escapeHtml(image.sort_order ?? 0)}">
+              </div>
+
+              <div>
+                <label>Durum</label>
+                <select name="is_active">
+                  <option value="true" ${image.is_active ? "selected" : ""}>Aktif</option>
+                  <option value="false" ${!image.is_active ? "selected" : ""}>Pasif</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="actions">
+              <button type="submit">${isNew ? "Ekle" : "Kaydet"}</button>
+              <button class="secondary" type="button" id="cancel-gallery-edit">Vazgeç</button>
+            </div>
+
+            <div id="gallery-edit-status" class="status"></div>
+          </form>
+        </div>
+      `;
+
+      const form = document.getElementById("gallery-edit-form");
+      setupLangTabs(form);
+
+      document.getElementById("cancel-gallery-edit").addEventListener("click", () => {
+        panel.innerHTML = "";
+      });
+
+      form.addEventListener("submit", async (event) => {
+        event.preventDefault();
+        await saveGalleryEdit(event.currentTarget);
+      });
+
+      setupFieldUploadersByContainer(panel, { slug: "gallery" });
+      panel.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+
+    async function saveGalleryEdit(form) {
+      const status = document.getElementById("gallery-edit-status");
+      setStatus(status, "Kaydediliyor...");
+
+      const formData = new FormData(form);
+      const isNew = formData.get("is_new") === "true";
+      const id = formData.get("id");
+      const productId = formData.get("product_id");
+
+      const payload = {
+        product_id: productId,
+        image: String(formData.get("image") || "").trim(),
+        caption: String(formData.get("caption") || "").trim(),
+        caption_en: String(formData.get("caption_en") || "").trim() || null,
+        sort_order: Number(formData.get("sort_order") || 0),
+        is_active: formData.get("is_active") === "true"
+      };
+
+      const query = isNew
+        ? supabase.from("gallery_images").insert(payload)
+        : supabase.from("gallery_images").update(payload).eq("id", id);
+
+      const { error } = await query;
+
+      if (error) {
+        setStatus(status, "Kaydetme hatası: " + error.message, "error");
+        return;
+      }
+
+      setStatus(status, "Galeri görseli kaydedildi.", "ok");
+      await loadGalleryImages(productId);
+      document.getElementById("gallery-edit-panel").innerHTML = "";
+    }
+
+
+
+    async function loadProductOptions(productId) {
+      const holder = document.getElementById("options-manager");
+      if (!holder) return;
+
+      holder.textContent = "Yükleniyor...";
+
+      const { data, error } = await supabase
+        .from("product_options")
+        .select("id, product_id, name, image, description, sort_order, is_active")
+        .eq("product_id", productId)
+        .order("sort_order", { ascending: true });
+
+      if (error) {
+        holder.innerHTML = `<p class="status error">Ürün seçenekleri alınamadı: ${escapeHtml(error.message)}</p>`;
+        return;
+      }
+
+      if (!data.length) {
+        holder.innerHTML = `<p class="muted">Bu ürün için henüz form ürün seçeneği eklenmemiş.</p>`;
+        return;
+      }
+
+      holder.innerHTML = `
+        <table>
+          <thead>
+            <tr>
+              <th>Sıra</th>
+              <th>Görsel</th>
+              <th>Ad</th>
+              <th>Açıklama</th>
+              <th>Durum</th>
+              <th>İşlem</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${data.map(option => `
+              <tr>
+                <td><code>${escapeHtml(option.sort_order)}</code></td>
+                <td><img class="preview-img" src="${escapeHtml(option.image || "assets/logo_house_of_anatolia_transparent.png")}" alt="${escapeHtml(option.name)}"></td>
+                <td><strong>${escapeHtml(option.name)}</strong></td>
+                <td><span class="muted">${escapeHtml(option.description || "")}</span></td>
+                <td><span class="pill">${option.is_active ? "Aktif" : "Pasif"}</span></td>
+                <td>
+                  <div class="mini-table-actions">
+                    <button type="button" data-edit-option="${option.id}">Düzenle</button>
+                    <button class="danger" type="button" data-delete-option="${option.id}">Sil</button>
+                  </div>
+                </td>
+              </tr>
+            `).join("")}
+          </tbody>
+        </table>
+      `;
+
+      holder.querySelectorAll("[data-edit-option]").forEach((button) => {
+        button.addEventListener("click", () => {
+          const option = data.find(item => item.id === button.dataset.editOption);
+          if (option) renderOptionEditor(option, false);
+        });
+      });
+
+      holder.querySelectorAll("[data-delete-option]").forEach((button) => {
+        button.addEventListener("click", async () => {
+          const option = data.find(item => item.id === button.dataset.deleteOption);
+          if (!option) return;
+
+          const ok = await confirmAction({
+            title: "Ürün Seçeneğini Sil",
+            message: `"${option.name}" ürün seçeneğini silmek istiyor musun?`
+          });
+          if (!ok) return;
+
+          const { error } = await supabase
+            .from("product_options")
+            .delete()
+            .eq("id", option.id);
+
+          if (error) {
+            alert("Silme başarısız: " + error.message);
+            return;
+          }
+
+          await logAdminAction("delete", {
+            table_name: "product_options",
+            record_id: option.id,
+            record_summary: `Ürün seçeneği silindi: ${option.name}`,
+            metadata: { product_id: option.product_id }
+          });
+
+          await loadProductOptions(option.product_id);
+          document.getElementById("option-edit-panel").innerHTML = "";
+        });
+      });
+    }
+
+    function renderOptionEditor(option, isNew) {
+      const panel = document.getElementById("option-edit-panel");
+      if (!panel) return;
+
+      panel.innerHTML = `
+        <div class="option-edit-panel">
+          <h3>${isNew ? "Yeni Ürün Seçeneği Ekle" : "Ürün Seçeneğini Düzenle"}</h3>
+
+          <form id="option-edit-form">
+            <input type="hidden" name="id" value="${escapeHtml(option.id || "")}">
+            <input type="hidden" name="product_id" value="${escapeHtml(option.product_id)}">
+            <input type="hidden" name="is_new" value="${isNew ? "true" : "false"}">
+
+            ${langTabsHtml()}
+
+            <!-- TR -->
+            <div class="lang-pane active" data-lang="tr">
+              <div class="edit-grid">
+                <div>
+                  <label>Ad</label>
+                  <input name="name" value="${escapeHtml(option.name || "")}" required>
+                  <div class="tiny-help">Örnek: Safran İplik, Safran Çiçek, Sarımsak Dişi</div>
+                </div>
+                <div class="full">
+                  <label>Açıklama</label>
+                  <textarea name="description">${escapeHtml(option.description || "")}</textarea>
+                </div>
+              </div>
+            </div>
+
+            <!-- EN -->
+            <div class="lang-pane" data-lang="en">
+              <div class="edit-grid">
+                <div>
+                  <label>Ad</label>
+                  <input name="name_en" value="${escapeHtml(option.name_en || "")}" placeholder="Saffron Threads, Saffron Flower">
+                </div>
+                <div class="full">
+                  <label>Açıklama</label>
+                  <textarea name="description_en" placeholder="English description">${escapeHtml(option.description_en || "")}</textarea>
+                  <div class="tiny-help">Boş bırakılırsa İngilizce sayfada Türkçe metin gösterilir.</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Dil-Bağımsız -->
+            <div class="edit-grid" style="margin-top:14px">
+              <div>
+                <label>Ürün Seçeneği Görseli</label>
+                <div class="field-upload-row" data-upload-field="option_image">
+                  <input class="image-path-input" name="image" value="${escapeHtml(option.image || "")}" placeholder="assets/safran_iplik.png">
+                  <input type="file" accept="image/png,image/jpeg,image/webp,image/gif">
+                  <button class="upload-field-btn secondary" type="button">Yükle</button>
+                  <div class="field-upload-status">Formdaki ürün seçeneği kartında görünecek görsel.</div>
+                </div>
+              </div>
+
+              <div>
+                <label>Sıralama</label>
+                <input name="sort_order" type="number" value="${escapeHtml(option.sort_order ?? 0)}">
+              </div>
+
+              <div>
+                <label>Durum</label>
+                <select name="is_active">
+                  <option value="true" ${option.is_active ? "selected" : ""}>Aktif</option>
+                  <option value="false" ${!option.is_active ? "selected" : ""}>Pasif</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="actions">
+              <button type="submit">${isNew ? "Ekle" : "Kaydet"}</button>
+              <button class="secondary" type="button" id="cancel-option-edit">Vazgeç</button>
+            </div>
+
+            <div id="option-edit-status" class="status"></div>
+          </form>
+        </div>
+      `;
+
+      const form = document.getElementById("option-edit-form");
+      setupLangTabs(form);
+
+      document.getElementById("cancel-option-edit").addEventListener("click", () => {
+        panel.innerHTML = "";
+      });
+
+      form.addEventListener("submit", async (event) => {
+        event.preventDefault();
+        await saveOptionEdit(event.currentTarget);
+      });
+
+      setupFieldUploadersByContainer(panel, { slug: "product-option" });
+      panel.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+
+    async function saveOptionEdit(form) {
+      const status = document.getElementById("option-edit-status");
+      setStatus(status, "Kaydediliyor...");
+
+      const formData = new FormData(form);
+      const isNew = formData.get("is_new") === "true";
+      const id = formData.get("id");
+      const productId = formData.get("product_id");
+
+      const payload = {
+        product_id: productId,
+        name: String(formData.get("name") || "").trim(),
+        name_en: String(formData.get("name_en") || "").trim() || null,
+        image: String(formData.get("image") || "").trim(),
+        description: String(formData.get("description") || "").trim(),
+        description_en: String(formData.get("description_en") || "").trim() || null,
+        sort_order: Number(formData.get("sort_order") || 0),
+        is_active: formData.get("is_active") === "true"
+      };
+
+      const query = isNew
+        ? supabase.from("product_options").insert(payload)
+        : supabase.from("product_options").update(payload).eq("id", id);
+
+      const { error } = await query;
+
+      if (error) {
+        setStatus(status, "Kaydetme hatası: " + error.message, "error");
+        return;
+      }
+
+      setStatus(status, "Ürün seçeneği kaydedildi.", "ok");
+      await loadProductOptions(productId);
+      document.getElementById("option-edit-panel").innerHTML = "";
+    }
+
+    async function loadPackageOptions(productId) {
+      const holder = document.getElementById("packages-manager");
+      if (!holder) return;
+
+      holder.textContent = "Yükleniyor...";
+
+      const { data, error } = await supabase
+        .from("package_options")
+        .select("id, product_id, name, image, description, sort_order, is_active")
+        .eq("product_id", productId)
+        .order("sort_order", { ascending: true });
+
+      if (error) {
+        holder.innerHTML = `<p class="status error">Paket seçenekleri alınamadı: ${escapeHtml(error.message)}</p>`;
+        return;
+      }
+
+      if (!data.length) {
+        holder.innerHTML = `<p class="muted">Bu ürün için henüz paket seçeneği eklenmemiş.</p>`;
+        return;
+      }
+
+      holder.innerHTML = `
+        <table>
+          <thead>
+            <tr>
+              <th>Sıra</th>
+              <th>Görsel</th>
+              <th>Ad</th>
+              <th>Açıklama</th>
+              <th>Durum</th>
+              <th>İşlem</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${data.map(pack => `
+              <tr>
+                <td><code>${escapeHtml(pack.sort_order)}</code></td>
+                <td><img class="preview-img" src="${escapeHtml(pack.image || "assets/logo_house_of_anatolia_transparent.png")}" alt="${escapeHtml(pack.name)}"></td>
+                <td><strong>${escapeHtml(pack.name)}</strong></td>
+                <td><span class="muted">${escapeHtml(pack.description || "")}</span></td>
+                <td><span class="pill">${pack.is_active ? "Aktif" : "Pasif"}</span></td>
+                <td>
+                  <div class="mini-table-actions">
+                    <button type="button" data-edit-package="${pack.id}">Düzenle</button>
+                    <button class="danger" type="button" data-delete-package="${pack.id}">Sil</button>
+                  </div>
+                </td>
+              </tr>
+            `).join("")}
+          </tbody>
+        </table>
+      `;
+
+      holder.querySelectorAll("[data-edit-package]").forEach((button) => {
+        button.addEventListener("click", () => {
+          const pack = data.find(item => item.id === button.dataset.editPackage);
+          if (pack) renderPackageEditor(pack, false);
+        });
+      });
+
+      holder.querySelectorAll("[data-delete-package]").forEach((button) => {
+        button.addEventListener("click", async () => {
+          const pack = data.find(item => item.id === button.dataset.deletePackage);
+          if (!pack) return;
+
+          const ok = await confirmAction({
+            title: "Paket Seçeneğini Sil",
+            message: `"${pack.name}" paket seçeneğini silmek istiyor musun?`
+          });
+          if (!ok) return;
+
+          const { error } = await supabase
+            .from("package_options")
+            .delete()
+            .eq("id", pack.id);
+
+          if (error) {
+            alert("Silme başarısız: " + error.message);
+            return;
+          }
+
+          await logAdminAction("delete", {
+            table_name: "package_options",
+            record_id: pack.id,
+            record_summary: `Paket seçeneği silindi: ${pack.name}`,
+            metadata: { product_id: pack.product_id }
+          });
+
+          await loadPackageOptions(pack.product_id);
+          document.getElementById("package-edit-panel").innerHTML = "";
+        });
+      });
+    }
+
+    function renderPackageEditor(pack, isNew) {
+      const panel = document.getElementById("package-edit-panel");
+      if (!panel) return;
+
+      panel.innerHTML = `
+        <div class="package-edit-panel">
+          <h3>${isNew ? "Yeni Paket Ekle" : "Paket Seçeneğini Düzenle"}</h3>
+
+          <form id="package-edit-form">
+            <input type="hidden" name="id" value="${escapeHtml(pack.id || "")}">
+            <input type="hidden" name="product_id" value="${escapeHtml(pack.product_id)}">
+            <input type="hidden" name="is_new" value="${isNew ? "true" : "false"}">
+
+            ${langTabsHtml()}
+
+            <!-- TR -->
+            <div class="lang-pane active" data-lang="tr">
+              <div class="edit-grid">
+                <div>
+                  <label>Ad</label>
+                  <input name="name" value="${escapeHtml(pack.name || "")}" required>
+                  <div class="tiny-help">Örnek: Karton Paket, Plastik Paket, Cam Kavanoz</div>
+                </div>
+                <div class="full">
+                  <label>Açıklama</label>
+                  <textarea name="description">${escapeHtml(pack.description || "")}</textarea>
+                </div>
+              </div>
+            </div>
+
+            <!-- EN -->
+            <div class="lang-pane" data-lang="en">
+              <div class="edit-grid">
+                <div>
+                  <label>Ad</label>
+                  <input name="name_en" value="${escapeHtml(pack.name_en || "")}" placeholder="Cardboard Box, Glass Jar">
+                </div>
+                <div class="full">
+                  <label>Açıklama</label>
+                  <textarea name="description_en" placeholder="English description">${escapeHtml(pack.description_en || "")}</textarea>
+                  <div class="tiny-help">Boş bırakılırsa İngilizce sayfada Türkçe metin gösterilir.</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Dil-Bağımsız -->
+            <div class="edit-grid" style="margin-top:14px">
+              <div>
+                <label>Paket Görseli</label>
+                <div class="field-upload-row" data-upload-field="package_image">
+                  <input class="image-path-input" name="image" value="${escapeHtml(pack.image || "")}" placeholder="assets/safran_kavanoz.png">
+                  <input type="file" accept="image/png,image/jpeg,image/webp,image/gif">
+                  <button class="upload-field-btn secondary" type="button">Yükle</button>
+                  <div class="field-upload-status">Formdaki paket seçimi kartında görünecek görsel.</div>
+                </div>
+              </div>
+
+              <div>
+                <label>Sıralama</label>
+                <input name="sort_order" type="number" value="${escapeHtml(pack.sort_order ?? 0)}">
+              </div>
+
+              <div>
+                <label>Durum</label>
+                <select name="is_active">
+                  <option value="true" ${pack.is_active ? "selected" : ""}>Aktif</option>
+                  <option value="false" ${!pack.is_active ? "selected" : ""}>Pasif</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="actions">
+              <button type="submit">${isNew ? "Ekle" : "Kaydet"}</button>
+              <button class="secondary" type="button" id="cancel-package-edit">Vazgeç</button>
+            </div>
+
+            <div id="package-edit-status" class="status"></div>
+          </form>
+        </div>
+      `;
+
+      const form = document.getElementById("package-edit-form");
+      setupLangTabs(form);
+
+      document.getElementById("cancel-package-edit").addEventListener("click", () => {
+        panel.innerHTML = "";
+      });
+
+      form.addEventListener("submit", async (event) => {
+        event.preventDefault();
+        await savePackageEdit(event.currentTarget);
+      });
+
+      setupFieldUploadersByContainer(panel, { slug: "package" });
+      panel.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+
+    async function savePackageEdit(form) {
+      const status = document.getElementById("package-edit-status");
+      setStatus(status, "Kaydediliyor...");
+
+      const formData = new FormData(form);
+      const isNew = formData.get("is_new") === "true";
+      const id = formData.get("id");
+      const productId = formData.get("product_id");
+
+      const payload = {
+        product_id: productId,
+        name: String(formData.get("name") || "").trim(),
+        name_en: String(formData.get("name_en") || "").trim() || null,
+        image: String(formData.get("image") || "").trim(),
+        description: String(formData.get("description") || "").trim(),
+        description_en: String(formData.get("description_en") || "").trim() || null,
+        sort_order: Number(formData.get("sort_order") || 0),
+        is_active: formData.get("is_active") === "true"
+      };
+
+      const query = isNew
+        ? supabase.from("package_options").insert(payload)
+        : supabase.from("package_options").update(payload).eq("id", id);
+
+      const { error } = await query;
+
+      if (error) {
+        setStatus(status, "Kaydetme hatası: " + error.message, "error");
+        return;
+      }
+
+      setStatus(status, "Paket seçeneği kaydedildi.", "ok");
+      await loadPackageOptions(productId);
+      document.getElementById("package-edit-panel").innerHTML = "";
+    }
+
+
+
+    async function loadWeightOptions(productId) {
+      const holder = document.getElementById("weights-manager");
+      if (!holder) return;
+
+      holder.textContent = "Yükleniyor...";
+
+      const { data, error } = await supabase
+        .from("weight_options")
+        .select("id, product_id, label, sort_order, is_active")
+        .eq("product_id", productId)
+        .order("sort_order", { ascending: true });
+
+      if (error) {
+        holder.innerHTML = `<p class="status error">Gramaj seçenekleri alınamadı: ${escapeHtml(error.message)}</p>`;
+        return;
+      }
+
+      if (!data.length) {
+        holder.innerHTML = `<p class="muted">Bu ürün için henüz gramaj seçeneği eklenmemiş.</p>`;
+        return;
+      }
+
+      holder.innerHTML = `
+        <table>
+          <thead>
+            <tr>
+              <th>Sıra</th>
+              <th>Gramaj</th>
+              <th>Durum</th>
+              <th>İşlem</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${data.map(weight => `
+              <tr>
+                <td><code>${escapeHtml(weight.sort_order)}</code></td>
+                <td><strong>${escapeHtml(weight.label)}</strong></td>
+                <td><span class="pill">${weight.is_active ? "Aktif" : "Pasif"}</span></td>
+                <td>
+                  <div class="mini-table-actions">
+                    <button type="button" data-edit-weight="${weight.id}">Düzenle</button>
+                    <button class="danger" type="button" data-delete-weight="${weight.id}">Sil</button>
+                  </div>
+                </td>
+              </tr>
+            `).join("")}
+          </tbody>
+        </table>
+      `;
+
+      holder.querySelectorAll("[data-edit-weight]").forEach((button) => {
+        button.addEventListener("click", () => {
+          const weight = data.find(item => item.id === button.dataset.editWeight);
+          if (weight) renderWeightEditor(weight, false);
+        });
+      });
+
+      holder.querySelectorAll("[data-delete-weight]").forEach((button) => {
+        button.addEventListener("click", async () => {
+          const weight = data.find(item => item.id === button.dataset.deleteWeight);
+          if (!weight) return;
+
+          const ok = await confirmAction({
+            title: "Gramaj Seçeneğini Sil",
+            message: `"${weight.label}" gramaj seçeneğini silmek istiyor musun?`
+          });
+          if (!ok) return;
+
+          const { error } = await supabase
+            .from("weight_options")
+            .delete()
+            .eq("id", weight.id);
+
+          if (error) {
+            alert("Silme başarısız: " + error.message);
+            return;
+          }
+
+          await logAdminAction("delete", {
+            table_name: "weight_options",
+            record_id: weight.id,
+            record_summary: `Gramaj seçeneği silindi: ${weight.label}`,
+            metadata: { product_id: weight.product_id }
+          });
+
+          await loadWeightOptions(weight.product_id);
+          document.getElementById("weight-edit-panel").innerHTML = "";
+        });
+      });
+    }
+
+    function renderWeightEditor(weight, isNew) {
+      const panel = document.getElementById("weight-edit-panel");
+      if (!panel) return;
+
+      panel.innerHTML = `
+        <div class="weight-edit-panel">
+          <h3>${isNew ? "Yeni Gramaj Ekle" : "Gramaj Seçeneğini Düzenle"}</h3>
+
+          <form id="weight-edit-form">
+            <input type="hidden" name="id" value="${escapeHtml(weight.id || "")}">
+            <input type="hidden" name="product_id" value="${escapeHtml(weight.product_id)}">
+            <input type="hidden" name="is_new" value="${isNew ? "true" : "false"}">
+
+            ${langTabsHtml()}
+
+            <!-- TR -->
+            <div class="lang-pane active" data-lang="tr">
+              <div class="edit-grid">
+                <div>
+                  <label>Gramaj Etiketi</label>
+                  <input name="label" value="${escapeHtml(weight.label || "")}" required>
+                  <div class="tiny-help">Örnek: 1 gr, 5 gr, 100 gr, 1 kg</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- EN -->
+            <div class="lang-pane" data-lang="en">
+              <div class="edit-grid">
+                <div>
+                  <label>Gramaj Etiketi</label>
+                  <input name="label_en" value="${escapeHtml(weight.label_en || "")}" placeholder="1 g, 5 g, 100 g, 1 kg">
+                  <div class="tiny-help">Boş bırakılırsa İngilizce sayfada Türkçe etiket gösterilir.</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Dil-Bağımsız -->
+            <div class="edit-grid" style="margin-top:14px">
+              <div>
+                <label>Sıralama</label>
+                <input name="sort_order" type="number" value="${escapeHtml(weight.sort_order ?? 0)}">
+              </div>
+
+              <div>
+                <label>Durum</label>
+                <select name="is_active">
+                  <option value="true" ${weight.is_active ? "selected" : ""}>Aktif</option>
+                  <option value="false" ${!weight.is_active ? "selected" : ""}>Pasif</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="actions">
+              <button type="submit">${isNew ? "Ekle" : "Kaydet"}</button>
+              <button class="secondary" type="button" id="cancel-weight-edit">Vazgeç</button>
+            </div>
+
+            <div id="weight-edit-status" class="status"></div>
+          </form>
+        </div>
+      `;
+
+      const form = document.getElementById("weight-edit-form");
+      setupLangTabs(form);
+
+      document.getElementById("cancel-weight-edit").addEventListener("click", () => {
+        panel.innerHTML = "";
+      });
+
+      form.addEventListener("submit", async (event) => {
+        event.preventDefault();
+        await saveWeightEdit(event.currentTarget);
+      });
+
+      panel.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+
+    async function saveWeightEdit(form) {
+      const status = document.getElementById("weight-edit-status");
+      setStatus(status, "Kaydediliyor...");
+
+      const formData = new FormData(form);
+      const isNew = formData.get("is_new") === "true";
+      const id = formData.get("id");
+      const productId = formData.get("product_id");
+
+      const payload = {
+        product_id: productId,
+        label: String(formData.get("label") || "").trim(),
+        label_en: String(formData.get("label_en") || "").trim() || null,
+        sort_order: Number(formData.get("sort_order") || 0),
+        is_active: formData.get("is_active") === "true"
+      };
+
+      const query = isNew
+        ? supabase.from("weight_options").insert(payload)
+        : supabase.from("weight_options").update(payload).eq("id", id);
+
+      const { error } = await query;
+
+      if (error) {
+        setStatus(status, "Kaydetme hatası: " + error.message, "error");
+        return;
+      }
+
+      setStatus(status, "Gramaj seçeneği kaydedildi.", "ok");
+      await loadWeightOptions(productId);
+      document.getElementById("weight-edit-panel").innerHTML = "";
+    }
+
+
+    async function saveProductEdit(form) {
+      const status = document.getElementById("product-edit-status");
+      setStatus(status, "Kaydediliyor...");
+
+      const formData = new FormData(form);
+      const id = formData.get("id");
+
+      const payload = {
+        city_id: formData.get("city_id"),
+        // TR alanları
+        name: String(formData.get("name") || "").trim(),
+        slug: String(formData.get("slug") || "").trim(),
+        short_name: String(formData.get("short_name") || "").trim(),
+        hero_badge: String(formData.get("hero_badge") || "").trim(),
+        hero_title: String(formData.get("hero_title") || "").trim(),
+        hero_subtitle: String(formData.get("hero_subtitle") || "").trim(),
+        hero_left_text: String(formData.get("hero_left_text") || "").trim(),
+        hero_right_text: String(formData.get("hero_right_text") || "").trim(),
+        meta_description: String(formData.get("meta_description") || "").trim(),
+        // EN alanları (boş ise null kaydolur, site fallback yapar)
+        name_en: String(formData.get("name_en") || "").trim() || null,
+        short_name_en: String(formData.get("short_name_en") || "").trim() || null,
+        hero_badge_en: String(formData.get("hero_badge_en") || "").trim() || null,
+        hero_title_en: String(formData.get("hero_title_en") || "").trim() || null,
+        hero_subtitle_en: String(formData.get("hero_subtitle_en") || "").trim() || null,
+        meta_description_en: String(formData.get("meta_description_en") || "").trim() || null,
+        // Görseller (dil-bağımsız)
+        mini_image: String(formData.get("mini_image") || "").trim(),
+        hero_image: String(formData.get("hero_image") || "").trim(),
+        parts_main_image: String(formData.get("parts_main_image") || "").trim(),
+        is_active: formData.get("is_active") === "true"
+      };
+
+      const { error } = await supabase
+        .from("products")
+        .update(payload)
+        .eq("id", id);
+
+      if (error) {
+        setStatus(status, "Kaydetme hatası: " + error.message, "error");
+        return;
+      }
+
+      setStatus(status, "Ürün kaydedildi. Liste yenileniyor...", "ok");
+      await loadProducts();
+    }
+
+    // ==========================================================
+    // BÜLTEN ABONELERİ YÖNETİMİ
+    // ==========================================================
+    let allSubscribersCache = [];
+
+    async function loadSubscribers() {
+      const tableEl = document.getElementById("subs-table");
+      const statsEl = document.getElementById("subs-stats");
+      if (!tableEl) return;
+
+      tableEl.textContent = "Yükleniyor...";
+
+      const { data, error } = await supabase
+        .from("newsletter_subscribers")
+        .select("id, email, language, source, is_active, created_at, unsubscribed_at")
+        .order("created_at", { ascending: false });
+
+      if (error) {
+        tableEl.innerHTML = `<p class="status error">Aboneler alınamadı: ${escapeHtml(error.message)}</p>`;
+        return;
+      }
+
+      allSubscribersCache = data || [];
+      renderSubscribersTable(allSubscribersCache);
+      renderSubscribersStats(allSubscribersCache);
+    }
+
+    function renderSubscribersStats(rows) {
+      const statsEl = document.getElementById("subs-stats");
+      if (!statsEl) return;
+
+      const total = rows.length;
+      const active = rows.filter(r => r.is_active).length;
+      const inactive = total - active;
+      const last7Days = rows.filter(r => {
+        const created = new Date(r.created_at);
+        const sevenDaysAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000);
+        return created >= sevenDaysAgo;
+      }).length;
+
+      statsEl.innerHTML = `
+        <div class="subs-stat-card gold">
+          <span class="label">Toplam Abone</span>
+          <span class="value">${total}</span>
+        </div>
+        <div class="subs-stat-card">
+          <span class="label">Aktif</span>
+          <span class="value">${active}</span>
+        </div>
+        <div class="subs-stat-card">
+          <span class="label">Pasif</span>
+          <span class="value">${inactive}</span>
+        </div>
+        <div class="subs-stat-card">
+          <span class="label">Son 7 Gün</span>
+          <span class="value">${last7Days}</span>
+        </div>
+      `;
+    }
+
+    function renderSubscribersTable(rows) {
+      const tableEl = document.getElementById("subs-table");
+      if (!tableEl) return;
+
+      if (!rows || rows.length === 0) {
+        tableEl.innerHTML = `
+          <div class="subs-empty">
+            Henüz abone yok. Footer'daki "Bültenimize Katılın" formundan kayıt olanlar burada görünecek.
+          </div>
+        `;
+        return;
+      }
+
+      const formatDate = (iso) => {
+        try {
+          const d = new Date(iso);
+          return d.toLocaleDateString("tr-TR", { year: "numeric", month: "short", day: "2-digit" }) +
+                 " " + d.toLocaleTimeString("tr-TR", { hour: "2-digit", minute: "2-digit" });
+        } catch { return iso; }
+      };
+
+      const html = `
+        <div class="subs-row header">
+          <span>E-posta</span>
+          <span>Kayıt Tarihi</span>
+          <span>Dil</span>
+          <span>Durum</span>
+          <span>İşlemler</span>
+        </div>
+        ${rows.map(row => `
+          <div class="subs-row" data-id="${escapeHtml(row.id)}">
+            <span class="email">${escapeHtml(row.email)}</span>
+            <span class="date">${escapeHtml(formatDate(row.created_at))}</span>
+            <span><span class="lang-badge">${escapeHtml((row.language || "tr").toUpperCase())}</span></span>
+            <span><span class="status-badge ${row.is_active ? 'active' : 'inactive'}">${row.is_active ? "Aktif" : "Pasif"}</span></span>
+            <span class="actions">
+              <button class="secondary" data-toggle-active="${escapeHtml(row.id)}" type="button">
+                ${row.is_active ? "Pasifleştir" : "Aktifleştir"}
+              </button>
+              <button class="secondary" data-delete-sub="${escapeHtml(row.id)}" type="button">Sil</button>
+            </span>
+          </div>
+        `).join("")}
+      `;
+
+      tableEl.innerHTML = html;
+
+      // Event listeners
+      tableEl.querySelectorAll("[data-toggle-active]").forEach(btn => {
+        btn.addEventListener("click", () => toggleSubscriberActive(btn.dataset.toggleActive));
+      });
+      tableEl.querySelectorAll("[data-delete-sub]").forEach(btn => {
+        btn.addEventListener("click", () => deleteSubscriber(btn.dataset.deleteSub));
+      });
+    }
+
+    async function toggleSubscriberActive(id) {
+      const sub = allSubscribersCache.find(s => s.id === id);
+      if (!sub) return;
+
+      const newState = !sub.is_active;
+      const { error } = await supabase
+        .from("newsletter_subscribers")
+        .update({
+          is_active: newState,
+          unsubscribed_at: newState ? null : new Date().toISOString()
+        })
+        .eq("id", id);
+
+      if (error) {
+        alert("İşlem başarısız: " + error.message);
+        return;
+      }
+
+      await logAdminAction(newState ? "activate_subscriber" : "deactivate_subscriber", {
+        table_name: "newsletter_subscribers",
+        record_id: id,
+        record_summary: `Abone ${newState ? "aktifleştirildi" : "pasifleştirildi"}: ${sub.email}`
+      });
+
+      await loadSubscribers();
+    }
+
+    async function deleteSubscriber(id) {
+      const sub = allSubscribersCache.find(s => s.id === id);
+      if (!sub) return;
+
+      const ok = await confirmAction({
+        title: "Aboneyi Sil",
+        message: `"${sub.email}" adresini kalıcı olarak silmek istiyor musun? Bu işlem geri alınamaz.`
+      });
+      if (!ok) return;
+
+      const { error } = await supabase
+        .from("newsletter_subscribers")
+        .delete()
+        .eq("id", id);
+
+      if (error) {
+        alert("Silme başarısız: " + error.message);
+        return;
+      }
+
+      await logAdminAction("delete", {
+        table_name: "newsletter_subscribers",
+        record_id: id,
+        record_summary: `Abone silindi: ${sub.email}`
+      });
+
+      await loadSubscribers();
+    }
+
+    // CSV İndir
+    function exportSubscribersToCSV() {
+      const rows = allSubscribersCache.filter(s => s.is_active);
+
+      if (rows.length === 0) {
+        alert("İndirilecek aktif abone yok.");
+        return;
+      }
+
+      // BOM ekleyelim ki Excel UTF-8'i doğru açsın
+      const BOM = "\uFEFF";
+      const headers = ["Email", "Dil", "Kaynak", "Kayıt Tarihi"];
+      const lines = [headers.join(",")];
+
+      rows.forEach(r => {
+        const fields = [
+          r.email,
+          (r.language || "tr"),
+          (r.source || "footer"),
+          r.created_at
+        ];
+        // CSV escape: virgül veya tırnak varsa, alanı tırnak içine al
+        const escaped = fields.map(f => {
+          const s = String(f ?? "");
+          if (s.includes(",") || s.includes('"') || s.includes("\n")) {
+            return '"' + s.replaceAll('"', '""') + '"';
+          }
+          return s;
+        });
+        lines.push(escaped.join(","));
+      });
+
+      const csv = BOM + lines.join("\n");
+      const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      const today = new Date().toISOString().slice(0, 10);
+      a.download = `aboneler_${today}.csv`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }
+
+    // Arama (e-posta filtreleme)
+    function filterSubscribers(query) {
+      const q = (query || "").trim().toLowerCase();
+      if (!q) {
+        renderSubscribersTable(allSubscribersCache);
+        return;
+      }
+      const filtered = allSubscribersCache.filter(s =>
+        (s.email || "").toLowerCase().includes(q)
+      );
+      renderSubscribersTable(filtered);
+    }
+
+    // Buton bağlantıları (login sonrası dashboard'a girince çağrılır)
+    function setupSubscribersUI() {
+      const refreshBtn = document.getElementById("refresh-subs-btn");
+      const exportBtn = document.getElementById("export-subs-btn");
+      const searchEl = document.getElementById("subs-search");
+
+      if (refreshBtn && !refreshBtn.dataset.bound) {
+        refreshBtn.dataset.bound = "1";
+        refreshBtn.addEventListener("click", () => loadSubscribers());
+      }
+      if (exportBtn && !exportBtn.dataset.bound) {
+        exportBtn.dataset.bound = "1";
+        exportBtn.addEventListener("click", () => exportSubscribersToCSV());
+      }
+      if (searchEl && !searchEl.dataset.bound) {
+        searchEl.dataset.bound = "1";
+        searchEl.addEventListener("input", (e) => filterSubscribers(e.target.value));
+      }
+    }
+
+    // setupSubscribersUI'yi dashboard yüklendikten sonra otomatik bağla
+    // (loadDashboard çağrılırken safeLoad async, butonlar HTML'de zaten var)
+    setupSubscribersUI();
+
+    // ==========================================================
+    // ZİYARET İSTATİSTİKLERİ (ANALYTICS)
+    // ==========================================================
+    async function loadAnalytics() {
+      const statsEl = document.getElementById("analytics-stats");
+      const chartEl = document.getElementById("analytics-chart-wrap");
+      const breakdownEl = document.getElementById("analytics-breakdown");
+      if (!statsEl || !chartEl || !breakdownEl) return;
+
+      // Son 30 günün verilerini çekelim
+      const thirtyDaysAgo = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString();
+
+      const { data, error } = await supabase
+        .from("page_views")
+        .select("page_path, language, device_type, referrer, created_at")
+        .gte("created_at", thirtyDaysAgo)
+        .order("created_at", { ascending: false });
+
+      if (error) {
+        statsEl.innerHTML = `<p class="status error">Analytics alınamadı: ${escapeHtml(error.message)}</p>`;
+        return;
+      }
+
+      // Toplam sayım için ek bir count sorgusu (tüm zaman)
+      const { count: totalCount } = await supabase
+        .from("page_views")
+        .select("*", { count: "exact", head: true });
+
+      const rows = data || [];
+
+      // ----- STAT KARTLARI -----
+      const now = new Date();
+      const todayStart = new Date(now.getFullYear(), now.getMonth(), now.getDate()).getTime();
+      const sevenDaysAgo = now.getTime() - 7 * 24 * 60 * 60 * 1000;
+      const thisMonthStart = new Date(now.getFullYear(), now.getMonth(), 1).getTime();
+
+      const todayCount = rows.filter(r => new Date(r.created_at).getTime() >= todayStart).length;
+      const weekCount = rows.filter(r => new Date(r.created_at).getTime() >= sevenDaysAgo).length;
+      const monthCount = rows.filter(r => new Date(r.created_at).getTime() >= thisMonthStart).length;
+
+      statsEl.innerHTML = `
+        <div class="subs-stat-card gold">
+          <span class="label">Bugün</span>
+          <span class="value">${todayCount}</span>
+        </div>
+        <div class="subs-stat-card">
+          <span class="label">Bu Hafta</span>
+          <span class="value">${weekCount}</span>
+        </div>
+        <div class="subs-stat-card">
+          <span class="label">Bu Ay</span>
+          <span class="value">${monthCount}</span>
+        </div>
+        <div class="subs-stat-card">
+          <span class="label">Toplam (Tüm Zaman)</span>
+          <span class="value">${totalCount ?? 0}</span>
+        </div>
+      `;
+
+      // ----- 30 GÜNLÜK ÇUBUK GRAFİK -----
+      // Her gün için bir bucket oluştur
+      const dayBuckets = {};
+      for (let i = 29; i >= 0; i--) {
+        const d = new Date(now.getTime() - i * 24 * 60 * 60 * 1000);
+        const key = d.toISOString().slice(0, 10); // YYYY-MM-DD
+        dayBuckets[key] = 0;
+      }
+
+      rows.forEach(r => {
+        const key = (r.created_at || "").slice(0, 10);
+        if (key in dayBuckets) dayBuckets[key]++;
+      });
+
+      const maxValue = Math.max(...Object.values(dayBuckets), 1);
+
+      const formatDay = (key) => {
+        const d = new Date(key);
+        return d.getDate() + " " + ["Oca","Şub","Mar","Nis","May","Haz","Tem","Ağu","Eyl","Eki","Kas","Ara"][d.getMonth()];
+      };
+
+      const barsHtml = Object.entries(dayBuckets).map(([day, count]) => {
+        const heightPercent = (count / maxValue) * 100;
+        return `
+          <div class="analytics-bar-col">
+            <div class="analytics-bar" style="height:${heightPercent}%">
+              <span class="analytics-bar-tooltip">${formatDay(day)} — ${count} ziyaret</span>
+            </div>
+            <span class="analytics-bar-label">${formatDay(day)}</span>
+          </div>
+        `;
+      }).join("");
+
+      chartEl.innerHTML = `
+        <div class="analytics-chart">
+          <h4 class="analytics-chart-title">Son 30 Gün — Günlük Ziyaret</h4>
+          <div class="analytics-bars">${barsHtml}</div>
+        </div>
+      `;
+
+      // ----- KIRILIM: TOP SAYFALAR + DİL DAĞILIMI + CİHAZ + REFERRER -----
+      // Top sayfalar
+      const pageCount = {};
+      rows.forEach(r => {
+        const path = r.page_path || "/";
+        pageCount[path] = (pageCount[path] || 0) + 1;
+      });
+      const topPages = Object.entries(pageCount)
+        .sort((a, b) => b[1] - a[1])
+        .slice(0, 5);
+
+      // Dil dağılımı
+      const langCount = { tr: 0, en: 0 };
+      rows.forEach(r => {
+        const l = r.language || "tr";
+        langCount[l] = (langCount[l] || 0) + 1;
+      });
+
+      // Cihaz dağılımı
+      const deviceCount = { desktop: 0, mobile: 0, tablet: 0 };
+      rows.forEach(r => {
+        const d = r.device_type || "desktop";
+        deviceCount[d] = (deviceCount[d] || 0) + 1;
+      });
+
+      // Referrer (top 5)
+      const refCount = {};
+      rows.forEach(r => {
+        if (r.referrer) {
+          refCount[r.referrer] = (refCount[r.referrer] || 0) + 1;
+        }
+      });
+      const topReferrers = Object.entries(refCount)
+        .sort((a, b) => b[1] - a[1])
+        .slice(0, 5);
+
+      const renderList = (items, emptyMsg) => {
+        if (items.length === 0) {
+          return `<div class="analytics-empty">${emptyMsg}</div>`;
+        }
+        return items.map(([name, count]) => `
+          <div class="analytics-list-row">
+            <span class="name" title="${escapeHtml(name)}">${escapeHtml(name)}</span>
+            <span class="count">${count}</span>
+          </div>
+        `).join("");
+      };
+
+      breakdownEl.innerHTML = `
+        <div class="analytics-list">
+          <h4>En Çok Ziyaret Edilen Sayfalar (Son 30 Gün)</h4>
+          ${renderList(topPages, "Henüz veri yok.")}
+        </div>
+        <div class="analytics-list">
+          <h4>Dil Dağılımı (Son 30 Gün)</h4>
+          ${renderList([
+            ["Türkçe (TR)", langCount.tr],
+            ["English (EN)", langCount.en]
+          ].filter(([_, c]) => c > 0), "Henüz veri yok.")}
+          <h4 style="margin-top:24px;">Cihaz Dağılımı</h4>
+          ${renderList([
+            ["💻 Desktop", deviceCount.desktop],
+            ["📱 Mobile", deviceCount.mobile],
+            ["📋 Tablet", deviceCount.tablet]
+          ].filter(([_, c]) => c > 0), "Henüz veri yok.")}
+          ${topReferrers.length > 0 ? `
+            <h4 style="margin-top:24px;">Trafik Kaynakları (Top 5)</h4>
+            ${renderList(topReferrers, "")}
+          ` : ""}
+        </div>
+      `;
+    }
+
+    function setupAnalyticsUI() {
+      const refreshBtn = document.getElementById("refresh-analytics-btn");
+      if (refreshBtn && !refreshBtn.dataset.bound) {
+        refreshBtn.dataset.bound = "1";
+        refreshBtn.addEventListener("click", () => loadAnalytics());
+      }
+    }
+    setupAnalyticsUI();
+
+    checkAdmin();
+  </script>
+</body>
+</html>
