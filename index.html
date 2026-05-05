@@ -1203,6 +1203,26 @@
       .about-signature::after{width:30px;margin:0 10px}
     }
 
+    /* About — asymmetric grid + meta card */
+    .gold-accent{font-style:italic;color:var(--gold-soft);font-weight:400}
+    .about-grid{display:grid;grid-template-columns:1.2fr 0.8fr;gap:80px;margin-top:48px;max-width:1100px;margin-left:auto;margin-right:auto;align-items:start}
+    .about-grid .about-narrative{max-width:none;margin:0}
+    .about-aside{position:sticky;top:120px;align-self:start}
+    .about-card-info{background:rgba(255,255,255,.025);border:1px solid rgba(210,161,47,.18);padding:42px 36px;position:relative}
+    .about-card-info::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg, transparent, rgba(210,161,47,.6), transparent)}
+    .about-card-eyebrow{display:inline-flex;align-items:center;gap:14px;margin-bottom:28px;font-size:.66rem;letter-spacing:.32em;text-transform:uppercase;color:var(--gold-soft);font-weight:600}
+    .about-card-eyebrow::before{content:'';width:24px;height:1px;background:var(--gold)}
+    .about-meta{list-style:none;margin:0;padding:0}
+    .about-meta li{display:flex;flex-direction:column;gap:4px;padding:18px 0;border-bottom:1px solid rgba(255,255,255,.06)}
+    .about-meta li:last-child{border-bottom:none}
+    .about-meta li > span{font-size:.62rem;letter-spacing:.22em;text-transform:uppercase;color:rgba(244,238,230,.42)}
+    .about-meta li > strong{font-family:'Cormorant Garamond',serif;font-size:1.15rem;font-weight:500;color:var(--cream);letter-spacing:.01em;word-break:break-word}
+    @media (max-width:980px){
+      .about-grid{grid-template-columns:1fr;gap:48px;max-width:760px}
+      .about-aside{position:static;top:auto}
+      .about-card-info{padding:32px 24px}
+    }
+
     /* ===== GI DEFINITION (Coğrafi İşaret tanımı, harita üstü) ===== */
     .gi-definition{
       max-width:720px;
@@ -1714,13 +1734,43 @@
 <div class="eyebrow reveal" data-i18n="about_eyebrow">HİKÂYEMİZ</div>
 <h2 class="title reveal delay-1" data-i18n="about_title">Anadolu'nun binlerce yıllık üretim kültüründen ilham alarak.</h2>
 
-<div class="about-narrative reveal delay-2">
-  <p data-i18n="about_p1">Anadolu'nun binlerce yıllık üretim kültüründen ilham alarak yola çıktık. Toprağın bereketini, emeğin değerini ve gerçek lezzetin kökenini dünyaya ulaştırma hedefiyle markamızı kurduk.</p>
-  <p data-i18n="about_p2">Bizim için her ürün sadece bir ticari mal değil; bir hikâye, bir gelenek ve bir mirastır. Bu anlayışla, üretimin en değerli örneklerinden biri olan Safranbolu safranı ile başladık. Coğrafi işaretli, yüksek kaliteli ve özenle seçilmiş ürünleri doğrudan kaynağından temin ederek sizlere ulaştırıyoruz.</p>
-  <p data-i18n="about_p3">Amacımız Anadolu'nun dört bir yanındaki coğrafi işaretli ve özgün ürünleri, kalite standartlarından ödün vermeden hem Türkiye'ye hem de dünyaya sunmak. Üreticiyi destekleyen, sürdürülebilir ve şeffaf bir tedarik zinciri oluşturmayı önemsiyoruz.</p>
-  <p data-i18n="about_p4">Kalite, güven ve doğallık bizim temel değerlerimizdir. Her ürünümüz, titizlikle kontrol edilerek sizlere ulaştırılır.</p>
-  <p data-i18n="about_p5">Bugün safran ile başlayan bu yolculuk, yarın Anadolu'nun farklı lezzetleriyle büyümeye devam edecek.</p>
-  <span class="about-signature" data-i18n="about_signature">Lezzetin Kökenine Yolculuk.</span>
+<div class="about-grid reveal delay-2">
+  <div class="about-narrative">
+    <p data-i18n="about_p1">Anadolu'nun binlerce yıllık üretim kültüründen ilham alarak yola çıktık. Toprağın bereketini, emeğin değerini ve gerçek lezzetin kökenini dünyaya ulaştırma hedefiyle markamızı kurduk.</p>
+    <p data-i18n="about_p2">Bizim için her ürün sadece bir ticari mal değil; bir hikâye, bir gelenek ve bir mirastır. Bu anlayışla, üretimin en değerli örneklerinden biri olan Safranbolu safranı ile başladık. Coğrafi işaretli, yüksek kaliteli ve özenle seçilmiş ürünleri doğrudan kaynağından temin ederek sizlere ulaştırıyoruz.</p>
+    <p data-i18n="about_p3">Amacımız Anadolu'nun dört bir yanındaki coğrafi işaretli ve özgün ürünleri, kalite standartlarından ödün vermeden hem Türkiye'ye hem de dünyaya sunmak. Üreticiyi destekleyen, sürdürülebilir ve şeffaf bir tedarik zinciri oluşturmayı önemsiyoruz.</p>
+    <p data-i18n="about_p4">Kalite, güven ve doğallık bizim temel değerlerimizdir. Her ürünümüz, titizlikle kontrol edilerek sizlere ulaştırılır.</p>
+    <p data-i18n="about_p5">Bugün safran ile başlayan bu yolculuk, yarın Anadolu'nun farklı lezzetleriyle büyümeye devam edecek.</p>
+    <span class="about-signature" data-i18n="about_signature">Lezzetin Kökenine Yolculuk.</span>
+  </div>
+
+  <aside class="about-aside">
+    <div class="about-card-info">
+      <div class="about-card-eyebrow" data-i18n="about_meta_eyebrow">KÜNYE</div>
+      <ul class="about-meta">
+        <li>
+          <span data-i18n="about_meta_brand">Marka</span>
+          <strong>The House of Anatolia</strong>
+        </li>
+        <li>
+          <span data-i18n="about_meta_year">Kuruluş</span>
+          <strong>2026</strong>
+        </li>
+        <li>
+          <span data-i18n="about_meta_region">Yöre</span>
+          <strong>Safranbolu, Karabük</strong>
+        </li>
+        <li>
+          <span data-i18n="about_meta_doc">Belge</span>
+          <strong data-i18n="about_meta_doc_value">TPMK Coğrafi İşaret</strong>
+        </li>
+        <li>
+          <span data-i18n="about_meta_contact">İletişim</span>
+          <strong>info@thehouseofanatolia.com</strong>
+        </li>
+      </ul>
+    </div>
+  </aside>
 </div>
 
 </div></section>
@@ -1831,7 +1881,14 @@
 
       // About — uzun hikaye
       about_eyebrow: "HİKÂYEMİZ",
-      about_title: "Anadolu'nun binlerce yıllık üretim kültüründen ilham alarak.",
+      about_title: "*Anadolu*'nun binlerce yıllık üretim kültüründen ilham alarak.",
+      about_meta_eyebrow: "KÜNYE",
+      about_meta_brand: "Marka",
+      about_meta_year: "Kuruluş",
+      about_meta_region: "Yöre",
+      about_meta_doc: "Belge",
+      about_meta_doc_value: "TPMK Coğrafi İşaret",
+      about_meta_contact: "İletişim",
       about_p1: "Anadolu'nun binlerce yıllık üretim kültüründen ilham alarak yola çıktık. Toprağın bereketini, emeğin değerini ve gerçek lezzetin kökenini dünyaya ulaştırma hedefiyle markamızı kurduk.",
       about_p2: "Bizim için her ürün sadece bir ticari mal değil; bir hikâye, bir gelenek ve bir mirastır. Bu anlayışla, üretimin en değerli örneklerinden biri olan Safranbolu safranı ile başladık. Coğrafi işaretli, yüksek kaliteli ve özenle seçilmiş ürünleri doğrudan kaynağından temin ederek sizlere ulaştırıyoruz.",
       about_p3: "Amacımız Anadolu'nun dört bir yanındaki coğrafi işaretli ve özgün ürünleri, kalite standartlarından ödün vermeden hem Türkiye'ye hem de dünyaya sunmak. Üreticiyi destekleyen, sürdürülebilir ve şeffaf bir tedarik zinciri oluşturmayı önemsiyoruz.",
@@ -1907,7 +1964,14 @@
 
       // About — long story
       about_eyebrow: "OUR STORY",
-      about_title: "Inspired by the millennia-old craft of Anatolia.",
+      about_title: "Inspired by the millennia-old craft of *Anatolia*.",
+      about_meta_eyebrow: "FACT SHEET",
+      about_meta_brand: "Brand",
+      about_meta_year: "Founded",
+      about_meta_region: "Region",
+      about_meta_doc: "Certificate",
+      about_meta_doc_value: "TPMK Geographical Indication",
+      about_meta_contact: "Contact",
       about_p1: "We set out inspired by Anatolia's millennia-old craft. We founded our brand with one purpose: to bring the abundance of the soil, the value of labor, and the true origin of taste to the world.",
       about_p2: "For us, each product is more than merchandise — it is a story, a tradition, an inheritance. With this understanding, we began with one of the most distinguished examples of this craft: Safranbolu saffron. We bring geographically protected, premium, carefully selected products directly from their source to you.",
       about_p3: "Our aim is to present Anatolia's geographically protected and authentic products to both Turkey and the world, never compromising on quality. We believe in a supply chain that is transparent, sustainable, and supports the producer.",
@@ -2001,7 +2065,13 @@
         if (key === "city_note" && dict.city_note_html) {
           el.innerHTML = dict.city_note_html;
         } else {
-          el.textContent = dict[key];
+          const text = dict[key];
+          if (typeof text === 'string' && text.includes('*')) {
+            const escaped = text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+            el.innerHTML = escaped.replace(/\*([^*]+)\*/g, '<em class="gold-accent">$1</em>');
+          } else {
+            el.textContent = text;
+          }
         }
       }
     });
