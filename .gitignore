@@ -25,3 +25,6 @@ gh_auth.pid
 
 # Dependencies (defensive — none yet)
 node_modules/
+
+# Local Netlify folder
+.netlify
