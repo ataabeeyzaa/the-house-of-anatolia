@@ -19,7 +19,13 @@ jobs:
           node-version: '22'
 
       - name: Deploy to Netlify
-        run: npx -y netlify-cli@latest deploy --prod --dir . --site "$NETLIFY_SITE_ID" --auth "$NETLIFY_AUTH_TOKEN" --message "GitHub Actions: ${{ github.event.head_commit.message }}"
+        run: |
+          npx -y netlify-cli@latest deploy \
+            --prod \
+            --dir . \
+            --site "$NETLIFY_SITE_ID" \
+            --auth "$NETLIFY_AUTH_TOKEN" \
+            --message "GitHub Actions deploy"
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
