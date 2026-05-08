@@ -21,6 +21,8 @@
       --ok:#b9f6ca;
     }
     * { box-sizing:border-box; }
+    .skip-link{position:absolute;left:-9999px;top:8px;z-index:1000;padding:10px 18px;background:var(--gold);color:#24170a;text-decoration:none;border-radius:2px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;font-size:.78rem}
+    .skip-link:focus,.skip-link:focus-visible{left:8px;outline:2px solid var(--gold-soft);outline-offset:2px}
     body {
       margin:0;
       font-family: 'Plus Jakarta Sans', sans-serif;
@@ -830,6 +832,7 @@
   </style>
 </head>
 <body>
+<a class="skip-link" href="#main-content">İçeriğe atla</a>
 
   <!-- Konfirmasyon modalı (kritik silme işlemlerinde kullanılır) -->
   <div id="confirm-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-hidden="true">
@@ -855,7 +858,7 @@
     <button type="button" id="idle-stay-btn">Oturumda Kal</button>
   </div>
 
-  <div class="container">
+  <div class="container" id="main-content">
     <div class="topbar">
       <div class="brand">
         <img src="assets/logo_house_of_anatolia_transparent.png" alt="The House of Anatolia">
