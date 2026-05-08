@@ -49,9 +49,9 @@ Push sonrası GitHub Actions otomatik Netlify'a deploy eder (~1.5 dk).
 
 Eyleme geçmeden önce bu 4 dosyayı oku ve özümse:
 
-1. **HANDOFF.md** — projenin tam haritası, yapılanlar (4 PR + Phase 0), kullanıcı tercihleri (en kritik)
-2. **ARCHITECTURE.md** — stack, deploy pipeline, plugin envanteri (18 plugin + 2 MCP), DB şeması, frontend mimarisi (sparkle güncel davranışı, marquee strip, contact horizontal)
-3. **DESIGN_SYSTEM.md** — Plus Jakarta Sans + Cormorant Garamond, Editorial Heritage direction, sparkle/marquee/eyebrow CSS pattern'leri, yasaklar listesi
+1. **HANDOFF.md** — projenin tam haritası, yapılanlar (6 PR + Phase 0), kullanıcı tercihleri (en kritik)
+2. **ARCHITECTURE.md** — stack, deploy pipeline, plugin envanteri (18 plugin + 2 MCP), DB şeması, frontend mimarisi (marquee strip, contact 2-col yeni layout — sparkle YOK)
+3. **DESIGN_SYSTEM.md** — Plus Jakarta Sans + Cormorant Garamond, Editorial Heritage direction, marquee/eyebrow CSS pattern'leri, yasaklar listesi (sparkle TÜM VARYANTLAR yasak)
 4. **KNOWN_ISSUES.md** — kalan işler (P0/P1/P2), sınırlamalar, bilinen bug'lar, çözülen referansları
 
 Sonra HTML dosyalarına ihtiyacın olduğunda Read tool ile aç (her biri büyük: index.html ~200KB+, admin.html ~165KB, products.html ~12KB, product.html ~80KB).
@@ -64,15 +64,15 @@ Sonra HTML dosyalarına ihtiyacın olduğunda Read tool ile aç (her biri büyü
 - Major değişiklik öncesi git commit — geri alabilmek için
 - Stale dosya riski: edit öncesi her zaman dosyanın güncel halini Read et
 - Supabase Service Role Key ASLA isteme (sadece Anon Key var, HTML'de)
-- Kullanıcının önceki feedback'leri (HANDOFF/KNOWN_ISSUES'da liste): stats bar, KÜNYE, sertifika rozeti, EST badge, 3-sütun contact, cinematic hero, **map'in ÜZERİNDE uçuşan parlak şeyler** — REDDETTİ, tekrar ekleme
-- Beğendiği: italic gold accent, **sparkle (✦) effect (haritanın ARKASINDA, dikey yukarı uçar)**, **KEŞFET eyebrow çift çizgi**, **map altında kayan şerit**, **contact horizontal 2-col**, Cormorant + Plus Jakarta Sans, koyu+altın+krem
+- Kullanıcının önceki feedback'leri (HANDOFF/KNOWN_ISSUES'da liste): stats bar, KÜNYE, sertifika rozeti, EST badge, 3-sütun contact, cinematic hero, **sparkle/gold-sim parçacıklar TÜM VARYANTLAR (üstünde/etrafında/ARKASINDA)** — REDDETTİ, tekrar ekleme YASAK (PR #6'da kaldırıldı)
+- Beğendiği: italic gold accent, **KEŞFET eyebrow çift çizgi**, **map altında kayan şerit**, **contact 2-col (3 info kart sol + newsletter card sağ)**, Cormorant + Plus Jakarta Sans, koyu+altın+krem, mini-blossom safran çiçeği (product.html — dokunulmaz)
 
 
 ## 6. CANLI DURUM — Site Yayında
 
-- 4 PR mergede (#1: SEO+Cleanup+A11y, #2: sparkle iter 1, #3: sparkle removal+products page, #4: sparkle re-add+map section+contact)
+- 6 PR mergede (#1: SEO+Cleanup+A11y, #2: sparkle iter 1, #3: sparkle removal+products page, #4: sparkle re-add+map section+contact, #5: docs refresh, #6: sparkle TAM removal + contact 2-col rebuild + footer newsletter taşıma)
 - Lighthouse: **A11y 98 / SEO 92 / Best Practices 96 / Agentic 100**
-- Yeni: `products.html` (Supabase fetch is_active=true), `marquee-strip` (TV altyazısı tarzı), sparkle haritanın arkasında dikey
+- Anasayfa: `products.html` (Supabase fetch is_active=true), `marquee-strip` (TV altyazısı tarzı), **sparkle YOK**, **contact 2-col (3 info kart + newsletter)**
 - Eksik P0: telefon numarası placeholder, yasal sayfa placeholder'ları, domain, admin user, eski Netlify token revoke (hepsi kullanıcı yapacak)
 
 

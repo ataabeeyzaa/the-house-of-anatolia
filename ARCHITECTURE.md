@@ -1,6 +1,6 @@
 # ARCHITECTURE — The House of Anatolia
 
-> **2026-05-08 güncel** — stack, deploy, plugin envanteri, DB şema, veri akışları.
+> **2026-05-08 güncel (PR #6 sonrası)** — stack, deploy, plugin envanteri, DB şema, veri akışları.
 
 ---
 
@@ -66,7 +66,7 @@ frontend-design, code-review, feature-dev, security-guidance, superpowers, claud
 
 | Dosya | Boyut yaklaşık | İçerik |
 |---|---|---|
-| `index.html` | ~3000 satır, 200+ KB | Anasayfa: navbar, hero, harita (sparkle z-index:0 arkada), KEŞFET, **marquee strip**, hakkımızda, contact horizontal 2-col, footer + Supabase data layer + i18n |
+| `index.html` | ~3000 satır, ~190 KB | Anasayfa: navbar, hero, harita (sparkle YOK — PR #6), KEŞFET, **marquee strip**, hakkımızda, **contact 2-col (3 info kart sol + newsletter card sağ)**, footer 4-col (newsletter contact'a taşındı) + Supabase data layer + i18n |
 | `product.html` | ~1700 satır, 80 KB | Ürün detay + talep formu (Supabase + FormSubmit dual) |
 | `products.html` | ~280 satır, ~12 KB | **Yeni** — Ürünler vitrini, Supabase fetch is_active=true, grid layout |
 | `admin.html` | ~4500 satır, ~165 KB | Tek-sayfa admin panel (paket CRUD silindi) |
@@ -157,15 +157,12 @@ body::after {
 }
 ```
 
-### Sparkle Effect (güncel — haritanın arkasında, dikey)
-- `.hero-blossom-layer` — `position:absolute; inset:0; z-index:0; pointer-events:none`
-- `.map-wrap > svg{position:relative; z-index:1}` — harita SVG sparkle'ın üstünde
-- `.gold-sparkle` — 3px altın nokta + cross-shaped pseudo elements (::before/::after)
-- `@keyframes sparkle-twinkle` — scale + **translateY -36px** (DİKEY yukarı, rotate yok)
-- JS: spawn her 350ms, sparkle 1.6-3.8s yaşıyor
-- prefers-reduced-motion saygılı
+### Sparkle Effect — KALDIRILDI (PR #6)
+- index.html'de tüm sparkle CSS+HTML+JS silindi (kullanıcı net karar)
+- Yasaklar listesinde tüm varyantlar (üstünde/etrafında/arkasında) — bkz. DESIGN_SYSTEM
+- product.html'deki `.hero-blossom-layer` rule mini-blossom safran çiçeği için kapsayıcı, KORUNUR
 
-### Marquee Strip (yeni — TV altyazısı tarzı)
+### Marquee Strip (TV altyazısı tarzı)
 - `.marquee-strip` — section'lar arası, full-width
 - `.marquee-track` — `display:flex; width:max-content; animation:marqueeScroll 38s linear infinite`
 - `@keyframes marqueeScroll` — `translateX 0 → -50%` (sağdan sola)
@@ -178,12 +175,18 @@ body::after {
 - `.eyebrow{display:flex; align-items:center; gap:12px}`
 - `.eyebrow::before, .eyebrow::after{content:''; width:38px; height:1px; background:rgba(210,161,47,.72)}` — **iki yanda altın çizgi**
 
-### Contact Card (yatay 2-col)
-- `display:grid; grid-template-columns:1fr 1.1fr; gap:56px; align-items:center`
-- max-width: 1020px
-- SOL: `<div class="contact-intro-block">` (eyebrow + title + intro), text-align:left
-- SAĞ: `<ul class="contact-list">` (e-posta + adres + telefon)
-- Mobile (<820px): tek sütun fallback
+### Contact Card (PR #6 — 2-col: 3 info kart + newsletter)
+- `display:grid; grid-template-columns:1.05fr 1fr; gap:64px; align-items:start`
+- max-width: var(--max) (1320px container içinde)
+- **SOL:** `<div class="contact-info-col">` → `.contact-intro-block` (eyebrow + title + intro) + `<ul class="contact-info-stack">` (3 `.contact-info-card`: SVG ikon + label/value)
+- **SAĞ:** `<div class="contact-newsletter-card">` — radial gold glow gradient + form id `newsletter-form` + status `newsletter-status` (Supabase JS handler aynen çalışır, dokunulmadı)
+- Mobile (<980px): tek sütun fallback
+- Mobile (<540px): newsletter form column-stack, button full-width
+
+### Footer (PR #6 — newsletter taşındı)
+- `.footer-top` + `.footer-newsletter` HTML/CSS tamamen silindi
+- Footer-grid 4-col layout (1.8fr 1fr 1fr 1.4fr) AYNEN korundu: brand + sayfalar + yasal + iletişim mini
+- i18n keys `footer_newsletter_*` korundu (rename gereksiz, sadece konum değişti)
 
 ### Custom Scrollbar
 ```css
@@ -193,10 +196,10 @@ body::after {
 
 ### Mobile Breakpoints
 - `<480px` extra small
-- `<640px` small (footer 1-col)
+- `<540px` newsletter form column-stack (button full-width)
+- `<640px` small (footer 1fr 1fr → brand col-span)
 - `<760px` medium
-- `<820px` contact 2-col → 1-col
-- `<980px` tablet
+- `<980px` contact 2-col → 1-col + tablet
 - `<1180px` large tablet
 - `<1600px` ultra-wide (container padding 80px)
 
@@ -234,14 +237,14 @@ body::after {
 
 **Manuel:**
 - Form submit (gerçek email)
-- Newsletter signup
+- Newsletter signup (artık contact section'da, footer'da DEĞİL)
 - Admin login + CRUD (ürün, şehir, galeri)
 - TR/EN switch
 - Mobile responsive (DevTools + gerçek telefon)
 - Custom cursor desktop, touch device
-- Sparkle harita altında dikey uçuyor mu
 - Marquee strip kayıyor mu
 - products.html sadece is_active=true mı
+- Contact 3-card hover gold border + newsletter form submit
 
 **Otomatik (yeni session'da):**
 - `chrome-devtools-mcp` ile Chrome browser test (lighthouse_audit, take_screenshot)

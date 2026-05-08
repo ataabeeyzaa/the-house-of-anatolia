@@ -30,8 +30,8 @@
 - HTML satır 1581 (`<div class="hero-blossom-layer" id="blossom-layer">`)
 - JS satır 2356-2373 (sparkleEffect IIFE bloğu)
 
-**product.html silinecek:**
-- CSS satır 136 (.hero-blossom-layer) — kullanılan element yok ama dead rule
+**product.html dokunulmadı (revize karar):**
+- Line 136 `.hero-blossom-layer` rule'u mini-blossom safran çiçeği için kapsayıcı OLABİLİR (dosyada usage doğrulanamadı, mini-blossom JS dynamic render edebilir). Risk al ma maktan kaçınıldı, korundu. Mini-blossom kullanıcının beğendiği bir özellik.
 
 ### 2. Contact Section Yeniden
 
@@ -87,3 +87,17 @@
 - **Düşük:** newsletter form id selector'leri aynı, JS handler dokunulmuyor
 - **Düşük:** sparkle silme — element/CSS atomik, başka yerde referans yok (grep doğrulandı)
 - **Düşük-orta:** contact section CSS yeniden yazılması — sınıf adı çakışması yok (`.contact-info-card`, `.contact-newsletter-card` yeni)
+
+## Implementation Notları (post-completion)
+
+**Beklenmedik bulgular:**
+
+1. **Duplicate `contact_title` (TR i18n):** Contact section üstünde çalışırken tespit edildi — TR I18N içinde aynı key 2 defa tanımlı (line 2077: "Bizimle iletişime geçin." + line 2114: "Bizimle bağlantıya geçin."). JS'te ikinci tanım override eder; canlıda "bağlantıya" görüntülenirken HTML default "iletişime"ydi. Duplicate (line 2114) silindi, "iletişime" geçerli (kullanıcının ekran görüntüsündeki referans metniyle uyumlu).
+
+2. **product.html scope dışı:** Spec başlangıcında "product.html line 136 sparkle CSS rule sil" maddesi vardı. Doğrulama sırasında `.hero-blossom-layer` class adının mini-blossom çiçeği için JS dynamic kapsayıcı olarak kullanılabileceği belirlendi (HTML'de element yok ama JS render risk var). Mini-blossom kullanıcının beğendiği bir özellik olduğu için riske girilmedi.
+
+**Final commit dizisi (atomic):**
+- `b7e3d4b` docs: spec yaz + commit
+- `d2a8206` sparkle: harita section uçuşan parçacıklar tamamen kaldırıldı (58 satır silindi)
+- `152f9a4` contact: 2-col layout — 3 info cards (sol) + newsletter (sağ) (+171/-144)
+- (sıradaki commit: docs sync — 5 MD + spec güncel + .gitignore canli-snapshot)

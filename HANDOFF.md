@@ -1,6 +1,6 @@
 # HANDOFF — The House of Anatolia
 
-> **2026-05-08 güncel** — projenin tam haritası, yeni Claude Code sohbetine geçişte gerekli tüm bağlam.
+> **2026-05-08 güncel (PR #6 sonrası)** — projenin tam haritası, yeni Claude Code sohbetine geçişte gerekli tüm bağlam.
 
 ---
 
@@ -38,9 +38,9 @@
 
 ```
 /
-├── index.html                       ← Anasayfa: navbar, slogan, harita (sparkle arkada), KEŞFET, marquee strip, hakkımızda, contact yatay 2-col, footer
-├── product.html                     ← Ürün detay + talep formu (Supabase + FormSubmit)
-├── products.html                    ← Ürünler vitrini (YENİ — Supabase fetch is_active=true filter)
+├── index.html                       ← Anasayfa: navbar, slogan, harita (sparkle YOK), KEŞFET, marquee strip, hakkımızda, contact 2-col (3 info kart + newsletter card), footer 4-col (newsletter contact'a taşındı)
+├── product.html                     ← Ürün detay + talep formu (Supabase + FormSubmit) — mini-blossom safran çiçeği KORUNUR
+├── products.html                    ← Ürünler vitrini (Supabase fetch is_active=true filter)
 ├── admin.html                       ← Admin panel (paket CRUD silindi, ürün/şehir/galeri CRUD aktif)
 ├── gizlilik.html, kullanim.html, cerez.html  ← Yasal sayfalar (placeholder dolacak)
 ├── robots.txt                       ← SEO crawl rules (admin disallow)
@@ -109,6 +109,15 @@ Detay: ARCHITECTURE.md
 - **Section spacing:** `.section padding 110px → 80px` (sayfa daha kompakt)
 - **products.html:** `loadProducts` query'e `.eq("is_active", true)` filter + intro paragraf kaldırıldı
 
+### Phase 5 — PR #6 (Sparkle removal + Contact rebuild + Footer newsletter taşıma)
+- **Sparkle TAMAMEN KALDIRILDI** (kullanıcı net karar): index.html'de CSS (`.hero-blossom-layer`, `.gold-sparkle`, `::before/::after`, `@keyframes sparkle-twinkle`, prefers-reduced-motion) + HTML (`<div class="hero-blossom-layer">`) + JS (sparkleEffect IIFE — spawn loop + initial burst).
+- **Contact section 2-col yeni layout:**
+  - SOL: eyebrow "İLETİŞİM" çift altın çizgi + H2 "Bizimle iletişime geçin." + intro + 3 dikey info card (E-POSTA / ADRES / TELEFON) — her kart: SVG ikon (mail/map-pin/phone Heroicons outline) + label/value flex layout, panel-soft bg, 18px radius, gold hover border
+  - SAĞ: `.contact-newsletter-card` — radial gold glow gradient, 22px radius, "Bültenimize Katılın" başlık + intro + pill input + ABONE OL pill button
+- **Footer newsletter contact'a taşındı:** `.footer-top` + `.footer-newsletter` HTML/CSS tamamen kaldırıldı. Form id `newsletter-form` + status id `newsletter-status` aynen korundu (JS handler dokunulmadı). Footer-grid 4-col layout (brand, sayfalar, yasal, iletişim) aynen korundu.
+- **i18n duplicate fix:** TR `contact_title` 2 defa tanımlanmıştı ("iletişime geçin" + "bağlantıya geçin"); ikincisi silindi, "iletişime geçin" geçerli.
+- **product.html dokunulmadı** — `.hero-blossom-layer` mini-blossom safran çiçeği için kullanılan kapsayıcı, mini-blossom KORUNUR.
+
 ---
 
 ## Kullanıcı Tercihleri (ÖNEMLİ — değiştirme!)
@@ -123,20 +132,19 @@ Detay: ARCHITECTURE.md
 - İtalik gold accent (slogan vurgusu)
 - Koyu zemin + altın aksanlar
 - İnce çizgiler, boşluk hakimiyeti
-- **Sparkle (gold sim) — haritanın ARKASINDA, dikey yukarı uçar**
 - **KEŞFET eyebrow'un iki yanında altın çizgi**
 - **Map'in altında kayan şerit** (yakında ürünler)
-- Mini-blossom safran çiçeği (product.html)
-- **Contact horizontal 2-col card**
+- Mini-blossom safran çiçeği (product.html — dokunulmaz)
+- **Contact 2-col: 3 info kart sol + newsletter card sağ** (PR #6)
 
 ### Reddettiği
 - Stats bar 1/1/1 sayım kartları → "ucuz duruyor"
 - KÜNYE bilgi kartı → "ucuz duruyor"
 - Sertifika rozeti (TPMK) → "ucuz duruyor"
 - EST 2026 — ANATOLIA badge
-- 3-sütun dikey adres/telefon/eposta
+- 3-sütun yan yana dikey adres/telefon/eposta (kart yığını OK ama yan yana 3 sütun değil)
 - Cinematic hero (büyük dağ silüetleri)
-- Map'in ÜZERİNDE uçuşan parlak şeyler
+- **Sparkle / gold-sim parçacıklar — TÜM VARYANTLAR** (haritanın üzerinde, etrafında, ARKASINDA — hiçbir konumda kabul edilmiyor; PR #6'da tamamen kaldırıldı)
 
 ### Karar Verilmiş Kararlar (değiştirme!)
 - Site alacak kişi için yapılıyor (Beyza geliştirici, ortak içerik girer)
@@ -187,7 +195,7 @@ Detay: KNOWN_ISSUES.md
 - Branch (`claude/...`) → `gh pr create` → review → `gh pr merge --rebase --delete-branch`
 - **Push öncesi:** `git fetch origin main && git rebase origin/main`
 - Force push + `--no-verify` YASAK
-- 4 PR mergede tamamlandı (#1, #2, #3, #4)
+- 6 PR mergede tamamlandı (#1, #2, #3, #4, #5 docs refresh, #6 sparkle removal + contact rebuild + footer newsletter taşıma)
 
 ---
 
@@ -218,7 +226,7 @@ Detay: KNOWN_ISSUES.md
 
 - Bold color discipline: koyu zemin + altın + krem — hiçbir başka renk yok
 - Typography: Cormorant Garamond display + Plus Jakarta Sans body
-- Atmospheric depth: SVG noise overlay, radial gradients, sparkle particles (haritanın ARKASINDA)
+- Atmospheric depth: SVG noise overlay, radial gradients (sparkle KALDIRILDI — PR #6)
 - Motion polish: reveal animations, hover surprises, marquee strip kayan şerit
 - Mobile-first: 375 → 480 → 820 → 980 → 1180 → 1600px
 - prefers-reduced-motion saygısı

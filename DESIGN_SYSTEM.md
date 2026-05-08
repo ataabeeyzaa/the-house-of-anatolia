@@ -1,7 +1,7 @@
 # DESIGN SYSTEM — The House of Anatolia
 
 > **Aesthetic direction:** "Editorial Heritage — Anatolian terroir meets refined modernism"
-> **2026-05-08 güncel** — frontend-design skill ilkeleri uygulanmıştır
+> **2026-05-08 güncel (PR #6 sonrası)** — frontend-design skill ilkeleri uygulanmıştır
 
 ---
 
@@ -117,41 +117,12 @@ body::after {
 @media (prefers-reduced-motion: reduce) { body::after { display: none } }
 ```
 
-### Gold Sparkle Particles (GÜNCEL — haritanın arkasında, dikey)
-```css
-.hero-blossom-layer{
-  position:absolute; inset:0;
-  z-index:0;                /* harita SVG (z-index:1) ALTINDA */
-  pointer-events:none; overflow:hidden;
-}
-.map-wrap > svg{
-  position:relative; z-index:1;   /* sparkle'ın ÜSTÜNDE */
-}
-.gold-sparkle{
-  position:absolute;
-  width:3px; height:3px;
-  background:#f5e0a8;
-  border-radius:50%;
-  box-shadow: 0 0 6px rgba(240,210,138,.85), 0 0 14px rgba(210,161,47,.45);
-  animation: sparkle-twinkle var(--dur) ease-in-out forwards;
-}
-.gold-sparkle::before, .gold-sparkle::after {
-  /* Cross-shaped 4-yön ışın */
-}
-@keyframes sparkle-twinkle{
-  0%   {opacity:0; transform:translate(-50%,-50%) scale(0)}
-  25%  {opacity:1; transform:translate(-50%,-50%) scale(1.3)}
-  55%  {opacity:.85; transform:translate(-50%, calc(-50% - 16px)) scale(1)}
-  100% {opacity:0; transform:translate(-50%, calc(-50% - 36px)) scale(.4)}
-}
-@media (prefers-reduced-motion: reduce){ .gold-sparkle{display:none} }
-```
-- **DİKEY yukarı uçma** (rotate yok, yana hareket yok)
-- Harita opak il alanlarında **görünmez** (SVG üstte)
-- Harita transparent kenarlarında **görünür** (denizler, dış sınır)
-- JS spawn her 350ms, initial burst 8 sparkle, dur 1.6-3.8s
+### Gold Sparkle Particles — KALDIRILDI (PR #6)
+- index.html'de tüm sparkle CSS+HTML+JS silindi (kullanıcı net karar)
+- Yasaklar listesinde tüm varyantlar (üstünde/etrafında/arkasında — bkz. aşağı)
+- product.html `.hero-blossom-layer` mini-blossom safran çiçeği için kapsayıcı, KORUNUR
 
-### Marquee Strip (YENİ — TV altyazısı tarzı kayan şerit)
+### Marquee Strip (TV altyazısı tarzı kayan şerit)
 ```css
 .marquee-strip{
   overflow:hidden;
@@ -247,7 +218,7 @@ input:focus-visible { box-shadow: 0 0 0 3px rgba(210,161,47,.18); }
 - **Eşit ikili (1fr 1fr)** — anasayfa about-card grid
 - **3'lü (repeat(3, 1fr))** — usage-grid
 - **4'lü footer (1.8fr 1fr 1fr 1.4fr)** — logo + contact wider
-- **Contact card (1fr 1.1fr)** — yatay 2-col
+- **Contact card (1.05fr 1fr)** — sol info kart yığını + sağ newsletter card (PR #6)
 
 ### Skip-link CSS
 ```css
@@ -315,17 +286,18 @@ Hover: `translateY(-4px)` + altın border + box-shadow + image scale(1.06).
 1. ❌ **Inter, Roboto, Arial, system-ui, Space Grotesk** — generic AI slop
 2. ❌ **Purple gradients** (özellikle white background üstünde)
 3. ❌ **Predictable layouts** (cookie-cutter Bootstrap)
-4. ❌ **3-sütun dikey label/value** (kullanıcı reddetti)
+4. ❌ **3-sütun yan yana dikey label/value** (kart yığını OK ama yan yana 3 sütun değil)
 5. ❌ **Stats bar 1/1/1 sayım kartları** ("ucuz duruyor")
 6. ❌ **KÜNYE bilgi kartları** (kullanıcı reddetti)
 7. ❌ **Sertifika rozeti** (kullanıcı reddetti)
 8. ❌ **Cinematic dağ silüetleri** (kullanıcı reddetti)
-9. ❌ **Map'in ÜZERİNDE uçuşan parlak şeyler** — sparkle ARKADA, dikey
+9. ❌ **Sparkle / gold-sim parçacıklar — TÜM VARYANTLAR** (haritanın üzerinde, etrafında, ARKASINDA — hiçbir konumda kabul edilmiyor; PR #6'da tamamen kaldırıldı, geri getirme YASAK)
 10. ❌ **Border-radius bombardımanı** — köşe %0 veya max 24px (contact-card için)
 11. ❌ **Drop shadow abartısı** — sadece var(--shadow) veya gold glow
-12. ❌ **Emoji ikonlar** — yerine SVG veya `✦ ❋ ※`
+12. ❌ **Emoji ikonlar** — yerine SVG (Heroicons outline tarzı) veya `✦ ❋ ※`
 13. ❌ **Auto-play video / ses**
 14. ❌ **Stock fotoğraf hissi**
+15. ❌ **Newsletter formunu birden çok yerde duplicate gösterme** (PR #6: footer'dan kaldırılıp contact'a taşındı, tek konum)
 
 ---
 
@@ -335,7 +307,7 @@ Hover: `translateY(-4px)` + altın border + box-shadow + image scale(1.06).
 2. ✓ **Tek easing** — `cubic-bezier(0.16, 1, 0.3, 1)`
 3. ✓ **İnce çizgiler** — 1px gold border/divider
 4. ✓ **İtalik altın vurgular** — başlıklarda 1 kelime
-5. ✓ **Atmospheric depth** — film grain noise + radial gradients + sparkle (arkada)
+5. ✓ **Atmospheric depth** — film grain noise + radial gradients (sparkle KALDIRILDI — PR #6)
 6. ✓ **Eyebrow iki yanda altın çizgi** (::before + ::after)
 7. ✓ **Mobile-first** — clamp() fluid type, no overflow
 8. ✓ **prefers-reduced-motion saygısı**
