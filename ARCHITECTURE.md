@@ -1,486 +1,235 @@
 # ARCHITECTURE — The House of Anatolia
 
-> **Teknik mimari, veritabanı şeması, dosya yapısı ve veri akışları.**
+> **Teknik mimari (2026-05-08 güncel)**: stack, deploy pipeline, plugin envanteri, veritabanı şeması ve veri akışları.
 
 ---
 
 ## 🏗️ Teknoloji Stack'i
 
 ```
-Frontend:  Vanilla HTML + CSS + JavaScript (ES Modules)
-           Supabase JS Client (esm.sh CDN)
-           Google Fonts (Cormorant Garamond + Inter)
+Frontend:    Vanilla HTML + CSS + ES Modules (build step yok)
+Tipografi:   Plus Jakarta Sans (body) + Cormorant Garamond (display)
+             Google Fonts CDN, swap display
 
-Backend:   Supabase (PostgreSQL + Auth + Storage + RLS)
+Backend:     Supabase (PostgreSQL + Auth + Storage + RLS)
+             URL: https://owcgcyvgibyawxfxwlbn.supabase.co
 
-Deploy:    Henüz yapılmadı (Netlify planı)
+Hosting:     Netlify (Production CDN, edge cached)
+             URL: https://house-of-anatolia.netlify.app
 
-CDN:       https://esm.sh/@supabase/supabase-js@2
+CI/CD:       GitHub Actions (.github/workflows/deploy.yml)
+             Her main branch push → otomatik Netlify deploy
+             Build süresi ~1.5 dakika
 
-Build:     YOK — Tüm kod tek HTML dosyasında, build step yok
+Repo:        github.com/ataabeeyzaa/the-house-of-anatolia (private)
+
+CDN:         https://esm.sh/@supabase/supabase-js@2 (Supabase client)
+             https://fonts.googleapis.com (fonts)
 ```
 
-**Karar:** Next.js / React kullanılmadı çünkü site **vitrin niteliğinde** ve build-step gerektirmeyen bir yaklaşım daha uygun. Tüm ağırlık Supabase'de.
+**Karar:** Build step yok çünkü vitrin sitesi. Tüm CSS+JS HTML içinde inline. Performance edge cached + minify Netlify'dan otomatik.
 
 ---
 
-## 📂 Dosya Yapısı (Detaylı)
+## 🚀 Deploy Pipeline
 
-### `index_supabase.html` (~2478 satır, 173 KB)
-Ana sayfa. İçerdikleri:
-- HTML: navbar, hero (sade), map-section, hakkımızda, GI tanımı, iletişim, footer
-- CSS: tüm stiller `<style>` içinde (~1200 satır)
-- JS: 2 ayrı `<script type="module">` bloğu
-  1. UX layer (loader, cursor, scroll reveal, smooth scroll)
-  2. Supabase data layer + i18n + map interaction + page view tracker
+```
+Lokal → git push origin main → GitHub Actions tetikleniyor →
+  └─ npx netlify-cli@latest deploy --prod (NETLIFY_AUTH_TOKEN secret ile)
+      └─ Netlify CDN edge → site canlıda
+```
 
-### `product.html` (~1783 satır, 84 KB)
-Ürün detay sayfası. İçerdikleri:
-- Hero (ürün adı, hero badge, hero subtitle)
-- Ürün bölümleri (parts) — kart layout
-- Galeri (lightbox)
-- Kullanım adımları
-- Talep formu (Supabase + FormSubmit dual)
-- 2 script bloğu (i18n + form + galeri logic)
+### GitHub Secrets (kayıtlı)
+- `NETLIFY_AUTH_TOKEN` — Production CI/CD token (1 yıl, 2027-05-08'e kadar geçerli)
+- `NETLIFY_SITE_ID` — `6353f35a-2af2-4c3d-872e-438e4368dc35`
 
-### `admin_yeni_urun_duzeltilmis_v2.html` (~4810 satır, 168 KB)
-Admin paneli. **TEK SAYFA** — login + dashboard + tüm CRUD'lar aynı dosyada.
-Kategoriler:
-- Auth: login, logout, brute force, idle timeout
-- City CRUD (TR/EN tabs)
-- Product CRUD (TR/EN tabs, 6 EN alanı)
-- Product sub-content: parts, usage_steps, gallery, options, packages, weights (hepsi TR/EN tabs)
-- Site settings + homepage_sections
-- Requests (read-only, status update)
-- Newsletter subscribers (read + toggle + delete + CSV export)
-- Page views analytics (4 stat + 30 günlük chart + breakdowns)
-- Audit log (otomatik, her action'da)
-
-### `gizlilik.html`, `kullanim.html`, `cerez.html`
-Yasal sayfalar. Static HTML, koyu lüks tasarım.
-Placeholder'lar: `[ŞİRKET ADI]`, `[VERGİ NO]`, `[MERSİS NO]`, `[ADRES]`, `[TELEFON]`
-`<meta name="robots" content="noindex">` — Google'a indekslenmesin.
-
-### `supabase_schema_v2_fixed.sql`
-İlk DB şeması. **Referans dosya** — şu an aktif değil. Tüm yapı zaten Supabase'de.
+### Manual Deploy (gerekirse)
+```bash
+npx netlify-cli deploy --prod --dir . --auth $TOKEN --site $SITE_ID
+```
 
 ---
 
-## 🗄️ Veritabanı Şeması
+## 🔌 Plugin / MCP Envanteri
 
-### `cities`
-```sql
-id uuid PK
-name text NOT NULL
-name_en text
-plate_code text NOT NULL
-svg_id text NOT NULL  -- TR06, TR34 gibi (haritadaki path id)
-sort_order int
-is_active bool         -- Hover gösterilir mi?
-is_clickable bool      -- Ürün sayfasına gider mi?
-created_at, updated_at timestamptz
+**Toplam: 18 Claude Code plugin + 2 MCP server**
+
+### Marketplaces (3 adet)
+1. `claude-code-plugins` (anthropics/claude-code) — 4 plugin
+2. `claude-plugins-official` (anthropics/claude-plugins-official) — 12 plugin
+3. `superpowers-marketplace` (obra/superpowers-marketplace) — 2 plugin
+
+### Plugin Listesi
+| Plugin | Kaynak | Kullanım |
+|---|---|---|
+| frontend-design | claude-code-plugins | UI/UX redesign skills |
+| code-review | claude-code-plugins | Code review workflow |
+| feature-dev | claude-code-plugins | Feature development planning |
+| security-guidance | claude-code-plugins | Security best practices |
+| superpowers (5.1.0) | superpowers-marketplace | TDD, debugging, brainstorming |
+| claude-session-driver | superpowers-marketplace | Session management |
+| chrome-devtools-mcp | claude-plugins-official | Real Chrome browser automation |
+| claude-code-setup | claude-plugins-official | Setup helpers |
+| claude-md-management | claude-plugins-official | CLAUDE.md tooling |
+| code-simplifier | claude-plugins-official | Code refactoring |
+| context7 | claude-plugins-official | Library docs (MCP) |
+| csharp-lsp | claude-plugins-official | C# LSP (bu projede gerekli değil) |
+| playwright | claude-plugins-official | E2E testing (MCP) |
+| pr-review-toolkit | claude-plugins-official | PR review |
+| pyright-lsp | claude-plugins-official | Python LSP |
+| serena | claude-plugins-official | Code analysis |
+| skill-creator | claude-plugins-official | Custom skill creation |
+| supabase | claude-plugins-official | Supabase plugin |
+
+### MCP Servers (config: `~/.claude.json`)
+1. **supabase** — read-only mode, `--project-ref=owcgcyvgibyawxfxwlbn`
+2. **chrome-devtools-mcp** — browser automation tools (yeni session'da aktif)
+
+---
+
+## 📂 Dosya Yapısı (detay)
+
+| Dosya | Boyut yaklaşık | İçerik |
+|---|---|---|
+| `index.html` | ~2700 satır, 200 KB | Ana sayfa: navbar, hero, harita, hakkımızda, iletişim, footer + Supabase data layer + i18n + sparkle effect |
+| `product.html` | ~1700 satır, 80 KB | Ürün detay + talep formu (Supabase + FormSubmit dual) |
+| `admin.html` | ~4800 satır, 168 KB | Tek-sayfa admin paneli + paket dead code |
+| `gizlilik.html` | ~360 satır | KVKK skeleton, 5 placeholder |
+| `kullanim.html` | ~225 satır | Terms skeleton, 7 placeholder |
+| `cerez.html` | ~210 satır | Cookie policy (placeholder yok) |
+| `supabase_schema_v2_fixed.sql` | ~55 KB | Referans şema (DB'de çalıştırılan ilk versiyondan) |
+| `assets/` | 18 dosya, 3.4 MB | Logo, safran görselleri, galeri |
+| `.github/workflows/deploy.yml` | 25 satır | Auto-deploy workflow |
+| `.claude/launch.json` | 9 satır | Preview server config |
+
+---
+
+## 🗄️ Veritabanı Şeması (değişmedi, 14 tablo)
+
+`cities`, `products`, `product_parts`, `usage_steps`, `gallery_images`,
+`product_options`, `package_options` (artık UI'da kullanılmıyor),
+`weight_options`, `homepage_sections`, `site_settings`,
+`requests` (talepler, honeypot+rate limit+sanitize trigger),
+`admins` (full_name kolonu NOT NULL — yeni admin eklerken dikkat!),
+`admin_audit_log`, `newsletter_subscribers`, `page_views`.
+
+### `admins` tablosu — DİKKAT
+```
+id          uuid (gen_random_uuid)
+user_id     uuid → auth.users.id (FK, nullable)
+full_name   text NOT NULL  ← **yeni admin eklerken zorunlu**
+email       text NOT NULL
+role        text DEFAULT 'admin'
+is_active   boolean DEFAULT true
+created_at  timestamptz DEFAULT now()
+updated_at  timestamptz
 ```
 
-### `products`
+### Yeni admin ekleme SQL
 ```sql
-id uuid PK
-city_id uuid FK → cities.id
-slug text UNIQUE NOT NULL  -- 'karabuk-safrani'
-name text NOT NULL
-name_en text
-short_name text
-short_name_en text
-hero_badge text
-hero_badge_en text
-hero_title text NOT NULL
-hero_title_en text
-hero_subtitle text
-hero_subtitle_en text
-hero_left_text text
-hero_right_text text
-mini_image text         -- Harita üzeri tooltip görseli
-hero_image text         -- Ürün sayfası ana görsel
-parts_main_image text   -- Bölümler ana görseli
-meta_description text   -- SEO
-meta_description_en text
-is_active bool
-sort_order int
-created_at, updated_at
+insert into public.admins (user_id, email, full_name)
+select u.id, u.email, 'Tam İsim'
+from auth.users u
+where u.email = 'email@example.com'
+  and not exists (select 1 from public.admins a where a.user_id = u.id);
 ```
 
-### `product_parts`
-```sql
-id uuid PK
-product_id uuid FK
-title text NOT NULL
-title_en text
-subtitle text
-subtitle_en text
-description text NOT NULL
-description_en text
-image text
-sort_order int
-is_active bool
-```
-
-### `usage_steps`
-```sql
-id uuid PK
-product_id uuid FK
-title text NOT NULL
-title_en text
-description text NOT NULL
-description_en text
-sort_order int
-is_active bool
-```
-
-### `gallery_images`
-```sql
-id uuid PK
-product_id uuid FK
-image text NOT NULL
-caption text
-caption_en text
-sort_order int
-is_active bool
-```
-
-### `product_options`
-```sql
-id uuid PK
-product_id uuid FK
-name text NOT NULL
-name_en text
-description text
-description_en text
-image text
-sort_order int
-is_active bool
-```
-
-### `package_options`
-```sql
-id uuid PK
-product_id uuid FK
-name text NOT NULL
-name_en text
-description text
-description_en text
-image text
-sort_order int
-is_active bool
-```
-
-### `weight_options`
-```sql
-id uuid PK
-product_id uuid FK
-label text NOT NULL  -- "1 gr", "5 gr", "1 kg"
-label_en text
-sort_order int
-is_active bool
-```
-
-### `homepage_sections`
-```sql
-id uuid PK
-section_key text UNIQUE  -- 'about', 'vision', 'contact'
-title, title_en text
-subtitle, subtitle_en text
-content, content_en text
-image text
-button_text, button_text_en text
-button_link text
-sort_order int
-is_active bool
-```
-
-### `site_settings`
-```sql
-id uuid PK
-setting_key text UNIQUE
-setting_value text
-description text
-```
-
-### `requests` (talep formundan gelenler)
-```sql
-id uuid PK
-product_id uuid FK
-name text NOT NULL
-email text NOT NULL
-phone text
-company text
-country text
-city text
-quantity int
-package_option_id uuid FK
-weight_option_id uuid FK
-product_option_id uuid FK
-message text
-website text                -- HONEYPOT (bot doldurur)
-status text DEFAULT 'new'   -- 'new', 'in_progress', 'replied', 'archived'
-metadata jsonb              -- IP/UA artık TRIGGER ile null'lanıyor
-created_at timestamptz
-
--- Güvenlik:
-TRIGGER sanitize_request_metadata: ip/UA'yı null'lar, status='new', honeypot doluysa hata
-TRIGGER rate_limit: aynı email'den 3'ten fazla talep/dakika engelli
-RLS: anonim INSERT (validation ile), admin SELECT/UPDATE
-```
-
-### `admins`
-```sql
-id uuid PK = auth.users.id
-email text UNIQUE
-created_at, updated_at
-```
-
-### `admin_audit_log`
-```sql
-id uuid PK
-admin_id uuid FK → admins.id
-action text          -- 'create', 'update', 'delete', 'login', vb.
-table_name text
-record_id text
-record_summary text
-metadata jsonb
-created_at timestamptz
-```
-
-### `newsletter_subscribers`
-```sql
-id uuid PK
-email text NOT NULL  -- UNIQUE on lower(email) where is_active=true
-language text        -- 'tr' or 'en'
-source text          -- 'footer', 'product_page', vb.
-is_active bool DEFAULT true
-unsubscribed_at timestamptz
-created_at timestamptz
-
--- Güvenlik:
-TRIGGER sanitize: lowercase email, force null IP/UA
-TRIGGER rate_limit: 3/email/5dk
-RLS: anyone INSERT (regex validation), admin SELECT/UPDATE/DELETE
-GRANT: insert anon+authenticated, select+update+delete authenticated
-```
-
-### `page_views`
-```sql
-id uuid PK
-page_path text NOT NULL  -- '/' veya '/product/karabuk-safrani'
-page_title text
-language text             -- 'tr' or 'en'
-referrer text             -- SADECE DOMAIN (privacy)
-device_type text          -- 'mobile', 'tablet', 'desktop'
--- IP YOK (KVKK)
-created_at timestamptz
-
--- Güvenlik:
-TRIGGER sanitize: max-length kontrolü, default values, force created_at=now()
-RLS: anyone INSERT (validation), admin SELECT/DELETE
-GRANT: insert anon+authenticated, select+delete authenticated
-INDEX: created_at DESC, page_path, language
-```
+Detay: HANDOFF.md eski sürümlerinde + admins tablosunda zaten kayıtlı (Beyza Ata + The House of Anatolia)
 
 ---
 
 ## 🔄 Veri Akışları
 
-### A) Sayfa açılışı (index)
-```
-1. HTML yüklenir
-2. Page loader gösterilir
-3. <script module> çalışır:
-   a. Supabase client init
-   b. i18n init (URL ?lang= → localStorage → browser → 'tr')
-   c. Şehir verileri çekilir (cities → SVG path'lerine eşlenir)
-   d. Aktif ürünler çekilir (products + cities join)
-   e. Map tooltip data hazırlanır
-4. Page loader fade-out
-5. Hero animasyonları başlar
-6. Page view tracker (idle callback) → page_views.insert
-```
+### Talep Formu (product.html)
+1. Form submit → Supabase `requests` tablosuna INSERT
+2. **payload:** product_id, city_id, product_option_id, weight_option_id, full_name, email, phone, message, vb.
+3. ⚠️ **package_option_id artık gönderilmiyor** (paket seçimi kaldırıldı)
+4. Honeypot (`website` field) DB trigger ile reddediliyor
+5. Rate limit: 3/email/dakika
+6. Paralelde FormSubmit.co'ya da gönderilir (mail fallback)
 
-### B) Ürün talebi (product.html form submit)
-```
-1. Kullanıcı formu doldurur
-2. Honeypot ('website' alanı) boş mu? → değilse JS'de stop
-3. Validate (zorunlu alanlar, email regex)
-4. Supabase.from('requests').insert(...)
-   → DB trigger:
-     - sanitize_metadata (IP/UA null)
-     - rate_limit check (3/dk/email)
-     - validate honeypot (website=='' olmalı)
-   → INSERT başarılı veya hata
-5. Paralel: FormSubmit.co'ya da gönderilir (fallback mail)
-6. Success modal göster
-```
+### Newsletter (footer)
+1. Form submit → `newsletter_subscribers` INSERT
+2. Lowercase + null IP/UA (sanitize trigger)
+3. Rate limit: 3/email/5dk
 
-### C) Newsletter signup (footer)
-```
-1. Kullanıcı email yazar, submit
-2. JS validate (regex)
-3. Supabase.from('newsletter_subscribers').insert({email, language, source: 'footer'})
-   → DB trigger:
-     - sanitize: lowercase, force null IP/UA
-     - rate_limit: 3/email/5dk
-   → Conflict (zaten kayıtlı) durumunda 23505 → "Bu email zaten abone"
-4. Success message
-```
+### Admin Login
+1. Supabase Auth signInWithPassword
+2. `is_admin()` RPC çağrılır (admins tablosunda user_id eşleşiyor mu)
+3. Idle timeout 15dk, brute force lockout 5×
 
-### D) Admin login
-```
-1. Brute force check (localStorage'da count) → 5+ ise lockout
-2. Supabase.auth.signInWithPassword
-3. Session token alınır
-4. is_admin() RPC çağrılır → true ise dashboard, değilse logout
-5. Idle timer başlar (15dk)
-6. Audit log: action='login'
-```
-
-### E) Page view tracking
-```
-1. requestIdleCallback (sayfa yüklemeyi bloklamaz)
-2. sessionStorage check (30dk dedup)
-3. Device type detection (UA regex)
-4. Referrer parse (sadece hostname)
-5. Supabase.from('page_views').insert(...)
-6. Hata = silently swallow
-```
+### Page Tracking
+1. requestIdleCallback ile sayfa yüklendiğinde `page_views` INSERT
+2. 30 dakika sessionStorage dedup
+3. Device type (mobile/tablet/desktop), referrer (sadece hostname)
+4. **IP saklanmıyor** (KVKK uyum)
 
 ---
 
-## 🌍 i18n Sistemi
+## 🎨 Frontend Mimarisi (yeni)
 
-### Mimari
-```javascript
-window.HA_I18N = {
-  current: 'tr' | 'en',
-  dict: { tr: {...}, en: {...} },
-  apply: function() { ... }, // Tüm data-i18n elementlerini günceller
-  toggle: function() { ... }
+### Tipografi
+```css
+--font-serif: 'Cormorant Garamond', serif;       /* Display, italic accents */
+--font-sans:  'Plus Jakarta Sans', sans-serif;   /* Body */
+font-feature-settings: "ss01","cv11","liga","dlig","kern";
+```
+
+### Atmospheric Layer
+```css
+body::after {
+  position: fixed; inset: 0;
+  background: SVG fractalNoise (data URL);
+  opacity: 0.035;
+  mix-blend-mode: overlay;
 }
 ```
 
-### Kullanım
-```html
-<h1 data-i18n="hero_title">Lezzetin Kökenine Yolculuk</h1>
-<input placeholder="ara" data-i18n="search_placeholder" data-i18n-attr="placeholder">
+### Sparkle Effect (gold sim)
+```js
+// Map alanında periyodik random spawn
+// 3px altın nokta + 4-yön ışın saçılması (pseudo elements)
+// scale 0→1.3→1→0.4 + rotate 0→135deg + drift -18px
+// Spawn 350ms aralıkla, her sparkle 1.6-3.8s yaşıyor
 ```
 
-### Dil Tespiti Sırası
-1. URL query param: `?lang=en`
-2. localStorage: `ha_lang`
-3. Browser: `navigator.language` (`tr-TR` ise tr)
-4. Default: `tr`
+### Custom Scrollbar
+```css
+* { scrollbar-width: thin; scrollbar-color: gold/dark; }
+*::-webkit-scrollbar-thumb { gold gradient; }
+```
 
-### Veritabanı Fallback
-EN kolonu null veya boş ise TR gösterilir. Kasıtlı.
+### Mobile Breakpoints
+- `<480px` — extra small (font sizes, container 16px padding, navbar 64px)
+- `<640px` — small (footer 1-col stack, contact list dikey)
+- `<760px` — medium (about narrative paragraf scaling)
+- `<980px` — tablet (asymmetric grids → 1fr, map-branding static)
+- `<1180px` — large tablet (about-grid → 1fr)
+- `<1600px` — ultra-wide (container padding 80px)
 
 ---
 
-## 🔐 Güvenlik Katmanları
+## 🔐 Güvenlik (değişmedi)
 
-### Supabase Tarafı
-1. **RLS herkes için aktif** — anon ve authenticated rolleri için ayrı politikalar
-2. **Public INSERT** sadece şu tablolarda: `requests`, `newsletter_subscribers`, `page_views`
-3. **SELECT/UPDATE/DELETE** çoğunlukla `is_admin()` fonksiyonuyla kısıtlı
-4. **SECURITY DEFINER fonksiyonlar** `set search_path = public` ile sertleştirilmiş (privilege escalation önleme)
-5. **Sanitize trigger'ları** her INSERT'te:
-   - IP/UA null'lanır
-   - Length kontrolü
-   - Bot tespit (honeypot)
-   - Rate limit
-   - `created_at` client'tan kabul edilmez
-
-### Frontend Tarafı
-1. **Anon Key public** ama RLS koruması var
-2. **escapeHtml** her dynamic HTML insert'inde
-3. **Honeypot field** form'larda
-4. **Admin panelde:**
-   - Brute force protection
-   - Idle timeout
-   - Custom modal'lar (window.confirm yerine — XSS güvenliği)
-5. **Storage bucket:** SVG yüklenmiyor (XSS riski)
-
-### Network
-- Tüm istekler HTTPS
-- Supabase'e doğrudan, proxy yok
-- Anahtarlar HTML'de görünür ama anon key zaten public olabilir
-
----
-
-## 🎨 Frontend Mimarisi
-
-### Custom Cursor
-```javascript
-.ha-cursor — body üstünde sabit, mix-blend-mode:difference
-JS lerp (linear interpolation) ile mouse takibi
-Sadece interaktif öğelerin üstündeyken büyür
-Touch device'larda gizlidir
-```
-
-### Page Loader
-```javascript
-.page-loader — sayfa açılışı sırasında gold ring
-DOMContentLoaded + 800ms delay → fade out
-```
-
-### Scroll Reveal
-```javascript
-.reveal sınıfı + IntersectionObserver
-threshold: 0.15
-.reveal.in-view → opacity 0→1, translateY 30→0
-.delay-1, .delay-2, .delay-3 sınıflarıyla cascading
-```
-
-### Smooth Scroll
-```javascript
-Tüm a[href^="#"] linkleri JS ile preventDefault + scrollTo({ behavior: 'smooth' })
-```
-
----
-
-## 🔧 Genişletme Noktaları
-
-### Yeni Ürün Ekleme
-Admin panelden tamamen yapılabilir. Slug uyarısı:
-- `karabuk-safrani` → değişmez (URL stability)
-- Yeni ürün → admin manuel slug girer (kebab-case)
-- Slug çakışması: DB UNIQUE constraint hatası verir
-
-### Yeni Tablo Ekleme
-1. SQL hazırla (RLS, trigger, grant)
-2. Kullanıcıya ver, çalıştırsın
-3. Frontend'e Supabase query ekle
-4. Admin paneline CRUD UI ekle (TR/EN tabs gerekirse)
-
-### Yeni Dil Ekleme
-1. DB kolonları: `_de`, `_fr` gibi (mevcut pattern)
-2. i18n dict'e dil ekle
-3. Admin panele yeni tab eklemek için `langTabsHtml()` fonksiyonunu güncelle
-
-### SMTP'ye Geçiş (Newsletter)
-- Resend.com hesabı + DKIM/SPF kayıtları
-- Supabase Edge Function: tüm aktif aboneleri çek + Resend API çağır
-- Admin panelde "Bülten Yaz" UI
+- RLS tüm tablolarda aktif
+- Anon key public ama RLS koruması
+- Honeypot + sanitize trigger + rate limit
+- SECURITY DEFINER fonksiyonlar `set search_path = public`
+- IP saklanmıyor (KVKK)
+- Storage SVG yasak (XSS)
 
 ---
 
 ## 🧪 Test Stratejisi
 
-Şu an **otomatik test yok**. Manuel test:
-1. Form submit (gerçek email ile)
-2. Newsletter signup (yeni email)
-3. Admin login + her CRUD
-4. TR/EN switch (her sayfada)
-5. Mobile responsive (DevTools)
-6. `prefers-reduced-motion` (animasyonlar duruyor mu?)
-7. Slow network (Chrome DevTools throttle)
+**Manuel:**
+- Form submit (gerçek email)
+- Newsletter signup
+- Admin login + CRUD
+- TR/EN switch
+- Mobile responsive (DevTools + gerçek telefon)
+- Custom cursor desktop, touch device
 
-### Ileride Test Eklemek
-- Playwright (e2e)
-- Vitest + Testing Library (component test — ama component yok şu an)
-- pgTAP (Supabase trigger testleri)
+**Yeni session'da otomatik:**
+- `chrome-devtools-mcp` ile gerçek Chrome browser test
+- `playwright` plugin ile E2E
