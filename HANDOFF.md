@@ -1,210 +1,208 @@
 # HANDOFF — The House of Anatolia
 
-> Bu doküman projenin **2026-05-08 itibarıyla güncel durumunu** ve yeni Claude Code sohbetine geçişte gerekli tüm bağlamı içerir.
+> **2026-05-08 güncel** — projenin tam haritası, yeni Claude Code sohbetine geçişte gerekli tüm bağlam.
 
 ---
 
-## 📋 Proje Özeti
+## Proje Özeti
 
 **Marka:** The House of Anatolia
 **Slogan (TR):** Lezzetin *Kökenine* Yolculuk
 **Slogan (EN):** A Journey to the *Roots* of Taste
 **Konsept:** Türkiye'nin coğrafi işaretli (GI) ürünlerini üreticisinden tüketiciye ulaştıran vitrin sitesi.
-**Şu anki ürün:** Safranbolu Safranı (Karabük) — slug: `karabuk-safrani` (URL stabilitesi için değişmedi)
+**Şu anki ürün:** Safranbolu Safranı (Karabük) — slug: `karabuk-safrani` (URL stability — değişmedi)
 **Diller:** TR (varsayılan) + EN
 **Estetik:** Editorial Heritage — refined modernism (Aesop / Hermès / Le Labo benzeri)
 
 ---
 
-## 🌐 Canlı Site
+## Canlı Site
 
-| Bileşen | URL / Adres |
+| Bileşen | URL |
 |---|---|
-| **Production site** | https://house-of-anatolia.netlify.app |
-| **Ürün sayfası** | /product.html?slug=karabuk-safrani |
-| **Admin paneli** | /admin.html |
-| **Yasal sayfalar** | /gizlilik.html, /kullanim.html, /cerez.html |
-| **GitHub repo (private)** | https://github.com/ataabeeyzaa/the-house-of-anatolia |
-| **Netlify dashboard** | https://app.netlify.com/projects/house-of-anatolia |
-| **Supabase project** | https://supabase.com/dashboard/project/owcgcyvgibyawxfxwlbn |
+| Production | https://house-of-anatolia.netlify.app |
+| Anasayfa | https://house-of-anatolia.netlify.app/ |
+| **Ürünler** (yeni) | https://house-of-anatolia.netlify.app/products.html |
+| Ürün detayı | /product.html?slug=karabuk-safrani |
+| Admin paneli | /admin.html |
+| Yasal sayfalar | /gizlilik.html, /kullanim.html, /cerez.html |
+| robots.txt | /robots.txt |
+| sitemap.xml | /sitemap.xml |
+| GitHub repo (private) | https://github.com/ataabeeyzaa/the-house-of-anatolia |
+| Netlify dashboard | https://app.netlify.com/projects/house-of-anatolia |
+| Supabase project | https://supabase.com/dashboard/project/owcgcyvgibyawxfxwlbn |
 
 ---
 
-## 🗂️ Dosya Yapısı
+## Dosya Yapısı
 
 ```
 /
-├── index.html                       ← Ana sayfa (eski: index_supabase.html, rename edildi)
-├── product.html                     ← Ürün detay + talep formu
-├── admin.html                       ← Admin panel (eski: admin_yeni_urun_duzeltilmis_v2.html)
-├── gizlilik.html                    ← KVKK skeleton (placeholder dolacak)
-├── kullanim.html                    ← Terms skeleton (placeholder dolacak)
-├── cerez.html                       ← Cookie policy
+├── index.html                       ← Anasayfa: navbar, slogan, harita (sparkle arkada), KEŞFET, marquee strip, hakkımızda, contact yatay 2-col, footer
+├── product.html                     ← Ürün detay + talep formu (Supabase + FormSubmit)
+├── products.html                    ← Ürünler vitrini (YENİ — Supabase fetch is_active=true filter)
+├── admin.html                       ← Admin panel (paket CRUD silindi, ürün/şehir/galeri CRUD aktif)
+├── gizlilik.html, kullanim.html, cerez.html  ← Yasal sayfalar (placeholder dolacak)
+├── robots.txt                       ← SEO crawl rules (admin disallow)
+├── sitemap.xml                      ← 6 URL + TR/EN hreflang
 ├── supabase_schema_v2_fixed.sql     ← İlk şema (referans)
-├── assets/                          ← 18 dosya (logo, safran görselleri, galeri)
-│   ├── logo_house_of_anatolia_transparent.png
-│   ├── safran-cicegi.png, safran_iplik.png, safran_soganli.png, vb.
-│   └── resim1-6.jpg (galeri)
-├── .github/workflows/deploy.yml     ← GitHub Actions auto-deploy (her push'ta Netlify)
-├── .claude/launch.json              ← Claude Code preview server config
-├── .gitignore                       ← .netlify, .claude, OS junk
+├── assets/                          ← 18 dosya, 3.4 MB
+├── .github/workflows/deploy.yml     ← GitHub Actions auto-deploy
+├── .claude/launch.json              ← Claude Code preview config
+├── .claude/mockups/                 ← 6 frontend-design concept (gitignore'da)
 
 DOKÜMANTASYON:
-├── HANDOFF.md                       ← Bu dosya (ana belge)
-├── ARCHITECTURE.md                  ← Teknik mimari, DB şema, akışlar
-├── DESIGN_SYSTEM.md                 ← Renkler, fontlar, tasarım rehberi
-├── KNOWN_ISSUES.md                  ← Yapılmamış işler, sınırlamalar
-└── FIRST_PROMPT.md                  ← Yeni Claude Code sohbeti için ilk prompt
+├── HANDOFF.md           ← Bu dosya
+├── ARCHITECTURE.md      ← Stack, deploy, plugin envanteri, DB şema
+├── DESIGN_SYSTEM.md     ← Renk + tipografi + pattern'ler + yasaklar
+├── KNOWN_ISSUES.md      ← Kalan işler, sınırlamalar
+└── FIRST_PROMPT.md      ← Yeni Claude Code sohbeti için ilk prompt
 ```
 
 ---
 
-## 🔌 Backend — Supabase (değişmedi)
+## Backend — Supabase
 
 **URL:** `https://owcgcyvgibyawxfxwlbn.supabase.co`
-**Anon Key:** HTML dosyalarında tanımlı, RLS koruması aktif
-**14 tablo + Storage bucket** `product-assets` (5MB limit, SVG yasak)
-
+**Anon Key:** HTML'lerde tanımlı (public, RLS korumalı)
+**14 tablo + Storage bucket** `product-assets` (5MB, SVG yasak)
 Detay: ARCHITECTURE.md
 
 ---
 
-## ✅ Yapılanlar — 20 Commit Geçmişi
+## Yapılanlar (kronolojik)
 
-### Altyapı
-1. GitHub repo (private) kuruldu, gh CLI ile auth
-2. Netlify deploy yapıldı (`house-of-anatolia.netlify.app`)
-3. **GitHub Actions auto-deploy** workflow kuruldu (her push'ta Netlify'a deploy)
-4. `index_supabase.html` → `index.html`, `admin_..._v2.html` → `admin.html` rename
-5. Duplicate dosyalar silindi
-6. `assets/` klasörü repo'ya commit edildi (18 dosya, 3.4 MB)
-7. **Supabase MCP server** kuruldu (read-only, `~/.claude.json`'da)
-8. **18 plugin** yüklendi (frontend-design, superpowers, chrome-devtools-mcp, playwright, context7, vb.)
-9. Token rotation: yeni Netlify Production CI/CD token, eski Supabase token revoke edildi
+### Phase 0 — Altyapı (önceki sohbet)
+- GitHub private repo + Netlify deploy + GitHub Actions CI/CD
+- 18 plugin + Supabase MCP + chrome-devtools-mcp
+- Inter → Plus Jakarta Sans + Cormorant Garamond
+- Reddedilen denemeler temizlendi (KÜNYE, cert-badge, stats bar, EST badge, cinematic hero)
+- Atmospheric layer (SVG noise) + custom scrollbar + hover refinements
 
-### Tasarım — index.html
-1. Cinematic hero (dağ silüetli) **product.html'den kaldırıldı**
-2. Slogan'a italic gold accent: "Lezzetin *Kökenine* Yolculuk"
-3. **Tipografi yenilendi:** Inter → **Plus Jakarta Sans** (tüm 6 HTML)
-4. Cormorant Garamond display fontu korundu (italic ligature aktif)
-5. Map section sadeleştirildi: gi-definition kaldırıldı, "discover-block" wrapper'da kompakt
-6. Hakkımızda: asymmetric grid + KÜNYE kartı **denendi → kullanıcı reddetti → kaldırıldı**
-7. Coğrafi İşaret rozet section **denendi → kullanıcı reddetti → kaldırıldı**
-8. Hero stats bar (1 ürün/1 yöre/1 GI) **denendi → kullanıcı reddetti → kaldırıldı**
-9. EST 2026 — ANATOLIA badge **denendi → kullanıcı reddetti → kaldırıldı**
-10. **Contact section** yeniden tasarım: minimal centered card + key-value list (eski 3-sütun çirkindi)
-11. **Footer 4-sütun yapı:** Brand (logo görseli) / Sayfalar / Yasal / İletişim
-12. **Atmospheric layer:** SVG noise overlay (film grain, %3.5 opacity)
-13. **Custom scrollbar:** thin gold gradient
-14. **Hover refinements:** nav underline expand-collapse, focus rings, link transitions
-15. **Mobile responsive:** slogan harita üstüne binmiyor, footer kompakt, <480px breakpoint
-16. **Gold sparkle "sim" effect:** map alanında periyodik altın parlayan noktalar (✦)
-17. **Paket Seçimi tamamen kaldırıldı** (product.html form + admin.html panel)
+### Phase 1 — PR #1 (SEO + Cleanup + A11y)
+- **SEO altyapısı:** robots.txt + sitemap.xml + JSON-LD (Organization, WebSite, Product, BreadcrumbList) + canonical + product.html title fix ("Ürün Detayı" → "Safranbolu Safranı — The House of Anatolia")
+- **Dead code temizliği (~360 satır):** admin.html paket CRUD JS + .package-edit-panel CSS + index.html cert-* / asymmetric about-grid / hero-grid/lines/dots/mountains + 24 dead i18n key × 2 dil
+- **A11y skip-to-main:** index/product/admin'e `<a class="skip-link">` + `id="main-content"` (WCAG 2.4.1)
+- Lighthouse: **A11y 98 / SEO 92 / Best Practices 96 / Agentic 100**
+
+### Phase 2 — PR #2 (Sparkle iter 1 + contact + footer)
+- Sparkle yan-drift (translateX) → minik statik dots map arkasında (z-index:0)
+- Contact card border + radius + bg gradient
+- Footer grid 1.4/1/1/1.2 → 1.8/1/1/1.4
+- Footer h4 Cormorant 1.3rem → Plus Jakarta 0.74rem uppercase
+
+### Phase 3 — PR #3 (Sparkle removal + Products sayfası)
+- Sparkle TAMAMEN kaldırıldı (kullanıcı isteği — harita üzerinde de altında da kalmasın)
+- Yeni `products.html` (~280 satır): Supabase fetch + TR/EN i18n + JSON-LD CollectionPage + hreflang + mobile responsive + skip-to-main
+- Navbar `nav_products` link href `#home` → `products.html`, text "Ürün Haritası" → "Ürünler"
+- Footer Sayfalar listesine "Ürünler" eklendi
+- sitemap.xml'e `/products.html` URL eklendi
+
+### Phase 4 — PR #4 (Sparkle re-add + Map section + Contact)
+- **Sparkle GERİ EKLENDİ ama harita ARKASINDA:** `.hero-blossom-layer{z-index:0}`, `.map-wrap > svg{z-index:1}` — opak il alanlarında görünmez, transparent kenarlarda görünür. `@keyframes sparkle-twinkle` rotate kaldırıldı, **DİKEY yukarı translateY -36px** (yana hareket yok).
+- **Map section yenilendi:**
+  - 4 future-pill HTML + `pill_1-4` i18n keys silindi
+  - `.eyebrow::after` eklendi → "KEŞFET" iki yanında altın çizgi
+  - city_note kısaltıldı: "Bir ürünün belirli bir yöreye özgü olduğunun resmi belgesidir — başka yerde aynı kalitede üretilemez."
+  - **Yeni `.marquee-strip`** — TV altyazısı tarzı kayan şerit (5 yakında ürün: Kastamonu Sarımsağı, Antep Fıstığı, Trabzon Hamsisi, Maraş Dondurması, Edirne Ciğeri) — 38s linear infinite, ✦ ayraçlı, `i18n marquee_1-5` (TR + EN)
+- **Contact card horizontal 2-sütun:** `max-width: 640 → 1020px`, `grid-template-columns:1fr 1.1fr`, sol başlık+intro / sağ liste, mobile (<820px) fallback
+- **Section spacing:** `.section padding 110px → 80px` (sayfa daha kompakt)
+- **products.html:** `loadProducts` query'e `.eq("is_active", true)` filter + intro paragraf kaldırıldı
 
 ---
 
-## 🎯 Kullanıcı Tercihleri (ÖNEMLİ — değiştirme!)
+## Kullanıcı Tercihleri (ÖNEMLİ — değiştirme!)
 
 ### İletişim Tarzı
 - **Türkçe**, kısa, doğrudan
-- "Salak mısın" gibi sert tepkiler frustrasyon ifadesi — **defensiveness yapma**, somut cevap ver, kanıtla
-- Detaylı teknik açıklama ister ama **uzatma**
+- "Salak mısın" gibi sert tepkiler frustrasyon ifadesi → defensiveness yapma, somut cevap ver, kanıtla (curl + grep ile doğrulama)
+- Detaylı teknik açıklama ister ama uzatma
 
 ### Beğendiği
 - Plus Jakarta Sans + Cormorant Garamond combo
-- İtalik gold accent (zarif vurgu)
+- İtalik gold accent (slogan vurgusu)
 - Koyu zemin + altın aksanlar
 - İnce çizgiler, boşluk hakimiyeti
-- **Gold sparkle "sim" efekti** (map alanında parlayan noktalar)
-- Mini-blossom safran çiçeği — product.html'de aktif
+- **Sparkle (gold sim) — haritanın ARKASINDA, dikey yukarı uçar**
+- **KEŞFET eyebrow'un iki yanında altın çizgi**
+- **Map'in altında kayan şerit** (yakında ürünler)
+- Mini-blossom safran çiçeği (product.html)
+- **Contact horizontal 2-col card**
 
 ### Reddettiği
 - Stats bar 1/1/1 sayım kartları → "ucuz duruyor"
-- KÜNYE bilgi kartı (sticky aside) → "ucuz duruyor"
+- KÜNYE bilgi kartı → "ucuz duruyor"
 - Sertifika rozeti (TPMK) → "ucuz duruyor"
 - EST 2026 — ANATOLIA badge
-- 3-sütun dikey adres/telefon/eposta layout
+- 3-sütun dikey adres/telefon/eposta
 - Cinematic hero (büyük dağ silüetleri)
+- Map'in ÜZERİNDE uçuşan parlak şeyler
 
 ### Karar Verilmiş Kararlar (değiştirme!)
-- Site **alacak kişi için** yapılıyor (Beyza geliştirici, ortak içerik girer)
-- E-ticaret niyeti var ama **şirket kurulmadan satış olmaz**
-- Şu an "talep formlu vitrin" modeli
-- Bilingual: TR + EN
+- Site alacak kişi için yapılıyor (Beyza geliştirici, ortak içerik girer)
+- E-ticaret niyeti var ama **şirket kurulmadan satış olmaz** — şu an "talep formlu vitrin"
+- Bilingual TR + EN
 - Custom cursor: KORUNACAK
-- Slug `karabuk-safrani` DEĞİŞMEYECEK (URL stability)
-- Renk palette değişmeyecek (koyu + altın + krem)
+- Slug `karabuk-safrani` DEĞİŞMEYECEK
+- Renk palette: koyu + altın + krem (başka renk YASAK)
+- Inter / Roboto / Arial / system fonts YASAK
+- Force push YASAK (`--force`, `--force-with-lease` kullanma)
+- `--no-verify` YASAK
+- Push öncesi `git fetch origin main && git rebase origin/main` istisnasız
 
 ---
 
-## ❌ Kalan İşler
+## Kalan İşler (özet)
 
-### 🔴 Yayın Öncesi (kullanıcı yapacak)
-- [ ] **Eski Netlify token revoke** (Authorized applications → Netlify CLI)
-- [ ] **Yasal sayfa placeholder'ları** (12 yer): `[ŞİRKET ADI]`, `[VERGİ NO]`, `[MERSİS NO]`, `[ADRES]`, `[TELEFON]`, `[E-POSTA]`
-- [ ] **Telefon numarası gerçek olsun** (index/product/footer'daki `+90 (5XX) XXX XX XX`)
-- [ ] **Domain alma** (`thehouseofanatolia.com` Cloudflare ~$10/yıl)
-- [ ] **Email Routing** Cloudflare ile `info@thehouseofanatolia.com` aktif
-- [ ] **Admin user oluştur** Supabase Authentication → Users + SQL ile `admins` tablosuna ekle (full_name kolonu zorunlu)
+### P0 (kullanıcı yapacak — yayın öncesi kritik)
+- [ ] Eski Netlify token revoke
+- [ ] Yasal sayfa placeholder'ları (12 yer: ŞİRKET ADI, VERGİ NO, MERSİS, ADRES, TEL, EPOSTA)
+- [ ] Telefon numarası gerçek olsun (+90 5XX XXX XX XX placeholder)
+- [ ] Domain alma (`thehouseofanatolia.com` ~$10/yıl)
+- [ ] Email Routing (Cloudflare)
+- [ ] Admin user oluştur (Supabase Auth + admins tablosu — full_name NOT NULL)
 
-### 🟡 Sonradan
+### P1 (sonradan)
 - [ ] EN içerikleri admin panelden doldur
-- [ ] SEO eklentileri: robots.txt, sitemap.xml, schema.org JSON-LD
-- [ ] Google Search Console verification
-- [ ] Newsletter SMTP (50+ abone olunca Resend + Edge Function)
+- [ ] **Marquee admin entegrasyonu** (Supabase `marquee_items` tablosu + admin CRUD UI — şu an statik)
+- [ ] Newsletter SMTP (50+ abone)
 - [ ] Performance: image lazy loading, font subsetting
 
-### 🟢 Cleanup
-- [ ] Admin.html'de paket CRUD JS dead code (~228 satır): `loadPackageOptions`, `renderPackageEditor`, `savePackageEdit`
-- [ ] DB'de `package_options` tablosu (UI hiç kullanmıyor)
-- [ ] CSS dead code: `.hero-grid`, `.hero-lines`, `.hero-dots`, `.hero-mountains` (eski cinematic hero stilleri)
-- [ ] CSS dead code: `.gold-accent`, `.about-grid`, `.cert-badge`, `.hero-stats` (kaldırılmış elementlerin CSS'i)
+### P2 (cleanup)
+- [ ] CSS dead code: `.future-pill`, `.future-list` (HTML'den silindi ama CSS rule'ları kaldı)
+- [ ] DB'de `package_options` tablosu (UI kullanmıyor)
+
+Detay: KNOWN_ISSUES.md
 
 ---
 
-## 🛠️ Geliştirme Akışı
+## Geliştirme Akışı
 
-### Local Test (Claude Preview)
-- `.claude/launch.json` Python http.server 8080 ile config'lenmiş
-- `preview_start anatolia` ile başlat
+### Local Test
+- `.claude/launch.json` ile Claude Preview otomatik açılıyor
 - Mobil viewport: `preview_resize preset:mobile` (375x812)
-- Inspect/screenshot/console toolu mevcut
 
 ### Git Workflow
-- Her push otomatik Netlify deploy (~1.5 dk)
-- GitHub Actions: `.github/workflows/deploy.yml`
-- Branch: `main` (master'dan rename edildi)
+- Her main push → otomatik Netlify deploy (~1.5 dk)
+- Branch (`claude/...`) → `gh pr create` → review → `gh pr merge --rebase --delete-branch`
 - **Push öncesi:** `git fetch origin main && git rebase origin/main`
-
-### Önemli Komutlar
-```bash
-# Plugin/MCP listele
-npx @anthropic-ai/claude-code plugin list
-npx @anthropic-ai/claude-code mcp list
-
-# Lokal preview
-python -m http.server 8080
-# veya .claude/launch.json üzerinden
-
-# Test commit + push (auto-deploy tetikler)
-git add -A && git commit -m "..." && git push
-```
+- Force push + `--no-verify` YASAK
+- 4 PR mergede tamamlandı (#1, #2, #3, #4)
 
 ---
 
-## 📞 Domain ve Şirket Durumu
+## Domain & Şirket Durumu
 
 | Konu | Durum |
 |---|---|
-| Domain alındı mı? | ❌ `thehouseofanatolia.com` müsait, alınmadı |
-| Şirket kuruldu mu? | ❌ Kurulmadı |
+| Domain | ❌ thehouseofanatolia.com müsait, alınmadı |
+| Şirket | ❌ Kurulmadı |
 | Sanal POS | ❌ Yok |
-| Gıda işletme kayıt | ❌ Yok |
-| KVKK gizlilik politikası | ⚠️ Skeleton hazır, şirket kurulmadan tamamlanamaz |
+| KVKK | ⚠️ Skeleton hazır, şirket kurulmadan tamamlanamaz |
 
 ---
 
-## 🔑 Erişim Bilgileri (Kullanıcı tarafında)
+## Erişim Bilgileri (kullanıcı tarafında)
 
 - **GitHub:** ataabeeyzaa
 - **Netlify:** beyzata37@gmail.com
@@ -214,15 +212,16 @@ git add -A && git commit -m "..." && git push
 
 ---
 
-## 🎨 Aesthetic Direction
+## Aesthetic Direction
 
 **"Editorial Heritage — Anatolian terroir meets refined modernism"**
 
-- **Bold color discipline:** koyu zemin + altın + krem, hiçbir başka renk yok
-- **Typography hierarchy:** Cormorant Garamond display + Plus Jakarta Sans body
-- **Atmospheric depth:** SVG noise overlay, multi-layer radial gradients, gold sparkle particles
-- **Motion polish:** reveal animations, hover surprises (gold underline expand)
-- **Mobile-first:** 375px → 480px → 980px → desktop, hiçbir overflow yok
-- **No AI slop:** Inter, Roboto, Arial yasak. Generic gradients yasak. Predictable layouts yasak.
+- Bold color discipline: koyu zemin + altın + krem — hiçbir başka renk yok
+- Typography: Cormorant Garamond display + Plus Jakarta Sans body
+- Atmospheric depth: SVG noise overlay, radial gradients, sparkle particles (haritanın ARKASINDA)
+- Motion polish: reveal animations, hover surprises, marquee strip kayan şerit
+- Mobile-first: 375 → 480 → 820 → 980 → 1180 → 1600px
+- prefers-reduced-motion saygısı
+- "No AI slop": Inter, Roboto, Arial, Space Grotesk YASAK. Generic gradients YASAK. Predictable layouts YASAK.
 
 Detay: DESIGN_SYSTEM.md

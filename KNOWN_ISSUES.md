@@ -1,14 +1,14 @@
 # KNOWN ISSUES & TODO — The House of Anatolia
 
-> **2026-05-08 güncel** — site canlıda, GitHub Actions auto-deploy aktif. Aşağıdakiler kalan işler.
+> **2026-05-08 güncel** — site canlıda, GitHub Actions auto-deploy aktif. 4 PR mergede tamam (#1, #2, #3, #4).
 
 ---
 
-## 🔴 P0 — Yayın için kritik (kullanıcı yapacak)
+## P0 — Yayın için kritik (kullanıcı yapacak)
 
 ### 1. Eski Netlify Token Revoke
 - https://app.netlify.com/user/applications#personal-access-tokens
-- **Authorized applications** altındaki **"Netlify CLI"** → Options → Revoke access
+- Authorized applications → "Netlify CLI" → Revoke access
 - Yeni "Production CI/CD" token zaten GitHub Secrets'ta aktif
 
 ### 2. Yasal Sayfa Placeholder'ları (12 yer)
@@ -18,19 +18,19 @@
 - ⚠️ **KVKK uyumu için şirket kurulmadan tamamlanamaz** — şirket kuruluş resmi bilgileri lazım
 - Avukat / KVKK danışmanı önerilir (~3000-8000 TL)
 
-### 3. Telefon Numarası
-- `index.html` (footer iletişim sütunu) + `product.html` (talep formu intro) + `index.html` (contact section)
-- Şu an placeholder: `+90 (5XX) XXX XX XX`
+### 3. Telefon Numarası (placeholder hala canlıda)
+- `index.html` (footer + contact section) + `product.html` (talep formu intro)
+- Şu an: `+90 (5XX) XXX XX XX`
 - Gerçek numara gelince find/replace ile güncellenir
 
 ### 4. Domain Alma
-- `thehouseofanatolia.com` (Cloudflare Registrar ~$10/yıl, en ucuz)
-- DNS Netlify'a yönlendirilir: Netlify Dashboard → Domain management → Add custom domain
-- HTTPS otomatik (Let's Encrypt)
+- `thehouseofanatolia.com` (Cloudflare Registrar ~$10/yıl)
+- DNS Netlify'a yönlendirilir → HTTPS otomatik (Let's Encrypt)
+- Alındığında ben şu yerleri güncellerim: `robots.txt`, `sitemap.xml`, `index.html` ve `product.html` JSON-LD canonical (~10 yer find/replace)
 
 ### 5. Email Routing
 - Cloudflare Email Routing (ücretsiz forwarding)
-- `info@thehouseofanatolia.com` → Beyza/ortak Gmail'ine forward
+- `info@thehouseofanatolia.com` → Beyza/ortak Gmail
 - Veya Google Workspace ($6/ay/kullanıcı, gerçek mailbox)
 
 ### 6. Admin User Oluştur (Supabase)
@@ -47,103 +47,92 @@
 
 ---
 
-## 🟡 P1 — Önemli ama acil değil
+## P1 — Önemli ama acil değil
 
 ### EN İçerikleri
 - Tüm tablolarda `name_en`, `description_en` vb. kolonlar boş
 - Admin panelden TR/EN tab'ları kullanarak doldurulmalı
 - Şu an EN kullanıcı boş alanlar için TR fallback görür (kasıtlı)
 
-### SEO Optimizasyonları
-- ❌ `robots.txt`
-- ❌ `sitemap.xml`
-- ❌ Schema.org JSON-LD (Product, Organization, FAQ)
-- ❌ Google Search Console verification
-- ❌ Bing Webmaster Tools
-- ✅ Meta description, OG, Twitter Card, hreflang, canonical (mevcut)
+### Marquee Admin Entegrasyonu (yeni)
+Şu an `marquee_1-5` i18n dict'te statik (5 yakında ürün hard-coded).
+İstersen ekleme:
+1. Supabase'de `marquee_items` tablosu yarat (`label_tr, label_en, sort_order, is_active`)
+2. Default 5 row insert (mevcut yakındalar)
+3. RLS policy: anon read, admin CRUD
+4. Frontend: `loadMarqueeItems()` fetch + render (i18n dict yerine)
+5. Admin'de yeni "Şerit" sekmesi + CRUD UI (loadMarqueeItems + render + save + delete)
 
 ### Newsletter Gönderim
 - Şu an: aboneler `newsletter_subscribers`'a kaydediliyor, gönderim yok
-- Plan A (50+ abone): CSV indir → Brevo veya Mailchimp ücretsiz hesap
-- Plan B (sonra): Resend ($20/ay) + Supabase Edge Function + admin panelde "Bülten Yaz" UI
+- Plan A (50+ abone): CSV indir → Brevo/Mailchimp ücretsiz hesap
+- Plan B: Resend ($20/ay) + Supabase Edge Function + admin "Bülten Yaz" UI
 
 ### Performance
-- Mevcut: index.html ~200KB, product.html ~80KB, admin.html ~168KB
+- Mevcut: index.html ~200KB, product.html ~80KB, admin.html ~165KB, products.html ~12KB
 - Görsel yok (statik HTML)
-- Yapılabilir: HTML/CSS/JS minify (Netlify otomatik), font subsetting (Cormorant Garamond büyük)
+- Yapılabilir: HTML/CSS/JS minify (Netlify otomatik), font subsetting (Cormorant büyük)
 
-### A11y (Accessibility)
-- Alt text'ler ✓
-- Aria labels ✓ (lang switcher, map tooltip)
-- Semantic HTML ✓
-- Keyboard navigation ✓
-- prefers-reduced-motion ✓
-- Eksik: screen reader testleri, skip-to-main link, color contrast WCAG AA tam doğrulama
+### Domain Alındığında URL Güncellemeleri
+- robots.txt: Sitemap URL
+- sitemap.xml: tüm `<loc>` ve `hreflang` URL'leri
+- index.html JSON-LD: Organization + WebSite URL
+- product.html JSON-LD: Product + BreadcrumbList URL + canonical
+- products.html JSON-LD: CollectionPage URL + canonical
 
 ---
 
-## 🟢 P2 — Cleanup (opsiyonel)
+## P2 — Cleanup (opsiyonel)
 
 ### Dead Code (CSS)
-Kaldırılmış HTML elementlerinin CSS'i hâlâ duruyor:
-- `.hero-grid`, `.hero-lines`, `.hero-dots`, `.hero-mountains` (eski cinematic hero)
-- `.gold-accent`, `.about-grid`, `.about-aside`, `.about-card-info`, `.about-meta` (KÜNYE kart)
-- `.cert-badge`, `.cert-eyebrow`, `.cert-title`, `.cert-meta` (sertifika rozeti)
-- `.hero-stats`, `.hero-stat`, `.est-badge` (stats bar + EST badge)
-
-### Dead Code (JS)
-- `admin.html`'de paket CRUD fonksiyonları (~228 satır):
-  - `loadPackageOptions()`
-  - `renderPackageEditor()`
-  - `savePackageEdit()`
-- UI çağrısı yok, kullanıcıya görünmüyor, ama dosya boyutunda yer kaplıyor
+- `.future-pill`, `.future-list` rules — HTML'den silindi (PR #4) ama CSS rules kaldı
+- `.gold-accent` (slogan'da JS dinamik kullanım var, koru)
+- Eski cert / about-grid asymmetric / hero-grid/lines/dots/mountains rules silindi (PR #1)
 
 ### Dead i18n Keys
-- `hero_est`, `hero_stat1-3`, `gi_eyebrow`, `gi_title`, `gi_paragraph1-2`
-- `cert_*`, `about_meta_*`
-- `nav_gi` (footer #gi link kaldırıldı)
+- ✅ `pill_1-4`, `hero_est`, `hero_stat1-3`, `gi_eyebrow/title/paragraph1-2`, `cert_*`, `about_meta_*`, `nav_gi` (PR #1 ve #4'te silindi)
 
 ### Dead DB Tablo
 - `package_options` tablosu — UI hiç kullanmıyor, eski talep kayıtlarındaki FK için duruyor
+- Drop yapılırsa eski request'lerdeki package_option_id NULL olmalı
 
 ### Diğer
-- `supabase_schema_v2_fixed.sql` — referans dosya, repo'da gereksiz olabilir (ileride sil)
+- `supabase_schema_v2_fixed.sql` — referans dosya, repo'da kalabilir (yeniden migration için faydalı)
 
 ---
 
-## ⚠️ Sınırlamalar
+## Sınırlamalar
 
 ### Frontend
-1. **Build step yok** — kasıtlı, basit deploy. Karmaşık component'leri zorlaştırır.
-2. **Admin panel TEK SAYFA** — 4800 satır. Yönetimi zor. SPA refactor'a değer.
-3. **Lightbox vanilla JS** — bazı edge case'lerde takılabilir
-4. **i18n manuel** — her yeni metin için `data-i18n` ekle + dict'e gir
+1. **Build step yok** — kasıtlı, basit deploy. Karmaşık component reuse zor.
+2. **Admin panel TEK SAYFA** — 4500 satır. Yönetimi zor. SPA refactor değer.
+3. **i18n manuel** — her yeni metin için `data-i18n` ekle + dict'e gir
+4. **Marquee items statik** — admin entegrasyonu eklenmeli (P1)
 
 ### Backend (Supabase)
 1. **Free tier** — 500 MB DB, 1 GB storage, 50K MAU, yeterli
-2. **Realtime aktif değil** — gerek yok
+2. **Realtime kapalı** — gerek yok
 3. **Edge Functions yok** — newsletter SMTP veya web hooks için lazım olacak
 4. **Backup manuel** — auto-backup 7 gün retention
 
 ### Hosting (Netlify)
 1. **Free tier** — 100GB bandwidth/ay, 300 build dakika/ay, yeterli
 2. **GitHub Actions deploy** — Netlify'ın native Git integration yerine custom workflow
-3. **Custom domain** — alındığında 5 dk'lık config, HTTPS otomatik
+3. **Custom domain** — alındığında 5 dk'lık config
 
 ### Dış Bağımlılıklar
 1. **FormSubmit.co** — ücretsiz, üst limit 50/ay, unreliable olabilir
-2. **esm.sh CDN** — Supabase JS client buradan geliyor
+2. **esm.sh CDN** — Supabase JS client buradan
 3. **Google Fonts** — DSGVO/KVKK gri alan, ileride self-host yapılabilir
 
 ---
 
-## 🐛 Bilinen Bug'lar
+## Bilinen Bug'lar
 
 ### Frontend
-1. **Custom cursor mobil-touch** — bazen touch device'da kısa süreliğine gözükebilir (touchstart sonrası gizleniyor zaten)
+1. **Custom cursor mobil-touch** — bazen touch device'da kısa süreliğine gözükebilir
 2. **TR/EN switch + scroll position** — kasıtlı, sayfa başına dönmüyor
 3. **Page loader long network** — 3G'de 5+ saniye gözükür
-4. **Mobile slogan overflow -4px** — `transform:translateX(-50%)` reset sonrası 99→4px düştü, görsel olarak fark edilmez
 
 ### Backend
 1. **Rate limit tuning** — Newsletter 3/email/5dk biraz cömert
@@ -151,43 +140,64 @@ Kaldırılmış HTML elementlerinin CSS'i hâlâ duruyor:
 
 ### Admin Panel
 1. **Drag-and-drop sort_order yok** — manuel sıralama
-2. **Toplu işlem yok** (bulk delete, vb.)
+2. **Toplu işlem yok** (bulk delete vb.)
 3. **Image preview lightbox yok**
 
 ---
 
-## 📋 Test Edilmemiş Senaryolar
+## Test Edilmemiş Senaryolar
 
-1. iOS Safari (custom cursor)
+1. iOS Safari (custom cursor + sparkle render)
 2. Eski Android Chrome (<80) (i18n)
 3. Slow 3G (loader)
-4. JavaScript kapalı (büyük ölçüde çalışmaz)
+4. JavaScript kapalı
 5. Çoklu sekmeden simultaneous form submit (rate limit)
 6. Çok büyük image upload (5 MB sınır)
-7. Browser back button (SPA değil, sorun yok)
-8. Print stylesheet (`@media print` yok)
+7. Print stylesheet (`@media print` yok)
+8. Marquee + sparkle birlikte performance
 
 ---
 
-## 🔄 Çözülen / Kapalı (referans)
+## Çözülen / Kapalı (referans)
 
-- ✅ Site lokalden GitHub'a pushlandı
-- ✅ Netlify deploy + auto-CI/CD
-- ✅ Mobile slogan overflow (-99 → -4px)
-- ✅ Footer height mobile (1012 → 800px → 580 desktop)
+### PR #1 — SEO + Cleanup + A11y
+- ✅ robots.txt + sitemap.xml + JSON-LD (Organization + WebSite + Product + BreadcrumbList)
+- ✅ product.html title fix
+- ✅ Dead code: paket CRUD JS + dead CSS + 24 dead i18n key
+- ✅ Skip-to-main link + `<main id="main-content">` (WCAG 2.4.1)
+- ✅ Lighthouse: A11y 98 / SEO 92 / Best Practices 96 / Agentic 100
+
+### PR #2 — Sparkle iter 1 + contact + footer
+- ✅ Sparkle yan-drift → minik statik dots map arkasında
+- ✅ Contact card border + radius + bg gradient
+- ✅ Footer grid balanced + h4 sektör-tarzı
+
+### PR #3 — Sparkle removal + Products sayfası
+- ✅ Sparkle TAMAMEN kaldırıldı
+- ✅ Yeni products.html (Supabase fetch + i18n + JSON-LD)
+- ✅ Navbar + footer linkleri
+- ✅ sitemap.xml products URL
+
+### PR #4 — Sparkle re-add + Map section + Contact
+- ✅ Sparkle GERİ — haritanın ARKASINA (z-index:0), DİKEY yukarı (rotate yok)
+- ✅ Future-pill kaldırıldı
+- ✅ Eyebrow çift çizgi (KEŞFET iki yanda altın çizgi)
+- ✅ city_note kısa GI tanımı
+- ✅ Marquee strip (5 yakında ürün, kayan şerit)
+- ✅ Contact horizontal 2-col
+- ✅ Section padding 110 → 80px
+- ✅ products.html is_active=true filter + intro paragraf kaldırıldı
+
+### Önceki sohbet (Phase 0)
+- ✅ Site lokalden GitHub'a + Netlify auto-CI/CD
+- ✅ Mobile slogan overflow düzeltme
 - ✅ Tipografi (Inter → Plus Jakarta Sans)
 - ✅ Cinematic hero kaldırıldı (product.html)
-- ✅ Asset klasörü repo'ya eklendi
-- ✅ Rename: index_supabase → index, admin..._v2 → admin
-- ✅ Duplicate dosyalar silindi
-- ✅ Token rotation (Netlify Production CI/CD yeni, eski revoke pending)
-- ✅ Sparkle effect ("uçan sim")
-- ✅ Footer 4-sütun yenilendi + brand logo
-- ✅ Contact section redesign (3-col → minimal list)
-- ✅ KEŞFET sadeleştirme (gi-definition kaldırıldı)
-- ✅ Paket Seçimi tamamen kaldırıldı
-- ✅ EST badge / KÜNYE / sertifika rozeti / stats bar kaldırıldı (kullanıcı reddetti)
+- ✅ Asset klasörü repo'ya
+- ✅ Token rotation
+- ✅ Footer 4-sütun + brand logo
+- ✅ EST badge / KÜNYE / sertifika rozeti / stats bar (kullanıcı reddetti)
 - ✅ Atmospheric layer (SVG noise overlay)
 - ✅ Custom scrollbar + hover refinements
-- ✅ Plus Jakarta Sans font features (ligatures, kerning, smoothing)
-- ✅ 18 plugin yüklü + Supabase MCP
+- ✅ Plus Jakarta font features (ligatures, kerning, smoothing)
+- ✅ 18 plugin + Supabase MCP + chrome-devtools-mcp
