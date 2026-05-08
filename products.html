@@ -96,26 +96,26 @@
 
   /* PRODUCTS GRID */
   .products-section{padding:80px 0 110px}
-  .products-grid{display:grid;grid-template-columns:repeat(auto-fit, minmax(280px, 1fr));gap:28px}
-  .product-card{display:flex;flex-direction:column;position:relative;border:1px solid var(--line);border-radius:18px;overflow:hidden;background:linear-gradient(180deg, rgba(255,255,255,.025), rgba(255,255,255,.005));text-decoration:none;color:inherit;transition:transform .35s var(--ease), border-color .35s var(--ease), box-shadow .35s var(--ease)}
+  .products-grid{display:grid;grid-template-columns:repeat(auto-fill, 240px);gap:22px;justify-content:center}
+  .product-card{display:flex;flex-direction:column;position:relative;border:1px solid var(--line);border-radius:16px;overflow:hidden;background:linear-gradient(180deg, rgba(255,255,255,.025), rgba(255,255,255,.005));text-decoration:none;color:inherit;transition:transform .35s var(--ease), border-color .35s var(--ease), box-shadow .35s var(--ease)}
   a.product-card{cursor:pointer}
-  a.product-card:hover{transform:translateY(-4px);border-color:rgba(210,161,47,.4);box-shadow:0 24px 60px rgba(0,0,0,.4)}
+  a.product-card:hover{transform:translateY(-3px);border-color:rgba(210,161,47,.4);box-shadow:0 14px 36px rgba(0,0,0,.35)}
   .product-card.coming{opacity:.55}
   .product-card-image{aspect-ratio:4/3;background:linear-gradient(135deg, rgba(210,161,47,.08), rgba(15,11,9,.6));display:grid;place-items:center;overflow:hidden;position:relative}
-  .product-card-image img{width:62%;height:62%;object-fit:contain;filter:drop-shadow(0 14px 28px rgba(0,0,0,.4));transition:transform .55s var(--ease)}
-  a.product-card:hover .product-card-image img{transform:scale(1.06)}
-  .product-card-body{padding:24px 26px 26px;flex:1;display:flex;flex-direction:column}
-  .product-card-region{font-size:.7rem;letter-spacing:.28em;text-transform:uppercase;color:var(--gold-soft);margin-bottom:10px;font-weight:600}
-  .product-card-name{margin:0 0 12px;font-family:'Cormorant Garamond',serif;font-size:1.7rem;font-weight:500;line-height:1.1;color:var(--cream)}
+  .product-card-image img{width:62%;height:62%;object-fit:contain;filter:drop-shadow(0 10px 22px rgba(0,0,0,.4));transition:transform .55s var(--ease)}
+  a.product-card:hover .product-card-image img{transform:scale(1.05)}
+  .product-card-body{padding:14px 16px 16px;flex:1;display:flex;flex-direction:column;gap:4px}
+  .product-card-region{font-size:.6rem;letter-spacing:.26em;text-transform:uppercase;color:var(--gold-soft);font-weight:600;margin:0}
+  .product-card-name{margin:0;font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:500;line-height:1.15;color:var(--cream)}
   .product-card-name em{font-style:italic;color:var(--gold-soft);font-weight:400}
-  .product-card-meta{font-size:.92rem;color:var(--muted);line-height:1.6;margin:0 0 18px;flex:1}
-  .product-card-foot{display:flex;align-items:center;justify-content:space-between;padding-top:16px;border-top:1px solid var(--line);margin-top:auto}
-  .product-card-status{display:inline-flex;align-items:center;gap:8px;font-size:.66rem;letter-spacing:.24em;text-transform:uppercase;font-weight:600;color:var(--gold)}
-  .product-card-status.live::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--gold);box-shadow:0 0 8px var(--gold)}
+  .product-card-meta{font-size:.8rem;color:var(--muted);line-height:1.5;margin:4px 0 10px;flex:1;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+  .product-card-foot{display:flex;align-items:center;justify-content:space-between;padding-top:10px;border-top:1px solid var(--line);margin-top:auto}
+  .product-card-status{display:inline-flex;align-items:center;gap:6px;font-size:.58rem;letter-spacing:.22em;text-transform:uppercase;font-weight:600;color:var(--gold)}
+  .product-card-status.live::before{content:"";width:5px;height:5px;border-radius:50%;background:var(--gold);box-shadow:0 0 6px var(--gold)}
   .product-card-status.coming{color:var(--muted)}
-  .product-card-arrow{font-size:1.2rem;color:var(--gold-soft);transition:transform .35s var(--ease)}
+  .product-card-arrow{font-size:1rem;color:var(--gold-soft);transition:transform .35s var(--ease)}
   a.product-card:hover .product-card-arrow{transform:translateX(4px)}
-  .products-empty,.products-loading{grid-column:1 / -1;text-align:center;padding:60px 20px;color:var(--muted);font-style:italic;font-family:'Cormorant Garamond',serif;font-size:1.2rem}
+  .products-empty,.products-loading{grid-column:1 / -1;text-align:center;padding:60px 20px;color:var(--muted);font-style:italic;font-family:'Cormorant Garamond',serif;font-size:1.1rem}
 
   /* FOOTER */
   footer{background:linear-gradient(180deg, var(--bg) 0%, #060403 100%);border-top:1px solid var(--line);color:var(--text);position:relative;z-index:2}
