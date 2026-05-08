@@ -1,7 +1,7 @@
 # DESIGN SYSTEM — The House of Anatolia
 
 > **Aesthetic direction:** "Editorial Heritage — Anatolian terroir meets refined modernism"
-> **2026-05-08 güncel (PR #6 sonrası)** — frontend-design skill ilkeleri uygulanmıştır
+> **2026-05-08 güncel (PR #7 sonrası)** — frontend-design skill ilkeleri uygulanmıştır
 
 ---
 
@@ -216,9 +216,10 @@ input:focus-visible { box-shadow: 0 0 0 3px rgba(210,161,47,.18); }
 
 ### Grid'ler
 - **Eşit ikili (1fr 1fr)** — anasayfa about-card grid
-- **3'lü (repeat(3, 1fr))** — usage-grid
+- **3'lü (repeat(3, 1fr))** — usage-grid + product.html alt contact (PR #7)
 - **4'lü footer (1.8fr 1fr 1fr 1.4fr)** — logo + contact wider
-- **Contact card (1.05fr 1fr)** — sol info kart yığını + sağ newsletter card (PR #6)
+- **Contact card (1.05fr 1fr)** — sol info kart yığını + sağ newsletter card (PR #6+#7 sade — başlık/intro yok)
+- **Products grid auto-fit minmax(220px, 1fr)** — küçük kart vitrini (PR #7)
 
 ### Skip-link CSS
 ```css
@@ -280,6 +281,27 @@ i18n marker syntax: `*X*` → `<em class="gold-accent">X</em>` (JS parse).
 Hover: `translateY(-4px)` + altın border + box-shadow + image scale(1.06).
 
 ---
+
+## PR #7 yeni component'ler
+
+### Hamburger menü (Aesop pattern)
+- Navbar yatay nav-links kaldırıldı; sadece logo + `.nav-toggle` (☰) + lang switcher
+- `.nav-overlay` fullscreen, `radial-gradient(circle at 30% 0%, rgba(151,90,24,.20))` + `linear-gradient(180deg, rgba(8,6,5,.98), rgba(15,11,9,.98))` + `backdrop-filter:blur(18px)`
+- Açılış animasyonu: 450ms cubic-bezier fade + content `translateY(14px → 0)` 550ms
+- Hamburger ikonu `is-open` state'te X'e dönüşür (3 line → 2 rotated)
+- Body scroll lock: `body.nav-open { overflow:hidden }`
+- Eyebrow + Cormorant clamp(1.6,2.8vw,2rem) link tipografi
+- Lang switcher overlay'in altında ana switcher ile sync (aynı `.lang-switcher` class)
+
+### Ürünler grid (anasayfa)
+- `auto-fit minmax(220px, 1fr)` — küçük cards
+- 16/10 aspect-ratio görsel + `object-fit:cover`
+- Hover: gold border + `translateY(-3px)` + `image scale(1.05)`
+
+### product.html alt contact 3 yatay kart
+- `repeat(3, 1fr) gap:18px` — info-card pattern
+- 40×40 yuvarlak gold-soft glow ikon
+- Mobile <760 dikey, <540 sıkışık padding/font
 
 ## Yasaklar
 

@@ -1,6 +1,6 @@
 # HANDOFF — The House of Anatolia
 
-> **2026-05-08 güncel (PR #6 sonrası)** — projenin tam haritası, yeni Claude Code sohbetine geçişte gerekli tüm bağlam.
+> **2026-05-08 güncel (PR #7 sonrası)** — projenin tam haritası, yeni Claude Code sohbetine geçişte gerekli tüm bağlam.
 
 ---
 
@@ -118,6 +118,24 @@ Detay: ARCHITECTURE.md
 - **i18n duplicate fix:** TR `contact_title` 2 defa tanımlanmıştı ("iletişime geçin" + "bağlantıya geçin"); ikincisi silindi, "iletişime geçin" geçerli.
 - **product.html dokunulmadı** — `.hero-blossom-layer` mini-blossom safran çiçeği için kullanılan kapsayıcı, mini-blossom KORUNUR.
 
+### Phase 6 — PR #7 (Hamburger + Ürünler section + Marquee admin + product refresh)
+- **Anasayfa contact sadeleştirildi:** SOL kolondan eyebrow + H2 + intro paragraf KALDIRILDI. Sadece 3 info kart (E-POSTA / ADRES / TELEFON) kaldı. SAĞ newsletter card aynen.
+- **Anasayfa "Ürünler" section eklendi:** about ile contact arasına. Küçük kart vitrini (auto-fit minmax 220px); Supabase products fetch is_active=true, limit 8; "Tümünü Gör →" linki `/products.html`'e. CSS scoped under `.products-section` (16/10 aspect-ratio görseller, hover gold border + image scale).
+- **Hamburger menü (Aesop pattern):** Yatay nav-links kaldırıldı (`.nav-center` HTML'de yok). Sağ üstte hamburger button (`.nav-toggle`) + lang switcher kaldı. Click → fullscreen `.nav-overlay` açılır (radial gold glow + blur backdrop). Overlay içinde:
+  - SAYFALAR (Ana Sayfa / Hakkımızda / İletişim)
+  - ÜRÜNLER (Tüm Ürünler + Supabase fetch dinamik liste — şu an Sarımsak + Safran)
+  - Yasal linkler (gizlilik / kullanım / cerez) + lang switcher
+  - ESC + backdrop click + `[data-nav-close]` ile kapanır, body scroll lock.
+- **product.html "Karabük'ün" → "Safranbolu'nun":** TR + EN tüm GI attribution cümlelerinde (meta description, og/twitter, JSON-LD, kicker, hero-subtitle). Karabük il/adres bilgisi olarak korundu. **NOT:** hero_subtitle Supabase products tablosundan da geliyor — kullanıcı admin'den düzenlemeli.
+- **product.html alt contact:** mevcut tipografik 3 sütun → anasayfa `.contact-info-card` stilinde 3 yatay kart (SVG ikon + label/value). Mobile <760 dikey, <540 sıkışık.
+- **Marquee dinamik (Supabase + statik fallback):** Yeni `marquee_items` tablo (label_tr / label_en / sort_order / is_active) + RLS. `loadMarqueeItems()` async fetch, sonuç varsa `.marquee-track`'i hot swap; tablo yoksa veya boşsa mevcut 10 statik HTML item ile i18n keys fallback. Migration: `supabase_migrations/2026-05-08-marquee-items.sql` (kullanıcı SQL Editor'dan çalıştırır).
+- **Admin "Şerit" sekmesi:** dashboard'a yeni card. CRUD UI: tablo (TR / EN / Sıra / Aktif / [Düzenle] [Pasifleştir] [Sil]) + yeni ekle / edit form. Tablo yoksa migration uyarısı.
+
+### Kullanıcının PR #7 sonrası yapması gerekenler
+
+1. **Supabase migration çalıştır:** Dashboard → SQL Editor → new query → `supabase_migrations/2026-05-08-marquee-items.sql` paste → Run. Sonra admin "Şerit" sekmesi fonksiyonel olur ve canlı marquee dinamik veriden render eder.
+2. **Safran ürünü hero_subtitle güncelle:** admin → Ürünler → Safranbolu Safranı düzenle → "Hero altyazı" alanı şu an "Karabük'ün coğrafi işaretli en zarif değeri" olabilir → "Safranbolu'nun coğrafi işaretli en zarif değeri" yap → kaydet. (HTML default güncellendi ama DB değer override eder.)
+
 ---
 
 ## Kullanıcı Tercihleri (ÖNEMLİ — değiştirme!)
@@ -135,7 +153,9 @@ Detay: ARCHITECTURE.md
 - **KEŞFET eyebrow'un iki yanında altın çizgi**
 - **Map'in altında kayan şerit** (yakında ürünler)
 - Mini-blossom safran çiçeği (product.html — dokunulmaz)
-- **Contact 2-col: 3 info kart sol + newsletter card sağ** (PR #6)
+- **Contact 3 info kart sol + newsletter card sağ (PR #6+#7 — başlık/intro yok, sade)**
+- **Anasayfa Ürünler section küçük kartlı vitrin** (PR #7)
+- **Hamburger menü (sağ üstte ☰), Aesop pattern fullscreen overlay** (PR #7)
 
 ### Reddettiği
 - Stats bar 1/1/1 sayım kartları → "ucuz duruyor"
@@ -195,7 +215,7 @@ Detay: KNOWN_ISSUES.md
 - Branch (`claude/...`) → `gh pr create` → review → `gh pr merge --rebase --delete-branch`
 - **Push öncesi:** `git fetch origin main && git rebase origin/main`
 - Force push + `--no-verify` YASAK
-- 6 PR mergede tamamlandı (#1, #2, #3, #4, #5 docs refresh, #6 sparkle removal + contact rebuild + footer newsletter taşıma)
+- 7 PR mergede tamamlandı (#1, #2, #3, #4, #5 docs refresh, #6 sparkle removal + contact rebuild + footer newsletter taşıma, #7 hamburger + ürünler section + marquee admin + product refresh)
 
 ---
 

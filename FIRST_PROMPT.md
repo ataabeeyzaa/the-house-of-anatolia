@@ -49,10 +49,10 @@ Push sonrası GitHub Actions otomatik Netlify'a deploy eder (~1.5 dk).
 
 Eyleme geçmeden önce bu 4 dosyayı oku ve özümse:
 
-1. **HANDOFF.md** — projenin tam haritası, yapılanlar (6 PR + Phase 0), kullanıcı tercihleri (en kritik)
-2. **ARCHITECTURE.md** — stack, deploy pipeline, plugin envanteri (18 plugin + 2 MCP), DB şeması, frontend mimarisi (marquee strip, contact 2-col yeni layout — sparkle YOK)
-3. **DESIGN_SYSTEM.md** — Plus Jakarta Sans + Cormorant Garamond, Editorial Heritage direction, marquee/eyebrow CSS pattern'leri, yasaklar listesi (sparkle TÜM VARYANTLAR yasak)
-4. **KNOWN_ISSUES.md** — kalan işler (P0/P1/P2), sınırlamalar, bilinen bug'lar, çözülen referansları
+1. **HANDOFF.md** — projenin tam haritası, yapılanlar (7 PR + Phase 0), kullanıcı tercihleri (en kritik)
+2. **ARCHITECTURE.md** — stack, deploy pipeline, plugin envanteri (18 plugin + 2 MCP), DB şeması (15 tablo, marquee_items dahil), frontend mimarisi (hamburger overlay, ürünler section, marquee dinamik fetch, contact sade)
+3. **DESIGN_SYSTEM.md** — Plus Jakarta Sans + Cormorant Garamond, Editorial Heritage direction, hamburger/marquee/eyebrow CSS pattern'leri, yasaklar listesi (sparkle TÜM VARYANTLAR yasak)
+4. **KNOWN_ISSUES.md** — kalan işler (P0/P1/P2), sınırlamalar, bilinen bug'lar, çözülen referansları + PR #7 sonrası kullanıcı talimatları (SQL migration + safran hero_subtitle)
 
 Sonra HTML dosyalarına ihtiyacın olduğunda Read tool ile aç (her biri büyük: index.html ~200KB+, admin.html ~165KB, products.html ~12KB, product.html ~80KB).
 
@@ -70,10 +70,12 @@ Sonra HTML dosyalarına ihtiyacın olduğunda Read tool ile aç (her biri büyü
 
 ## 6. CANLI DURUM — Site Yayında
 
-- 6 PR mergede (#1: SEO+Cleanup+A11y, #2: sparkle iter 1, #3: sparkle removal+products page, #4: sparkle re-add+map section+contact, #5: docs refresh, #6: sparkle TAM removal + contact 2-col rebuild + footer newsletter taşıma)
-- Lighthouse: **A11y 98 / SEO 92 / Best Practices 96 / Agentic 100**
-- Anasayfa: `products.html` (Supabase fetch is_active=true), `marquee-strip` (TV altyazısı tarzı), **sparkle YOK**, **contact 2-col (3 info kart + newsletter)**
-- Eksik P0: telefon numarası placeholder, yasal sayfa placeholder'ları, domain, admin user, eski Netlify token revoke (hepsi kullanıcı yapacak)
+- 7 PR mergede (#1: SEO+Cleanup+A11y, #2: sparkle iter 1, #3: sparkle removal+products page, #4: sparkle re-add+map section+contact, #5: docs refresh, #6: sparkle TAM removal + contact rebuild, #7: hamburger menü + Ürünler section + Marquee admin + product.html refresh)
+- Lighthouse: **A11y 98 / SEO 92 / Best Practices 96 / Agentic 100** (PR #7 sonrası yeniden ölçülmedi)
+- Anasayfa: minimal navbar (logo + ☰ + lang) + hamburger overlay + Ürünler section (Supabase küçük kart) + marquee dinamik fetch + contact sade (3 kart + newsletter)
+- `products.html` korundu (anasayfa section + ayrı sayfa)
+- Yeni DB tablo: `marquee_items` (kullanıcı SQL Editor'dan migration çalıştıracak — PR #7 P0)
+- Eksik P0: SQL migration çalıştır + safran hero_subtitle güncel + telefon + yasal placeholder + domain + admin user + Netlify token revoke (hepsi kullanıcı yapacak)
 
 
 ## 7. İLK ADIMIN
