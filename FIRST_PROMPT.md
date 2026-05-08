@@ -70,12 +70,13 @@ Sonra HTML dosyalarına ihtiyacın olduğunda Read tool ile aç (her biri büyü
 
 ## 6. CANLI DURUM — Site Yayında
 
-- 7 PR mergede (#1: SEO+Cleanup+A11y, #2: sparkle iter 1, #3: sparkle removal+products page, #4: sparkle re-add+map section+contact, #5: docs refresh, #6: sparkle TAM removal + contact rebuild, #7: hamburger menü + Ürünler section + Marquee admin + product.html refresh)
-- Lighthouse: **A11y 98 / SEO 92 / Best Practices 96 / Agentic 100** (PR #7 sonrası yeniden ölçülmedi)
-- Anasayfa: minimal navbar (logo + ☰ + lang) + hamburger overlay + Ürünler section (Supabase küçük kart) + marquee dinamik fetch + contact sade (3 kart + newsletter)
-- `products.html` korundu (anasayfa section + ayrı sayfa)
-- Yeni DB tablo: `marquee_items` (kullanıcı SQL Editor'dan migration çalıştıracak — PR #7 P0)
-- Eksik P0: SQL migration çalıştır + safran hero_subtitle güncel + telefon + yasal placeholder + domain + admin user + Netlify token revoke (hepsi kullanıcı yapacak)
+- 8 PR mergede (#1-7 önceki, #8 UI revize + galeri render + marquee grants fix)
+- Lighthouse: **A11y 98 / SEO 92 / Best Practices 96 / Agentic 100** (PR #7+#8 sonrası yeniden ölçülmedi)
+- Anasayfa: navbar [☰ logo] [yatay 4 link] [TR EN] + hamburger overlay + harita + marquee dinamik fetch + contact sade (3 kart + newsletter). Ürünler section anasayfadan kaldırıldı PR #8'de (kullanıcı isteği "full kaldır").
+- `products.html` ayrı sayfada, küçük kare grid (tek ürün de küçük ortalanır)
+- product.html galeri dinamik (gallery_images tablosundan 2x duplicate kayan şerit)
+- Yeni DB tablo: `marquee_items` (PR #7) — 2 migration kullanıcı çalıştıracak (tablo + GRANT)
+- Eksik P0: SQL migration #1 + #2 çalıştır + safran hero_subtitle güncel + telefon + yasal placeholder + domain + admin user + Netlify token revoke (hepsi kullanıcı yapacak)
 
 
 ## 7. İLK ADIMIN
