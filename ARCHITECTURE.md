@@ -1,25 +1,24 @@
 # ARCHITECTURE — The House of Anatolia
 
-> **Teknik mimari (2026-05-08 güncel)**: stack, deploy pipeline, plugin envanteri, veritabanı şeması ve veri akışları.
+> **2026-05-08 güncel** — stack, deploy, plugin envanteri, DB şema, veri akışları.
 
 ---
 
-## 🏗️ Teknoloji Stack'i
+## Teknoloji Stack'i
 
 ```
 Frontend:    Vanilla HTML + CSS + ES Modules (build step yok)
 Tipografi:   Plus Jakarta Sans (body) + Cormorant Garamond (display)
-             Google Fonts CDN, swap display
+             Google Fonts CDN (display=swap)
 
 Backend:     Supabase (PostgreSQL + Auth + Storage + RLS)
-             URL: https://owcgcyvgibyawxfxwlbn.supabase.co
+             https://owcgcyvgibyawxfxwlbn.supabase.co
 
-Hosting:     Netlify (Production CDN, edge cached)
-             URL: https://house-of-anatolia.netlify.app
+Hosting:     Netlify (CDN edge cached)
+             https://house-of-anatolia.netlify.app
 
 CI/CD:       GitHub Actions (.github/workflows/deploy.yml)
-             Her main branch push → otomatik Netlify deploy
-             Build süresi ~1.5 dakika
+             Her main push → otomatik Netlify deploy (~1.5 dk)
 
 Repo:        github.com/ataabeeyzaa/the-house-of-anatolia (private)
 
@@ -27,126 +26,95 @@ CDN:         https://esm.sh/@supabase/supabase-js@2 (Supabase client)
              https://fonts.googleapis.com (fonts)
 ```
 
-**Karar:** Build step yok çünkü vitrin sitesi. Tüm CSS+JS HTML içinde inline. Performance edge cached + minify Netlify'dan otomatik.
+**Karar:** Build step yok — vitrin sitesi, tüm CSS+JS HTML içinde inline. Netlify minify otomatik.
 
 ---
 
-## 🚀 Deploy Pipeline
+## Deploy Pipeline
 
 ```
-Lokal → git push origin main → GitHub Actions tetikleniyor →
-  └─ npx netlify-cli@latest deploy --prod (NETLIFY_AUTH_TOKEN secret ile)
-      └─ Netlify CDN edge → site canlıda
+Lokal → git push origin main → GitHub Actions →
+  └─ npx netlify-cli deploy --prod (NETLIFY_AUTH_TOKEN secret)
+      └─ Netlify CDN edge → canlı (~90-120s)
 ```
 
-### GitHub Secrets (kayıtlı)
-- `NETLIFY_AUTH_TOKEN` — Production CI/CD token (1 yıl, 2027-05-08'e kadar geçerli)
+### GitHub Secrets
+- `NETLIFY_AUTH_TOKEN` — Production CI/CD (1 yıl, 2027-05-08'e kadar)
 - `NETLIFY_SITE_ID` — `6353f35a-2af2-4c3d-872e-438e4368dc35`
 
-### Manual Deploy (gerekirse)
-```bash
-npx netlify-cli deploy --prod --dir . --auth $TOKEN --site $SITE_ID
-```
-
 ---
 
-## 🔌 Plugin / MCP Envanteri
+## Plugin / MCP Envanteri
 
-**Toplam: 18 Claude Code plugin + 2 MCP server**
+**18 Claude Code plugin + 2 MCP server**
 
-### Marketplaces (3 adet)
+### Marketplaces
 1. `claude-code-plugins` (anthropics/claude-code) — 4 plugin
 2. `claude-plugins-official` (anthropics/claude-plugins-official) — 12 plugin
 3. `superpowers-marketplace` (obra/superpowers-marketplace) — 2 plugin
 
-### Plugin Listesi
-| Plugin | Kaynak | Kullanım |
-|---|---|---|
-| frontend-design | claude-code-plugins | UI/UX redesign skills |
-| code-review | claude-code-plugins | Code review workflow |
-| feature-dev | claude-code-plugins | Feature development planning |
-| security-guidance | claude-code-plugins | Security best practices |
-| superpowers (5.1.0) | superpowers-marketplace | TDD, debugging, brainstorming |
-| claude-session-driver | superpowers-marketplace | Session management |
-| chrome-devtools-mcp | claude-plugins-official | Real Chrome browser automation |
-| claude-code-setup | claude-plugins-official | Setup helpers |
-| claude-md-management | claude-plugins-official | CLAUDE.md tooling |
-| code-simplifier | claude-plugins-official | Code refactoring |
-| context7 | claude-plugins-official | Library docs (MCP) |
-| csharp-lsp | claude-plugins-official | C# LSP (bu projede gerekli değil) |
-| playwright | claude-plugins-official | E2E testing (MCP) |
-| pr-review-toolkit | claude-plugins-official | PR review |
-| pyright-lsp | claude-plugins-official | Python LSP |
-| serena | claude-plugins-official | Code analysis |
-| skill-creator | claude-plugins-official | Custom skill creation |
-| supabase | claude-plugins-official | Supabase plugin |
+### Plugin Listesi (18)
+frontend-design, code-review, feature-dev, security-guidance, superpowers, claude-session-driver, chrome-devtools-mcp, claude-code-setup, claude-md-management, code-simplifier, context7, csharp-lsp, playwright, pr-review-toolkit, pyright-lsp, serena, skill-creator, supabase
 
-### MCP Servers (config: `~/.claude.json`)
+### MCP Servers
 1. **supabase** — read-only mode, `--project-ref=owcgcyvgibyawxfxwlbn`
-2. **chrome-devtools-mcp** — browser automation tools (yeni session'da aktif)
+2. **chrome-devtools-mcp** — browser automation (yeni session'da aktif)
 
 ---
 
-## 📂 Dosya Yapısı (detay)
+## Dosya Yapısı (detay)
 
 | Dosya | Boyut yaklaşık | İçerik |
 |---|---|---|
-| `index.html` | ~2700 satır, 200 KB | Ana sayfa: navbar, hero, harita, hakkımızda, iletişim, footer + Supabase data layer + i18n + sparkle effect |
+| `index.html` | ~3000 satır, 200+ KB | Anasayfa: navbar, hero, harita (sparkle z-index:0 arkada), KEŞFET, **marquee strip**, hakkımızda, contact horizontal 2-col, footer + Supabase data layer + i18n |
 | `product.html` | ~1700 satır, 80 KB | Ürün detay + talep formu (Supabase + FormSubmit dual) |
-| `admin.html` | ~4800 satır, 168 KB | Tek-sayfa admin paneli + paket dead code |
-| `gizlilik.html` | ~360 satır | KVKK skeleton, 5 placeholder |
-| `kullanim.html` | ~225 satır | Terms skeleton, 7 placeholder |
-| `cerez.html` | ~210 satır | Cookie policy (placeholder yok) |
-| `supabase_schema_v2_fixed.sql` | ~55 KB | Referans şema (DB'de çalıştırılan ilk versiyondan) |
+| `products.html` | ~280 satır, ~12 KB | **Yeni** — Ürünler vitrini, Supabase fetch is_active=true, grid layout |
+| `admin.html` | ~4500 satır, ~165 KB | Tek-sayfa admin panel (paket CRUD silindi) |
+| `gizlilik.html`, `kullanim.html`, `cerez.html` | toplam ~50 KB | Yasal skeletonları (12 placeholder) |
+| `robots.txt` | 8 satır | SEO crawl + sitemap referansı + admin disallow |
+| `sitemap.xml` | 50 satır | 6 URL + TR/EN hreflang |
 | `assets/` | 18 dosya, 3.4 MB | Logo, safran görselleri, galeri |
-| `.github/workflows/deploy.yml` | 25 satır | Auto-deploy workflow |
-| `.claude/launch.json` | 9 satır | Preview server config |
 
 ---
 
-## 🗄️ Veritabanı Şeması (değişmedi, 14 tablo)
+## Veritabanı Şeması (14 tablo)
 
-`cities`, `products`, `product_parts`, `usage_steps`, `gallery_images`,
-`product_options`, `package_options` (artık UI'da kullanılmıyor),
-`weight_options`, `homepage_sections`, `site_settings`,
-`requests` (talepler, honeypot+rate limit+sanitize trigger),
-`admins` (full_name kolonu NOT NULL — yeni admin eklerken dikkat!),
-`admin_audit_log`, `newsletter_subscribers`, `page_views`.
+`cities`, `products`, `product_parts`, `usage_steps`, `gallery_images`, `product_options`, `package_options` (UI kullanmıyor), `weight_options`, `homepage_sections`, `site_settings`, `requests`, `admins`, `admin_audit_log`, `newsletter_subscribers`, `page_views`.
 
 ### `admins` tablosu — DİKKAT
-```
+```sql
 id          uuid (gen_random_uuid)
-user_id     uuid → auth.users.id (FK, nullable)
-full_name   text NOT NULL  ← **yeni admin eklerken zorunlu**
+user_id     uuid → auth.users.id (FK)
+full_name   text NOT NULL          -- yeni admin eklerken zorunlu
 email       text NOT NULL
 role        text DEFAULT 'admin'
 is_active   boolean DEFAULT true
-created_at  timestamptz DEFAULT now()
-updated_at  timestamptz
 ```
 
-### Yeni admin ekleme SQL
+### Yeni admin SQL
 ```sql
 insert into public.admins (user_id, email, full_name)
 select u.id, u.email, 'Tam İsim'
 from auth.users u
-where u.email = 'email@example.com'
+where u.email = 'admin@example.com'
   and not exists (select 1 from public.admins a where a.user_id = u.id);
 ```
 
-Detay: HANDOFF.md eski sürümlerinde + admins tablosunda zaten kayıtlı (Beyza Ata + The House of Anatolia)
+### `products` tablosu — products.html için anahtar
+products.html `loadProducts` query'sinde `.eq("is_active", true)` filter ile sadece canlı ürünler gösterilir. Yakında olanlar admin'den `is_active=false` ile eklenince gizli kalır.
+
+Kolonlar: `id, city_id, name, name_en, slug, short_name, mini_image, hero_image, meta_description, is_active, ...`
 
 ---
 
-## 🔄 Veri Akışları
+## Veri Akışları
 
 ### Talep Formu (product.html)
-1. Form submit → Supabase `requests` tablosuna INSERT
-2. **payload:** product_id, city_id, product_option_id, weight_option_id, full_name, email, phone, message, vb.
-3. ⚠️ **package_option_id artık gönderilmiyor** (paket seçimi kaldırıldı)
-4. Honeypot (`website` field) DB trigger ile reddediliyor
-5. Rate limit: 3/email/dakika
-6. Paralelde FormSubmit.co'ya da gönderilir (mail fallback)
+1. Form submit → `requests` tablosuna INSERT
+2. `package_option_id` artık gönderilmiyor (paket seçimi kaldırıldı)
+3. Honeypot (`website` field) DB trigger ile reddediliyor
+4. Rate limit: 3/email/dakika
+5. Paralel FormSubmit.co'ya da gönderilir (mail fallback)
 
 ### Newsletter (footer)
 1. Form submit → `newsletter_subscribers` INSERT
@@ -154,62 +122,104 @@ Detay: HANDOFF.md eski sürümlerinde + admins tablosunda zaten kayıtlı (Beyza
 3. Rate limit: 3/email/5dk
 
 ### Admin Login
-1. Supabase Auth signInWithPassword
-2. `is_admin()` RPC çağrılır (admins tablosunda user_id eşleşiyor mu)
+1. Supabase Auth `signInWithPassword`
+2. `is_admin()` RPC çağrılır
 3. Idle timeout 15dk, brute force lockout 5×
 
 ### Page Tracking
-1. requestIdleCallback ile sayfa yüklendiğinde `page_views` INSERT
+1. requestIdleCallback ile `page_views` INSERT
 2. 30 dakika sessionStorage dedup
-3. Device type (mobile/tablet/desktop), referrer (sadece hostname)
-4. **IP saklanmıyor** (KVKK uyum)
+3. Device type, referrer (sadece hostname), IP saklanmıyor (KVKK)
+
+### Products Page Fetch (yeni)
+1. products.html script type=module → Supabase client
+2. `.from("products").select(...).eq("is_active", true).order("created_at")`
+3. Render: grid card → `product.html?slug=...` link
 
 ---
 
-## 🎨 Frontend Mimarisi (yeni)
+## Frontend Mimarisi (güncel)
 
 ### Tipografi
 ```css
---font-serif: 'Cormorant Garamond', serif;       /* Display, italic accents */
+--font-serif: 'Cormorant Garamond', serif;       /* Display, italic */
 --font-sans:  'Plus Jakarta Sans', sans-serif;   /* Body */
 font-feature-settings: "ss01","cv11","liga","dlig","kern";
 ```
 
-### Atmospheric Layer
+### Atmospheric Layer (body::after)
 ```css
 body::after {
   position: fixed; inset: 0;
-  background: SVG fractalNoise (data URL);
+  background: SVG fractalNoise data URL;
   opacity: 0.035;
   mix-blend-mode: overlay;
 }
 ```
 
-### Sparkle Effect (gold sim)
-```js
-// Map alanında periyodik random spawn
-// 3px altın nokta + 4-yön ışın saçılması (pseudo elements)
-// scale 0→1.3→1→0.4 + rotate 0→135deg + drift -18px
-// Spawn 350ms aralıkla, her sparkle 1.6-3.8s yaşıyor
-```
+### Sparkle Effect (güncel — haritanın arkasında, dikey)
+- `.hero-blossom-layer` — `position:absolute; inset:0; z-index:0; pointer-events:none`
+- `.map-wrap > svg{position:relative; z-index:1}` — harita SVG sparkle'ın üstünde
+- `.gold-sparkle` — 3px altın nokta + cross-shaped pseudo elements (::before/::after)
+- `@keyframes sparkle-twinkle` — scale + **translateY -36px** (DİKEY yukarı, rotate yok)
+- JS: spawn her 350ms, sparkle 1.6-3.8s yaşıyor
+- prefers-reduced-motion saygılı
+
+### Marquee Strip (yeni — TV altyazısı tarzı)
+- `.marquee-strip` — section'lar arası, full-width
+- `.marquee-track` — `display:flex; width:max-content; animation:marqueeScroll 38s linear infinite`
+- `@keyframes marqueeScroll` — `translateX 0 → -50%` (sağdan sola)
+- Her item ✦ ayraçlı (`.marquee-item::before{content:'✦'}`)
+- 5 yakında ürün × 2 (duplicate seamless loop için)
+- i18n keys: `marquee_1` … `marquee_5` (TR + EN)
+- prefers-reduced-motion saygılı
+
+### Eyebrow (KEŞFET, HİKÂYEMİZ vb.)
+- `.eyebrow{display:flex; align-items:center; gap:12px}`
+- `.eyebrow::before, .eyebrow::after{content:''; width:38px; height:1px; background:rgba(210,161,47,.72)}` — **iki yanda altın çizgi**
+
+### Contact Card (yatay 2-col)
+- `display:grid; grid-template-columns:1fr 1.1fr; gap:56px; align-items:center`
+- max-width: 1020px
+- SOL: `<div class="contact-intro-block">` (eyebrow + title + intro), text-align:left
+- SAĞ: `<ul class="contact-list">` (e-posta + adres + telefon)
+- Mobile (<820px): tek sütun fallback
 
 ### Custom Scrollbar
 ```css
-* { scrollbar-width: thin; scrollbar-color: gold/dark; }
+* { scrollbar-width: thin; scrollbar-color: rgba(210,161,47,.45) rgba(20,15,10,.4); }
 *::-webkit-scrollbar-thumb { gold gradient; }
 ```
 
 ### Mobile Breakpoints
-- `<480px` — extra small (font sizes, container 16px padding, navbar 64px)
-- `<640px` — small (footer 1-col stack, contact list dikey)
-- `<760px` — medium (about narrative paragraf scaling)
-- `<980px` — tablet (asymmetric grids → 1fr, map-branding static)
-- `<1180px` — large tablet (about-grid → 1fr)
-- `<1600px` — ultra-wide (container padding 80px)
+- `<480px` extra small
+- `<640px` small (footer 1-col)
+- `<760px` medium
+- `<820px` contact 2-col → 1-col
+- `<980px` tablet
+- `<1180px` large tablet
+- `<1600px` ultra-wide (container padding 80px)
 
 ---
 
-## 🔐 Güvenlik (değişmedi)
+## SEO / A11y (PR #1)
+
+### SEO altyapı
+- `robots.txt`: sitemap referansı + admin.html disallow
+- `sitemap.xml`: 6 URL (anasayfa, ürünler, ürün detay, 3 yasal) + TR/EN hreflang
+- index.html JSON-LD: Organization + WebSite (CollectionPage products.html)
+- product.html JSON-LD: Product + BreadcrumbList
+- canonical + hreflang tüm sayfalarda
+
+### A11y
+- Skip-to-main link (3 ana sayfada)
+- `<main id="main-content">` wrapper
+- WCAG 2.4.1 (Bypass Blocks) uyumlu
+- Lighthouse: A11y 98 / SEO 92 / Best Practices 96 / Agentic 100
+
+---
+
+## Güvenlik
 
 - RLS tüm tablolarda aktif
 - Anon key public ama RLS koruması
@@ -220,16 +230,20 @@ body::after {
 
 ---
 
-## 🧪 Test Stratejisi
+## Test Stratejisi
 
 **Manuel:**
 - Form submit (gerçek email)
 - Newsletter signup
-- Admin login + CRUD
+- Admin login + CRUD (ürün, şehir, galeri)
 - TR/EN switch
 - Mobile responsive (DevTools + gerçek telefon)
 - Custom cursor desktop, touch device
+- Sparkle harita altında dikey uçuyor mu
+- Marquee strip kayıyor mu
+- products.html sadece is_active=true mı
 
-**Yeni session'da otomatik:**
-- `chrome-devtools-mcp` ile gerçek Chrome browser test
+**Otomatik (yeni session'da):**
+- `chrome-devtools-mcp` ile Chrome browser test (lighthouse_audit, take_screenshot)
 - `playwright` plugin ile E2E
+- `curl` ile canlı HTML doğrulaması (deploy verify)

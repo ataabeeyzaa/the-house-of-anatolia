@@ -1,11 +1,11 @@
 # DESIGN SYSTEM — The House of Anatolia
 
 > **Aesthetic direction:** "Editorial Heritage — Anatolian terroir meets refined modernism"
-> **2026-05-08 güncel — frontend-design skill ilkeleri uygulanmıştır**
+> **2026-05-08 güncel** — frontend-design skill ilkeleri uygulanmıştır
 
 ---
 
-## 🎨 Renk Paleti
+## Renk Paleti
 
 ```css
 :root {
@@ -36,33 +36,30 @@
 ```
 
 ### KESİN KURAL — Renk Disiplini
-**Sadece koyu + altın + krem tonları kullanılır.** Mavi, yeşil, kırmızı, mor — hiçbiri yok. Tek vurgu rengi: altın. AI-cliché purple gradient'ler yasak.
+**Sadece koyu + altın + krem tonları kullanılır.** Mavi, yeşil, kırmızı, mor — hiçbiri yok. Tek vurgu rengi: altın. AI-cliché purple gradient'ler YASAK.
 
 ---
 
-## 📝 Tipografi
+## Tipografi
 
-### Fontlar (frontend-design skill uyumlu)
+### Fontlar
 ```css
 --font-display: 'Cormorant Garamond', serif;       /* Başlıklar, italic accents */
---font-body:    'Plus Jakarta Sans', sans-serif;    /* Body, UI, modern */
+--font-body:    'Plus Jakarta Sans', sans-serif;   /* Body, UI, modern */
 ```
 
-**Inter, Roboto, Arial, system fonts YASAK** — frontend-design skill direktifi (generic AI slop).
+**YASAK:** Inter, Roboto, Arial, Space Grotesk, system-ui. Generic AI slop.
 
 ### Google Fonts URL
 ```html
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 ```
 
-### Font Features (refined typography)
+### Font Features
 ```css
 body {
-  font-feature-settings: "ss01","cv11";  /* Plus Jakarta Sans alternates */
+  font-feature-settings: "ss01","cv11";  /* Plus Jakarta alternates */
   -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
 }
 h1, h2, h3, .title {
   font-feature-settings: "liga","dlig","kern";  /* Cormorant ligatures */
@@ -73,24 +70,28 @@ h1, h2, h3, .title {
 
 ### Hiyerarşi
 ```css
-/* Display H1 */
+/* Display H1 — slogan */
 font-family: 'Cormorant Garamond', serif;
 font-size: clamp(46px, 7vw, 96px);
-font-weight: 300;
-line-height: 1.04;
+font-weight: 300-500;
 
 /* H2 — section başlıkları */
 font-size: clamp(36px, 4.5vw, 56px);
-font-weight: 500;
 
-/* Italic gold accent (slogan) */
-font-style: italic;
-color: var(--gold-soft);
-font-weight: 400;
+/* Italic gold accent (slogan vurgusu) */
+font-style: italic; color: var(--gold-soft); font-weight: 400;
 
 /* Eyebrow / kicker */
 font-size: 0.7rem;
 letter-spacing: 0.22em;
+text-transform: uppercase;
+color: var(--gold-soft);
+
+/* Footer h4 — sektör-tarzı sober */
+font-family: 'Plus Jakarta Sans';
+font-size: 0.74rem;
+font-weight: 600;
+letter-spacing: 0.28em;
 text-transform: uppercase;
 color: var(--gold-soft);
 
@@ -103,36 +104,104 @@ color: rgba(244, 238, 230, .68);
 
 ---
 
-## ✨ Atmospheric & Motion
+## Atmospheric & Motion
 
-### SVG Film Grain (body background)
+### SVG Film Grain (body::after)
 ```css
 body::after {
-  content: "";
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: 1;
-  opacity: 0.035;
-  mix-blend-mode: overlay;
+  position: fixed; inset: 0;
+  pointer-events: none; z-index: 1;
+  opacity: 0.035; mix-blend-mode: overlay;
   background-image: url("data:image/svg+xml;utf8,<svg ...fractalNoise...>");
 }
 @media (prefers-reduced-motion: reduce) { body::after { display: none } }
 ```
 
-### Gold Sparkle Particles (.gold-sparkle)
-- Map alanında periyodik random spawn (350ms aralık)
-- 3px altın nokta + 4-yön ışın (pseudo elements)
-- Animation: scale + rotate + translateY drift
-- Her sparkle 1.6-3.8s yaşıyor
-- prefers-reduced-motion saygılı
+### Gold Sparkle Particles (GÜNCEL — haritanın arkasında, dikey)
+```css
+.hero-blossom-layer{
+  position:absolute; inset:0;
+  z-index:0;                /* harita SVG (z-index:1) ALTINDA */
+  pointer-events:none; overflow:hidden;
+}
+.map-wrap > svg{
+  position:relative; z-index:1;   /* sparkle'ın ÜSTÜNDE */
+}
+.gold-sparkle{
+  position:absolute;
+  width:3px; height:3px;
+  background:#f5e0a8;
+  border-radius:50%;
+  box-shadow: 0 0 6px rgba(240,210,138,.85), 0 0 14px rgba(210,161,47,.45);
+  animation: sparkle-twinkle var(--dur) ease-in-out forwards;
+}
+.gold-sparkle::before, .gold-sparkle::after {
+  /* Cross-shaped 4-yön ışın */
+}
+@keyframes sparkle-twinkle{
+  0%   {opacity:0; transform:translate(-50%,-50%) scale(0)}
+  25%  {opacity:1; transform:translate(-50%,-50%) scale(1.3)}
+  55%  {opacity:.85; transform:translate(-50%, calc(-50% - 16px)) scale(1)}
+  100% {opacity:0; transform:translate(-50%, calc(-50% - 36px)) scale(.4)}
+}
+@media (prefers-reduced-motion: reduce){ .gold-sparkle{display:none} }
+```
+- **DİKEY yukarı uçma** (rotate yok, yana hareket yok)
+- Harita opak il alanlarında **görünmez** (SVG üstte)
+- Harita transparent kenarlarında **görünür** (denizler, dış sınır)
+- JS spawn her 350ms, initial burst 8 sparkle, dur 1.6-3.8s
+
+### Marquee Strip (YENİ — TV altyazısı tarzı kayan şerit)
+```css
+.marquee-strip{
+  overflow:hidden;
+  background:linear-gradient(180deg, rgba(18,13,10,.85), rgba(13,9,7,.95));
+  border-top:1px solid rgba(210,161,47,.16);
+  border-bottom:1px solid rgba(210,161,47,.16);
+  padding:14px 0;
+  backdrop-filter:blur(10px);
+}
+.marquee-track{
+  display:flex; gap:48px;
+  width:max-content;
+  animation: marqueeScroll 38s linear infinite;
+}
+.marquee-item{
+  display:inline-flex; align-items:center; gap:14px;
+  color:var(--muted); font-size:.92rem;
+  letter-spacing:.06em; white-space:nowrap;
+  flex-shrink:0;
+}
+.marquee-item::before{ content:'✦'; color:var(--gold); }
+@keyframes marqueeScroll{
+  0%   {transform:translateX(0)}
+  100% {transform:translateX(-50%)}
+}
+@media (prefers-reduced-motion: reduce){ .marquee-track{animation:none} }
+```
+- Map section ile about-section arasında, full-width
+- 5 item × 2 (duplicate seamless loop)
+- i18n: `marquee_1-5` keys
+
+### Eyebrow (iki yanda altın çizgi)
+```css
+.eyebrow{
+  display:flex; align-items:center; gap:12px;
+  color:var(--gold-soft);
+  text-transform:uppercase; letter-spacing:.18em;
+  font-size:.76rem;
+}
+.eyebrow::before, .eyebrow::after{
+  content:''; width:38px; height:1px;
+  background:rgba(210,161,47,.72);
+}
+```
 
 ### Custom Scrollbar
 ```css
 * { scrollbar-width: thin; scrollbar-color: rgba(210,161,47,.45) rgba(20,15,10,.4); }
 *::-webkit-scrollbar { width: 9px; }
 *::-webkit-scrollbar-thumb { background: gold gradient; }
-*::-webkit-scrollbar-thumb:hover { brightening }
 ```
 
 ### ::selection
@@ -151,117 +220,135 @@ body::after {
 .nav-links a:hover::before { left: 0; right: 0 }
 
 /* Form input focus-visible — altın 3px glow ring */
-input:focus-visible, textarea:focus-visible, select:focus-visible {
-  box-shadow: 0 0 0 3px rgba(210,161,47,.18);
-}
+input:focus-visible { box-shadow: 0 0 0 3px rgba(210,161,47,.18); }
 
 /* Reveal animation */
-.reveal {
-  opacity: 0;
-  transform: translateY(28px) scale(.998);
-  transition: opacity 1s var(--ease), transform 1s var(--ease);
-}
+.reveal { opacity: 0; transform: translateY(28px); transition: 1s var(--ease); }
 .reveal.in-view { opacity: 1; transform: none }
 ```
 
 ---
 
-## 📐 Spacing & Layout
+## Spacing & Layout
 
 ### Container
 ```css
 .container { width: min(calc(100% - 48px), 1320px); margin: 0 auto }
-@media (max-width: 980px) { .container padding: 0 28px }
-@media (max-width: 480px) { .container width: min(calc(100% - 32px), 1320px) }
-@media (min-width: 1600px) { .container padding: 0 80px }
 ```
 
-### Section Padding
+### Section Padding (GÜNCEL — daraltıldı)
 ```css
-.section { padding: 110px 0 }
+.section { padding: 80px 0 }              /* önceden 110px */
 @media (max-width: 980px) { .section { padding: 60px 0 } }
 @media (max-width: 480px) { .section { padding: 48px 0 } }
 ```
 
 ### Grid'ler
-- **Asymmetric (1.2fr 0.8fr)** — Aesop tarzı; bu projede kullanıldı sonra **kullanıcı reddetti**, kullanma
-- **Eşit ikili (1fr 1fr)**
-- **3'lü (repeat(3, 1fr))**
-- **4'lü footer (1.4fr 1fr 1fr 1.2fr)** — hafif asymmetric
+- **Eşit ikili (1fr 1fr)** — anasayfa about-card grid
+- **3'lü (repeat(3, 1fr))** — usage-grid
+- **4'lü footer (1.8fr 1fr 1fr 1.4fr)** — logo + contact wider
+- **Contact card (1fr 1.1fr)** — yatay 2-col
+
+### Skip-link CSS
+```css
+.skip-link{
+  position:absolute; left:-9999px; top:8px; z-index:1000;
+  padding:10px 18px;
+  background:var(--gold); color:#24170a;
+  text-transform:uppercase; letter-spacing:.08em;
+  font-size:.78rem; font-weight:600;
+}
+.skip-link:focus, .skip-link:focus-visible{
+  left:8px;
+  outline:2px solid var(--gold-soft); outline-offset:2px;
+}
+```
 
 ---
 
-## 🎯 Beğenilen Component'ler
+## Beğenilen Component'ler
 
 ### Italic Gold Accent (slogan vurgusu)
 ```html
 <h1>Lezzetin <em>Kökenine</em> Yolculuk</h1>
 ```
-i18n marker syntax: `*X*` JS tarafından `<em class="gold-accent">X</em>` olarak parse edilir.
-
-### Eyebrow
-```html
-<div class="eyebrow"><span class="eyebrow-line"></span><span>HİKÂYEMİZ</span></div>
-```
+i18n marker syntax: `*X*` → `<em class="gold-accent">X</em>` (JS parse).
 
 ### Section Divider (◆)
 ```html
-<div class="container"><div class="section-divider" aria-hidden="true"><span class="diamond">◆</span></div></div>
+<div class="container">
+  <div class="section-divider" aria-hidden="true">
+    <span class="diamond">◆</span>
+  </div>
+</div>
 ```
-
-### Future Pill
-```html
-<span class="future-pill">Yakında — Kastamonu Sarımsağı</span>
-```
-Border + altın ton, hafif altın background.
 
 ### Footer Brand Logo
 ```html
 <a href="#home" class="footer-brand-logo">
-  <img src="assets/logo_house_of_anatolia_transparent.png" alt="...">
+  <img src="assets/logo_house_of_anatolia_transparent.png">
 </a>
 ```
 64px height, drop-shadow, hover translateY(-2px).
 
+### Product Card (products.html)
+```html
+<a href="product.html?slug=..." class="product-card">
+  <div class="product-card-image"><img ...></div>
+  <div class="product-card-body">
+    <div class="product-card-region">KARABÜK</div>
+    <h3 class="product-card-name">Safranbolu Safranı</h3>
+    <p class="product-card-meta">...</p>
+    <div class="product-card-foot">
+      <span class="product-card-status live">YAYINDA</span>
+      <span class="product-card-arrow">→</span>
+    </div>
+  </div>
+</a>
+```
+Hover: `translateY(-4px)` + altın border + box-shadow + image scale(1.06).
+
 ---
 
-## 🚫 Yasaklar (frontend-design skill direktifi)
+## Yasaklar
 
-1. ❌ **Inter, Roboto, Arial, system-ui** — generic AI slop
+1. ❌ **Inter, Roboto, Arial, system-ui, Space Grotesk** — generic AI slop
 2. ❌ **Purple gradients** (özellikle white background üstünde)
 3. ❌ **Predictable layouts** (cookie-cutter Bootstrap)
 4. ❌ **3-sütun dikey label/value** (kullanıcı reddetti)
-5. ❌ **Stats bar 1/1/1 sayım kartları** (kullanıcı: "ucuz duruyor")
+5. ❌ **Stats bar 1/1/1 sayım kartları** ("ucuz duruyor")
 6. ❌ **KÜNYE bilgi kartları** (kullanıcı reddetti)
 7. ❌ **Sertifika rozeti** (kullanıcı reddetti)
 8. ❌ **Cinematic dağ silüetleri** (kullanıcı reddetti)
-9. ❌ **Border-radius bombardımanı** — köşe %0 veya max 4px
-10. ❌ **Drop shadow abartısı** — sadece var(--shadow) veya gold glow
-11. ❌ **Emoji ikonlar** — yerine SVG veya `✦ ❋ ※`
-12. ❌ **Auto-play video / ses**
-13. ❌ **Stock fotoğraf hissi**
+9. ❌ **Map'in ÜZERİNDE uçuşan parlak şeyler** — sparkle ARKADA, dikey
+10. ❌ **Border-radius bombardımanı** — köşe %0 veya max 24px (contact-card için)
+11. ❌ **Drop shadow abartısı** — sadece var(--shadow) veya gold glow
+12. ❌ **Emoji ikonlar** — yerine SVG veya `✦ ❋ ※`
+13. ❌ **Auto-play video / ses**
+14. ❌ **Stock fotoğraf hissi**
 
 ---
 
-## ✅ Olmazsa Olmaz
+## Olmazsa Olmaz
 
-1. ✓ **Boşluk hakimiyeti** — section padding 60-110px
+1. ✓ **Boşluk hakimiyeti** — section padding 60-80px
 2. ✓ **Tek easing** — `cubic-bezier(0.16, 1, 0.3, 1)`
 3. ✓ **İnce çizgiler** — 1px gold border/divider
 4. ✓ **İtalik altın vurgular** — başlıklarda 1 kelime
-5. ✓ **Atmospheric depth** — film grain noise + radial gradients
-6. ✓ **Mobile-first** — clamp() fluid type, no overflow
-7. ✓ **prefers-reduced-motion saygısı**
-8. ✓ **Touch-friendly** — 44px+ targets
-9. ✓ **Section labels** — eyebrow + line + caps text
+5. ✓ **Atmospheric depth** — film grain noise + radial gradients + sparkle (arkada)
+6. ✓ **Eyebrow iki yanda altın çizgi** (::before + ::after)
+7. ✓ **Mobile-first** — clamp() fluid type, no overflow
+8. ✓ **prefers-reduced-motion saygısı**
+9. ✓ **Touch-friendly** — 44px+ targets
+10. ✓ **Skip-to-main link** (WCAG 2.4.1)
 
 ---
 
-## 🎯 Stil Referansları
+## Stil Referansları
 
-- **Aesop** — asymmetric grids (kullanıcı reddetti, ama tipografi yön doğru)
-- **Hermès Maison** — cinematic hero (büyük dağ silüeti reddedildi, ama editorial yön doğru)
+- **Aesop** — typography hierarchy, sober footers (asymmetric grid'i kullanıcı reddetti)
+- **Hermès Maison** — editorial yön, gold accents (cinematic hero reddedildi)
 - **Le Labo** — typography-first, brutal minimalism
-- **Mariage Frères** — heritage, certifications
+- **Mariage Frères** — heritage, editorial detayları
 
 **Özetle:** "Boş ama dolu" — az element, ama her element premium hissi versin.

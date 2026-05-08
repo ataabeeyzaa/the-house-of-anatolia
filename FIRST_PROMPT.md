@@ -1,4 +1,4 @@
-# YENİ CLAUDE CODE SOHBETİ — İLK PROMPT
+# FIRST_PROMPT — Yeni Claude Code Sohbeti İçin
 
 > Bu metni **olduğu gibi kopyalayıp yeni Claude Code sohbetine yapıştır**. Tüm bağlamı + kuralları içerir.
 
@@ -49,30 +49,38 @@ Push sonrası GitHub Actions otomatik Netlify'a deploy eder (~1.5 dk).
 
 Eyleme geçmeden önce bu 4 dosyayı oku ve özümse:
 
-1. **HANDOFF.md** — projenin tam haritası, yapılanlar, kullanıcı tercihleri (en kritik)
-2. **ARCHITECTURE.md** — stack, deploy pipeline, plugin envanteri (18 plugin), DB şeması
-3. **DESIGN_SYSTEM.md** — Plus Jakarta Sans + Cormorant + Editorial Heritage direction, yasaklar listesi
-4. **KNOWN_ISSUES.md** — kalan işler, dead code, sınırlamalar
+1. **HANDOFF.md** — projenin tam haritası, yapılanlar (4 PR + Phase 0), kullanıcı tercihleri (en kritik)
+2. **ARCHITECTURE.md** — stack, deploy pipeline, plugin envanteri (18 plugin + 2 MCP), DB şeması, frontend mimarisi (sparkle güncel davranışı, marquee strip, contact horizontal)
+3. **DESIGN_SYSTEM.md** — Plus Jakarta Sans + Cormorant Garamond, Editorial Heritage direction, sparkle/marquee/eyebrow CSS pattern'leri, yasaklar listesi
+4. **KNOWN_ISSUES.md** — kalan işler (P0/P1/P2), sınırlamalar, bilinen bug'lar, çözülen referansları
 
-Sonra HTML dosyalarına ihtiyacın olduğunda Read tool ile aç (her biri büyük: index.html ~200KB, admin.html ~168KB).
+Sonra HTML dosyalarına ihtiyacın olduğunda Read tool ile aç (her biri büyük: index.html ~200KB+, admin.html ~165KB, products.html ~12KB, product.html ~80KB).
 
 
-## 5. KULLANICI TERCIHLERI — Hatırla
+## 5. KULLANICI TERCİHLERİ — Hatırla
 
 - **Türkçe**, kısa, doğrudan
 - "Salak mısın" gibi sert tepkiler frustrasyon ifadesi → defensiveness yapma, somut cevap ver, kanıtla (curl + grep ile doğrulama göster)
 - Major değişiklik öncesi git commit — geri alabilmek için
 - Stale dosya riski: edit öncesi her zaman dosyanın güncel halini Read et
 - Supabase Service Role Key ASLA isteme (sadece Anon Key var, HTML'de)
-- Kullanıcının önceki feedback'leri (KNOWN_ISSUES'da liste): stats bar, KÜNYE, sertifika rozeti, EST badge, 3-sütun contact, cinematic hero — **REDDETTİ**, tekrar ekleme
-- Beğendiği: italic gold accent, sparkle (✦) effect, Cormorant + Plus Jakarta Sans, koyu+altın+krem
+- Kullanıcının önceki feedback'leri (HANDOFF/KNOWN_ISSUES'da liste): stats bar, KÜNYE, sertifika rozeti, EST badge, 3-sütun contact, cinematic hero, **map'in ÜZERİNDE uçuşan parlak şeyler** — REDDETTİ, tekrar ekleme
+- Beğendiği: italic gold accent, **sparkle (✦) effect (haritanın ARKASINDA, dikey yukarı uçar)**, **KEŞFET eyebrow çift çizgi**, **map altında kayan şerit**, **contact horizontal 2-col**, Cormorant + Plus Jakarta Sans, koyu+altın+krem
 
 
-## 6. İLK ADIMIN
+## 6. CANLI DURUM — Site Yayında
 
-1. 4 MD dosyasını oku
+- 4 PR mergede (#1: SEO+Cleanup+A11y, #2: sparkle iter 1, #3: sparkle removal+products page, #4: sparkle re-add+map section+contact)
+- Lighthouse: **A11y 98 / SEO 92 / Best Practices 96 / Agentic 100**
+- Yeni: `products.html` (Supabase fetch is_active=true), `marquee-strip` (TV altyazısı tarzı), sparkle haritanın arkasında dikey
+- Eksik P0: telefon numarası placeholder, yasal sayfa placeholder'ları, domain, admin user, eski Netlify token revoke (hepsi kullanıcı yapacak)
+
+
+## 7. İLK ADIMIN
+
+1. 4 MD dosyasını oku (HANDOFF, ARCHITECTURE, DESIGN_SYSTEM, KNOWN_ISSUES)
 2. Mevcut durumu özetle (3-5 cümle)
-3. En kritik 2-3 yapılacak iş ne sence (KNOWN_ISSUES P0'a bakarak)
+3. En kritik 2-3 yapılacak iş ne sence (KNOWN_ISSUES P0/P1'e bakarak — Claude'un bağımsız yapabileceği işler)
 4. Bekle — kullanıcı senin önerine göre yön verecek
 
 Hadi başla.
@@ -80,34 +88,18 @@ Hadi başla.
 
 ---
 
-## 📋 Bu Prompt Neyi İçeriyor
+## Notlar
 
-| Bölüm | Amacı |
-|---|---|
-| **1. MODEL** | Opus 4.7 zorunluluğu, downgrade yasak |
-| **2. ANALYSIS-FIRST** | Deep think + skill kullanımı, tahminden kaçınma |
-| **3. GIT DİSİPLİNİ** | Rebase before push, force push yasak |
-| **4. BAĞLAM** | 4 MD dosya okuma sırası |
-| **5. KULLANICI TERCİHLERİ** | Geçmiş feedback ve kişilik |
-| **6. İLK ADIM** | Yeni session ne yapacak |
+Yukarıdaki üç tırnaklı kod bloğunu yeni sohbete kopyala-yapıştır. Claude:
+1. MODEL kuralını uygulayacak (Opus 4.7, asla Sonnet/Haiku'ya düşmeyecek)
+2. ANALYSIS-FIRST'i her cevap öncesi yazacak
+3. Git push'tan önce rebase yapacak, force push kullanmayacak
+4. 4 MD'yi okuyup özet + öneri verecek
+5. Senin yön vermeni bekleyecek
 
-## 🔗 Faydalı Linkler
+### Tamamlanmamış İşler (yeni sohbet bunları görür)
 
-- **Site:** https://house-of-anatolia.netlify.app
-- **GitHub:** https://github.com/ataabeeyzaa/the-house-of-anatolia
-- **Netlify:** https://app.netlify.com/projects/house-of-anatolia
-- **Supabase:** https://supabase.com/dashboard/project/owcgcyvgibyawxfxwlbn
-
-## ⚠️ Önemli — Bu Prompt'tan Önce
-
-Yeni Claude Code'u açtıktan sonra:
-
-1. `cd C:\Users\User\Downloads\Beyza_project` ile klasöre git
-2. `claude` komutuyla session başlat
-3. Bu dosyadaki **kod bloğunun içindeki** metni (1.MODEL'den 6.İLK ADIM'ın sonuna kadar) kopyala
-4. Yeni sohbete yapıştır + gönder
-5. Claude 18 plugin yüklü olarak başlayacak (önceki session'da kuruldular)
-6. 4 MD dosyasını okuyacak, durumu özetleyecek, P0 önerileri sunacak
-7. Sen yön ver
-
-İyi şanslar! 🌿
+- **Marquee admin entegrasyonu** (KNOWN_ISSUES P1) — Supabase'de `marquee_items` tablosu yarat + admin'de CRUD UI ekle. Şu an i18n dict'te statik 5 yakında ürün var.
+- **EN içerikleri** (KNOWN_ISSUES P1) — admin'den name_en, description_en doldurulacak
+- **CSS dead code temizliği** (KNOWN_ISSUES P2) — `.future-pill`, `.future-list` rules
+- **Kullanıcı P0 işleri** — telefon, domain, KVKK placeholder, admin user, Netlify token revoke
