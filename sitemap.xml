@@ -11,6 +11,15 @@
     <priority>1.0</priority>
   </url>
   <url>
+    <loc>https://house-of-anatolia.netlify.app/products.html</loc>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://house-of-anatolia.netlify.app/products.html?lang=tr"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://house-of-anatolia.netlify.app/products.html?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://house-of-anatolia.netlify.app/products.html"/>
+    <lastmod>2026-05-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.95</priority>
+  </url>
+  <url>
     <loc>https://house-of-anatolia.netlify.app/product.html?slug=karabuk-safrani</loc>
     <xhtml:link rel="alternate" hreflang="tr" href="https://house-of-anatolia.netlify.app/product.html?slug=karabuk-safrani&amp;lang=tr"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://house-of-anatolia.netlify.app/product.html?slug=karabuk-safrani&amp;lang=en"/>
