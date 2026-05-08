@@ -758,51 +758,69 @@
     .contact-centered .contact-info-grid{
       display:grid;
       grid-template-columns:repeat(3, 1fr);
-      gap:34px;
-      align-items:start;
+      gap:18px;
+      align-items:stretch;
     }
     .contact-centered .contact-info-item{
       display:flex;
-      flex-direction:column;
       align-items:center;
-      gap:10px;
-      transition:.4s cubic-bezier(0.16, 1, 0.3, 1);
-      cursor:default;
+      gap:16px;
+      padding:20px 22px;
+      background:linear-gradient(180deg, rgba(28,22,18,.72), rgba(20,15,12,.85));
+      border:1px solid rgba(255,255,255,.05);
+      border-radius:18px;
+      transition:border-color .35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow .35s cubic-bezier(0.16, 1, 0.3, 1), transform .35s cubic-bezier(0.16, 1, 0.3, 1);
+      text-decoration:none;
+      color:inherit;
     }
     .contact-centered .contact-info-item:hover{
-      transform:translateY(-3px);
+      border-color:rgba(210,161,47,.35);
+      box-shadow:0 4px 22px rgba(210,161,47,.07);
+      transform:translateY(-1px);
     }
-    .contact-centered .contact-info-item strong{
-      font-family:'Plus Jakarta Sans',sans-serif;
-      font-size:.72rem;
-      font-weight:600;
-      letter-spacing:.32em;
+    .contact-centered .contact-info-item .icon{
+      flex-shrink:0;
+      width:40px; height:40px;
+      display:grid; place-items:center;
+      border-radius:50%;
+      background:radial-gradient(circle at 30% 30%, rgba(240,210,138,.16), rgba(210,161,47,.04) 70%);
+      border:1px solid rgba(210,161,47,.18);
+      color:var(--gold-soft);
+    }
+    .contact-centered .contact-info-item .info{
+      display:flex; flex-direction:column; gap:3px;
+      min-width:0;
+    }
+    .contact-centered .contact-info-item .info-label{
+      font-size:.62rem;
+      letter-spacing:.28em;
       text-transform:uppercase;
       color:var(--gold-soft);
+      font-family:'Plus Jakarta Sans',sans-serif;
+      font-weight:600;
       transition:color .35s ease;
     }
-    .contact-centered .contact-info-item:hover strong{
+    .contact-centered .contact-info-item:hover .info-label{
       color:var(--gold);
     }
-    .contact-centered .contact-info-item span{
-      font-family:'Cormorant Garamond',serif;
-      font-size:1.18rem;
-      font-weight:500;
+    .contact-centered .contact-info-item .info-value{
       color:var(--cream);
-      line-height:1.5;
-    }
-    .contact-centered .contact-info-item::before{
-      content:"";
-      width:1px;
-      height:20px;
-      background:linear-gradient(180deg, transparent, rgba(210,161,47,.5), transparent);
-      margin-bottom:8px;
+      font-family:'Plus Jakarta Sans',sans-serif;
+      font-size:.95rem;
+      font-weight:400;
+      word-break:break-word;
+      line-height:1.4;
     }
     @media (max-width:760px){
       .contact-centered .contact-info-grid{
         grid-template-columns:1fr;
-        gap:30px;
+        gap:14px;
       }
+    }
+    @media (max-width:540px){
+      .contact-centered .contact-info-item{padding:16px 18px; gap:14px}
+      .contact-centered .contact-info-item .icon{width:36px; height:36px}
+      .contact-centered .contact-info-item .info-value{font-size:.9rem}
     }
 
 </style></head>
@@ -1092,17 +1110,32 @@
           <p class="contact-intro">Talep formunun ardından ekibimiz size doğrudan dönüş sağlar.</p>
           <div class="contact-info-grid">
             <div class="contact-info-item">
-              <strong>Adres</strong>
-              <span>Safranbolu, Karabük / Türkiye</span>
+              <span class="icon" aria-hidden="true">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-7.5 7-12a7 7 0 1 0-14 0c0 4.5 7 12 7 12z"/><circle cx="12" cy="9" r="2.5"/></svg>
+              </span>
+              <span class="info">
+                <span class="info-label">ADRES</span>
+                <span class="info-value">Safranbolu, Karabük / Türkiye</span>
+              </span>
             </div>
             <div class="contact-info-item">
-              <strong>Telefon</strong>
-              <span>+90 (5XX) XXX XX XX</span>
+              <span class="icon" aria-hidden="true">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+              </span>
+              <span class="info">
+                <span class="info-label">TELEFON</span>
+                <span class="info-value">+90 (5XX) XXX XX XX</span>
+              </span>
             </div>
-            <div class="contact-info-item">
-              <strong>E-posta</strong>
-              <span>info@thehouseofanatolia.com</span>
-            </div>
+            <a href="mailto:info@thehouseofanatolia.com" class="contact-info-item">
+              <span class="icon" aria-hidden="true">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
+              </span>
+              <span class="info">
+                <span class="info-label">E-POSTA</span>
+                <span class="info-value">info@thehouseofanatolia.com</span>
+              </span>
+            </a>
           </div>
         </div>
       </div>
