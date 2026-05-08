@@ -1,6 +1,6 @@
 # ARCHITECTURE — The House of Anatolia
 
-> **2026-05-08 güncel (PR #6 sonrası)** — stack, deploy, plugin envanteri, DB şema, veri akışları.
+> **2026-05-08 güncel (PR #7 sonrası)** — stack, deploy, plugin envanteri, DB şema, veri akışları.
 
 ---
 
@@ -66,10 +66,10 @@ frontend-design, code-review, feature-dev, security-guidance, superpowers, claud
 
 | Dosya | Boyut yaklaşık | İçerik |
 |---|---|---|
-| `index.html` | ~3000 satır, ~190 KB | Anasayfa: navbar, hero, harita (sparkle YOK — PR #6), KEŞFET, **marquee strip**, hakkımızda, **contact 2-col (3 info kart sol + newsletter card sağ)**, footer 4-col (newsletter contact'a taşındı) + Supabase data layer + i18n |
+| `index.html` | ~3300 satır, ~210 KB | Anasayfa: minimal navbar (logo + ☰ hamburger + lang) + hamburger overlay menü, hero, harita, KEŞFET, **marquee strip (Supabase fetch + statik fallback)**, hakkımızda, **Ürünler section (Supabase küçük kart vitrini)**, **contact 2-col (3 info kart sol + newsletter card sağ — sade, başlık yok)**, footer 4-col + Supabase data layer + i18n |
 | `product.html` | ~1700 satır, 80 KB | Ürün detay + talep formu (Supabase + FormSubmit dual) |
 | `products.html` | ~280 satır, ~12 KB | **Yeni** — Ürünler vitrini, Supabase fetch is_active=true, grid layout |
-| `admin.html` | ~4500 satır, ~165 KB | Tek-sayfa admin panel (paket CRUD silindi) |
+| `admin.html` | ~4750 satır, ~175 KB | Tek-sayfa admin panel (paket CRUD silindi; Şerit/marquee CRUD eklendi PR #7) |
 | `gizlilik.html`, `kullanim.html`, `cerez.html` | toplam ~50 KB | Yasal skeletonları (12 placeholder) |
 | `robots.txt` | 8 satır | SEO crawl + sitemap referansı + admin disallow |
 | `sitemap.xml` | 50 satır | 6 URL + TR/EN hreflang |
@@ -77,9 +77,9 @@ frontend-design, code-review, feature-dev, security-guidance, superpowers, claud
 
 ---
 
-## Veritabanı Şeması (14 tablo)
+## Veritabanı Şeması (15 tablo)
 
-`cities`, `products`, `product_parts`, `usage_steps`, `gallery_images`, `product_options`, `package_options` (UI kullanmıyor), `weight_options`, `homepage_sections`, `site_settings`, `requests`, `admins`, `admin_audit_log`, `newsletter_subscribers`, `page_views`.
+`cities`, `products`, `product_parts`, `usage_steps`, `gallery_images`, `product_options`, `package_options` (UI kullanmıyor), `weight_options`, `homepage_sections`, `site_settings`, `requests`, `admins`, `admin_audit_log`, `newsletter_subscribers`, `page_views`, **`marquee_items` (PR #7 — anasayfa kayan şerit, kullanıcı SQL Editor'dan migration çalıştırır)**.
 
 ### `admins` tablosu — DİKKAT
 ```sql
@@ -162,7 +162,22 @@ body::after {
 - Yasaklar listesinde tüm varyantlar (üstünde/etrafında/arkasında) — bkz. DESIGN_SYSTEM
 - product.html'deki `.hero-blossom-layer` rule mini-blossom safran çiçeği için kapsayıcı, KORUNUR
 
-### Marquee Strip (TV altyazısı tarzı)
+### Hamburger menü (PR #7 — Aesop pattern)
+- Navbar yatay nav-links kaldırıldı; sağ üstte `.nav-toggle` button (☰ → X) + lang switcher
+- `.nav-overlay` fullscreen, radial gold glow + blur backdrop, 450ms fade-in/out
+- Overlay içeriği: SAYFALAR (Ana Sayfa / Hakkımızda / İletişim) + ÜRÜNLER (Tüm Ürünler + Supabase dinamik liste) + yasal linkler + lang switcher
+- Body scroll lock (`body.nav-open`); ESC + backdrop click + `[data-nav-close]` link → kapanır
+- `.nav-overlay-products-list` languagechange event'inde label_tr/label_en arası swap
+
+### Anasayfa Ürünler section (PR #7)
+- `<section id="products">` about ile contact arasına
+- `.products-grid auto-fit minmax(220px, 1fr)` küçük kart vitrini
+- `.product-card` 18px radius, panel-soft bg, hover gold border + image scale
+- Görsel: aspect-ratio 16/10
+- Fetch: `loadHomeProducts()` → products is_active=true + cities embed, limit 8
+- "Tümünü Gör →" linki `/products.html`'e
+
+### Marquee Strip (PR #7 — dinamik fetch + statik fallback)
 - `.marquee-strip` — section'lar arası, full-width
 - `.marquee-track` — `display:flex; width:max-content; animation:marqueeScroll 38s linear infinite`
 - `@keyframes marqueeScroll` — `translateX 0 → -50%` (sağdan sola)

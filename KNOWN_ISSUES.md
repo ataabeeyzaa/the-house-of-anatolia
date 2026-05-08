@@ -1,6 +1,24 @@
 # KNOWN ISSUES & TODO — The House of Anatolia
 
-> **2026-05-08 güncel (PR #6 sonrası)** — site canlıda, GitHub Actions auto-deploy aktif. 6 PR mergede tamam (#1, #2, #3, #4, #5 docs, #6 sparkle removal + contact rebuild + footer newsletter taşıma).
+> **2026-05-08 güncel (PR #7 sonrası)** — site canlıda, GitHub Actions auto-deploy aktif. 7 PR mergede tamam (#1, #2, #3, #4, #5 docs, #6 sparkle/contact/footer, #7 hamburger + ürünler section + marquee admin + product refresh).
+
+---
+
+## P0 — PR #7 sonrası kullanıcının yapması gerekenler
+
+### A. Supabase migration çalıştır (marquee_items tablosu)
+- Dashboard → SQL Editor → New query
+- Repodaki `supabase_migrations/2026-05-08-marquee-items.sql` içeriğini paste
+- Run → tablo + RLS + default 5 row oluşur
+- Sonra: admin "Şerit" sekmesi fonksiyonel olur, anasayfa kayan şerit dinamik veriden okur
+
+### B. Safran ürünü hero_subtitle güncelle (admin'den)
+- admin.html → Ürünler → Safranbolu Safranı → Düzenle
+- "Hero altyazı" alanı şu an `Karabük'ün coğrafi işaretli en zarif değeri` olabilir
+- Yenile: `Safranbolu'nun coğrafi işaretli en zarif değeri`
+- Kaydet
+- (HTML default güncellendi — DB değer override eder, bu yüzden admin'den de güncellenmeli.)
+
 
 ---
 
@@ -204,6 +222,17 @@
 - ✅ Footer-grid 4-col layout (1.8fr 1fr 1fr 1.4fr) korundu
 - ✅ i18n duplicate `contact_title` (TR) bug fix — line 2114 silindi, "Bizimle iletişime geçin." (line 2077) geçerli
 - ✅ Yasaklar listesine sparkle tüm varyantlar + duplicate newsletter eklendi
+
+### PR #7 — Hamburger + Ürünler section + Marquee admin + product refresh
+- ✅ Anasayfa contact sadeleştirildi (sol yazılar kalktı, sadece 3 info kart kaldı)
+- ✅ Anasayfa "Ürünler" section eklendi (Supabase küçük kart vitrini, "Tümünü Gör →" /products.html'e)
+- ✅ Hamburger menü Aesop pattern (yatay nav kaldırıldı; ☰ → fullscreen overlay; SAYFALAR + ÜRÜNLER kategorisi dinamik + lang switcher + yasal linkler)
+- ✅ product.html "Karabük'ün → Safranbolu'nun" GI attribution cümlelerinde (HTML default; DB hero_subtitle admin'den güncellenmeli)
+- ✅ product.html alt contact 3 yatay kart stilinde (anasayfa info-card stili)
+- ✅ Marquee `marquee_items` migration SQL (kullanıcı SQL Editor'dan çalıştıracak)
+- ✅ Marquee dinamik fetch + statik fallback (tablo yoksa eski 10 statik HTML çalışır)
+- ✅ admin "Şerit" sekmesi tam CRUD (yeni ekle / edit / aktif toggle / sil)
+- ✅ Admin ürün CRUD'da hero_subtitle alanı + is_active toggle TEYİT (zaten mevcut, kullanıcı buradan düzenler)
 
 ### Önceki sohbet (Phase 0)
 - ✅ Site lokalden GitHub'a + Netlify auto-CI/CD
