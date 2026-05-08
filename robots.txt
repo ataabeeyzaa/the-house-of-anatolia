@@ -1,0 +1,8 @@
+# The House of Anatolia — robots.txt
+# Domain alındığında Sitemap URL'sini güncelle.
+
+User-agent: *
+Allow: /
+Disallow: /admin.html
+
+Sitemap: https://house-of-anatolia.netlify.app/sitemap.xml
