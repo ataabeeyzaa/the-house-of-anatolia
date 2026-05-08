@@ -962,6 +962,23 @@
         <div class="card">
           <div class="section-head">
             <div>
+              <h2>Şerit (Yakında Listesi)</h2>
+              <p class="muted">Anasayfanın altındaki kayan şerit içeriklerini buradan yönetebilirsin. Aktif satırlar canlıda otomatik görünür.</p>
+            </div>
+            <button id="add-marquee-btn" type="button">Yeni Şerit Ekle</button>
+          </div>
+          <div class="section-body">
+            <div class="note">
+              <strong>İlk kullanım:</strong> Bu özellik <code>marquee_items</code> tablosu ister. Tablo henüz yoksa <code>supabase_migrations/2026-05-08-marquee-items.sql</code> dosyasını Supabase Dashboard → SQL Editor üzerinden bir kez çalıştırman gerekiyor. Çalıştırınca buradan ekleme/düzenleme yapabilirsin.
+            </div>
+            <div id="new-marquee-panel"></div>
+            <div id="marquee-table">Yükleniyor...</div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="section-head">
+            <div>
               <h2>Gelen Teklif Talepleri</h2>
               <p class="muted">Müşterilerin ürün sayfasındaki formdan gönderdiği talepleri buradan takip edebilirsin.</p>
             </div>
@@ -1034,6 +1051,9 @@
     const refreshHomepageBtn = document.getElementById("refresh-homepage-btn");
     const siteSettingsManager = document.getElementById("site-settings-manager");
     const homepageSectionsManager = document.getElementById("homepage-sections-manager");
+    const marqueeTable = document.getElementById("marquee-table");
+    const newMarqueePanel = document.getElementById("new-marquee-panel");
+    const addMarqueeBtn = document.getElementById("add-marquee-btn");
 
     function setStatus(element, message, type = "") {
       element.textContent = message || "";
@@ -1437,6 +1457,7 @@
         safeLoad("Şehirler", loadCities, citiesTable),
         safeLoad("Ana sayfa yönetimi", loadHomepageManagement, siteSettingsManager),
         safeLoad("Ürünler", loadProducts, productsTable),
+        safeLoad("Şerit", loadMarqueeAdmin, marqueeTable),
         safeLoad("Talepler", loadRequests, requestsTable),
         safeLoad("Aboneler", loadSubscribers, document.getElementById("subs-table")),
         safeLoad("Analytics", loadAnalytics, document.getElementById("analytics-stats"))
@@ -4545,6 +4566,152 @@
       }
     }
     setupAnalyticsUI();
+
+    // ============================================================
+    // ŞERİT (MARQUEE) YÖNETİMİ — CRUD
+    // ============================================================
+    async function loadMarqueeAdmin() {
+      if (!marqueeTable) return;
+      marqueeTable.textContent = "Yükleniyor...";
+
+      const { data, error } = await supabase
+        .from("marquee_items")
+        .select("id, label_tr, label_en, sort_order, is_active, updated_at")
+        .order("sort_order", { ascending: true });
+
+      if (error) {
+        const msg = String(error.message || error.code || error);
+        if (msg.toLowerCase().includes("does not exist") || error.code === "42P01" || error.code === "PGRST205") {
+          marqueeTable.innerHTML = `<p class="status warn"><strong>Tablo bulunamadı.</strong> <code>marquee_items</code> tablosunu Supabase Dashboard → SQL Editor üzerinde <code>supabase_migrations/2026-05-08-marquee-items.sql</code> dosyasını çalıştırarak oluştur. Sonra "Yenile" demen yeterli.</p>`;
+        } else {
+          marqueeTable.innerHTML = `<p class="status error">Şerit yüklenemedi: ${escapeHtml(msg)}</p>`;
+        }
+        return;
+      }
+
+      if (!data || data.length === 0) {
+        marqueeTable.innerHTML = `<p class="muted" style="padding:14px 0">Henüz şerit kaydı yok. "Yeni Şerit Ekle" ile başla.</p>`;
+        return;
+      }
+
+      const rows = data.map((it) => `
+        <tr data-id="${escapeHtml(it.id)}">
+          <td>${escapeHtml(it.label_tr || "")}</td>
+          <td>${escapeHtml(it.label_en || "")}</td>
+          <td>${escapeHtml(it.sort_order ?? "")}</td>
+          <td>${it.is_active ? "✓" : "—"}</td>
+          <td style="white-space:nowrap;text-align:right">
+            <button type="button" class="secondary" data-marquee-edit data-id="${escapeHtml(it.id)}">Düzenle</button>
+            <button type="button" class="secondary" data-marquee-toggle data-id="${escapeHtml(it.id)}" data-current="${it.is_active ? '1' : '0'}">${it.is_active ? "Pasifleştir" : "Aktifleştir"}</button>
+            <button type="button" class="danger" data-marquee-delete data-id="${escapeHtml(it.id)}">Sil</button>
+          </td>
+        </tr>
+      `).join("");
+
+      marqueeTable.innerHTML = `
+        <table class="data-table">
+          <thead>
+            <tr><th>TR</th><th>EN</th><th>Sıra</th><th>Aktif</th><th></th></tr>
+          </thead>
+          <tbody>${rows}</tbody>
+        </table>
+      `;
+
+      // Cache full data row'lara erişmek için
+      window.HA_MARQUEE_ADMIN_CACHE = data;
+    }
+
+    function renderMarqueeForm(record) {
+      if (!newMarqueePanel) return;
+      const isEdit = !!record;
+      newMarqueePanel.innerHTML = `
+        <div class="edit-panel" style="margin-bottom:18px">
+          <h3 style="margin:0 0 12px">${isEdit ? "Şerit Düzenle" : "Yeni Şerit Ekle"}</h3>
+          <form id="marquee-form" data-id="${escapeHtml(record?.id || "")}">
+            <label>Türkçe etiket *<input name="label_tr" required maxlength="200" value="${escapeHtml(record?.label_tr || "")}"></label>
+            <label>İngilizce etiket<input name="label_en" maxlength="200" value="${escapeHtml(record?.label_en || "")}"></label>
+            <label>Sıra <small class="muted">(küçük olan önce gözükür)</small><input name="sort_order" type="number" value="${escapeHtml(record?.sort_order ?? 100)}"></label>
+            <label class="checkbox-row"><input type="checkbox" name="is_active" ${record == null || record.is_active ? "checked" : ""}> Aktif (canlıda görünür)</label>
+            <div class="actions" style="margin-top:14px">
+              <button type="submit">${isEdit ? "Güncelle" : "Ekle"}</button>
+              <button type="button" class="secondary" data-marquee-cancel>İptal</button>
+            </div>
+            <p id="marquee-form-status" class="status"></p>
+          </form>
+        </div>
+      `;
+    }
+
+    if (addMarqueeBtn) {
+      addMarqueeBtn.addEventListener("click", () => renderMarqueeForm(null));
+    }
+
+    if (marqueeTable) {
+      marqueeTable.addEventListener("click", async (e) => {
+        const editBtn = e.target.closest("[data-marquee-edit]");
+        const deleteBtn = e.target.closest("[data-marquee-delete]");
+        const toggleBtn = e.target.closest("[data-marquee-toggle]");
+        if (editBtn) {
+          const id = editBtn.dataset.id;
+          const record = (window.HA_MARQUEE_ADMIN_CACHE || []).find(r => r.id === id);
+          if (record) renderMarqueeForm(record);
+          return;
+        }
+        if (deleteBtn) {
+          const id = deleteBtn.dataset.id;
+          if (!confirm("Bu şerit kaydını silmek istediğine emin misin?")) return;
+          const { error } = await supabase.from("marquee_items").delete().eq("id", id);
+          if (error) { alert("Silinemedi: " + (error.message || error)); return; }
+          await loadMarqueeAdmin();
+          return;
+        }
+        if (toggleBtn) {
+          const id = toggleBtn.dataset.id;
+          const newState = toggleBtn.dataset.current === "1" ? false : true;
+          const { error } = await supabase.from("marquee_items").update({ is_active: newState }).eq("id", id);
+          if (error) { alert("Güncellenemedi: " + (error.message || error)); return; }
+          await loadMarqueeAdmin();
+          return;
+        }
+      });
+    }
+
+    if (newMarqueePanel) {
+      newMarqueePanel.addEventListener("click", (e) => {
+        if (e.target.closest("[data-marquee-cancel]")) {
+          newMarqueePanel.innerHTML = "";
+        }
+      });
+      newMarqueePanel.addEventListener("submit", async (e) => {
+        if (e.target.id !== "marquee-form") return;
+        e.preventDefault();
+        const form = e.target;
+        const status = form.querySelector("#marquee-form-status");
+        const id = form.dataset.id || null;
+        const fd = new FormData(form);
+        const payload = {
+          label_tr: (fd.get("label_tr") || "").toString().trim(),
+          label_en: (fd.get("label_en") || "").toString().trim() || null,
+          sort_order: parseInt(fd.get("sort_order"), 10) || 0,
+          is_active: fd.get("is_active") === "on"
+        };
+        if (!payload.label_tr) { setStatus(status, "Türkçe etiket zorunlu.", "error"); return; }
+        setStatus(status, "Kaydediliyor…");
+        const submitBtn = form.querySelector("button[type=submit]");
+        if (submitBtn) submitBtn.disabled = true;
+        let error;
+        if (id) {
+          ({ error } = await supabase.from("marquee_items").update(payload).eq("id", id));
+        } else {
+          ({ error } = await supabase.from("marquee_items").insert(payload));
+        }
+        if (submitBtn) submitBtn.disabled = false;
+        if (error) { setStatus(status, "Kaydedilemedi: " + (error.message || error), "error"); return; }
+        setStatus(status, "Kaydedildi.", "success");
+        newMarqueePanel.innerHTML = "";
+        await loadMarqueeAdmin();
+      });
+    }
 
     checkAdmin();
   </script>
