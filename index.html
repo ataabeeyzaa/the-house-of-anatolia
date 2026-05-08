@@ -1435,6 +1435,99 @@
       .contact-newsletter-card button{width:100%}
     }
 
+    /* Anasayfa ÜRÜNLER section — küçük kart vitrini */
+    .products-section{padding:60px 0 70px;position:relative}
+    .products-section .section-header{text-align:center;margin-bottom:36px}
+    .products-section .section-header .eyebrow{display:inline-flex;margin-bottom:14px;justify-content:center}
+    .products-section .section-header h2{
+      font-family:'Cormorant Garamond',serif;font-weight:500;
+      font-size:clamp(2rem,3.4vw,2.85rem);
+      color:var(--cream);margin:0 0 12px;letter-spacing:-.005em;
+    }
+    .products-section .section-header p{
+      margin:0 auto;max-width:540px;
+      color:rgba(244,238,230,.62);
+      font-size:.98rem;line-height:1.7;
+    }
+    .products-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit, minmax(220px, 1fr));
+      gap:22px;
+      max-width:1100px;margin:0 auto;
+    }
+    .products-grid .product-card{
+      display:flex;flex-direction:column;
+      text-decoration:none;color:inherit;
+      background:linear-gradient(180deg, rgba(28,22,18,.65), rgba(20,15,12,.85));
+      border:1px solid rgba(255,255,255,.06);
+      border-radius:18px;overflow:hidden;
+      transition:border-color .35s cubic-bezier(0.16, 1, 0.3, 1), transform .35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow .35s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .products-grid .product-card:hover{
+      border-color:rgba(210,161,47,.35);
+      transform:translateY(-3px);
+      box-shadow:0 8px 28px rgba(210,161,47,.08);
+    }
+    .products-grid .product-card-image{
+      width:100%;aspect-ratio:16/10;
+      background:rgba(20,15,12,.6);
+      overflow:hidden;position:relative;
+      display:grid;place-items:center;
+    }
+    .products-grid .product-card-image img{
+      width:100%;height:100%;object-fit:cover;
+      transition:transform .5s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .products-grid .product-card:hover .product-card-image img{transform:scale(1.05)}
+    .products-grid .product-card-body{padding:16px 20px 18px;display:flex;flex-direction:column;gap:5px;flex:1}
+    .products-grid .product-card-region{
+      font-size:.6rem;letter-spacing:.28em;text-transform:uppercase;
+      color:var(--gold-soft);
+      font-family:'Plus Jakarta Sans',sans-serif;font-weight:600;
+      margin:0;
+    }
+    .products-grid .product-card-name{
+      margin:0;
+      font-family:'Cormorant Garamond',serif;
+      font-size:1.2rem;font-weight:500;
+      color:var(--cream);line-height:1.2;
+    }
+    .products-grid .product-card-meta{
+      margin:0;
+      color:rgba(244,238,230,.5);
+      font-size:.82rem;line-height:1.45;
+    }
+    .products-grid .product-card-arrow{
+      align-self:flex-end;
+      font-size:1.05rem;
+      color:var(--gold-soft);
+      transition:transform .35s cubic-bezier(0.16, 1, 0.3, 1);
+      margin-top:6px;
+    }
+    .products-grid .product-card:hover .product-card-arrow{transform:translateX(4px)}
+    .products-foot{text-align:center;margin-top:30px}
+    .products-view-all{
+      display:inline-flex;align-items:center;gap:8px;
+      font-family:'Plus Jakarta Sans',sans-serif;
+      font-size:.78rem;letter-spacing:.18em;
+      text-transform:uppercase;
+      color:var(--gold-soft);text-decoration:none;
+      border-bottom:1px solid rgba(240,210,138,.4);
+      padding-bottom:4px;
+      transition:color .35s ease, border-color .35s ease;
+    }
+    .products-view-all:hover{color:var(--gold);border-color:var(--gold)}
+    .products-empty{
+      grid-column:1/-1;
+      text-align:center;
+      color:var(--muted);font-style:italic;
+      padding:30px 0;
+    }
+    @media (max-width:540px){
+      .products-grid{grid-template-columns:1fr;gap:16px}
+      .products-section{padding:40px 0 54px}
+    }
+
     /* Discover block — sadeleştirilmiş KEŞFET */
     .discover-block{text-align:center;margin-top:42px;padding:0 16px}
     .discover-block .title{margin:6px 0 18px;font-family:'Cormorant Garamond',serif;font-weight:500;color:var(--cream);font-size:clamp(1.85rem,4vw,3rem);line-height:1.1}
@@ -1946,6 +2039,24 @@
 
 </div></section>
 
+<section class="section products-section" id="products">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="eyebrow" data-i18n="products_eyebrow">ÜRÜNLER</div>
+      <h2 data-i18n="products_title">Vitrindeki Kıymetler</h2>
+      <p data-i18n="products_intro">Coğrafi işaretli, üreticisinden doğrudan size ulaşan ürünler.</p>
+    </div>
+
+    <div class="products-grid" id="home-products-grid" aria-live="polite">
+      <p class="products-empty" data-i18n="products_loading">Yükleniyor…</p>
+    </div>
+
+    <div class="products-foot reveal">
+      <a href="products.html" class="products-view-all" data-i18n="products_view_all">Tümünü Gör →</a>
+    </div>
+  </div>
+</section>
+
 <div class="container"><div class="section-divider" aria-hidden="true"><span class="diamond">◆</span></div></div>
 
 <section class="section contact-section" id="contact">
@@ -2085,6 +2196,15 @@
       marquee_4: "Yakında — Maraş Dondurması",
       marquee_5: "Yakında — Edirne Ciğeri",
 
+      // Products section (anasayfa)
+      products_eyebrow: "ÜRÜNLER",
+      products_title: "Vitrindeki Kıymetler",
+      products_intro: "Coğrafi işaretli, üreticisinden doğrudan size ulaşan ürünler.",
+      products_loading: "Yükleniyor…",
+      products_empty: "Henüz yayında ürün yok. Yakında yeni kıymetler eklenecek.",
+      products_view_all: "Tümünü Gör →",
+      products_card_meta_default: "Coğrafi işaretli kıymet",
+
       // About — uzun hikaye
       about_eyebrow: "HİKÂYEMİZ",
       about_title: "*Anadolu*'nun binlerce yıllık üretim kültüründen ilham alarak.",
@@ -2159,6 +2279,15 @@
       marquee_3: "Coming Soon — Trabzon Anchovy",
       marquee_4: "Coming Soon — Maraş Ice Cream",
       marquee_5: "Coming Soon — Edirne Liver",
+
+      // Products section (homepage)
+      products_eyebrow: "PRODUCTS",
+      products_title: "From Our Atelier",
+      products_intro: "Geographical Indication treasures, brought directly from their producer.",
+      products_loading: "Loading…",
+      products_empty: "No products live yet. New treasures coming soon.",
+      products_view_all: "View All →",
+      products_card_meta_default: "Geographical Indication treasure",
 
       // About — long story
       about_eyebrow: "OUR STORY",
@@ -2779,6 +2908,52 @@
       }
     });
   })();
+
+  // ----- ANASAYFA ÜRÜNLER (Supabase fetch + render) -----
+  async function loadHomeProducts(){
+    const grid = document.getElementById("home-products-grid");
+    if (!grid) return;
+    const t = (key) => window.HA_I18N?.t(key) ?? key;
+    const lang = window.HA_I18N?.current ?? "tr";
+    try {
+      const { data, error } = await supabase
+        .from("products")
+        .select("id, name, name_en, slug, short_name, short_name_en, mini_image, hero_image, meta_description, meta_description_en, is_active, cities ( name, name_en )")
+        .eq("is_active", true)
+        .order("created_at", { ascending: true })
+        .limit(8);
+      if (error || !data || data.length === 0){
+        grid.innerHTML = '<p class="products-empty">' + escHtml(t("products_empty")) + '</p>';
+        return;
+      }
+      grid.innerHTML = data.map((p) => {
+        const name = (lang === "en" ? (p.short_name_en || p.name_en) : (p.short_name || p.name)) || "—";
+        const region = (lang === "en" ? (p.cities?.name_en || p.cities?.name) : p.cities?.name) || "";
+        const metaRaw = lang === "en" ? p.meta_description_en : p.meta_description;
+        const metaText = (metaRaw || t("products_card_meta_default")).toString();
+        const trimmed = metaText.length > 100 ? metaText.slice(0, 97) + "…" : metaText;
+        const img = p.mini_image || p.hero_image || "assets/logo_house_of_anatolia_transparent.png";
+        const slug = encodeURIComponent(p.slug || "");
+        return (
+          '<a href="product.html?slug=' + slug + '" class="product-card" aria-label="' + escHtml(name) + '">' +
+            '<div class="product-card-image">' +
+              '<img src="' + escHtml(img) + '" alt="' + escHtml(name) + '" loading="lazy">' +
+            '</div>' +
+            '<div class="product-card-body">' +
+              (region ? '<span class="product-card-region">' + escHtml(region) + '</span>' : '') +
+              '<h3 class="product-card-name">' + escHtml(name) + '</h3>' +
+              '<p class="product-card-meta">' + escHtml(trimmed) + '</p>' +
+              '<span class="product-card-arrow" aria-hidden="true">→</span>' +
+            '</div>' +
+          '</a>'
+        );
+      }).join("");
+    } catch (e) {
+      console.error("loadHomeProducts:", e);
+      grid.innerHTML = '<p class="products-empty">' + escHtml((window.HA_I18N?.t("products_empty")) || "—") + '</p>';
+    }
+  }
+  loadHomeProducts();
 </script>
 
 </body></html>
