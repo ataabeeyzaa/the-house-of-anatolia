@@ -1740,9 +1740,6 @@
           product_options (
             name
           ),
-          package_options (
-            name
-          ),
           weight_options (
             label
           )
@@ -1788,7 +1785,6 @@
                 </td>
                 <td>
                   <span class="muted">Ürün:</span> ${escapeHtml(request.product_options?.name || "-")}<br>
-                  <span class="muted">Paket:</span> ${escapeHtml(request.package_options?.name || "-")}<br>
                   <span class="muted">Gramaj:</span> ${escapeHtml(request.weight_options?.label || "-")}<br>
                   <span class="muted">Adet:</span> ${escapeHtml(request.quantity || "-")}
                 </td>
@@ -1879,10 +1875,6 @@
             <div class="request-detail-item">
               <strong>Ürün Türü</strong>
               ${escapeHtml(request.product_options?.name || "-")}
-            </div>
-            <div class="request-detail-item">
-              <strong>Paket</strong>
-              ${escapeHtml(request.package_options?.name || "-")}
             </div>
             <div class="request-detail-item">
               <strong>Gramaj</strong>
@@ -2873,18 +2865,6 @@
             <div id="option-edit-panel"></div>
           </div>
 
-          <div class="subsection">
-            <div class="part-list-title">
-              <div>
-                <h3>Paket Seçenekleri</h3>
-                <p class="muted">Talep formunda müşterinin seçtiği paket/sunum seçeneklerini buradan yönetebilirsin.</p>
-              </div>
-              <button type="button" id="add-package-btn">Yeni Paket Ekle</button>
-            </div>
-
-            <div id="packages-manager">Yükleniyor...</div>
-            <div id="package-edit-panel"></div>
-          </div>
 
           <div class="subsection">
             <div class="part-list-title">
@@ -2958,17 +2938,6 @@
         }, true);
       });
 
-      document.getElementById("add-package-btn").addEventListener("click", () => {
-        renderPackageEditor({
-          product_id: product.id,
-          name: "",
-          image: "",
-          description: "",
-          sort_order: 0,
-          is_active: true
-        }, true);
-      });
-
       document.getElementById("add-weight-btn").addEventListener("click", () => {
         renderWeightEditor({
           product_id: product.id,
@@ -2982,7 +2951,6 @@
       await loadUsageSteps(product.id);
       await loadGalleryImages(product.id);
       await loadProductOptions(product.id);
-      await loadPackageOptions(product.id);
       await loadWeightOptions(product.id);
       panel.scrollIntoView({ behavior: "smooth", block: "start" });
     }

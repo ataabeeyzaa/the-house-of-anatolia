@@ -930,41 +930,6 @@
                   </div>
                 </div>
 
-                <div class="mini-divider"></div>
-
-                <div class="selector-group">
-                  <div class="selector-head">
-                    <h4 class="selector-title">Paket Seçimi</h4>
-                    <span class="selector-note">Sunum tipini seçin</span>
-                  </div>
-                  <div class="selector-grid">
-                    <label class="selector-option">
-                      <input type="radio" name="Paket Türü" value="Karton Paket" required>
-                      <span class="selector-card">
-                        <span class="selector-thumb"><img src="assets/safran_karton_paket.png" alt="Karton paket"></span>
-                        <strong class="selector-name">Karton Paket</strong>
-                        <span class="selector-meta">Şık kutulu sunum</span>
-                      </span>
-                    </label>
-                    <label class="selector-option">
-                      <input type="radio" name="Paket Türü" value="Plastik Paket">
-                      <span class="selector-card">
-                        <span class="selector-thumb"><img src="assets/safran_plastik_paket.png" alt="Plastik paket"></span>
-                        <strong class="selector-name">Plastik Paket</strong>
-                        <span class="selector-meta">Pratik ve hafif</span>
-                      </span>
-                    </label>
-                    <label class="selector-option">
-                      <input type="radio" name="Paket Türü" value="Cam Kavanoz">
-                      <span class="selector-card">
-                        <span class="selector-thumb"><img src="assets/safran_kavanoz.png" alt="Cam kavanoz"></span>
-                        <strong class="selector-name">Cam Kavanoz</strong>
-                        <span class="selector-meta">Premium kavanoz sunum</span>
-                      </span>
-                    </label>
-                  </div>
-                </div>
-
                 <div class="request-fields">
                   <div class="form-row triple">
                     <div>
@@ -997,8 +962,8 @@
                         aria-label="Gramaj özel değer">
                     </div>
                     <div>
-                      <label>Paket Adedi</label>
-                      <input type="number" name="Paket Adedi" min="1" placeholder="Örn. 50" required>
+                      <label>Adet</label>
+                      <input type="number" name="Adet" min="1" placeholder="Örn. 50" required>
                     </div>
                     <div>
                       <label>Talep Tipi</label>
@@ -1333,24 +1298,6 @@
       }
     }
 
-    const packageGroup = selectorGroups[1];
-    if (packageGroup) {
-      const grid = packageGroup.querySelector(".selector-grid");
-      const packages = sortByOrder(product.package_options).filter(item => item.is_active);
-      if (grid) {
-        grid.innerHTML = packages.map((pack) => `
-          <label class="selector-option">
-            <input type="radio" name="Paket Türü" value="${escapeHtml(pack.name)}" required>
-            <span class="selector-card">
-              <span class="selector-thumb"><img src="${escapeHtml(pack.image || product.hero_image)}" alt="${escapeHtml(pack.name)}"></span>
-              <strong class="selector-name">${escapeHtml(pack.name)}</strong>
-              <span class="selector-meta">${escapeHtml(pack.description || "")}</span>
-            </span>
-          </label>
-        `).join("");
-      }
-    }
-
     const weightSelect = form.querySelector('select[name="Gramaj"]');
     const weightCustomInput = form.querySelector('#gramaj-custom');
     if (weightSelect) {
@@ -1474,7 +1421,6 @@
   async function submitToSupabase(formData, product) {
     // Seçilen radio değerlerinden ilgili option ID'lerini bul
     const selectedProductOptionName = formData.get("Ürün Türü");
-    const selectedPackageOptionName = formData.get("Paket Türü");
     let selectedWeightLabel = formData.get("Gramaj");
 
     // "Diğer" seçildiyse: kullanıcının yazdığı sayıyı al, "X gr" formatına çevir
@@ -1493,14 +1439,12 @@
 
     const productOptionId = (product.product_options || [])
       .find((o) => o.name === selectedProductOptionName)?.id || null;
-    const packageOptionId = (product.package_options || [])
-      .find((o) => o.name === selectedPackageOptionName)?.id || null;
     // Custom gramaj girilmişse weight_option_id null kalır (DB'de o seçenek yok)
     const weightOptionId = customGramAmount
       ? null
       : ((product.weight_options || []).find((w) => w.label === selectedWeightLabel)?.id || null);
 
-    const quantityRaw = formData.get("Paket Adedi");
+    const quantityRaw = formData.get("Adet");
     const quantity = quantityRaw ? parseInt(quantityRaw, 10) : null;
 
     // Custom gramaj girildiyse mesaja da yaz (admin görsün)
@@ -1514,7 +1458,6 @@
       product_id: product.id,
       city_id: product.city_id,
       product_option_id: productOptionId,
-      package_option_id: packageOptionId,
       weight_option_id: weightOptionId,
       quantity: Number.isFinite(quantity) ? quantity : null,
       request_type: (formData.get("Talep Tipi") || "").toString().trim() || null,
