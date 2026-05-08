@@ -1,23 +1,32 @@
 # KNOWN ISSUES & TODO — The House of Anatolia
 
-> **2026-05-08 güncel (PR #7 sonrası)** — site canlıda, GitHub Actions auto-deploy aktif. 7 PR mergede tamam (#1, #2, #3, #4, #5 docs, #6 sparkle/contact/footer, #7 hamburger + ürünler section + marquee admin + product refresh).
+> **2026-05-09 güncel (PR #8 sonrası)** — site canlıda, GitHub Actions auto-deploy aktif. 8 PR mergede tamam (#1, #2, #3, #4, #5 docs, #6 sparkle/contact/footer, #7 hamburger + ürünler + marquee admin + product, #8 UI revize + galeri render + marquee grants fix).
 
 ---
 
-## P0 — PR #7 sonrası kullanıcının yapması gerekenler
+## P0 — PR #7 + #8 sonrası kullanıcının yapması gerekenler
 
-### A. Supabase migration çalıştır (marquee_items tablosu)
+### A. Supabase migration #1 çalıştır (marquee_items tablo)
 - Dashboard → SQL Editor → New query
-- Repodaki `supabase_migrations/2026-05-08-marquee-items.sql` içeriğini paste
-- Run → tablo + RLS + default 5 row oluşur
-- Sonra: admin "Şerit" sekmesi fonksiyonel olur, anasayfa kayan şerit dinamik veriden okur
+- Repodaki `supabase_migrations/2026-05-08-marquee-items.sql` içeriğini paste → Run
+- Tablo + RLS + 5 default row oluşur
 
-### B. Safran ürünü hero_subtitle güncelle (admin'den)
-- admin.html → Ürünler → Safranbolu Safranı → Düzenle
+### B. Supabase migration #2 çalıştır (marquee_items GRANT — yeni PR #8)
+- Aynı yer → New query → `supabase_migrations/2026-05-09-marquee-grants.sql` paste → Run
+- Anon + authenticated role'lerine table-level GRANT'ler set edilir
+- Sonra: admin "Şerit" sekmesinde "permission denied" uyarısı gider, fonksiyonel olur
+
+### C. Safran ürünü hero_subtitle güncelle (admin'den)
+- admin → Ürünler → Safranbolu Safranı → Düzenle
 - "Hero altyazı" alanı şu an `Karabük'ün coğrafi işaretli en zarif değeri` olabilir
 - Yenile: `Safranbolu'nun coğrafi işaretli en zarif değeri`
 - Kaydet
-- (HTML default güncellendi — DB değer override eder, bu yüzden admin'den de güncellenmeli.)
+
+### D. Galeri görseli admin'den ekleme (PR #8 sonrası dinamik render)
+- product.html'de galeri statik HTML kaldırıldı — artık DB'den dinamik
+- admin → Ürünler → safran (veya başka ürün) → galeri yönetimi → görsel yükle + kaydet
+- Eklediğin satırlar `gallery_images.is_active = true` ile yer alırsa product.html'de kayan şerit halinde görünür
+- Boş ürün için galeri section aslında yer kaplar ama boş olur (gerek olursa CSS ile gizlenebilir, sonraki PR)
 
 
 ---
@@ -233,6 +242,13 @@
 - ✅ Marquee dinamik fetch + statik fallback (tablo yoksa eski 10 statik HTML çalışır)
 - ✅ admin "Şerit" sekmesi tam CRUD (yeni ekle / edit / aktif toggle / sil)
 - ✅ Admin ürün CRUD'da hero_subtitle alanı + is_active toggle TEYİT (zaten mevcut, kullanıcı buradan düzenler)
+
+### PR #8 — UI revize + Galeri render + Marquee grants fix
+- ✅ Navbar restore: yatay nav linkleri (Ana Sayfa / Hakkımızda / Ürünler / İletişim) geri, hamburger ☰ EN SOLA, lang sağda
+- ✅ Anasayfa Ürünler section TAMAMEN kaldırıldı (CSS+HTML+JS); overlay'deki dinamik liste korundu
+- ✅ products.html grid küçük kare (auto-fill 240px sabit, tek ürün de küçük ortalanır)
+- ✅ Marquee permission düzeltmesi: yeni `2026-05-09-marquee-grants.sql` migration; admin uyarı 42501 yakalar
+- ✅ product.html galeri statik HTML kaldırıldı (id="product-gallery-track"); mevcut JS render gallery_images'tan dinamik 2x duplicate ile çiziyor — admin'den ekleme otomatik yansır
 
 ### Önceki sohbet (Phase 0)
 - ✅ Site lokalden GitHub'a + Netlify auto-CI/CD

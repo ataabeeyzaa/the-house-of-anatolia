@@ -1,6 +1,6 @@
 # HANDOFF — The House of Anatolia
 
-> **2026-05-08 güncel (PR #7 sonrası)** — projenin tam haritası, yeni Claude Code sohbetine geçişte gerekli tüm bağlam.
+> **2026-05-09 güncel (PR #8 sonrası)** — projenin tam haritası, yeni Claude Code sohbetine geçişte gerekli tüm bağlam.
 
 ---
 
@@ -131,10 +131,19 @@ Detay: ARCHITECTURE.md
 - **Marquee dinamik (Supabase + statik fallback):** Yeni `marquee_items` tablo (label_tr / label_en / sort_order / is_active) + RLS. `loadMarqueeItems()` async fetch, sonuç varsa `.marquee-track`'i hot swap; tablo yoksa veya boşsa mevcut 10 statik HTML item ile i18n keys fallback. Migration: `supabase_migrations/2026-05-08-marquee-items.sql` (kullanıcı SQL Editor'dan çalıştırır).
 - **Admin "Şerit" sekmesi:** dashboard'a yeni card. CRUD UI: tablo (TR / EN / Sıra / Aktif / [Düzenle] [Pasifleştir] [Sil]) + yeni ekle / edit form. Tablo yoksa migration uyarısı.
 
-### Kullanıcının PR #7 sonrası yapması gerekenler
+### Phase 7 — PR #8 (UI revize + galeri render + marquee permission fix)
 
-1. **Supabase migration çalıştır:** Dashboard → SQL Editor → new query → `supabase_migrations/2026-05-08-marquee-items.sql` paste → Run. Sonra admin "Şerit" sekmesi fonksiyonel olur ve canlı marquee dinamik veriden render eder.
-2. **Safran ürünü hero_subtitle güncelle:** admin → Ürünler → Safranbolu Safranı düzenle → "Hero altyazı" alanı şu an "Karabük'ün coğrafi işaretli en zarif değeri" olabilir → "Safranbolu'nun coğrafi işaretli en zarif değeri" yap → kaydet. (HTML default güncellendi ama DB değer override eder.)
+- **Navbar restore + hamburger en solda:** Yatay nav-links geri (Ana Sayfa / Hakkımızda / Ürünler / İletişim). Hamburger ☰ logo ÖNCE (`.nav-left` wrapper). Lang switcher sağda. Mobile <1180 nav-center display:none. Hamburger fullscreen overlay yine açar.
+- **Anasayfa Ürünler section TAMAMEN kaldırıldı:** kullanıcı isteği "anasayfadan komple kaldır". CSS + HTML + JS render kodu silindi. Overlay'deki dinamik ürün listesi korundu (`loadOverlayProducts`).
+- **products.html küçük kare grid:** auto-fit minmax(280px, 1fr) → auto-fill 240px sabit + justify-content:center. Tek ürün de küçük ortalanır. Card font/padding/spacing küçültüldü.
+- **Marquee permission düzeltmesi:** İlk migration RLS+policy yarattı ama table-level GRANT eksikti — `permission denied` hatası. Yeni migration `supabase_migrations/2026-05-09-marquee-grants.sql` (kullanıcı SQL Editor'dan çalıştırır) + admin uyarı mesajı 42501/permission denied'i yakalar.
+- **Galeri statik HTML kaldırıldı:** product.html'de gallery-track içindeki 12 hardcoded `<figure>` silindi (id="product-gallery-track"). Mevcut `loadProduct` JS render kodu (line 1336+) gallery_images'tan dinamik 2x duplicate ile çiziyor — artık admin'den ekleme otomatik yansır.
+
+### Kullanıcının PR #7 + PR #8 sonrası yapması gerekenler
+
+1. **Supabase migration #1:** Dashboard → SQL Editor → `supabase_migrations/2026-05-08-marquee-items.sql` → Run (tablo + RLS + policy + 5 default row)
+2. **Supabase migration #2 (yeni):** Aynı yer → `supabase_migrations/2026-05-09-marquee-grants.sql` → Run (anon + authenticated GRANT'leri set eder; "permission denied" düzeltir)
+3. **Safran hero_subtitle güncel:** admin → Ürünler → Safranbolu Safranı → Düzenle → "Hero altyazı" alanı `Safranbolu'nun coğrafi işaretli en zarif değeri` → Kaydet
 
 ---
 
@@ -154,8 +163,8 @@ Detay: ARCHITECTURE.md
 - **Map'in altında kayan şerit** (yakında ürünler)
 - Mini-blossom safran çiçeği (product.html — dokunulmaz)
 - **Contact 3 info kart sol + newsletter card sağ (PR #6+#7 — başlık/intro yok, sade)**
-- **Anasayfa Ürünler section küçük kartlı vitrin** (PR #7)
-- **Hamburger menü (sağ üstte ☰), Aesop pattern fullscreen overlay** (PR #7)
+- **Hamburger menü ☰ (EN SOLDA) + yatay nav linkleri** (PR #8: hamburger sol başta + 4 yatay link + lang sağda; click → fullscreen overlay)
+- **Ürünler ayrı sayfada** (`/products.html` — anasayfa section kaldırıldı PR #8'de, küçük kare grid)
 
 ### Reddettiği
 - Stats bar 1/1/1 sayım kartları → "ucuz duruyor"
@@ -215,7 +224,7 @@ Detay: KNOWN_ISSUES.md
 - Branch (`claude/...`) → `gh pr create` → review → `gh pr merge --rebase --delete-branch`
 - **Push öncesi:** `git fetch origin main && git rebase origin/main`
 - Force push + `--no-verify` YASAK
-- 7 PR mergede tamamlandı (#1, #2, #3, #4, #5 docs refresh, #6 sparkle removal + contact rebuild + footer newsletter taşıma, #7 hamburger + ürünler section + marquee admin + product refresh)
+- 8 PR mergede tamamlandı (#1, #2, #3, #4, #5 docs, #6 sparkle/contact rebuild, #7 hamburger + ürünler + marquee admin + product, #8 UI revize + galeri render + marquee grants fix)
 
 ---
 
