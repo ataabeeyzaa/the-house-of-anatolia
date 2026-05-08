@@ -87,7 +87,8 @@
 
     /* NAVBAR */
     .navbar{position:sticky;top:0;z-index:100;background:rgba(239,233,221,.97);backdrop-filter:blur(14px);border-bottom:1px solid rgba(30,24,18,.06)}
-    .nav-inner{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;min-height:84px;gap:18px}
+    .nav-inner{display:flex;align-items:center;min-height:84px;gap:20px}
+    .nav-left{display:inline-flex;align-items:center;gap:14px}
     .brand{font-family:'Cormorant Garamond',serif;font-size:2.4rem;font-weight:600;color:#231b15}
     .brand span{color:var(--gold)}
 
@@ -97,12 +98,11 @@
     .brand-logo{display:flex;align-items:center;min-height:76px}
     .brand-logo img{display:block;height:76px;width:auto;object-fit:contain;object-position:left center;filter:drop-shadow(0 6px 14px rgba(0,0,0,.08))}
     @media (max-width: 768px){.brand-logo img{height:62px}}
-    .nav-center{display:flex;justify-content:center}
-    .nav-links{display:flex;gap:34px;list-style:none;margin:0;padding:0;color:#352b23;font-size:1rem;letter-spacing:.12em;text-transform:uppercase}
-    .nav-links a{position:relative}
+    .nav-center{flex:1;display:flex;justify-content:center}
+    .nav-links{display:flex;gap:30px;list-style:none;margin:0;padding:0;color:#352b23;font-size:.92rem;letter-spacing:.14em;text-transform:uppercase}
+    .nav-links a{position:relative;color:inherit;text-decoration:none}
     .nav-links a::after{content:'';position:absolute;left:0;bottom:-8px;width:0;height:1px;background:var(--gold);transition:.32s ease}
     .nav-links a:hover::after{width:100%}
-    .nav-cta-wrap{display:flex;justify-content:flex-end}
     .nav-btn{display:inline-flex;align-items:center;justify-content:center;min-height:50px;padding:0 26px;background:var(--gold);color:#24170a;border-radius:2px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;box-shadow:0 8px 20px rgba(210,161,47,.22)}
 
     .map-wrap{position:relative;overflow:visible;margin-top:72px}
@@ -424,7 +424,6 @@
     .footer-brand img{height:72px;width:auto;object-fit:contain}
 
     @media (max-width: 1180px){
-      .nav-inner{grid-template-columns:1fr auto}
       .nav-center{display:none}
       .board-stage{padding:96px 280px 76px}
       .side-card{width:min(380px, 38vw)}
@@ -1435,99 +1434,6 @@
       .contact-newsletter-card button{width:100%}
     }
 
-    /* Anasayfa ÜRÜNLER section — küçük kart vitrini */
-    .products-section{padding:60px 0 70px;position:relative}
-    .products-section .section-header{text-align:center;margin-bottom:36px}
-    .products-section .section-header .eyebrow{display:inline-flex;margin-bottom:14px;justify-content:center}
-    .products-section .section-header h2{
-      font-family:'Cormorant Garamond',serif;font-weight:500;
-      font-size:clamp(2rem,3.4vw,2.85rem);
-      color:var(--cream);margin:0 0 12px;letter-spacing:-.005em;
-    }
-    .products-section .section-header p{
-      margin:0 auto;max-width:540px;
-      color:rgba(244,238,230,.62);
-      font-size:.98rem;line-height:1.7;
-    }
-    .products-grid{
-      display:grid;
-      grid-template-columns:repeat(auto-fit, minmax(220px, 1fr));
-      gap:22px;
-      max-width:1100px;margin:0 auto;
-    }
-    .products-grid .product-card{
-      display:flex;flex-direction:column;
-      text-decoration:none;color:inherit;
-      background:linear-gradient(180deg, rgba(28,22,18,.65), rgba(20,15,12,.85));
-      border:1px solid rgba(255,255,255,.06);
-      border-radius:18px;overflow:hidden;
-      transition:border-color .35s cubic-bezier(0.16, 1, 0.3, 1), transform .35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow .35s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-    .products-grid .product-card:hover{
-      border-color:rgba(210,161,47,.35);
-      transform:translateY(-3px);
-      box-shadow:0 8px 28px rgba(210,161,47,.08);
-    }
-    .products-grid .product-card-image{
-      width:100%;aspect-ratio:16/10;
-      background:rgba(20,15,12,.6);
-      overflow:hidden;position:relative;
-      display:grid;place-items:center;
-    }
-    .products-grid .product-card-image img{
-      width:100%;height:100%;object-fit:cover;
-      transition:transform .5s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-    .products-grid .product-card:hover .product-card-image img{transform:scale(1.05)}
-    .products-grid .product-card-body{padding:16px 20px 18px;display:flex;flex-direction:column;gap:5px;flex:1}
-    .products-grid .product-card-region{
-      font-size:.6rem;letter-spacing:.28em;text-transform:uppercase;
-      color:var(--gold-soft);
-      font-family:'Plus Jakarta Sans',sans-serif;font-weight:600;
-      margin:0;
-    }
-    .products-grid .product-card-name{
-      margin:0;
-      font-family:'Cormorant Garamond',serif;
-      font-size:1.2rem;font-weight:500;
-      color:var(--cream);line-height:1.2;
-    }
-    .products-grid .product-card-meta{
-      margin:0;
-      color:rgba(244,238,230,.5);
-      font-size:.82rem;line-height:1.45;
-    }
-    .products-grid .product-card-arrow{
-      align-self:flex-end;
-      font-size:1.05rem;
-      color:var(--gold-soft);
-      transition:transform .35s cubic-bezier(0.16, 1, 0.3, 1);
-      margin-top:6px;
-    }
-    .products-grid .product-card:hover .product-card-arrow{transform:translateX(4px)}
-    .products-foot{text-align:center;margin-top:30px}
-    .products-view-all{
-      display:inline-flex;align-items:center;gap:8px;
-      font-family:'Plus Jakarta Sans',sans-serif;
-      font-size:.78rem;letter-spacing:.18em;
-      text-transform:uppercase;
-      color:var(--gold-soft);text-decoration:none;
-      border-bottom:1px solid rgba(240,210,138,.4);
-      padding-bottom:4px;
-      transition:color .35s ease, border-color .35s ease;
-    }
-    .products-view-all:hover{color:var(--gold);border-color:var(--gold)}
-    .products-empty{
-      grid-column:1/-1;
-      text-align:center;
-      color:var(--muted);font-style:italic;
-      padding:30px 0;
-    }
-    @media (max-width:540px){
-      .products-grid{grid-template-columns:1fr;gap:16px}
-      .products-section{padding:40px 0 54px}
-    }
-
     /* Hamburger menu — Aesop tarzı (her zaman görünür, fullscreen overlay) */
     .nav-toggle{
       display:inline-flex;align-items:center;justify-content:center;
@@ -1743,19 +1649,27 @@
 <!-- Custom cursor (sadece interaktif öğelerde belirir) -->
 <div class="ha-cursor" id="ha-cursor" aria-hidden="true"></div>
 <header class="navbar"><div class="container nav-inner">
-<a href="index.html#home" class="brand brand-logo">
-  <img src="assets/logo_house_of_anatolia_transparent.png" alt="The House of Anatolia logosu">
-  <span class="sr-only">The House of Anatolia</span>
-</a>
-<div class="nav-cta-wrap">
-  <button type="button" id="nav-toggle" class="nav-toggle" aria-expanded="false" aria-controls="nav-overlay" aria-label="Menü / Menu">
-    <span class="nav-toggle-icon" aria-hidden="true"><span></span></span>
-  </button>
+  <div class="nav-left">
+    <button type="button" id="nav-toggle" class="nav-toggle" aria-expanded="false" aria-controls="nav-overlay" aria-label="Menü / Menu">
+      <span class="nav-toggle-icon" aria-hidden="true"><span></span></span>
+    </button>
+    <a href="index.html#home" class="brand brand-logo">
+      <img src="assets/logo_house_of_anatolia_transparent.png" alt="The House of Anatolia logosu">
+      <span class="sr-only">The House of Anatolia</span>
+    </a>
+  </div>
+  <div class="nav-center">
+    <ul class="nav-links">
+      <li><a href="#home" data-i18n="nav_home">Ana Sayfa</a></li>
+      <li><a href="#about" data-i18n="nav_about">Hakkımızda</a></li>
+      <li><a href="products.html" data-i18n="nav_products">Ürünler</a></li>
+      <li><a href="#contact" data-i18n="nav_contact">İletişim</a></li>
+    </ul>
+  </div>
   <div class="lang-switcher" role="group" aria-label="Dil seçici / Language switcher">
     <button type="button" data-lang="tr" class="active" aria-label="Türkçe">TR</button>
     <button type="button" data-lang="en" aria-label="English">EN</button>
   </div>
-</div>
 </div></header>
 <main id="main-content">
 
@@ -2161,24 +2075,6 @@
 
 </div></section>
 
-<section class="section products-section" id="products">
-  <div class="container">
-    <div class="section-header reveal">
-      <div class="eyebrow" data-i18n="products_eyebrow">ÜRÜNLER</div>
-      <h2 data-i18n="products_title">Vitrindeki Kıymetler</h2>
-      <p data-i18n="products_intro">Coğrafi işaretli, üreticisinden doğrudan size ulaşan ürünler.</p>
-    </div>
-
-    <div class="products-grid" id="home-products-grid" aria-live="polite">
-      <p class="products-empty" data-i18n="products_loading">Yükleniyor…</p>
-    </div>
-
-    <div class="products-foot reveal">
-      <a href="products.html" class="products-view-all" data-i18n="products_view_all">Tümünü Gör →</a>
-    </div>
-  </div>
-</section>
-
 <div class="container"><div class="section-divider" aria-hidden="true"><span class="diamond">◆</span></div></div>
 
 <section class="section contact-section" id="contact">
@@ -2349,14 +2245,8 @@
       marquee_4: "Yakında — Maraş Dondurması",
       marquee_5: "Yakında — Edirne Ciğeri",
 
-      // Products section (anasayfa)
-      products_eyebrow: "ÜRÜNLER",
-      products_title: "Vitrindeki Kıymetler",
-      products_intro: "Coğrafi işaretli, üreticisinden doğrudan size ulaşan ürünler.",
-      products_loading: "Yükleniyor…",
+      // Products (overlay listesi için)
       products_empty: "Henüz yayında ürün yok. Yakında yeni kıymetler eklenecek.",
-      products_view_all: "Tümünü Gör →",
-      products_card_meta_default: "Coğrafi işaretli kıymet",
 
       // Hamburger overlay
       overlay_pages_title: "SAYFALAR",
@@ -2440,14 +2330,8 @@
       marquee_4: "Coming Soon — Maraş Ice Cream",
       marquee_5: "Coming Soon — Edirne Liver",
 
-      // Products section (homepage)
-      products_eyebrow: "PRODUCTS",
-      products_title: "From Our Atelier",
-      products_intro: "Geographical Indication treasures, brought directly from their producer.",
-      products_loading: "Loading…",
+      // Products (overlay listesi için)
       products_empty: "No products live yet. New treasures coming soon.",
-      products_view_all: "View All →",
-      products_card_meta_default: "Geographical Indication treasure",
 
       // Hamburger overlay
       overlay_pages_title: "PAGES",
@@ -3115,38 +2999,12 @@
     });
   })();
 
-  // ----- ANASAYFA ÜRÜNLER + HAMBURGER OVERLAY (Supabase fetch + render) -----
-  function renderHomeProductsCards(data, lang){
-    const t = (key) => window.HA_I18N?.t(key) ?? key;
-    return data.map((p) => {
-      const name = (lang === "en" ? (p.short_name_en || p.name_en) : (p.short_name || p.name)) || "—";
-      const region = (lang === "en" ? (p.cities?.name_en || p.cities?.name) : p.cities?.name) || "";
-      const metaRaw = lang === "en" ? p.meta_description_en : p.meta_description;
-      const metaText = (metaRaw || t("products_card_meta_default")).toString();
-      const trimmed = metaText.length > 100 ? metaText.slice(0, 97) + "…" : metaText;
-      const img = p.mini_image || p.hero_image || "assets/logo_house_of_anatolia_transparent.png";
-      const slug = encodeURIComponent(p.slug || "");
-      return (
-        '<a href="product.html?slug=' + slug + '" class="product-card" aria-label="' + escHtml(name) + '">' +
-          '<div class="product-card-image">' +
-            '<img src="' + escHtml(img) + '" alt="' + escHtml(name) + '" loading="lazy">' +
-          '</div>' +
-          '<div class="product-card-body">' +
-            (region ? '<span class="product-card-region">' + escHtml(region) + '</span>' : '') +
-            '<h3 class="product-card-name">' + escHtml(name) + '</h3>' +
-            '<p class="product-card-meta">' + escHtml(trimmed) + '</p>' +
-            '<span class="product-card-arrow" aria-hidden="true">→</span>' +
-          '</div>' +
-        '</a>'
-      );
-    }).join("");
-  }
-
+  // ----- HAMBURGER OVERLAY ÜRÜN LİSTESİ (Supabase fetch + render) -----
   function renderOverlayProducts(data, lang){
     const list = document.getElementById("nav-overlay-products");
     if (!list) return;
+    const t = (key) => window.HA_I18N?.t(key) ?? key;
     if (!data || data.length === 0){
-      const t = (key) => window.HA_I18N?.t(key) ?? key;
       list.innerHTML = '<li class="nav-overlay-products-empty">' + escHtml(t("products_empty")) + '</li>';
       return;
     }
@@ -3157,43 +3015,32 @@
     }).join("");
   }
 
-  async function loadHomeProducts(){
-    const grid = document.getElementById("home-products-grid");
+  async function loadOverlayProducts(){
     const overlay = document.getElementById("nav-overlay-products");
-    const t = (key) => window.HA_I18N?.t(key) ?? key;
+    if (!overlay) return;
     const lang = window.HA_I18N?.current ?? "tr";
     try {
       const { data, error } = await supabase
         .from("products")
-        .select("id, name, name_en, slug, short_name, short_name_en, mini_image, hero_image, meta_description, meta_description_en, is_active, cities ( name, name_en )")
+        .select("id, name, name_en, slug, short_name, short_name_en, is_active")
         .eq("is_active", true)
         .order("created_at", { ascending: true })
-        .limit(8);
-      if (error || !data || data.length === 0){
-        if (grid) grid.innerHTML = '<p class="products-empty">' + escHtml(t("products_empty")) + '</p>';
-        if (overlay) overlay.innerHTML = '<li class="nav-overlay-products-empty">' + escHtml(t("products_empty")) + '</li>';
-        window.HA_PRODUCTS = [];
-        return;
-      }
-      window.HA_PRODUCTS = data;
-      if (grid) grid.innerHTML = renderHomeProductsCards(data, lang);
-      renderOverlayProducts(data, lang);
+        .limit(20);
+      if (error){ overlay.innerHTML = ""; window.HA_PRODUCTS = []; return; }
+      window.HA_PRODUCTS = data || [];
+      renderOverlayProducts(window.HA_PRODUCTS, lang);
     } catch (e) {
-      console.error("loadHomeProducts:", e);
-      const empty = '<p class="products-empty">' + escHtml(t("products_empty")) + '</p>';
-      if (grid) grid.innerHTML = empty;
-      if (overlay) overlay.innerHTML = '<li class="nav-overlay-products-empty">' + escHtml(t("products_empty")) + '</li>';
+      console.warn("loadOverlayProducts:", e);
+      overlay.innerHTML = "";
     }
   }
-  loadHomeProducts();
+  loadOverlayProducts();
 
-  // Dil değiştirildiğinde grid + overlay yeniden render
+  // Dil değiştirildiğinde overlay listesini yeniden render
   window.addEventListener("languagechange", () => {
     const data = window.HA_PRODUCTS;
     if (!data) return;
-    const grid = document.getElementById("home-products-grid");
     const lang = window.HA_I18N?.current ?? "tr";
-    if (grid) grid.innerHTML = renderHomeProductsCards(data, lang);
     renderOverlayProducts(data, lang);
   });
 
