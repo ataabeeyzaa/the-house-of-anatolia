@@ -4581,8 +4581,11 @@
 
       if (error) {
         const msg = String(error.message || error.code || error);
-        if (msg.toLowerCase().includes("does not exist") || error.code === "42P01" || error.code === "PGRST205") {
+        const lowerMsg = msg.toLowerCase();
+        if (lowerMsg.includes("does not exist") || error.code === "42P01" || error.code === "PGRST205") {
           marqueeTable.innerHTML = `<p class="status warn"><strong>Tablo bulunamadı.</strong> <code>marquee_items</code> tablosunu Supabase Dashboard → SQL Editor üzerinde <code>supabase_migrations/2026-05-08-marquee-items.sql</code> dosyasını çalıştırarak oluştur. Sonra "Yenile" demen yeterli.</p>`;
+        } else if (lowerMsg.includes("permission denied") || error.code === "42501") {
+          marqueeTable.innerHTML = `<p class="status warn"><strong>Tablo erişim izni eksik.</strong> İlk migration RLS policy yarattı ama <code>GRANT</code> set etmedi. <code>supabase_migrations/2026-05-09-marquee-grants.sql</code> dosyasını Supabase Dashboard → SQL Editor üzerinde çalıştırarak izinleri ver. Sonra "Yenile" demen yeterli.</p>`;
         } else {
           marqueeTable.innerHTML = `<p class="status error">Şerit yüklenemedi: ${escapeHtml(msg)}</p>`;
         }
