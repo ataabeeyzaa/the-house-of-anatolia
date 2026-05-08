@@ -1,6 +1,6 @@
 # KNOWN ISSUES & TODO — The House of Anatolia
 
-> **2026-05-08 güncel** — site canlıda, GitHub Actions auto-deploy aktif. 4 PR mergede tamam (#1, #2, #3, #4).
+> **2026-05-08 güncel (PR #6 sonrası)** — site canlıda, GitHub Actions auto-deploy aktif. 6 PR mergede tamam (#1, #2, #3, #4, #5 docs, #6 sparkle removal + contact rebuild + footer newsletter taşıma).
 
 ---
 
@@ -179,14 +179,31 @@
 - ✅ sitemap.xml products URL
 
 ### PR #4 — Sparkle re-add + Map section + Contact
-- ✅ Sparkle GERİ — haritanın ARKASINA (z-index:0), DİKEY yukarı (rotate yok)
+- ✅ Sparkle GERİ — haritanın ARKASINA (z-index:0), DİKEY yukarı (rotate yok) [NOT: PR #6'da tamamen kaldırıldı]
 - ✅ Future-pill kaldırıldı
 - ✅ Eyebrow çift çizgi (KEŞFET iki yanda altın çizgi)
 - ✅ city_note kısa GI tanımı
 - ✅ Marquee strip (5 yakında ürün, kayan şerit)
-- ✅ Contact horizontal 2-col
+- ✅ Contact horizontal 2-col [NOT: PR #6'da yeniden tasarlandı]
 - ✅ Section padding 110 → 80px
 - ✅ products.html is_active=true filter + intro paragraf kaldırıldı
+
+### PR #5 — Docs refresh
+- ✅ HANDOFF.md, ARCHITECTURE.md, DESIGN_SYSTEM.md, KNOWN_ISSUES.md, FIRST_PROMPT.md güncel duruma göre yenilendi (kod değişikliği yok)
+
+### PR #6 — Sparkle removal + Contact rebuild + Footer newsletter taşıma
+- ✅ Sparkle TAMAMEN KALDIRILDI (kullanıcı net karar — tüm varyantlar yasak)
+  - index.html CSS (.hero-blossom-layer, .gold-sparkle, ::before/::after, @keyframes sparkle-twinkle, prefers-reduced-motion)
+  - index.html HTML (`<div class="hero-blossom-layer" id="blossom-layer">`)
+  - index.html JS (sparkleEffect IIFE — spawn loop + initial burst)
+  - product.html dokunulmadı (`.hero-blossom-layer` mini-blossom için kapsayıcı, mini-blossom KORUNUR)
+- ✅ Contact section yeni 2-col layout
+  - SOL: eyebrow + H2 + intro + 3 dikey info card (E-POSTA / ADRES / TELEFON, SVG ikon + label/value, hover gold border)
+  - SAĞ: `.contact-newsletter-card` (radial gold glow + pill input + ABONE OL pill button)
+- ✅ Footer-top + footer-newsletter HTML/CSS kaldırıldı, form contact'a taşındı (id `newsletter-form` + status `newsletter-status` aynen, JS handler dokunulmadı)
+- ✅ Footer-grid 4-col layout (1.8fr 1fr 1fr 1.4fr) korundu
+- ✅ i18n duplicate `contact_title` (TR) bug fix — line 2114 silindi, "Bizimle iletişime geçin." (line 2077) geçerli
+- ✅ Yasaklar listesine sparkle tüm varyantlar + duplicate newsletter eklendi
 
 ### Önceki sohbet (Phase 0)
 - ✅ Site lokalden GitHub'a + Netlify auto-CI/CD
