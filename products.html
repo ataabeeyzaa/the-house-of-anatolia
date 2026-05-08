@@ -180,7 +180,6 @@
     <div class="container">
       <div class="kicker" data-i18n="products_kicker">Vitrinimiz</div>
       <h1 data-i18n-html="products_title">Coğrafi İşaretli <em>Kıymetlerimiz</em></h1>
-      <p data-i18n="products_intro">Türkiye'nin yöre yöre yetişen, Türk Patent ve Marka Kurumu tescilli coğrafi işaretli ürünleri. Şu an Karabük safranıyla başladık; vitrinimiz büyüyor.</p>
     </div>
   </section>
 
@@ -348,6 +347,7 @@
     const { data, error } = await supabase
       .from("products")
       .select(`id, name, name_en, slug, short_name, short_name_en, mini_image, hero_image, meta_description, meta_description_en, is_active, cities ( name, name_en, svg_id )`)
+      .eq("is_active", true)
       .order("created_at", { ascending: true });
 
     if (error){
