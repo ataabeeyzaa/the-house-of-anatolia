@@ -21,6 +21,8 @@
       --ok:#b9f6ca;
     }
     * { box-sizing:border-box; }
+    .skip-link{position:absolute;left:-9999px;top:8px;z-index:1000;padding:10px 18px;background:var(--gold);color:#24170a;text-decoration:none;border-radius:2px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;font-size:.78rem}
+    .skip-link:focus,.skip-link:focus-visible{left:8px;outline:2px solid var(--gold-soft);outline-offset:2px}
     body {
       margin:0;
       font-family: 'Plus Jakarta Sans', sans-serif;
@@ -403,8 +405,7 @@
       border:1px solid rgba(255,255,255,.10);
     }
 
-    .option-edit-panel,
-    .package-edit-panel{
+    .option-edit-panel{
       margin-top:18px;
       padding:18px;
       border-radius:18px;
@@ -831,6 +832,7 @@
   </style>
 </head>
 <body>
+<a class="skip-link" href="#main-content">İçeriğe atla</a>
 
   <!-- Konfirmasyon modalı (kritik silme işlemlerinde kullanılır) -->
   <div id="confirm-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-hidden="true">
@@ -856,7 +858,7 @@
     <button type="button" id="idle-stay-btn">Oturumda Kal</button>
   </div>
 
-  <div class="container">
+  <div class="container" id="main-content">
     <div class="topbar">
       <div class="brand">
         <img src="assets/logo_house_of_anatolia_transparent.png" alt="The House of Anatolia">
@@ -3858,236 +3860,6 @@
       await loadProductOptions(productId);
       document.getElementById("option-edit-panel").innerHTML = "";
     }
-
-    async function loadPackageOptions(productId) {
-      const holder = document.getElementById("packages-manager");
-      if (!holder) return;
-
-      holder.textContent = "Yükleniyor...";
-
-      const { data, error } = await supabase
-        .from("package_options")
-        .select("id, product_id, name, image, description, sort_order, is_active")
-        .eq("product_id", productId)
-        .order("sort_order", { ascending: true });
-
-      if (error) {
-        holder.innerHTML = `<p class="status error">Paket seçenekleri alınamadı: ${escapeHtml(error.message)}</p>`;
-        return;
-      }
-
-      if (!data.length) {
-        holder.innerHTML = `<p class="muted">Bu ürün için henüz paket seçeneği eklenmemiş.</p>`;
-        return;
-      }
-
-      holder.innerHTML = `
-        <table>
-          <thead>
-            <tr>
-              <th>Sıra</th>
-              <th>Görsel</th>
-              <th>Ad</th>
-              <th>Açıklama</th>
-              <th>Durum</th>
-              <th>İşlem</th>
-            </tr>
-          </thead>
-          <tbody>
-            ${data.map(pack => `
-              <tr>
-                <td><code>${escapeHtml(pack.sort_order)}</code></td>
-                <td><img class="preview-img" src="${escapeHtml(pack.image || "assets/logo_house_of_anatolia_transparent.png")}" alt="${escapeHtml(pack.name)}"></td>
-                <td><strong>${escapeHtml(pack.name)}</strong></td>
-                <td><span class="muted">${escapeHtml(pack.description || "")}</span></td>
-                <td><span class="pill">${pack.is_active ? "Aktif" : "Pasif"}</span></td>
-                <td>
-                  <div class="mini-table-actions">
-                    <button type="button" data-edit-package="${pack.id}">Düzenle</button>
-                    <button class="danger" type="button" data-delete-package="${pack.id}">Sil</button>
-                  </div>
-                </td>
-              </tr>
-            `).join("")}
-          </tbody>
-        </table>
-      `;
-
-      holder.querySelectorAll("[data-edit-package]").forEach((button) => {
-        button.addEventListener("click", () => {
-          const pack = data.find(item => item.id === button.dataset.editPackage);
-          if (pack) renderPackageEditor(pack, false);
-        });
-      });
-
-      holder.querySelectorAll("[data-delete-package]").forEach((button) => {
-        button.addEventListener("click", async () => {
-          const pack = data.find(item => item.id === button.dataset.deletePackage);
-          if (!pack) return;
-
-          const ok = await confirmAction({
-            title: "Paket Seçeneğini Sil",
-            message: `"${pack.name}" paket seçeneğini silmek istiyor musun?`
-          });
-          if (!ok) return;
-
-          const { error } = await supabase
-            .from("package_options")
-            .delete()
-            .eq("id", pack.id);
-
-          if (error) {
-            alert("Silme başarısız: " + error.message);
-            return;
-          }
-
-          await logAdminAction("delete", {
-            table_name: "package_options",
-            record_id: pack.id,
-            record_summary: `Paket seçeneği silindi: ${pack.name}`,
-            metadata: { product_id: pack.product_id }
-          });
-
-          await loadPackageOptions(pack.product_id);
-          document.getElementById("package-edit-panel").innerHTML = "";
-        });
-      });
-    }
-
-    function renderPackageEditor(pack, isNew) {
-      const panel = document.getElementById("package-edit-panel");
-      if (!panel) return;
-
-      panel.innerHTML = `
-        <div class="package-edit-panel">
-          <h3>${isNew ? "Yeni Paket Ekle" : "Paket Seçeneğini Düzenle"}</h3>
-
-          <form id="package-edit-form">
-            <input type="hidden" name="id" value="${escapeHtml(pack.id || "")}">
-            <input type="hidden" name="product_id" value="${escapeHtml(pack.product_id)}">
-            <input type="hidden" name="is_new" value="${isNew ? "true" : "false"}">
-
-            ${langTabsHtml()}
-
-            <!-- TR -->
-            <div class="lang-pane active" data-lang="tr">
-              <div class="edit-grid">
-                <div>
-                  <label>Ad</label>
-                  <input name="name" value="${escapeHtml(pack.name || "")}" required>
-                  <div class="tiny-help">Örnek: Karton Paket, Plastik Paket, Cam Kavanoz</div>
-                </div>
-                <div class="full">
-                  <label>Açıklama</label>
-                  <textarea name="description">${escapeHtml(pack.description || "")}</textarea>
-                </div>
-              </div>
-            </div>
-
-            <!-- EN -->
-            <div class="lang-pane" data-lang="en">
-              <div class="edit-grid">
-                <div>
-                  <label>Ad</label>
-                  <input name="name_en" value="${escapeHtml(pack.name_en || "")}" placeholder="Cardboard Box, Glass Jar">
-                </div>
-                <div class="full">
-                  <label>Açıklama</label>
-                  <textarea name="description_en" placeholder="English description">${escapeHtml(pack.description_en || "")}</textarea>
-                  <div class="tiny-help">Boş bırakılırsa İngilizce sayfada Türkçe metin gösterilir.</div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Dil-Bağımsız -->
-            <div class="edit-grid" style="margin-top:14px">
-              <div>
-                <label>Paket Görseli</label>
-                <div class="field-upload-row" data-upload-field="package_image">
-                  <input class="image-path-input" name="image" value="${escapeHtml(pack.image || "")}" placeholder="assets/safran_kavanoz.png">
-                  <input type="file" accept="image/png,image/jpeg,image/webp,image/gif">
-                  <button class="upload-field-btn secondary" type="button">Yükle</button>
-                  <div class="field-upload-status">Formdaki paket seçimi kartında görünecek görsel.</div>
-                </div>
-              </div>
-
-              <div>
-                <label>Sıralama</label>
-                <input name="sort_order" type="number" value="${escapeHtml(pack.sort_order ?? 0)}">
-              </div>
-
-              <div>
-                <label>Durum</label>
-                <select name="is_active">
-                  <option value="true" ${pack.is_active ? "selected" : ""}>Aktif</option>
-                  <option value="false" ${!pack.is_active ? "selected" : ""}>Pasif</option>
-                </select>
-              </div>
-            </div>
-
-            <div class="actions">
-              <button type="submit">${isNew ? "Ekle" : "Kaydet"}</button>
-              <button class="secondary" type="button" id="cancel-package-edit">Vazgeç</button>
-            </div>
-
-            <div id="package-edit-status" class="status"></div>
-          </form>
-        </div>
-      `;
-
-      const form = document.getElementById("package-edit-form");
-      setupLangTabs(form);
-
-      document.getElementById("cancel-package-edit").addEventListener("click", () => {
-        panel.innerHTML = "";
-      });
-
-      form.addEventListener("submit", async (event) => {
-        event.preventDefault();
-        await savePackageEdit(event.currentTarget);
-      });
-
-      setupFieldUploadersByContainer(panel, { slug: "package" });
-      panel.scrollIntoView({ behavior: "smooth", block: "start" });
-    }
-
-    async function savePackageEdit(form) {
-      const status = document.getElementById("package-edit-status");
-      setStatus(status, "Kaydediliyor...");
-
-      const formData = new FormData(form);
-      const isNew = formData.get("is_new") === "true";
-      const id = formData.get("id");
-      const productId = formData.get("product_id");
-
-      const payload = {
-        product_id: productId,
-        name: String(formData.get("name") || "").trim(),
-        name_en: String(formData.get("name_en") || "").trim() || null,
-        image: String(formData.get("image") || "").trim(),
-        description: String(formData.get("description") || "").trim(),
-        description_en: String(formData.get("description_en") || "").trim() || null,
-        sort_order: Number(formData.get("sort_order") || 0),
-        is_active: formData.get("is_active") === "true"
-      };
-
-      const query = isNew
-        ? supabase.from("package_options").insert(payload)
-        : supabase.from("package_options").update(payload).eq("id", id);
-
-      const { error } = await query;
-
-      if (error) {
-        setStatus(status, "Kaydetme hatası: " + error.message, "error");
-        return;
-      }
-
-      setStatus(status, "Paket seçeneği kaydedildi.", "ok");
-      await loadPackageOptions(productId);
-      document.getElementById("package-edit-panel").innerHTML = "";
-    }
-
-
 
     async function loadWeightOptions(productId) {
       const holder = document.getElementById("weights-manager");

@@ -20,6 +20,36 @@
 <link rel="alternate" hreflang="tr" href="./?lang=tr">
 <link rel="alternate" hreflang="en" href="./?lang=en">
 <link rel="alternate" hreflang="x-default" href="./">
+<link rel="canonical" href="https://house-of-anatolia.netlify.app/">
+
+<!-- Schema.org structured data (Organization + WebSite) -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://house-of-anatolia.netlify.app/#organization",
+      "name": "The House of Anatolia",
+      "alternateName": "Anadolu Evi",
+      "url": "https://house-of-anatolia.netlify.app/",
+      "logo": "https://house-of-anatolia.netlify.app/assets/logo_house_of_anatolia_transparent.png",
+      "description": "Türkiye'nin coğrafi işaretli (GI) ürünlerini, üretildikleri topraktan doğrudan tüketiciye ulaştıran vitrin.",
+      "areaServed": { "@type": "Country", "name": "Türkiye" },
+      "knowsLanguage": ["tr", "en"]
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://house-of-anatolia.netlify.app/#website",
+      "url": "https://house-of-anatolia.netlify.app/",
+      "name": "The House of Anatolia",
+      "description": "A Journey to the Roots of Taste — Anadolu'nun coğrafi işaretli kıymetleri.",
+      "publisher": { "@id": "https://house-of-anatolia.netlify.app/#organization" },
+      "inLanguage": ["tr-TR", "en-US"]
+    }
+  ]
+}
+</script>
 
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -62,6 +92,8 @@
     .brand span{color:var(--gold)}
 
     .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+    .skip-link{position:absolute;left:-9999px;top:8px;z-index:1000;padding:10px 18px;background:var(--gold);color:#24170a;text-decoration:none;border-radius:2px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;font-size:.78rem}
+    .skip-link:focus,.skip-link:focus-visible{left:8px;outline:2px solid var(--gold-soft);outline-offset:2px}
     .brand-logo{display:flex;align-items:center;min-height:76px}
     .brand-logo img{display:block;height:76px;width:auto;object-fit:contain;object-position:left center;filter:drop-shadow(0 6px 14px rgba(0,0,0,.08))}
     @media (max-width: 768px){.brand-logo img{height:62px}}
@@ -123,16 +155,6 @@
 
     .map-slogan .word-gold{font-style:italic;color:var(--gold-soft);font-weight:400}
 
-    .est-badge{display:inline-flex;align-items:center;gap:14px;margin-top:14px;font-family:'Plus Jakarta Sans',sans-serif;font-size:.66rem;font-weight:600;letter-spacing:.32em;text-transform:uppercase;color:rgba(240,210,138,.62);opacity:0;animation:sloganReveal 1s cubic-bezier(.21,.99,.34,1) 1.5s forwards}
-    .est-badge::before,.est-badge::after{content:'';width:32px;height:1px;background:linear-gradient(90deg, transparent, rgba(240,210,138,.5), transparent)}
-
-    .hero-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin:56px auto 0;max-width:760px;border-top:1px solid rgba(36,27,21,.16);border-bottom:1px solid rgba(36,27,21,.16)}
-    .hero-stat{padding:30px 16px;text-align:center;position:relative}
-    .hero-stat:not(:last-child)::after{content:'';position:absolute;right:0;top:22%;height:56%;width:1px;background:rgba(36,27,21,.12)}
-    .hero-stat-num{font-family:'Cormorant Garamond',serif;font-size:clamp(2.4rem,3.4vw,3.4rem);font-weight:500;line-height:1;color:#231b15}
-    .hero-stat-num em{font-style:italic;color:var(--gold);font-weight:400}
-    .hero-stat-label{margin-top:10px;font-size:.66rem;letter-spacing:.22em;text-transform:uppercase;color:#6b5848}
-    @media (max-width:760px){.hero-stats{max-width:100%;margin:40px 0 0}.hero-stat{padding:20px 8px}.hero-stat-num{font-size:2rem}.hero-stat-label{font-size:.58rem;letter-spacing:.18em}}
     @media (max-width: 980px){
       .map-branding{position:static;inset:auto;left:auto;top:auto;transform:none;gap:14px;padding:36px 18px 28px;width:100%}
       .map-branding-logo{width:min(180px,48vw)}
@@ -149,31 +171,6 @@
     .hero::before{content:'';position:absolute;inset:0;background:
       linear-gradient(180deg, transparent 0%, rgba(0,0,0,.12) 100%),
       radial-gradient(circle at 50% 8%, rgba(210,161,47,.06), transparent 18%);pointer-events:none}
-    .hero-grid{position:absolute;inset:0;opacity:.14;background-image:linear-gradient(rgba(255,255,255,.03) 1px, transparent 1px),linear-gradient(90deg, rgba(255,255,255,.03) 1px, transparent 1px);background-size:120px 120px;mask-image:radial-gradient(circle at center, black 32%, transparent 80%)}
-    .hero-lines span{position:absolute;top:-18%;width:1px;height:145%;background:linear-gradient(180deg, transparent, rgba(210,161,47,.16), transparent);opacity:.65}
-    .hero-lines span:nth-child(1){left:18%;transform:rotate(-34deg)}
-    .hero-lines span:nth-child(2){left:34%;transform:rotate(-16deg)}
-    .hero-lines span:nth-child(3){left:50%;transform:rotate(0deg)}
-    .hero-lines span:nth-child(4){left:66%;transform:rotate(16deg)}
-    .hero-lines span:nth-child(5){left:82%;transform:rotate(34deg)}
-    .hero-dots span{position:absolute;width:4px;height:4px;border-radius:50%;background:rgba(240,210,138,.8);box-shadow:0 0 16px rgba(210,161,47,.26);animation:twinkle 5s ease-in-out infinite}
-    .hero-dots span:nth-child(1){left:6%;top:18%;animation-delay:.4s}
-    .hero-dots span:nth-child(2){left:14%;top:9%;animation-delay:1.2s}
-    .hero-dots span:nth-child(3){left:27%;top:23%;animation-delay:2.1s}
-    .hero-dots span:nth-child(4){left:38%;top:14%;animation-delay:1.4s}
-    .hero-dots span:nth-child(5){left:49%;top:28%;animation-delay:2.9s}
-    .hero-dots span:nth-child(6){left:61%;top:11%;animation-delay:.8s}
-    .hero-dots span:nth-child(7){left:73%;top:18%;animation-delay:1.7s}
-    .hero-dots span:nth-child(8){left:84%;top:11%;animation-delay:2.6s}
-    .hero-dots span:nth-child(9){left:93%;top:24%;animation-delay:.9s}
-    .hero-dots span:nth-child(10){left:10%;top:56%;animation-delay:1.8s}
-    .hero-dots span:nth-child(11){left:21%;top:72%;animation-delay:3.1s}
-    .hero-dots span:nth-child(12){left:35%;top:63%;animation-delay:2.2s}
-    .hero-dots span:nth-child(13){left:52%;top:66%;animation-delay:1.1s}
-    .hero-dots span:nth-child(14){left:69%;top:74%;animation-delay:2.8s}
-    .hero-dots span:nth-child(15){left:82%;top:61%;animation-delay:1.5s}
-    .hero-dots span:nth-child(16){left:95%;top:79%;animation-delay:2.4s}
-    @keyframes twinkle{0%,100%{opacity:.15;transform:scale(.7)}50%{opacity:1;transform:scale(1.4)}}
     .hero-content{position:relative;z-index:3;width:100%;text-align:center;padding:100px 0 150px}
     .hero-title-group{display:flex;align-items:center;justify-content:center;gap:0px;margin:0 auto;max-width:1320px}
     .hero-word-part{font-family:'Plus Jakarta Sans',sans-serif;font-size:clamp(5.3rem,16vw,12.8rem);font-weight:800;line-height:.88;letter-spacing:.03em;text-transform:uppercase;color:#f2eadf;text-shadow:10px 12px 0 rgba(122,74,34,.72), 0 20px 38px rgba(0,0,0,.35);-webkit-text-stroke:1px rgba(167,118,59,.16)}
@@ -198,17 +195,6 @@
       100%{opacity:0;transform:translate(calc(-50% + var(--dx)), calc(-50% + var(--dy))) scale(var(--scale)) rotate(var(--spin))}
     }
 
-
-    .hero-mountains{position:absolute;left:0;right:0;bottom:0;height:62%;z-index:2;pointer-events:none;opacity:.9}
-    .mountain{position:absolute;bottom:0;background:linear-gradient(180deg, rgba(104,58,18,.46), rgba(54,31,12,.56));clip-path:polygon(0 100%, 0 62%, 18% 82%, 33% 34%, 49% 68%, 66% 18%, 83% 61%, 100% 40%, 100% 100%)}
-    .mountain.m1{left:-2%;width:34%;height:58%;opacity:.55}
-    .mountain.m2{left:11%;width:28%;height:76%;opacity:.42}
-    .mountain.m3{left:28%;width:30%;height:88%;opacity:.5}
-    .mountain.m4{left:47%;width:34%;height:82%;opacity:.38}
-    .mountain.m5{left:71%;width:32%;height:73%;opacity:.48}
-    .mountain.m6{right:-5%;width:24%;height:60%;opacity:.36}
-    .mountain-back{position:absolute;left:0;right:0;bottom:0;height:36%;background:linear-gradient(180deg, rgba(83,46,15,.34), rgba(46,28,12,.68));clip-path:polygon(0 100%, 0 44%, 16% 28%, 33% 58%, 47% 18%, 62% 52%, 78% 22%, 92% 58%, 100% 40%, 100% 100%);opacity:.72}
-    .mountain-foreground{position:absolute;left:-3%;right:-3%;bottom:-2%;height:30%;background:linear-gradient(180deg, rgba(91,50,16,.4), rgba(51,28,11,.82));clip-path:polygon(0 100%, 0 48%, 14% 18%, 28% 44%, 42% 12%, 55% 38%, 69% 10%, 83% 44%, 100% 18%, 100% 100%);opacity:.84}
 
     .marquee-wrap{position:absolute;left:0;right:0;bottom:0;z-index:6;border-top:1px solid rgba(255,255,255,.06);border-bottom:1px solid rgba(255,255,255,.06);background:rgba(18,13,10,.78);overflow:hidden;backdrop-filter:blur(10px)}
     .marquee{display:flex;gap:40px;padding:16px 0;white-space:nowrap;animation:marquee 28s linear infinite;color:var(--muted)}
@@ -1286,43 +1272,11 @@
     .gi-content p{color:var(--muted);line-height:1.85;margin:0 0 18px;font-size:1rem;letter-spacing:.005em}
     .gi-content p:last-of-type{margin-bottom:0}
 
-    .cert-badge{background:linear-gradient(180deg, rgba(210,161,47,.06), rgba(210,161,47,.015));border:1px solid rgba(210,161,47,.22);padding:48px 38px;position:relative;align-self:start}
-    .cert-badge::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg, transparent, var(--gold), transparent)}
-    .cert-badge::after{content:'';position:absolute;inset:8px;border:1px solid rgba(210,161,47,.08);pointer-events:none}
-    .cert-eyebrow{display:inline-flex;align-items:center;gap:14px;margin-bottom:24px;font-size:.62rem;letter-spacing:.32em;text-transform:uppercase;color:var(--gold-soft);font-weight:600;position:relative;z-index:2}
-    .cert-eyebrow::before,.cert-eyebrow::after{content:'';width:18px;height:1px;background:rgba(210,161,47,.5)}
-    .cert-title{margin:0 0 6px;font-family:'Cormorant Garamond',serif;font-size:clamp(1.6rem,2.4vw,2.1rem);font-weight:500;color:var(--cream);letter-spacing:.005em;position:relative;z-index:2}
-    .cert-sub{margin:0 0 28px;font-size:.78rem;letter-spacing:.16em;text-transform:uppercase;color:rgba(244,238,230,.5);font-weight:500;position:relative;z-index:2}
-    .cert-meta{list-style:none;margin:0;padding:24px 0 0;border-top:1px solid rgba(210,161,47,.18);position:relative;z-index:2}
-    .cert-meta li{display:flex;flex-direction:column;gap:4px;padding:14px 0;border-bottom:1px solid rgba(255,255,255,.05)}
-    .cert-meta li:last-child{border-bottom:none}
-    .cert-meta li > span{font-size:.62rem;letter-spacing:.22em;text-transform:uppercase;color:rgba(244,238,230,.42)}
-    .cert-meta li > strong{font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:500;color:var(--cream)}
-    .cert-meta li > em{font-family:'Cormorant Garamond',serif;font-size:1.05rem;font-style:italic;font-weight:400;color:var(--gold-soft);letter-spacing:.01em}
     @media (max-width:980px){
       .gi-grid{grid-template-columns:1fr;gap:48px;max-width:760px}
-      .cert-badge{padding:36px 28px}
     }
 
-    /* About — asymmetric grid + meta card */
     .gold-accent{font-style:italic;color:var(--gold-soft);font-weight:400}
-    .about-grid{display:grid;grid-template-columns:1.2fr 0.8fr;gap:80px;margin-top:48px;max-width:1100px;margin-left:auto;margin-right:auto;align-items:start}
-    .about-grid .about-narrative{max-width:none;margin:0}
-    .about-aside{position:sticky;top:120px;align-self:start}
-    .about-card-info{background:rgba(255,255,255,.025);border:1px solid rgba(210,161,47,.18);padding:42px 36px;position:relative}
-    .about-card-info::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg, transparent, rgba(210,161,47,.6), transparent)}
-    .about-card-eyebrow{display:inline-flex;align-items:center;gap:14px;margin-bottom:28px;font-size:.66rem;letter-spacing:.32em;text-transform:uppercase;color:var(--gold-soft);font-weight:600}
-    .about-card-eyebrow::before{content:'';width:24px;height:1px;background:var(--gold)}
-    .about-meta{list-style:none;margin:0;padding:0}
-    .about-meta li{display:flex;flex-direction:column;gap:4px;padding:18px 0;border-bottom:1px solid rgba(255,255,255,.06)}
-    .about-meta li:last-child{border-bottom:none}
-    .about-meta li > span{font-size:.62rem;letter-spacing:.22em;text-transform:uppercase;color:rgba(244,238,230,.42)}
-    .about-meta li > strong{font-family:'Cormorant Garamond',serif;font-size:1.15rem;font-weight:500;color:var(--cream);letter-spacing:.01em;word-break:break-word}
-    @media (max-width:980px){
-      .about-grid{grid-template-columns:1fr;gap:48px;max-width:760px}
-      .about-aside{position:static;top:auto}
-      .about-card-info{padding:32px 24px}
-    }
 
     /* ===== GI DEFINITION (Coğrafi İşaret tanımı, harita üstü) ===== */
     .gi-definition{
@@ -1548,6 +1502,7 @@
 
 </style></head>
 <body>
+<a class="skip-link" href="#main-content">İçeriğe atla</a>
 
 <!-- Sayfa açılış loader'ı (cinematic) -->
 <div class="page-loader" id="page-loader">
@@ -1571,7 +1526,7 @@
   </div>
 </div>
 </div></header>
-<main>
+<main id="main-content">
 
 <section class="section map-section" id="home"><div class="container">
         <div class="map-wrap">
@@ -2069,10 +2024,6 @@
 
       // Slogan (haritanın üstünde, brand'ın altında)
       slogan: "Lezzetin *Kökenine* Yolculuk",
-      hero_est: "EST 2026 — ANATOLIA",
-      hero_stat1: "Ürün — Başlangıç",
-      hero_stat2: "Yöre — Safranbolu",
-      hero_stat3: "Coğrafi İşaret",
       contact_eyebrow: "İLETİŞİM",
       contact_title: "Bizimle iletişime geçin.",
 
@@ -2095,26 +2046,6 @@
       // About — uzun hikaye
       about_eyebrow: "HİKÂYEMİZ",
       about_title: "*Anadolu*'nun binlerce yıllık üretim kültüründen ilham alarak.",
-      about_meta_eyebrow: "KÜNYE",
-      about_meta_brand: "Marka",
-      about_meta_year: "Kuruluş",
-      about_meta_region: "Yöre",
-      about_meta_doc: "Belge",
-      about_meta_doc_value: "TPMK Coğrafi İşaret",
-      about_meta_contact: "İletişim",
-      gi_eyebrow: "TESCİL",
-      gi_title: "Coğrafi *İşaret* Nedir?",
-      gi_paragraph1: "Coğrafi işaret, bir yörede emek ve birikim sonucu oluşan kimliği yasal güvence altına alır. Üreticinin emeği, tüketicinin güveni — her ikisi için bir taahhüt.",
-      gi_paragraph2: "Türkiye'de tescili Türk Patent ve Marka Kurumu (TPMK) yapar. Safranbolu Safranı, Anadolu'nun yüzyıllık üretim mirasını kayıt altına alan örneklerdendir.",
-      cert_eyebrow: "RESMİ BELGE",
-      cert_title: "Safranbolu Safranı",
-      cert_sub: "Türk Patent ve Marka Kurumu",
-      cert_meta_category: "Kategori",
-      cert_meta_category_value: "Coğrafi İşaret",
-      cert_meta_no: "Tescil No",
-      cert_meta_date: "Tescil Tarihi",
-      cert_value_pending: "Belirtilecek",
-      nav_gi: "Coğrafi İşaret",
       footer_brand_desc: "Coğrafi işaretli Anadolu kıymetleri, doğrudan üreticisinden.",
       footer_contact_title: "İletişim",
       about_p1: "Anadolu'nun binlerce yıllık üretim kültüründen ilham alarak yola çıktık. Toprağın bereketini, emeğin değerini ve gerçek lezzetin kökenini dünyaya ulaştırma hedefiyle markamızı kurduk.",
@@ -2169,10 +2100,6 @@
 
       // Slogan
       slogan: "A Journey to the *Roots* of Taste",
-      hero_est: "EST 2026 — ANATOLIA",
-      hero_stat1: "Product — Beginning",
-      hero_stat2: "Region — Safranbolu",
-      hero_stat3: "Geographical Indication",
       contact_eyebrow: "CONTACT",
       contact_title: "Get in touch.",
 
@@ -2195,26 +2122,6 @@
       // About — long story
       about_eyebrow: "OUR STORY",
       about_title: "Inspired by the millennia-old craft of *Anatolia*.",
-      about_meta_eyebrow: "FACT SHEET",
-      about_meta_brand: "Brand",
-      about_meta_year: "Founded",
-      about_meta_region: "Region",
-      about_meta_doc: "Certificate",
-      about_meta_doc_value: "TPMK Geographical Indication",
-      about_meta_contact: "Contact",
-      gi_eyebrow: "REGISTRATION",
-      gi_title: "What is a Geographical *Indication*?",
-      gi_paragraph1: "A geographical indication wraps a region's craft and patrimony in legal protection — a covenant for both the maker's labor and the consumer's trust.",
-      gi_paragraph2: "In Türkiye, registration is handled by the Turkish Patent and Trademark Office (TPMK). Safranbolu Saffron is among the products preserving Anatolia's centuries-old production heritage.",
-      cert_eyebrow: "OFFICIAL CERTIFICATE",
-      cert_title: "Safranbolu Saffron",
-      cert_sub: "Turkish Patent and Trademark Office",
-      cert_meta_category: "Category",
-      cert_meta_category_value: "Geographical Indication",
-      cert_meta_no: "Registration No",
-      cert_meta_date: "Registration Date",
-      cert_value_pending: "To be confirmed",
-      nav_gi: "Geographical Indication",
       footer_brand_desc: "Geographical Indication Anatolian treasures, direct from producer.",
       footer_contact_title: "Contact",
       about_p1: "We set out inspired by Anatolia's millennia-old craft. We founded our brand with one purpose: to bring the abundance of the soil, the value of labor, and the true origin of taste to the world.",
