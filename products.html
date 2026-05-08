@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="tr"><head><meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Ürünler — The House of Anatolia</title>
+<meta name="description" content="The House of Anatolia'nın coğrafi işaretli ürünleri. Karabük safranıyla başladık; Anadolu'nun mirasını dijital vitrinimizde keşfedin.">
+
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="Ürünler — The House of Anatolia">
+<meta property="og:description" content="Türkiye'nin coğrafi işaretli kıymetleri, doğrudan üreticisinden.">
+<meta property="og:image" content="https://house-of-anatolia.netlify.app/assets/logo_house_of_anatolia_transparent.png">
+<meta property="og:locale" content="tr_TR">
+<meta property="og:locale:alternate" content="en_US">
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Ürünler — The House of Anatolia">
+<meta name="twitter:description" content="Türkiye'nin coğrafi işaretli kıymetleri, doğrudan üreticisinden.">
+
+<!-- hreflang -->
+<link rel="alternate" hreflang="tr" href="./products.html?lang=tr">
+<link rel="alternate" hreflang="en" href="./products.html?lang=en">
+<link rel="alternate" hreflang="x-default" href="./products.html">
+<link rel="canonical" href="https://house-of-anatolia.netlify.app/products.html">
+
+<!-- Schema.org CollectionPage -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "@id": "https://house-of-anatolia.netlify.app/products.html#page",
+  "name": "Ürünler — The House of Anatolia",
+  "description": "The House of Anatolia'nın coğrafi işaretli ürünleri.",
+  "url": "https://house-of-anatolia.netlify.app/products.html",
+  "isPartOf": { "@id": "https://house-of-anatolia.netlify.app/#website" },
+  "inLanguage": ["tr-TR", "en-US"]
+}
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0a0807;
+    --bg-soft:#120e0c;
+    --panel:#15110e;
+    --cream:#efe9dd;
+    --text:#f4eee6;
+    --muted:#c2b4a4;
+    --line:rgba(255,255,255,.08);
+    --gold:#d2a12f;
+    --gold-soft:#f0d28a;
+    --warm:#8a5225;
+    --shadow:0 30px 80px rgba(0,0,0,.38);
+    --max:1320px;
+    --ease:cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  ::selection{background:rgba(210,161,47,.28);color:var(--cream)}
+  body{margin:0;font-family:'Plus Jakarta Sans',sans-serif;font-feature-settings:"ss01","cv11";-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;background:radial-gradient(circle at 20% 0%, rgba(151,90,24,.10), transparent 28%),radial-gradient(circle at 80% 10%, rgba(210,161,47,.07), transparent 22%),linear-gradient(180deg, #090706 0%, #0d0b09 58%, #090706 100%);color:var(--text);overflow-x:hidden}
+  body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:1;opacity:.035;mix-blend-mode:overlay;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='120' height='120'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>")}
+  @media (prefers-reduced-motion: reduce){body::after{display:none}}
+  a{text-decoration:none;color:inherit}
+  img{display:block;max-width:100%}
+  .container{width:min(calc(100% - 48px), var(--max));margin:0 auto;position:relative;z-index:2}
+
+  .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+  .skip-link{position:absolute;left:-9999px;top:8px;z-index:1000;padding:10px 18px;background:var(--gold);color:#24170a;text-decoration:none;border-radius:2px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;font-size:.78rem}
+  .skip-link:focus,.skip-link:focus-visible{left:8px;outline:2px solid var(--gold-soft);outline-offset:2px}
+
+  /* NAVBAR */
+  .navbar{position:sticky;top:0;z-index:100;background:rgba(239,233,221,.97);backdrop-filter:blur(14px);border-bottom:1px solid rgba(30,24,18,.06)}
+  .nav-inner{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;min-height:84px;gap:18px}
+  .brand-logo{display:flex;align-items:center;min-height:76px}
+  .brand-logo img{display:block;height:76px;width:auto;object-fit:contain;object-position:left center;filter:drop-shadow(0 6px 14px rgba(0,0,0,.08))}
+  @media (max-width:768px){.brand-logo img{height:62px}}
+  .nav-center{display:flex;justify-content:center}
+  .nav-links{display:flex;gap:34px;list-style:none;margin:0;padding:0;color:#352b23;font-size:1rem;letter-spacing:.12em;text-transform:uppercase}
+  .nav-links a{position:relative;cursor:pointer}
+  .nav-links a::after{content:'';position:absolute;left:0;bottom:-8px;width:0;height:1px;background:var(--gold);transition:.32s ease}
+  .nav-links a:hover::after,.nav-links a.active::after{width:100%}
+  .nav-links a.active{color:var(--warm)}
+  .nav-cta-wrap{display:flex;justify-content:flex-end;align-items:center;gap:12px}
+  .lang-switcher{display:inline-flex;border:1px solid rgba(53,43,35,.22);border-radius:99px;overflow:hidden;background:transparent}
+  .lang-switcher button{padding:8px 16px;background:transparent;border:0;color:#352b23;font-family:'Plus Jakarta Sans',sans-serif;font-size:.78rem;font-weight:600;letter-spacing:.06em;cursor:pointer;text-transform:uppercase}
+  .lang-switcher button.active{background:#231b15;color:var(--cream)}
+
+  /* SUBHERO */
+  .subhero{padding:90px 0 70px;text-align:center;border-bottom:1px solid var(--line);background:linear-gradient(180deg, rgba(18,14,12,.6) 0%, transparent 100%)}
+  .kicker{display:inline-flex;align-items:center;gap:14px;color:var(--gold-soft);text-transform:uppercase;letter-spacing:.32em;font-size:.74rem;margin-bottom:22px;font-weight:600}
+  .kicker::before,.kicker::after{content:"";width:24px;height:1px;background:var(--gold)}
+  .subhero h1{margin:0 0 24px;font-family:'Cormorant Garamond',serif;font-weight:500;font-size:clamp(2.6rem,5.4vw,4.8rem);line-height:1.04;letter-spacing:-.005em;color:var(--cream);text-wrap:balance}
+  .subhero h1 em{font-style:italic;color:var(--gold-soft);font-weight:400}
+  .subhero p{max-width:600px;margin:0 auto;color:var(--muted);font-size:1.06rem;line-height:1.85;font-style:italic;font-family:'Cormorant Garamond',serif}
+
+  /* PRODUCTS GRID */
+  .products-section{padding:80px 0 110px}
+  .products-grid{display:grid;grid-template-columns:repeat(auto-fit, minmax(280px, 1fr));gap:28px}
+  .product-card{display:flex;flex-direction:column;position:relative;border:1px solid var(--line);border-radius:18px;overflow:hidden;background:linear-gradient(180deg, rgba(255,255,255,.025), rgba(255,255,255,.005));text-decoration:none;color:inherit;transition:transform .35s var(--ease), border-color .35s var(--ease), box-shadow .35s var(--ease)}
+  a.product-card{cursor:pointer}
+  a.product-card:hover{transform:translateY(-4px);border-color:rgba(210,161,47,.4);box-shadow:0 24px 60px rgba(0,0,0,.4)}
+  .product-card.coming{opacity:.55}
+  .product-card-image{aspect-ratio:4/3;background:linear-gradient(135deg, rgba(210,161,47,.08), rgba(15,11,9,.6));display:grid;place-items:center;overflow:hidden;position:relative}
+  .product-card-image img{width:62%;height:62%;object-fit:contain;filter:drop-shadow(0 14px 28px rgba(0,0,0,.4));transition:transform .55s var(--ease)}
+  a.product-card:hover .product-card-image img{transform:scale(1.06)}
+  .product-card-body{padding:24px 26px 26px;flex:1;display:flex;flex-direction:column}
+  .product-card-region{font-size:.7rem;letter-spacing:.28em;text-transform:uppercase;color:var(--gold-soft);margin-bottom:10px;font-weight:600}
+  .product-card-name{margin:0 0 12px;font-family:'Cormorant Garamond',serif;font-size:1.7rem;font-weight:500;line-height:1.1;color:var(--cream)}
+  .product-card-name em{font-style:italic;color:var(--gold-soft);font-weight:400}
+  .product-card-meta{font-size:.92rem;color:var(--muted);line-height:1.6;margin:0 0 18px;flex:1}
+  .product-card-foot{display:flex;align-items:center;justify-content:space-between;padding-top:16px;border-top:1px solid var(--line);margin-top:auto}
+  .product-card-status{display:inline-flex;align-items:center;gap:8px;font-size:.66rem;letter-spacing:.24em;text-transform:uppercase;font-weight:600;color:var(--gold)}
+  .product-card-status.live::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--gold);box-shadow:0 0 8px var(--gold)}
+  .product-card-status.coming{color:var(--muted)}
+  .product-card-arrow{font-size:1.2rem;color:var(--gold-soft);transition:transform .35s var(--ease)}
+  a.product-card:hover .product-card-arrow{transform:translateX(4px)}
+  .products-empty,.products-loading{grid-column:1 / -1;text-align:center;padding:60px 20px;color:var(--muted);font-style:italic;font-family:'Cormorant Garamond',serif;font-size:1.2rem}
+
+  /* FOOTER */
+  footer{background:linear-gradient(180deg, var(--bg) 0%, #060403 100%);border-top:1px solid var(--line);color:var(--text);position:relative;z-index:2}
+  .footer-grid{display:grid;grid-template-columns:1.8fr 1fr 1fr 1.4fr;gap:36px;padding:42px 0 32px;border-bottom:1px solid rgba(255,255,255,.06);align-items:start}
+  .footer-col-brand .footer-brand-logo{display:inline-block;margin-bottom:18px;transition:transform .35s var(--ease)}
+  .footer-col-brand .footer-brand-logo img{display:block;height:64px;width:auto;filter:drop-shadow(0 8px 18px rgba(0,0,0,.45))}
+  .footer-col-brand .footer-brand-logo:hover{transform:translateY(-2px)}
+  .footer-col-brand .footer-brand-desc{color:var(--muted);font-size:.9rem;line-height:1.7;margin:0;max-width:280px}
+  .footer-grid h4{color:var(--gold-soft);font-family:'Plus Jakarta Sans',sans-serif;font-size:.74rem;font-weight:600;letter-spacing:.28em;text-transform:uppercase;margin:0 0 18px}
+  .footer-grid ul{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:8px}
+  .footer-grid ul a{color:var(--muted);font-size:.92rem;transition:color .2s ease;cursor:pointer}
+  .footer-grid ul a:hover{color:var(--gold-soft)}
+  .footer-contact{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:10px}
+  .footer-contact li{color:var(--muted);font-size:.9rem;line-height:1.5;word-break:break-word}
+  .footer-bottom{display:flex;justify-content:space-between;align-items:center;gap:20px;padding:24px 0;flex-wrap:wrap}
+  .footer-bottom .copy,.footer-bottom .tagline{color:var(--muted);font-size:.82rem}
+  .footer-bottom .tagline{font-style:italic}
+
+  @media (max-width:980px){
+    .nav-inner{grid-template-columns:auto 1fr auto;gap:14px}
+    .nav-links{gap:18px;font-size:.86rem}
+    .footer-grid{grid-template-columns:1fr 1fr;gap:36px;padding:40px 0 28px}
+  }
+  @media (max-width:640px){
+    .nav-links{display:none}
+    .container{width:min(calc(100% - 32px), var(--max))}
+    .footer-grid{grid-template-columns:1fr 1fr;gap:24px 20px;padding:28px 0 18px}
+    .footer-col-brand{grid-column:1 / -1;text-align:center;margin-bottom:8px}
+    .footer-col-brand .footer-brand-desc{margin:0 auto}
+    .footer-bottom{flex-direction:column;align-items:flex-start;padding:18px 0;gap:10px}
+    .subhero{padding:60px 0 40px}
+    .products-section{padding:60px 0 80px}
+  }
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main-content">İçeriğe atla</a>
+
+<header class="navbar"><div class="container nav-inner">
+  <a href="index.html#home" class="brand-logo" aria-label="The House of Anatolia">
+    <img src="assets/logo_house_of_anatolia_transparent.png" alt="The House of Anatolia logosu">
+    <span class="sr-only">The House of Anatolia</span>
+  </a>
+  <div class="nav-center">
+    <ul class="nav-links">
+      <li><a href="index.html#home" data-i18n="nav_home">Ana Sayfa</a></li>
+      <li><a href="index.html#about" data-i18n="nav_about">Hakkımızda</a></li>
+      <li><a href="products.html" class="active" data-i18n="nav_products">Ürünler</a></li>
+      <li><a href="index.html#contact" data-i18n="nav_contact">İletişim</a></li>
+    </ul>
+  </div>
+  <div class="nav-cta-wrap">
+    <div class="lang-switcher" role="group" aria-label="Dil seçici / Language switcher">
+      <button type="button" data-lang="tr" class="active" aria-label="Türkçe">TR</button>
+      <button type="button" data-lang="en" aria-label="English">EN</button>
+    </div>
+  </div>
+</div></header>
+
+<main id="main-content">
+  <section class="subhero">
+    <div class="container">
+      <div class="kicker" data-i18n="products_kicker">Vitrinimiz</div>
+      <h1 data-i18n-html="products_title">Coğrafi İşaretli <em>Kıymetlerimiz</em></h1>
+      <p data-i18n="products_intro">Türkiye'nin yöre yöre yetişen, Türk Patent ve Marka Kurumu tescilli coğrafi işaretli ürünleri. Şu an Karabük safranıyla başladık; vitrinimiz büyüyor.</p>
+    </div>
+  </section>
+
+  <section class="products-section">
+    <div class="container">
+      <div id="products-grid" class="products-grid">
+        <div class="products-loading" data-i18n="products_loading">Ürünler yükleniyor…</div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-col footer-col-brand">
+        <a href="index.html#home" class="footer-brand-logo" aria-label="The House of Anatolia">
+          <img src="assets/logo_house_of_anatolia_transparent.png" alt="The House of Anatolia">
+        </a>
+        <p class="footer-brand-desc" data-i18n="footer_brand_desc">Coğrafi işaretli Anadolu kıymetleri, doğrudan üreticisinden.</p>
+      </div>
+      <div class="footer-col">
+        <h4 data-i18n="footer_links_title">Sayfalar</h4>
+        <ul>
+          <li><a href="index.html#home" data-i18n="nav_home">Ana Sayfa</a></li>
+          <li><a href="index.html#about" data-i18n="nav_about">Hakkımızda</a></li>
+          <li><a href="products.html" data-i18n="nav_products">Ürünler</a></li>
+          <li><a href="index.html#contact" data-i18n="nav_contact">İletişim</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4 data-i18n="footer_legal_title">Yasal</h4>
+        <ul>
+          <li><a href="gizlilik.html" data-i18n="footer_privacy">Gizlilik Politikası</a></li>
+          <li><a href="kullanim.html" data-i18n="footer_terms">Kullanım Koşulları</a></li>
+          <li><a href="cerez.html" data-i18n="footer_cookies">Çerez Politikası</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4 data-i18n="footer_contact_title">İletişim</h4>
+        <ul class="footer-contact">
+          <li>info@thehouseofanatolia.com</li>
+          <li><span data-i18n="contact_address_value">Safranbolu, Karabük / Türkiye</span></li>
+          <li>+90 (5XX) XXX XX XX</li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span class="copy">© <span id="footer-year">2026</span> The House of Anatolia. <span data-i18n="footer_rights">Tüm hakları saklıdır.</span></span>
+      <span class="tagline" data-i18n="footer_tagline">Türkiye'de tasarlandı, dünyaya hizmet edilir.</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // i18n dictionary
+  const I18N = {
+    tr: {
+      doc_title: "Ürünler — The House of Anatolia",
+      nav_home: "Ana Sayfa",
+      nav_about: "Hakkımızda",
+      nav_products: "Ürünler",
+      nav_contact: "İletişim",
+      products_kicker: "Vitrinimiz",
+      products_title: "Coğrafi İşaretli <em>Kıymetlerimiz</em>",
+      products_intro: "Türkiye'nin yöre yöre yetişen, Türk Patent ve Marka Kurumu tescilli coğrafi işaretli ürünleri. Şu an Karabük safranıyla başladık; vitrinimiz büyüyor.",
+      products_loading: "Ürünler yükleniyor…",
+      products_empty: "Henüz ürün eklenmemiş. Yakında!",
+      products_error: "Ürünler alınamadı. Lütfen daha sonra tekrar deneyin.",
+      products_status_live: "Yayında",
+      products_status_coming: "Yakında",
+      footer_brand_desc: "Coğrafi işaretli Anadolu kıymetleri, doğrudan üreticisinden.",
+      footer_links_title: "Sayfalar",
+      footer_legal_title: "Yasal",
+      footer_contact_title: "İletişim",
+      footer_privacy: "Gizlilik Politikası",
+      footer_terms: "Kullanım Koşulları",
+      footer_cookies: "Çerez Politikası",
+      footer_rights: "Tüm hakları saklıdır.",
+      footer_tagline: "Türkiye'de tasarlandı, dünyaya hizmet edilir.",
+      contact_address_value: "Safranbolu, Karabük / Türkiye"
+    },
+    en: {
+      doc_title: "Products — The House of Anatolia",
+      nav_home: "Home",
+      nav_about: "About",
+      nav_products: "Products",
+      nav_contact: "Contact",
+      products_kicker: "Our Atelier",
+      products_title: "Geographically Indicated <em>Treasures</em>",
+      products_intro: "Türkiye's region-by-region geographically protected products, registered with the Turkish Patent and Trademark Office. We began with Karabük saffron; the atelier is growing.",
+      products_loading: "Loading products…",
+      products_empty: "No products yet. Coming soon!",
+      products_error: "Could not load products. Please try again later.",
+      products_status_live: "Live",
+      products_status_coming: "Soon",
+      footer_brand_desc: "Geographically protected Anatolian treasures, direct from the producer.",
+      footer_links_title: "Pages",
+      footer_legal_title: "Legal",
+      footer_contact_title: "Contact",
+      footer_privacy: "Privacy Policy",
+      footer_terms: "Terms of Use",
+      footer_cookies: "Cookie Policy",
+      footer_rights: "All rights reserved.",
+      footer_tagline: "Designed in Türkiye, serving the world.",
+      contact_address_value: "Safranbolu, Karabük / Türkiye"
+    }
+  };
+
+  const urlLang = new URLSearchParams(window.location.search).get("lang");
+  let currentLang = urlLang === "en" ? "en" : urlLang === "tr" ? "tr" : (localStorage.getItem("ha_lang") || "tr");
+
+  function applyLanguage(lang){
+    currentLang = lang === "en" ? "en" : "tr";
+    localStorage.setItem("ha_lang", currentLang);
+    document.documentElement.setAttribute("lang", currentLang);
+    document.title = I18N[currentLang].doc_title;
+    document.querySelectorAll("[data-i18n]").forEach(el => {
+      const v = I18N[currentLang][el.getAttribute("data-i18n")];
+      if (v !== undefined) el.textContent = v;
+    });
+    document.querySelectorAll("[data-i18n-html]").forEach(el => {
+      const v = I18N[currentLang][el.getAttribute("data-i18n-html")];
+      if (v !== undefined) el.innerHTML = v;
+    });
+    document.querySelectorAll(".lang-switcher [data-lang]").forEach(b => b.classList.toggle("active", b.dataset.lang === currentLang));
+    window.HA_I18N = { current: currentLang, t: k => I18N[currentLang]?.[k] ?? k };
+    window.dispatchEvent(new CustomEvent("languagechange"));
+  }
+  applyLanguage(currentLang);
+
+  document.addEventListener("click", (e) => {
+    const btn = e.target.closest(".lang-switcher [data-lang]");
+    if (btn) applyLanguage(btn.dataset.lang);
+  });
+
+  const yearEl = document.getElementById("footer-year");
+  if (yearEl) yearEl.textContent = new Date().getFullYear();
+</script>
+
+<script type="module">
+  import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
+  const supabaseUrl = "https://owcgcyvgibyawxfxwlbn.supabase.co";
+  const supabaseAnonKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im93Y2djeXZnaWJ5YXd4Znh3bGJuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzc5MjEyMTksImV4cCI6MjA5MzQ5NzIxOX0.ynMQBYGOMibnmeT_7bkSdWAdkEJYgZ9F6bRn5-8tkmk";
+  const supabase = createClient(supabaseUrl, supabaseAnonKey);
+
+  const grid = document.getElementById("products-grid");
+
+  function pickLang(item, base){
+    const lang = window.HA_I18N?.current || "tr";
+    if (lang === "en"){
+      const enValue = item[base + "_en"];
+      if (enValue && String(enValue).trim()) return enValue;
+    }
+    return item[base];
+  }
+
+  function escapeHtml(s){
+    return String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[c]));
+  }
+
+  let cache = [];
+
+  async function loadProducts(){
+    const { data, error } = await supabase
+      .from("products")
+      .select(`id, name, name_en, slug, short_name, short_name_en, mini_image, hero_image, meta_description, meta_description_en, is_active, cities ( name, name_en, svg_id )`)
+      .order("created_at", { ascending: true });
+
+    if (error){
+      grid.innerHTML = `<div class="products-empty">${escapeHtml(window.HA_I18N.t("products_error"))}</div>`;
+      console.error(error);
+      return;
+    }
+    cache = data || [];
+    render();
+  }
+
+  function render(){
+    if (!cache.length){
+      grid.innerHTML = `<div class="products-empty">${escapeHtml(window.HA_I18N.t("products_empty"))}</div>`;
+      return;
+    }
+    const liveLabel = window.HA_I18N.t("products_status_live");
+    const comingLabel = window.HA_I18N.t("products_status_coming");
+
+    grid.innerHTML = cache.map(p => {
+      const name = pickLang(p, "name") || p.name;
+      const region = pickLang(p.cities || {}, "name") || (p.cities?.name || "");
+      const desc = pickLang(p, "meta_description") || (p.meta_description || "");
+      const img = p.mini_image || p.hero_image || "assets/logo_house_of_anatolia_transparent.png";
+      const isLive = !!p.is_active;
+      const cardClass = isLive ? "product-card" : "product-card coming";
+      const statusClass = isLive ? "product-card-status live" : "product-card-status coming";
+      const statusLabel = isLive ? liveLabel : comingLabel;
+      const tag = isLive ? "a" : "div";
+      const hrefAttr = isLive ? `href="product.html?slug=${escapeHtml(p.slug)}"` : "";
+      const trimmed = desc.length > 110 ? desc.slice(0, 110) + "…" : desc;
+
+      return `<${tag} ${hrefAttr} class="${cardClass}">
+        <div class="product-card-image">
+          <img src="${escapeHtml(img)}" alt="${escapeHtml(name)}" loading="lazy">
+        </div>
+        <div class="product-card-body">
+          <div class="product-card-region">${escapeHtml(region)}</div>
+          <h3 class="product-card-name">${escapeHtml(name)}</h3>
+          <p class="product-card-meta">${escapeHtml(trimmed)}</p>
+          <div class="product-card-foot">
+            <span class="${statusClass}">${escapeHtml(statusLabel)}</span>
+            ${isLive ? '<span class="product-card-arrow">→</span>' : ''}
+          </div>
+        </div>
+      </${tag}>`;
+    }).join("");
+  }
+
+  loadProducts();
+  window.addEventListener("languagechange", render);
+</script>
+</body></html>
