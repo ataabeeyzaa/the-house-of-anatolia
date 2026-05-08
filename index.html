@@ -3196,6 +3196,48 @@
     if (grid) grid.innerHTML = renderHomeProductsCards(data, lang);
     renderOverlayProducts(data, lang);
   });
+
+  // ----- MARQUEE STRIP DİNAMİK FETCH (Supabase marquee_items) -----
+  function pickMarqueeLabel(item, lang){
+    if (lang === "en" && item.label_en) return item.label_en;
+    return item.label_tr;
+  }
+  async function loadMarqueeItems(){
+    const track = document.querySelector(".marquee-track");
+    if (!track) return;
+    try {
+      const { data, error } = await supabase
+        .from("marquee_items")
+        .select("label_tr, label_en, sort_order")
+        .eq("is_active", true)
+        .order("sort_order", { ascending: true });
+      if (error) return; // marquee_items tablosu yoksa veya hatalıysa statik fallback HTML kalır
+      if (!data || data.length === 0) return; // boşsa statik fallback
+      const lang = window.HA_I18N?.current ?? "tr";
+      const renderItem = (it, ariaHidden) =>
+        '<span class="marquee-item"' + (ariaHidden ? ' aria-hidden="true"' : '') +
+        ' data-label-tr="' + escHtml(it.label_tr) + '"' +
+        ' data-label-en="' + escHtml(it.label_en || it.label_tr) + '">' +
+        escHtml(pickMarqueeLabel(it, lang)) + '</span>';
+      track.innerHTML = data.map((it) => renderItem(it, false)).join("") +
+                        data.map((it) => renderItem(it, true)).join("");
+      window.HA_MARQUEE = data;
+    } catch (e) {
+      console.warn("loadMarqueeItems exception:", e);
+    }
+  }
+  loadMarqueeItems();
+
+  // Dil değişiminde marquee item'ları güncelle
+  window.addEventListener("languagechange", () => {
+    if (!window.HA_MARQUEE) return; // statik fallback i18n keys ile zaten güncellenir
+    const lang = window.HA_I18N?.current ?? "tr";
+    document.querySelectorAll(".marquee-item").forEach((el) => {
+      const tr = el.dataset.labelTr;
+      const en = el.dataset.labelEn;
+      if (tr || en) el.textContent = (lang === "en" ? (en || tr) : tr) || el.textContent;
+    });
+  });
 </script>
 
 </body></html>
