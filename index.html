@@ -204,7 +204,45 @@
     /* GENERIC */
     .section{padding:110px 0;position:relative}
     .eyebrow{display:flex;align-items:center;gap:12px;color:var(--gold-soft);text-transform:uppercase;letter-spacing:.18em;font-size:.76rem;margin-bottom:18px}
-    .eyebrow::before{content:'';width:38px;height:1px;background:rgba(210,161,47,.72)}
+    .eyebrow::before,.eyebrow::after{content:'';width:38px;height:1px;background:rgba(210,161,47,.72)}
+
+    /* Marquee strip — sectionlar arası kayan şerit (TV altyazısı tarzı) */
+    .marquee-strip{
+      overflow:hidden;
+      background:linear-gradient(180deg, rgba(18,13,10,.85), rgba(13,9,7,.95));
+      border-top:1px solid rgba(210,161,47,.16);
+      border-bottom:1px solid rgba(210,161,47,.16);
+      padding:14px 0;
+      backdrop-filter:blur(10px);
+      position:relative;
+      z-index:3;
+    }
+    .marquee-track{
+      display:flex;
+      gap:48px;
+      width:max-content;
+      animation:marqueeScroll 38s linear infinite;
+    }
+    .marquee-item{
+      display:inline-flex;
+      align-items:center;
+      gap:14px;
+      color:var(--muted);
+      font-size:.92rem;
+      letter-spacing:.06em;
+      white-space:nowrap;
+      flex-shrink:0;
+    }
+    .marquee-item::before{
+      content:'✦';
+      color:var(--gold);
+      font-size:1rem;
+    }
+    @keyframes marqueeScroll{
+      0%{transform:translateX(0)}
+      100%{transform:translateX(-50%)}
+    }
+    @media (prefers-reduced-motion: reduce){.marquee-track{animation:none}}
     .title{margin:0 0 14px;font-family:'Cormorant Garamond',serif;font-weight:500;font-size:clamp(2.5rem,4.6vw,4.9rem);line-height:.95}
     .desc{margin:0;max-width:780px;line-height:1.9;color:var(--muted)}
 
@@ -1899,16 +1937,26 @@
         <div class="discover-block reveal">
           <div class="eyebrow" data-i18n="map_eyebrow" style="justify-content:center">KEŞFET</div>
           <h2 class="title" data-i18n="map_title">Bir şehir seçin, mirasını görün.</h2>
-          <p class="discover-note reveal delay-1" data-i18n="city_note">Vitrinimiz büyüyor. Şu an <strong>Karabük safranı</strong> yayında; Kastamonu, Gaziantep, Trabzon, Edirne ve daha fazlası yolda.</p>
-          <div class="future-list reveal delay-2">
-            <span class="future-pill" data-i18n="pill_1">Yakında — Kastamonu Sarımsağı</span>
-            <span class="future-pill" data-i18n="pill_2">Yakında — Antep Fıstığı</span>
-            <span class="future-pill" data-i18n="pill_3">Yakında — Trabzon Hamsisi</span>
-            <span class="future-pill" data-i18n="pill_4">Yakında — Maraş Dondurması</span>
-          </div>
+          <p class="discover-note reveal delay-1" data-i18n="city_note">Bir ürünün belirli bir <strong>yöreye özgü</strong> olduğunun resmi belgesidir — başka yerde aynı kalitede üretilemez.</p>
         </div>
 
 </div></section>
+
+<!-- Marquee strip — sectionlar arası kayan şerit (yakında ürünler) -->
+<div class="marquee-strip" aria-hidden="true">
+  <div class="marquee-track">
+    <span class="marquee-item" data-i18n="marquee_1">Yakında — Kastamonu Sarımsağı</span>
+    <span class="marquee-item" data-i18n="marquee_2">Yakında — Antep Fıstığı</span>
+    <span class="marquee-item" data-i18n="marquee_3">Yakında — Trabzon Hamsisi</span>
+    <span class="marquee-item" data-i18n="marquee_4">Yakında — Maraş Dondurması</span>
+    <span class="marquee-item" data-i18n="marquee_5">Yakında — Edirne Ciğeri</span>
+    <span class="marquee-item" data-i18n="marquee_1" aria-hidden="true">Yakında — Kastamonu Sarımsağı</span>
+    <span class="marquee-item" data-i18n="marquee_2" aria-hidden="true">Yakında — Antep Fıstığı</span>
+    <span class="marquee-item" data-i18n="marquee_3" aria-hidden="true">Yakında — Trabzon Hamsisi</span>
+    <span class="marquee-item" data-i18n="marquee_4" aria-hidden="true">Yakında — Maraş Dondurması</span>
+    <span class="marquee-item" data-i18n="marquee_5" aria-hidden="true">Yakında — Edirne Ciğeri</span>
+  </div>
+</div>
 
 <div class="container"><div class="section-divider" aria-hidden="true"><span class="diamond">◆</span></div></div>
 
@@ -2044,11 +2092,12 @@
       map_title: "Bir şehir seçin, mirasını görün.",
       map_description: "Türkiye haritasında aktif şehirlere tıklayarak o yörenin coğrafi işaretli ürün sayfasına ulaşabilirsiniz.",
       map_tooltip_default: "Karabük • Safran",
-      city_note_html: 'Vitrinimiz büyüyor. Şu an <strong>Karabük safranı</strong> yayında; Kastamonu, Gaziantep, Trabzon, Edirne ve daha fazlası yolda.',
-      pill_1: "Yakında — Kastamonu Sarımsağı",
-      pill_2: "Yakında — Antep Fıstığı",
-      pill_3: "Yakında — Trabzon Hamsisi",
-      pill_4: "Yakında — Maraş Dondurması",
+      city_note_html: 'Bir ürünün belirli bir <strong>yöreye özgü</strong> olduğunun resmi belgesidir — başka yerde aynı kalitede üretilemez.',
+      marquee_1: "Yakında — Kastamonu Sarımsağı",
+      marquee_2: "Yakında — Antep Fıstığı",
+      marquee_3: "Yakında — Trabzon Hamsisi",
+      marquee_4: "Yakında — Maraş Dondurması",
+      marquee_5: "Yakında — Edirne Ciğeri",
 
       // About — uzun hikaye
       about_eyebrow: "HİKÂYEMİZ",
@@ -2120,11 +2169,12 @@
       map_title: "Choose a city, uncover its heritage.",
       map_description: "Click on an active city on the map of Turkey to reach the page for its geographically protected product.",
       map_tooltip_default: "Karabük • Saffron",
-      city_note_html: 'Our atelier is growing. <strong>Karabük saffron</strong> is now live; Kastamonu, Gaziantep, Trabzon, Edirne, and more are on their way.',
-      pill_1: "Coming Soon — Kastamonu Garlic",
-      pill_2: "Coming Soon — Antep Pistachio",
-      pill_3: "Coming Soon — Trabzon Anchovy",
-      pill_4: "Coming Soon — Maraş Ice Cream",
+      city_note_html: 'An official seal proving a product is <strong>specific to a region</strong> — it cannot be replicated elsewhere with the same quality.',
+      marquee_1: "Coming Soon — Kastamonu Garlic",
+      marquee_2: "Coming Soon — Antep Pistachio",
+      marquee_3: "Coming Soon — Trabzon Anchovy",
+      marquee_4: "Coming Soon — Maraş Ice Cream",
+      marquee_5: "Coming Soon — Edirne Liver",
 
       // About — long story
       about_eyebrow: "OUR STORY",
