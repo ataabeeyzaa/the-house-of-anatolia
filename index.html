@@ -2058,8 +2058,6 @@
   </div>
 </div>
 
-<div class="container"><div class="section-divider" aria-hidden="true"><span class="diamond">◆</span></div></div>
-
     <section class="section home-about" id="about"><div class="container">
 <div class="eyebrow reveal" data-i18n="about_eyebrow">HİKÂYEMİZ</div>
 <h2 class="title reveal delay-1" data-i18n="about_title">Anadolu'nun binlerce yıllık üretim kültüründen ilham alarak.</h2>
@@ -3066,8 +3064,12 @@
         ' data-label-tr="' + escHtml(it.label_tr) + '"' +
         ' data-label-en="' + escHtml(it.label_en || it.label_tr) + '">' +
         escHtml(pickMarqueeLabel(it, lang)) + '</span>';
-      track.innerHTML = data.map((it) => renderItem(it, false)).join("") +
-                        data.map((it) => renderItem(it, true)).join("");
+      // Az item olsa da ekran sürekli dolsun: 1 item → 10 kopya, 2 → 5, 5 → 2 (her seti 2x duplicate seamless loop için)
+      const repeats = Math.max(1, Math.ceil(10 / data.length));
+      const expanded = [];
+      for (let i = 0; i < repeats; i++) expanded.push(...data);
+      track.innerHTML = expanded.map((it) => renderItem(it, false)).join("") +
+                        expanded.map((it) => renderItem(it, true)).join("");
       window.HA_MARQUEE = data;
     } catch (e) {
       console.warn("loadMarqueeItems exception:", e);
