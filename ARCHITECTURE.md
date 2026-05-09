@@ -15,7 +15,7 @@ Backend:     Supabase (PostgreSQL + Auth + Storage + RLS)
              https://owcgcyvgibyawxfxwlbn.supabase.co
 
 Hosting:     Netlify (CDN edge cached)
-             https://house-of-anatolia.netlify.app
+             https://thehouseofanatolia.com
 
 CI/CD:       GitHub Actions (.github/workflows/deploy.yml)
              Her main push → otomatik Netlify deploy (~1.5 dk)
