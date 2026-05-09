@@ -1821,7 +1821,10 @@
                   </select>
                 </td>
                 <td>
-                  <button type="button" data-view-request="${escapeHtml(request.id)}">Detay</button>
+                  <div class="mini-table-actions">
+                    <button type="button" data-view-request="${escapeHtml(request.id)}">Detay</button>
+                    <button type="button" class="danger" data-delete-request="${escapeHtml(request.id)}">Sil</button>
+                  </div>
                 </td>
               </tr>
             `).join("")}
@@ -1852,6 +1855,28 @@
         button.addEventListener("click", () => {
           const request = allRequestsCache.find(item => item.id === button.dataset.viewRequest);
           if (request) renderRequestDetail(request);
+        });
+      });
+
+      requestsTable.querySelectorAll("[data-delete-request]").forEach((button) => {
+        button.addEventListener("click", async () => {
+          const id = button.dataset.deleteRequest;
+          const request = allRequestsCache.find(item => item.id === id);
+          const label = request ? `${request.full_name || ""} (${request.email || ""})` : "(bilinmiyor)";
+          const ok = await confirmAction({
+            title: "Talebi Sil",
+            message: `${label} talebini silmek istiyor musun? Bu işlem geri alınamaz.`
+          });
+          if (!ok) return;
+          const { error } = await supabase.from("requests").delete().eq("id", id);
+          if (error) { alert("Silinemedi: " + error.message); return; }
+          await logAdminAction("delete", {
+            table_name: "requests",
+            record_id: id,
+            record_summary: `Talep silindi: ${label}`,
+            metadata: {}
+          });
+          await loadRequests();
         });
       });
     }
