@@ -4627,13 +4627,19 @@
     function renderMarqueeForm(record) {
       if (!newMarqueePanel) return;
       const isEdit = !!record;
+      // Yeni ekleme: mevcut max sort_order + 1 (boş tabloda 1'den başlar)
+      const cache = window.HA_MARQUEE_ADMIN_CACHE || [];
+      const nextSort = cache.length
+        ? Math.max(0, ...cache.map(r => Number(r.sort_order) || 0)) + 1
+        : 1;
+      const sortValue = isEdit ? (record.sort_order ?? 1) : nextSort;
       newMarqueePanel.innerHTML = `
         <div class="edit-panel" style="margin-bottom:18px">
           <h3 style="margin:0 0 12px">${isEdit ? "Şerit Düzenle" : "Yeni Şerit Ekle"}</h3>
           <form id="marquee-form" data-id="${escapeHtml(record?.id || "")}">
             <label>Türkçe etiket *<input name="label_tr" required maxlength="200" value="${escapeHtml(record?.label_tr || "")}"></label>
             <label>İngilizce etiket<input name="label_en" maxlength="200" value="${escapeHtml(record?.label_en || "")}"></label>
-            <label>Sıra <small class="muted">(küçük olan önce gözükür)</small><input name="sort_order" type="number" value="${escapeHtml(record?.sort_order ?? 100)}"></label>
+            <label>Sıra <small class="muted">(küçük olan önce gözükür — 1, 2, 3 …)</small><input name="sort_order" type="number" min="0" value="${escapeHtml(sortValue)}"></label>
             <label class="checkbox-row"><input type="checkbox" name="is_active" ${record == null || record.is_active ? "checked" : ""}> Aktif (canlıda görünür)</label>
             <div class="actions" style="margin-top:14px">
               <button type="submit">${isEdit ? "Güncelle" : "Ekle"}</button>
