@@ -70,7 +70,7 @@ Sonra HTML dosyalarına ihtiyacın olduğunda Read tool ile aç (her biri büyü
 
 ## 6. CANLI DURUM — Site Yayında
 
-- 8 PR mergede (#1-7 önceki, #8 UI revize + galeri render + marquee grants fix)
+- 9 PR mergede (#1-7 önceki, #8 UI revize + galeri + marquee grants, #9 marquee infinite akış + admin sort 1/2/3 + mobil hero + marquee-about boşluk)
 - Lighthouse: **A11y 98 / SEO 92 / Best Practices 96 / Agentic 100** (PR #7+#8 sonrası yeniden ölçülmedi)
 - Anasayfa: navbar [☰ logo] [yatay 4 link] [TR EN] + hamburger overlay + harita + marquee dinamik fetch + contact sade (3 kart + newsletter). Ürünler section anasayfadan kaldırıldı PR #8'de (kullanıcı isteği "full kaldır").
 - `products.html` ayrı sayfada, küçük kare grid (tek ürün de küçük ortalanır)

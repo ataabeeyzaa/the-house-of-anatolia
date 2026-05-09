@@ -1,6 +1,6 @@
 # KNOWN ISSUES & TODO — The House of Anatolia
 
-> **2026-05-09 güncel (PR #8 sonrası)** — site canlıda, GitHub Actions auto-deploy aktif. 8 PR mergede tamam (#1, #2, #3, #4, #5 docs, #6 sparkle/contact/footer, #7 hamburger + ürünler + marquee admin + product, #8 UI revize + galeri render + marquee grants fix).
+> **2026-05-09 güncel (PR #9 sonrası)** — site canlıda, GitHub Actions auto-deploy aktif. 9 PR mergede tamam (#1-7 önceki, #8 UI revize + galeri + marquee grants, #9 marquee infinite + admin sort + mobil + boşluk fix).
 
 ---
 
@@ -15,6 +15,11 @@
 - Aynı yer → New query → `supabase_migrations/2026-05-09-marquee-grants.sql` paste → Run
 - Anon + authenticated role'lerine table-level GRANT'ler set edilir
 - Sonra: admin "Şerit" sekmesinde "permission denied" uyarısı gider, fonksiyonel olur
+
+### B2. Supabase migration #3 çalıştır (sort_order renumber — opsiyonel PR #9)
+- Aynı yer → New query → `supabase_migrations/2026-05-09-marquee-sort-renumber.sql` paste → Run
+- Mevcut 10/20/30/40/50 değerleri 1/2/3/4/5 yapılır
+- Opsiyonel — frontend zaten yeni eklemede max+1 artırıyor; bu sadece eski değer temizliği
 
 ### C. Safran ürünü hero_subtitle güncelle (admin'den)
 - admin → Ürünler → Safranbolu Safranı → Düzenle
@@ -249,6 +254,13 @@
 - ✅ products.html grid küçük kare (auto-fill 240px sabit, tek ürün de küçük ortalanır)
 - ✅ Marquee permission düzeltmesi: yeni `2026-05-09-marquee-grants.sql` migration; admin uyarı 42501 yakalar
 - ✅ product.html galeri statik HTML kaldırıldı (id="product-gallery-track"); mevcut JS render gallery_images'tan dinamik 2x duplicate ile çiziyor — admin'den ekleme otomatik yansır
+
+### PR #9 — Marquee infinite + admin sort + mobil + boşluk fix
+- ✅ Marquee min kopya formülü (`Math.ceil(10/data.length)` × 2 set) — 1 item olsa da seamless infinite akar
+- ✅ Admin "Şerit" sort_order default = mevcut max + 1 (yeni eklemede 1, 2, 3 ardışık)
+- ✅ Migration v3 yazıldı (opsiyonel) — mevcut 10/20/30 değerlerini 1/2/3 renumber
+- ✅ Marquee-strip ile home-about arası ◆ section-divider silindi (boşluk gitti, gap 0)
+- ✅ Mobile product.html: `.subhero` min-height auto, padding küçültüldü; `html` overflow-x:hidden + width:100%; sağdaki kahverengi boşluk düzeltildi
 
 ### Önceki sohbet (Phase 0)
 - ✅ Site lokalden GitHub'a + Netlify auto-CI/CD
