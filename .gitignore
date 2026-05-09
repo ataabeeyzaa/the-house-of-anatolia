@@ -35,5 +35,39 @@ canli-i.html
 canli-p.html
 canli-product-snapshot.html
 canli-fresh.html
+canli.html
 PR_BODY.md
 deploys.json
+
+# === SECRETS / CREDENTIALS — ASLA REPOYA EKLEME ===
+# .env ve türevleri (Supabase service_role, API anahtarları, DB şifreleri)
+.env
+.env.*
+*.env
+.env.local
+.env.development
+.env.production
+
+# Private keys & certificates
+*.pem
+*.key
+*.p12
+*.pfx
+id_rsa
+id_rsa.pub
+id_dsa
+id_ecdsa
+id_ed25519
+
+# Token/secret dosyaları (genel pattern)
+secrets.json
+secrets.yml
+secrets.yaml
+*.secret
+auth-token*
+service-account*.json
+gcloud-service-key.json
+
+# Supabase CLI local
+supabase/.temp
+supabase/.branches
