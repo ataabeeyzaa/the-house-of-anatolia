@@ -1,6 +1,6 @@
 # KNOWN ISSUES & TODO — The House of Anatolia
 
-> **2026-05-09 güncel (PR #9 sonrası)** — site canlıda, GitHub Actions auto-deploy aktif. 9 PR mergede tamam (#1-7 önceki, #8 UI revize + galeri + marquee grants, #9 marquee infinite + admin sort + mobil + boşluk fix).
+> **2026-05-09 güncel (PR #10 sonrası)** — site canlıda, GitHub Actions auto-deploy aktif. 10 PR mergede tamam (#1-7 önceki, #8 UI revize + galeri + marquee grants, #9 marquee infinite + admin sort + mobil + boşluk, #10 çoklu UI fix + DB-bağ + email + domain notu).
 
 ---
 
@@ -261,6 +261,37 @@
 - ✅ Migration v3 yazıldı (opsiyonel) — mevcut 10/20/30 değerlerini 1/2/3 renumber
 - ✅ Marquee-strip ile home-about arası ◆ section-divider silindi (boşluk gitti, gap 0)
 - ✅ Mobile product.html: `.subhero` min-height auto, padding küçültüldü; `html` overflow-x:hidden + width:100%; sağdaki kahverengi boşluk düzeltildi
+
+### PR #10 — Çoklu UI fix + DB-bağ + email + domain notu
+- ✅ Map section KEŞFET eyebrow kaldırıldı; city_note başına "Coğrafi işaret:" prefix
+- ✅ About → contact arası ◆ section-divider silindi (gereksiz boşluk gitti)
+- ✅ E-posta tüm yerlerde info@... → thehouseofanatoliaco@gmail.com
+- ✅ Adres tüm yerlerde "Türkiye" (kullanıcı standardizasyon isteği)
+- ✅ Page tracking URL validation (data:/file://, /C:/, Downloads/ filtreleri)
+- ✅ Admin "Gelen Teklif" → Sil butonu (confirm modal + audit log)
+- ✅ product.html navbar hamburger + overlay (index.html ile aynı pattern)
+- ✅ loadHomepageAbout: anasayfa #about title/subtitle/content homepage_sections'tan override (admin CRUD)
+- ✅ Domain alındı (thehouseofanatolia.com Cloudflare aktif — kullanıcı tarafı)
+
+## P0 — PR #10 sonrası kullanıcının yapması gerekenler
+
+### A. Admin "Ana Sayfa Bölümleri" → vision row sil
+- admin → Ana Sayfa Bölümleri
+- "Vizyonumuz" satırı **anasayfada gösterilmiyor** (frontend sadece about row'unu okuyor)
+- "Sil" butonuyla kaldır → liste temiz olur
+
+### B. Anasayfa hikayemiz başlık/metin admin'den düzenleme (PR #10 yeni)
+- admin → Ana Sayfa Bölümleri → about satırı → Düzenle
+- "Başlık" alanı: anasayfa h2'sini override eder (slogan stili için `*kelime*` kullan altın italic için)
+- "Alt başlık" alanı: ilk paragrafı override eder
+- "İçerik" alanı: boş satırla ayrılmış paragraflar → mevcut <p>'leri sırayla override eder
+- DB değer yoksa i18n fallback aynen çalışır
+
+### C. Domain bağlama (kullanıcı)
+- thehouseofanatolia.com Cloudflare'de aktif
+- Netlify Dashboard → Domain settings → Custom domain → ekle
+- DNS Cloudflare'den Netlify'e CNAME (Netlify dokümantasyonu)
+- Sonraki PR'da: sitemap.xml, robots.txt, JSON-LD canonical URL'leri yeni domain'e güncellenecek
 
 ### Önceki sohbet (Phase 0)
 - ✅ Site lokalden GitHub'a + Netlify auto-CI/CD
