@@ -5,4 +5,4 @@ User-agent: *
 Allow: /
 Disallow: /admin.html
 
-Sitemap: https://house-of-anatolia.netlify.app/sitemap.xml
+Sitemap: https://thehouseofanatolia.com/sitemap.xml

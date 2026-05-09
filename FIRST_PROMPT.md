@@ -5,7 +5,7 @@
 ---
 
 ```
-Selam, "The House of Anatolia" projesini önceki Claude Code sohbetinden devraldın. Site şu an canlıda: https://house-of-anatolia.netlify.app — GitHub: https://github.com/ataabeeyzaa/the-house-of-anatolia (private). Tüm bağlam projeye ait MD dosyalarında.
+Selam, "The House of Anatolia" projesini önceki Claude Code sohbetinden devraldın. Site şu an canlıda: https://thehouseofanatolia.com — GitHub: https://github.com/ataabeeyzaa/the-house-of-anatolia (private). Tüm bağlam projeye ait MD dosyalarında.
 
 Aşağıdaki kuralları sıkı uygula, sonra bağlamı oku, sonra başla.
 

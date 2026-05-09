@@ -20,9 +20,9 @@
 
 | Bileşen | URL |
 |---|---|
-| Production | https://house-of-anatolia.netlify.app |
-| Anasayfa | https://house-of-anatolia.netlify.app/ |
-| **Ürünler** (yeni) | https://house-of-anatolia.netlify.app/products.html |
+| Production | https://thehouseofanatolia.com |
+| Anasayfa | https://thehouseofanatolia.com/ |
+| **Ürünler** (yeni) | https://thehouseofanatolia.com/products.html |
 | Ürün detayı | /product.html?slug=karabuk-safrani |
 | Admin paneli | /admin.html |
 | Yasal sayfalar | /gizlilik.html, /kullanim.html, /cerez.html |
