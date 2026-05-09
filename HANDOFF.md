@@ -1,6 +1,6 @@
 # HANDOFF — The House of Anatolia
 
-> **2026-05-09 güncel (PR #8 sonrası)** — projenin tam haritası, yeni Claude Code sohbetine geçişte gerekli tüm bağlam.
+> **2026-05-09 güncel (PR #9 sonrası)** — projenin tam haritası, yeni Claude Code sohbetine geçişte gerekli tüm bağlam.
 
 ---
 
@@ -139,11 +139,19 @@ Detay: ARCHITECTURE.md
 - **Marquee permission düzeltmesi:** İlk migration RLS+policy yarattı ama table-level GRANT eksikti — `permission denied` hatası. Yeni migration `supabase_migrations/2026-05-09-marquee-grants.sql` (kullanıcı SQL Editor'dan çalıştırır) + admin uyarı mesajı 42501/permission denied'i yakalar.
 - **Galeri statik HTML kaldırıldı:** product.html'de gallery-track içindeki 12 hardcoded `<figure>` silindi (id="product-gallery-track"). Mevcut `loadProduct` JS render kodu (line 1336+) gallery_images'tan dinamik 2x duplicate ile çiziyor — artık admin'den ekleme otomatik yansır.
 
-### Kullanıcının PR #7 + PR #8 sonrası yapması gerekenler
+### Phase 8 — PR #9 (Marquee infinite + admin sort + mobil + boşluk fix)
+
+- **Marquee minimum kopya formülü:** `Math.ceil(10 / data.length)` × 2 set seamless. 1 item → 20 toplam, ekran sürekli akar.
+- **Admin sort_order default = max+1:** Yeni eklemede 1'den başlayıp artar (1, 2, 3, ...). Mevcut DB için opsiyonel renumber migration.
+- **Marquee-about arası ◆ section-divider silindi:** boşluk gitti, marquee bittiği an direkt HİKAYEMİZ section başlıyor.
+- **Mobile product.html:** `.subhero` min-height auto, padding küçültüldü (60-70 / 42-50); `html` overflow-x:hidden + width:100%; sağda kahverengi boşluk düzeltildi.
+
+### Kullanıcının PR #7 + PR #8 + PR #9 sonrası yapması gerekenler
 
 1. **Supabase migration #1:** Dashboard → SQL Editor → `supabase_migrations/2026-05-08-marquee-items.sql` → Run (tablo + RLS + policy + 5 default row)
-2. **Supabase migration #2 (yeni):** Aynı yer → `supabase_migrations/2026-05-09-marquee-grants.sql` → Run (anon + authenticated GRANT'leri set eder; "permission denied" düzeltir)
-3. **Safran hero_subtitle güncel:** admin → Ürünler → Safranbolu Safranı → Düzenle → "Hero altyazı" alanı `Safranbolu'nun coğrafi işaretli en zarif değeri` → Kaydet
+2. **Supabase migration #2:** Aynı yer → `supabase_migrations/2026-05-09-marquee-grants.sql` → Run (anon/auth GRANT'leri; "permission denied" düzeltir)
+3. **Supabase migration #3 (opsiyonel — PR #9):** `supabase_migrations/2026-05-09-marquee-sort-renumber.sql` → Run (mevcut 10/20/30 değerlerini 1/2/3 yapar; opsiyonel temizlik)
+4. **Safran hero_subtitle:** admin → Ürünler → Safranbolu Safranı → Düzenle → "Hero altyazı" → `Safranbolu'nun coğrafi işaretli en zarif değeri` → Kaydet
 
 ---
 
@@ -224,7 +232,7 @@ Detay: KNOWN_ISSUES.md
 - Branch (`claude/...`) → `gh pr create` → review → `gh pr merge --rebase --delete-branch`
 - **Push öncesi:** `git fetch origin main && git rebase origin/main`
 - Force push + `--no-verify` YASAK
-- 8 PR mergede tamamlandı (#1, #2, #3, #4, #5 docs, #6 sparkle/contact rebuild, #7 hamburger + ürünler + marquee admin + product, #8 UI revize + galeri render + marquee grants fix)
+- 9 PR mergede tamamlandı (#1-7 önceki, #8 UI revize + galeri + marquee grants, #9 marquee infinite + admin sort + mobil + boşluk fix)
 
 ---
 
