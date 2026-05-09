@@ -2035,9 +2035,8 @@
         </div>
 
         <div class="discover-block reveal">
-          <div class="eyebrow" data-i18n="map_eyebrow" style="justify-content:center">KEŞFET</div>
           <h2 class="title" data-i18n="map_title">Bir şehir seçin, mirasını görün.</h2>
-          <p class="discover-note reveal delay-1" data-i18n="city_note">Bir ürünün belirli bir <strong>yöreye özgü</strong> olduğunun resmi belgesidir — başka yerde aynı kalitede üretilemez.</p>
+          <p class="discover-note reveal delay-1" data-i18n="city_note"><strong>Coğrafi işaret:</strong> bir ürünün belirli bir <strong>yöreye özgü</strong> olduğunun resmi belgesidir — başka yerde aynı kalitede üretilemez.</p>
         </div>
 
 </div></section>
@@ -2073,20 +2072,18 @@
 
 </div></section>
 
-<div class="container"><div class="section-divider" aria-hidden="true"><span class="diamond">◆</span></div></div>
-
 <section class="section contact-section" id="contact">
       <div class="container">
         <div class="contact-card reveal">
           <ul class="contact-info-stack">
             <li>
-              <a class="contact-info-card" href="mailto:info@thehouseofanatolia.com">
+              <a class="contact-info-card" href="mailto:thehouseofanatoliaco@gmail.com">
                 <span class="icon" aria-hidden="true">
                   <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
                 </span>
                 <span class="info">
                   <span class="info-label" data-i18n="contact_email_label">E-POSTA</span>
-                  <span class="info-value">info@thehouseofanatolia.com</span>
+                  <span class="info-value">thehouseofanatoliaco@gmail.com</span>
                 </span>
               </a>
             </li>
@@ -2097,7 +2094,7 @@
                 </span>
                 <span class="info">
                   <span class="info-label" data-i18n="contact_address_label">ADRES</span>
-                  <span class="info-value" data-i18n="contact_address_value">Safranbolu, Karabük / Türkiye</span>
+                  <span class="info-value" data-i18n="contact_address_value">Türkiye</span>
                 </span>
               </div>
             </li>
@@ -2158,8 +2155,8 @@
       <div class="footer-col">
         <h4 data-i18n="footer_contact_title">İletişim</h4>
         <ul class="footer-contact">
-          <li>info@thehouseofanatolia.com</li>
-          <li><span data-i18n="contact_address_value">Safranbolu, Karabük / Türkiye</span></li>
+          <li>thehouseofanatoliaco@gmail.com</li>
+          <li><span data-i18n="contact_address_value">Türkiye</span></li>
           <li>+90 (5XX) XXX XX XX</li>
         </ul>
       </div>
@@ -2236,7 +2233,7 @@
       map_title: "Bir şehir seçin, mirasını görün.",
       map_description: "Türkiye haritasında aktif şehirlere tıklayarak o yörenin coğrafi işaretli ürün sayfasına ulaşabilirsiniz.",
       map_tooltip_default: "Karabük • Safran",
-      city_note_html: 'Bir ürünün belirli bir <strong>yöreye özgü</strong> olduğunun resmi belgesidir — başka yerde aynı kalitede üretilemez.',
+      city_note_html: '<strong>Coğrafi işaret:</strong> bir ürünün belirli bir <strong>yöreye özgü</strong> olduğunun resmi belgesidir — başka yerde aynı kalitede üretilemez.',
       marquee_1: "Yakında — Kastamonu Sarımsağı",
       marquee_2: "Yakında — Antep Fıstığı",
       marquee_3: "Yakında — Trabzon Hamsisi",
@@ -2272,7 +2269,7 @@
       // Contact
       contact_description: "Toptan satış, iş birliği, üretici tanıtımı veya basın talepleriniz için doğrudan iletişime geçebilirsiniz.",
       contact_address_label: "Adres",
-      contact_address_value: "Safranbolu, Karabük / Türkiye",
+      contact_address_value: "Türkiye",
       contact_phone_label: "Telefon",
       contact_email_label: "E-posta",
 
@@ -2321,7 +2318,7 @@
       map_title: "Choose a city, uncover its heritage.",
       map_description: "Click on an active city on the map of Turkey to reach the page for its geographically protected product.",
       map_tooltip_default: "Karabük • Saffron",
-      city_note_html: 'An official seal proving a product is <strong>specific to a region</strong> — it cannot be replicated elsewhere with the same quality.',
+      city_note_html: '<strong>Geographical indication:</strong> an official seal proving a product is <strong>specific to a region</strong> — it cannot be replicated elsewhere with the same quality.',
       marquee_1: "Coming Soon — Kastamonu Garlic",
       marquee_2: "Coming Soon — Antep Pistachio",
       marquee_3: "Coming Soon — Trabzon Anchovy",
@@ -2359,7 +2356,7 @@
       contact_title: "Get in touch.",
       contact_description: "For wholesale, partnerships, producer introductions, or press inquiries, please reach out directly.",
       contact_address_label: "Address",
-      contact_address_value: "Safranbolu, Karabük / Turkey",
+      contact_address_value: "Turkey",
       contact_phone_label: "Phone",
       contact_email_label: "Email",
 
@@ -2865,8 +2862,14 @@
         }
       } catch {}
 
+      // URL validation — sadece http/https + valid pathname
+      // (file://, data:, blob: yerel/DEV ortamlarını reddet)
+      if (location.protocol !== "http:" && location.protocol !== "https:") return;
+
       // Sayfa yolu — ana sayfa için "/"
       let pagePath = location.pathname || "/";
+      // Yerel dosya yolu (Windows) ya da garip prefix'leri reddet
+      if (!pagePath.startsWith("/") || /^\/[A-Za-z]:/.test(pagePath) || /Downloads|index_supabase_1\.html/i.test(pagePath)) return;
       if (pagePath === "" || pagePath === "/index_supabase.html" || pagePath.endsWith("/index.html")) {
         pagePath = "/";
       }
@@ -3087,6 +3090,54 @@
       if (tr || en) el.textContent = (lang === "en" ? (en || tr) : tr) || el.textContent;
     });
   });
+
+  // ----- ANASAYFA HİKAYEMİZ — homepage_sections (about) override -----
+  // Admin "Ana Sayfa Bölümleri" → about row başlık/altyazı düzenleyebilir.
+  // i18n default fallback olarak çalışmaya devam eder.
+  async function loadHomepageAbout(){
+    try {
+      const { data, error } = await supabase
+        .from("homepage_sections")
+        .select("section_key, title, subtitle, content, is_active")
+        .eq("is_active", true)
+        .eq("section_key", "about")
+        .limit(1);
+      if (error || !data || data.length === 0) return;
+      const about = data[0];
+      const titleEl = document.querySelector(".home-about .title");
+      if (titleEl && about.title){
+        // Slogan i18n marker '*X*' patternini koru — eğer kullanıcı admin'den * içerikli yazarsa
+        if (about.title.includes("*")){
+          const parts = about.title.split(/\*([^*]+)\*/g);
+          titleEl.innerHTML = parts.map((part, i) => i % 2 === 1 ? '<em class="gold-accent">' + escHtml(part) + '</em>' : escHtml(part)).join("");
+        } else {
+          titleEl.textContent = about.title;
+        }
+      }
+      const firstP = document.querySelector(".about-narrative p");
+      if (firstP && about.subtitle) firstP.textContent = about.subtitle;
+      // content alanı: admin'den uzun metin — newline'lar paragraflara
+      if (about.content){
+        const narrative = document.querySelector(".about-narrative");
+        if (narrative){
+          const paragraphs = String(about.content).split(/\n\s*\n/).map(s => s.trim()).filter(Boolean);
+          if (paragraphs.length > 0){
+            // İlk N paragrafı override et — fazlası varsa append, eksik varsa olduğu kalsın
+            const existingP = narrative.querySelectorAll("p");
+            paragraphs.forEach((text, idx) => {
+              if (existingP[idx]){
+                existingP[idx].textContent = text;
+                existingP[idx].removeAttribute("data-i18n");
+              }
+            });
+          }
+        }
+      }
+    } catch (e) {
+      // Sessiz: i18n fallback kullanılır
+    }
+  }
+  loadHomepageAbout();
 </script>
 
 </body></html>
