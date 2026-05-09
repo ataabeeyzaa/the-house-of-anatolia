@@ -1,6 +1,6 @@
 # HANDOFF — The House of Anatolia
 
-> **2026-05-09 güncel (PR #9 sonrası)** — projenin tam haritası, yeni Claude Code sohbetine geçişte gerekli tüm bağlam.
+> **2026-05-09 güncel (PR #10 sonrası)** — projenin tam haritası, yeni Claude Code sohbetine geçişte gerekli tüm bağlam.
 
 ---
 
@@ -139,6 +139,18 @@ Detay: ARCHITECTURE.md
 - **Marquee permission düzeltmesi:** İlk migration RLS+policy yarattı ama table-level GRANT eksikti — `permission denied` hatası. Yeni migration `supabase_migrations/2026-05-09-marquee-grants.sql` (kullanıcı SQL Editor'dan çalıştırır) + admin uyarı mesajı 42501/permission denied'i yakalar.
 - **Galeri statik HTML kaldırıldı:** product.html'de gallery-track içindeki 12 hardcoded `<figure>` silindi (id="product-gallery-track"). Mevcut `loadProduct` JS render kodu (line 1336+) gallery_images'tan dinamik 2x duplicate ile çiziyor — artık admin'den ekleme otomatik yansır.
 
+### Phase 9 — PR #10 (Çoklu UI fix + DB-bağ + email + domain notu)
+
+- **Map section**: KEŞFET eyebrow kaldırıldı; city_note başına "Coğrafi işaret:" prefix eklendi (TR + EN)
+- **About → contact arası ◆ silindi**: "Lezzetin Kökenine Yolculuk" altındaki boşluk gitti
+- **E-posta tüm yerlerde**: `info@thehouseofanatolia.com` → `thehouseofanatoliaco@gmail.com` (mailto + form action FormSubmit endpoint + display + footer + yasal sayfalar)
+- **Adres standardizasyonu**: Tüm `Safranbolu, Karabük / Türkiye` → `Türkiye` (HTML default + i18n TR/EN)
+- **Page tracking URL validation**: file://, data:, blob:, /C: yerel path'leri page_views'a kayıt etmiyor (admin analytics'te garip URL'ler yığılmasın)
+- **Admin "Gelen Teklif" → Sil butonu**: data-delete-request, confirmAction modal, audit log
+- **Product.html navbar hamburger**: index.html ile aynı pattern (nav-left + ☰ + nav-center + cta + lang); hamburger overlay (SAYFALAR + BU SAYFADA + ÜRÜNLER + yasal linkler)
+- **loadHomepageAbout (DB-bağ)**: anasayfa #about title + subtitle + content (newline-delimited paragraphs) artık `homepage_sections` tablosundaki `about` row'undan override edilebilir; admin "Ana Sayfa Bölümleri" CRUD ile düzenlenir; DB row yoksa i18n fallback
+- **Domain alındı**: thehouseofanatolia.com Cloudflare'de aktif (kullanıcı). Netlify domain bağlantısı + sitemap/JSON-LD canonical güncel sonraki PR'da.
+
 ### Phase 8 — PR #9 (Marquee infinite + admin sort + mobil + boşluk fix)
 
 - **Marquee minimum kopya formülü:** `Math.ceil(10 / data.length)` × 2 set seamless. 1 item → 20 toplam, ekran sürekli akar.
@@ -232,7 +244,7 @@ Detay: KNOWN_ISSUES.md
 - Branch (`claude/...`) → `gh pr create` → review → `gh pr merge --rebase --delete-branch`
 - **Push öncesi:** `git fetch origin main && git rebase origin/main`
 - Force push + `--no-verify` YASAK
-- 9 PR mergede tamamlandı (#1-7 önceki, #8 UI revize + galeri + marquee grants, #9 marquee infinite + admin sort + mobil + boşluk fix)
+- 10 PR mergede tamamlandı (#1-7 önceki, #8 UI revize + galeri + marquee grants, #9 marquee infinite + admin sort + mobil + boşluk, #10 çoklu UI fix + DB-bağ + email + domain notu)
 
 ---
 
