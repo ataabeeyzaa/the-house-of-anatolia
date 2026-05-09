@@ -873,7 +873,7 @@
       </div>
     </div>
 
-    <section id="login-view" class="card login-card">
+    <section id="login-view" class="card login-card hidden">
       <h1>Admin Girişi</h1>
       <p class="muted">Sadece Supabase Auth içinde oluşturulan ve <strong>admins</strong> tablosuna eklenen kullanıcılar giriş yapabilir.</p>
 
@@ -1308,6 +1308,17 @@
       if (!session) {
         currentAdmin = null;
         stopIdleTracking();
+        // ACCESS GATE: oturum yoksa, ana sayfaya yönlendir.
+        // Login formunu görmek için URL'de ?giris parametresi olmalı
+        // (örn: /admin.html?giris=1). Bu, rastgele kişilerin sayfayı
+        // açtığında login form görmesini engeller — repo public,
+        // gerçek güvenlik Supabase auth + admins tablosu, bu UI gate
+        // kullanıcı deneyimi/obscurity katmanı.
+        const params = new URLSearchParams(window.location.search);
+        if (!params.has("giris")) {
+          window.location.replace("/");
+          return false;
+        }
         showLogin();
         return false;
       }
