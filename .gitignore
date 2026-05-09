@@ -31,3 +31,9 @@ node_modules/
 
 # Local debugging snapshots (curl / dev tools dumps)
 canli-snapshot.html
+canli-i.html
+canli-p.html
+canli-product-snapshot.html
+canli-fresh.html
+PR_BODY.md
+deploys.json
