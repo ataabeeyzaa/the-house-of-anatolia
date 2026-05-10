@@ -5,7 +5,7 @@
 ---
 
 ```
-Selam, "The House of Anatolia" projesini önceki Claude Code sohbetinden devraldın. Site şu an canlıda: https://thehouseofanatolia.com — GitHub: https://github.com/ataabeeyzaa/the-house-of-anatolia (private). Tüm bağlam projeye ait MD dosyalarında.
+Selam, "The House of Anatolia" projesini önceki Claude Code sohbetinden devraldın. Site şu an canlıda: https://thehouseofanatolia.com — GitHub: https://github.com/ataabeeyzaa/the-house-of-anatolia (PUBLIC repo, GitHub Pages hosting). Tüm bağlam projeye ait MD dosyalarında.
 
 Aşağıdaki kuralları sıkı uygula, sonra bağlamı oku, sonra başla.
 
@@ -42,19 +42,19 @@ git rebase origin/main
 
 Conflict varsa manuel çöz, **asla `--theirs` veya `--ours` ile otomatik üstüne yazma**, sonra push et. Force push yasak (`git push --force` veya `--force-with-lease` kullanma — main korunmalı). Pre-commit hook bypass yasak (`--no-verify` yasak). Her commit kendi dalında atomic olsun, birden fazla değişikliği tek commit'e yığma.
 
-Push sonrası GitHub Actions otomatik Netlify'a deploy eder (~1.5 dk).
+Push sonrası **GitHub Pages otomatik deploy** eder (~1-2 dk). Custom domain `thehouseofanatolia.com` Cloudflare DNS üzerinden GitHub Pages IP'lerine bağlı (185.199.108-111.153). HTTPS otomatik (Let's Encrypt). **Netlify ARTIK YOK** — credit limit + contributor sorunu nedeniyle taşındık.
 
 
 ## 4. BAĞLAM — Önce Oku
 
 Eyleme geçmeden önce bu 4 dosyayı oku ve özümse:
 
-1. **HANDOFF.md** — projenin tam haritası, yapılanlar (7 PR + Phase 0), kullanıcı tercihleri (en kritik)
-2. **ARCHITECTURE.md** — stack, deploy pipeline, plugin envanteri (18 plugin + 2 MCP), DB şeması (15 tablo, marquee_items dahil), frontend mimarisi (hamburger overlay, ürünler section, marquee dinamik fetch, contact sade)
+1. **HANDOFF.md** — projenin tam haritası, yapılanlar (17 PR + Phase 0), kullanıcı tercihleri (en kritik)
+2. **ARCHITECTURE.md** — stack, deploy pipeline (GitHub Pages + Cloudflare), plugin envanteri, DB şeması (16 tablo, marquee_items dahil), frontend mimarisi (hamburger overlay, marquee dinamik, contact sade)
 3. **DESIGN_SYSTEM.md** — Plus Jakarta Sans + Cormorant Garamond, Editorial Heritage direction, hamburger/marquee/eyebrow CSS pattern'leri, yasaklar listesi (sparkle TÜM VARYANTLAR yasak)
-4. **KNOWN_ISSUES.md** — kalan işler (P0/P1/P2), sınırlamalar, bilinen bug'lar, çözülen referansları + PR #7 sonrası kullanıcı talimatları (SQL migration + safran hero_subtitle)
+4. **KNOWN_ISSUES.md** — kalan işler (P0/P1/P2), sınırlamalar, bilinen bug'lar, çözülen referansları + PR #10-17 sonrası kullanıcı talimatları
 
-Sonra HTML dosyalarına ihtiyacın olduğunda Read tool ile aç (her biri büyük: index.html ~200KB+, admin.html ~165KB, products.html ~12KB, product.html ~80KB).
+Sonra HTML dosyalarına ihtiyacın olduğunda Read tool ile aç (her biri büyük: index.html ~210 KB, admin.html ~175 KB, products.html ~12KB, product.html ~80KB).
 
 
 ## 5. KULLANICI TERCİHLERİ — Hatırla
@@ -63,21 +63,27 @@ Sonra HTML dosyalarına ihtiyacın olduğunda Read tool ile aç (her biri büyü
 - "Salak mısın" gibi sert tepkiler frustrasyon ifadesi → defensiveness yapma, somut cevap ver, kanıtla (curl + grep ile doğrulama göster)
 - Major değişiklik öncesi git commit — geri alabilmek için
 - Stale dosya riski: edit öncesi her zaman dosyanın güncel halini Read et
-- Supabase Service Role Key ASLA isteme (sadece Anon Key var, HTML'de)
-- Kullanıcının önceki feedback'leri (HANDOFF/KNOWN_ISSUES'da liste): stats bar, KÜNYE, sertifika rozeti, EST badge, 3-sütun contact, cinematic hero, **sparkle/gold-sim parçacıklar TÜM VARYANTLAR (üstünde/etrafında/ARKASINDA)** — REDDETTİ, tekrar ekleme YASAK (PR #6'da kaldırıldı)
-- Beğendiği: italic gold accent, **KEŞFET eyebrow çift çizgi**, **map altında kayan şerit**, **contact 2-col (3 info kart sol + newsletter card sağ)**, Cormorant + Plus Jakarta Sans, koyu+altın+krem, mini-blossom safran çiçeği (product.html — dokunulmaz)
+- **Supabase Service Role Key ASLA isteme** (sadece Anon Key var, HTML'de — RLS korumalı)
+- **REPO PUBLIC** — credential, secret, .env asla commit etme. Defensive .gitignore mevcut (.env, *.pem, *.key, secrets.json vb.).
+- **Netlify token gibi credential KULLANICIDAN İSTEME**, bana yapıştırırsa derhal revoke etmesini söyle (sızıntı)
+- Kullanıcının önceki feedback'leri (HANDOFF/KNOWN_ISSUES'da liste): stats bar, KÜNYE, sertifika rozeti, EST badge, 3-sütun yan yana contact, cinematic hero, **sparkle/gold-sim parçacıklar (TÜM VARYANTLAR)** — REDDETTİ, tekrar ekleme YASAK
+- Beğendiği: italic gold accent, **KEŞFET silindi (PR #10) ama eyebrow çift altın çizgi pattern'i kaldı**, **map altında kayan şerit (marquee dinamik)**, **contact 3 info kart sol + newsletter card sağ (sade, başlık yok)**, Cormorant + Plus Jakarta Sans, koyu+altın+krem, mini-blossom safran çiçeği (product.html — dokunulmaz), **hamburger menü ☰ EN SOLDA** + yatay 4 nav link (PR #8)
 
 
 ## 6. CANLI DURUM — Site Yayında
 
-- 10 PR mergede (#1-7 önceki, #8 UI revize + galeri + marquee grants, #9 marquee infinite + admin sort + mobil hero, #10 KEŞFET kaldır + about◆contact + email gmail + adres Türkiye + tracking validation + admin sil + product hamburger + about DB-bağ)
-- Domain: thehouseofanatolia.com Cloudflare'de aktif (Netlify bağlantısı kullanıcı yapacak)
-- Lighthouse: **A11y 98 / SEO 92 / Best Practices 96 / Agentic 100** (PR #7+#8 sonrası yeniden ölçülmedi)
-- Anasayfa: navbar [☰ logo] [yatay 4 link] [TR EN] + hamburger overlay + harita + marquee dinamik fetch + contact sade (3 kart + newsletter). Ürünler section anasayfadan kaldırıldı PR #8'de (kullanıcı isteği "full kaldır").
-- `products.html` ayrı sayfada, küçük kare grid (tek ürün de küçük ortalanır)
-- product.html galeri dinamik (gallery_images tablosundan 2x duplicate kayan şerit)
-- Yeni DB tablo: `marquee_items` (PR #7) — 2 migration kullanıcı çalıştıracak (tablo + GRANT)
-- Eksik P0: SQL migration #1 + #2 çalıştır + safran hero_subtitle güncel + telefon + yasal placeholder + domain + admin user + Netlify token revoke (hepsi kullanıcı yapacak)
+- 17 PR mergede (#1-9 önceki, #10 KEŞFET kaldır + Coğrafi işaret + e-posta gmail + adres Türkiye + tracking validation + admin sil + product hamburger + about DB-bağ, #11 GitHub Actions workflow kaldır, #12-13 deploy trigger commits, #14 GitHub Pages migration + CNAME + URL replace, #15 .gitignore defensive secrets, #16+#17 admin Cloudflare Access entegrasyonu + client gate revert)
+- **Hosting:** GitHub Pages (ücretsiz, sınırsız bandwidth) + Cloudflare DNS proxy
+- **Custom domain:** thehouseofanatolia.com (HTTPS Let's Encrypt otomatik)
+- **Admin koruması:** Cloudflare Zero Trust Access — sadece `thehouseofanatoliaco@gmail.com` ve `beyzata37@gmail.com` email PIN ile admin.html'e erişebilir; rastgele kişi sayfanın HTML'ini bile göremez
+- Anasayfa: navbar [☰ logo] [yatay 4 link] [TR EN] + hamburger overlay + harita (sparkle YOK) + marquee dinamik fetch (Supabase marquee_items) + contact sade (3 kart + newsletter, başlık yok)
+- E-posta tüm yerlerde: `thehouseofanatoliaco@gmail.com`
+- Adres tüm yerlerde: `Türkiye` (sadeleştirilmiş)
+- products.html ayrı sayfada, küçük kare grid (auto-fill 240px sabit, tek ürün de küçük ortalanır)
+- product.html galeri dinamik (gallery_images tablosundan kayan şerit), navbar hamburger + Haritaya Dön/Teklif Al butonları
+- Yeni DB tablo: `marquee_items` (PR #7-9) — 2 SQL migration kullanıcı çalıştırdı (tablo + GRANT)
+- **Netlify SİLİNDİ** — artık kullanılmıyor, hesap silinebilir
+- Eksik P0: telefon numarası placeholder, yasal sayfa placeholder'ları (KVKK), gerçek şirket bilgisi (kullanıcı yapacak)
 
 
 ## 7. İLK ADIMIN
@@ -103,7 +109,9 @@ Yukarıdaki üç tırnaklı kod bloğunu yeni sohbete kopyala-yapıştır. Claud
 
 ### Tamamlanmamış İşler (yeni sohbet bunları görür)
 
-- **Marquee admin entegrasyonu** (KNOWN_ISSUES P1) — Supabase'de `marquee_items` tablosu yarat + admin'de CRUD UI ekle. Şu an i18n dict'te statik 5 yakında ürün var.
-- **EN içerikleri** (KNOWN_ISSUES P1) — admin'den name_en, description_en doldurulacak
-- **CSS dead code temizliği** (KNOWN_ISSUES P2) — `.future-pill`, `.future-list` rules
-- **Kullanıcı P0 işleri** — telefon, domain, KVKK placeholder, admin user, Netlify token revoke
+- **EN içerikleri** (KNOWN_ISSUES P1) — admin'den `name_en`, `description_en` doldurulacak
+- **Newsletter SMTP** (KNOWN_ISSUES P1) — abone ekledikçe gönderim için Brevo/Resend entegrasyonu
+- **CSS dead code temizliği** (KNOWN_ISSUES P2) — `.future-pill`, `.future-list`, `.contact-footer-col`, `.contact-centered` kalan rule'ları
+- **Performans** (KNOWN_ISSUES P1) — image lazy loading audit, font subsetting (Cormorant büyük)
+- **Lighthouse re-audit** — PR #10-17 sonrası yeniden ölçüm yapılmadı (önceki: A11y 98 / SEO 92 / BP 96 / Agentic 100)
+- **Kullanıcı P0 işleri** — telefon, yasal placeholder doldurma, KVKK avukat danışmanı, şirket kuruluş bekliyor

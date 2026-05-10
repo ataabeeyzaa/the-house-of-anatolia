@@ -1,6 +1,6 @@
 # HANDOFF — The House of Anatolia
 
-> **2026-05-09 güncel (PR #10 sonrası)** — projenin tam haritası, yeni Claude Code sohbetine geçişte gerekli tüm bağlam.
+> **2026-05-10 güncel (PR #17 sonrası)** — projenin tam haritası, yeni Claude Code sohbetine geçişte gerekli tüm bağlam.
 
 ---
 
@@ -20,17 +20,19 @@
 
 | Bileşen | URL |
 |---|---|
-| Production | https://thehouseofanatolia.com |
+| **Production** (custom domain) | **https://thehouseofanatolia.com** |
 | Anasayfa | https://thehouseofanatolia.com/ |
-| **Ürünler** (yeni) | https://thehouseofanatolia.com/products.html |
+| Ürünler vitrini | https://thehouseofanatolia.com/products.html |
 | Ürün detayı | /product.html?slug=karabuk-safrani |
-| Admin paneli | /admin.html |
+| Admin paneli (Cloudflare Access korumalı) | /admin.html |
 | Yasal sayfalar | /gizlilik.html, /kullanim.html, /cerez.html |
 | robots.txt | /robots.txt |
 | sitemap.xml | /sitemap.xml |
-| GitHub repo (private) | https://github.com/ataabeeyzaa/the-house-of-anatolia |
-| Netlify dashboard | https://app.netlify.com/projects/house-of-anatolia |
+| GitHub repo (**PUBLIC**) | https://github.com/ataabeeyzaa/the-house-of-anatolia |
 | Supabase project | https://supabase.com/dashboard/project/owcgcyvgibyawxfxwlbn |
+| Cloudflare Zero Trust | https://one.dash.cloudflare.com → Access → Applications → Admin Panel |
+
+**Hosting:** GitHub Pages (sınırsız bandwidth/build, ücretsiz). **Netlify SİLİNDİ** (PR #11+#14'te taşındık — credit limit + private repo contributor sorunu).
 
 ---
 
@@ -38,26 +40,34 @@
 
 ```
 /
-├── index.html                       ← Anasayfa: navbar, slogan, harita (sparkle YOK), KEŞFET, marquee strip, hakkımızda, contact 2-col (3 info kart + newsletter card), footer 4-col (newsletter contact'a taşındı)
-├── product.html                     ← Ürün detay + talep formu (Supabase + FormSubmit) — mini-blossom safran çiçeği KORUNUR
-├── products.html                    ← Ürünler vitrini (Supabase fetch is_active=true filter)
-├── admin.html                       ← Admin panel (paket CRUD silindi, ürün/şehir/galeri CRUD aktif)
+├── index.html                       ← Anasayfa: navbar [☰ logo] [4 yatay link] [TR EN] + hamburger overlay + harita (sparkle YOK) + marquee dinamik (Supabase fetch + statik fallback) + hakkımızda + contact 2-col (3 info kart sol + newsletter card sağ, başlık yok) + footer 4-col
+├── product.html                     ← Ürün detay + galeri (gallery_images dinamik kayan şerit) + talep formu (Supabase + FormSubmit) — mini-blossom safran çiçeği KORUNUR — navbar hamburger + Haritaya Dön/Teklif Al butonları
+├── products.html                    ← Ürünler vitrini (auto-fill 240px sabit küçük kart grid, tek ürün de küçük ortalanır)
+├── admin.html                       ← Admin panel (paket CRUD silindi, ürün/şehir/galeri/Şerit CRUD aktif) — Cloudflare Access korumalı
 ├── gizlilik.html, kullanim.html, cerez.html  ← Yasal sayfalar (placeholder dolacak)
 ├── robots.txt                       ← SEO crawl rules (admin disallow)
-├── sitemap.xml                      ← 6 URL + TR/EN hreflang
+├── sitemap.xml                      ← 6 URL + TR/EN hreflang (thehouseofanatolia.com)
+├── CNAME                            ← thehouseofanatolia.com (GitHub Pages custom domain)
+├── .nojekyll                        ← GitHub Pages Jekyll bypass (vanilla HTML site)
 ├── supabase_schema_v2_fixed.sql     ← İlk şema (referans)
+├── supabase_migrations/
+│   ├── 2026-05-08-marquee-items.sql       ← Tablo + RLS + 5 default row
+│   ├── 2026-05-09-marquee-grants.sql      ← anon/authenticated GRANT
+│   └── 2026-05-09-marquee-sort-renumber.sql  ← (opsiyonel) 10/20/30 → 1/2/3
 ├── assets/                          ← 18 dosya, 3.4 MB
-├── .github/workflows/deploy.yml     ← GitHub Actions auto-deploy
 ├── .claude/launch.json              ← Claude Code preview config
 ├── .claude/mockups/                 ← 6 frontend-design concept (gitignore'da)
 
 DOKÜMANTASYON:
 ├── HANDOFF.md           ← Bu dosya
-├── ARCHITECTURE.md      ← Stack, deploy, plugin envanteri, DB şema
+├── ARCHITECTURE.md      ← Stack, deploy (GitHub Pages + Cloudflare), plugin envanteri, DB şema
 ├── DESIGN_SYSTEM.md     ← Renk + tipografi + pattern'ler + yasaklar
 ├── KNOWN_ISSUES.md      ← Kalan işler, sınırlamalar
-└── FIRST_PROMPT.md      ← Yeni Claude Code sohbeti için ilk prompt
+├── FIRST_PROMPT.md      ← Yeni Claude Code sohbeti için ilk prompt
+└── docs/superpowers/specs/  ← brainstorming spec'leri (PR'lar öncesi onay dokümanı)
 ```
+
+**Silinen dosyalar:** `.github/workflows/deploy.yml` (PR #11) — Netlify GitHub Actions deploy artık yok, GitHub Pages direkt main branch'a bakar.
 
 ---
 
@@ -65,8 +75,40 @@ DOKÜMANTASYON:
 
 **URL:** `https://owcgcyvgibyawxfxwlbn.supabase.co`
 **Anon Key:** HTML'lerde tanımlı (public, RLS korumalı)
-**14 tablo + Storage bucket** `product-assets` (5MB, SVG yasak)
+**15 tablo + Storage bucket** `product-assets` (5MB, SVG yasak)
+
+Yeni tablo (PR #7-9): `marquee_items` (label_tr, label_en, sort_order, is_active) — 3 SQL migration kullanıcı tarafından çalıştırıldı.
+
 Detay: ARCHITECTURE.md
+
+---
+
+## Hosting + DNS + Auth Stack
+
+**Layer 1 — Hosting:** GitHub Pages
+- Repo `ataabeeyzaa/the-house-of-anatolia` main branch → otomatik deploy (~1-2 dk)
+- `.nojekyll` ile Jekyll bypass (vanilla HTML)
+- `CNAME` dosyası → custom domain
+
+**Layer 2 — DNS:** Cloudflare
+- A records (apex `@`) → 185.199.108.153, .109.153, .110.153, .111.153 (GitHub Pages IPs)
+- CNAME `www` → ataabeeyzaa.github.io
+- Proxy: Turuncu bulut aktif (Cloudflare Access için şart)
+
+**Layer 3 — TLS:** Let's Encrypt (GitHub Pages otomatik)
+- HTTPS otomatik provision, HTTP → HTTPS redirect aktif
+
+**Layer 4 — Admin Auth (Cloudflare Zero Trust Access):**
+- Application: "Admin Panel" — domain `thehouseofanatolia.com`, path `/admin.html`
+- Policy: "Admin Only" — Allow + Email selector: `thehouseofanatoliaco@gmail.com`, `beyzata37@gmail.com`
+- Identity Provider: One-time PIN (email)
+- Session duration: 24 saat
+- **Sonuç:** rastgele biri admin.html açtığında HTML bile görmez, Cloudflare PIN ekranına gider; sadece allowed email'ler PIN onayı sonrası sayfayı yükleyebilir
+
+**Layer 5 — Admin App Auth (Supabase):**
+- supabase.auth.signInWithPassword (email + şifre)
+- `admins` tablosu RLS — auth.uid() admins.user_id ile eşleşmeli + is_active=true
+- 30dk idle logout, brute-force rate limit (3 deneme/sn)
 
 ---
 
@@ -80,90 +122,84 @@ Detay: ARCHITECTURE.md
 - Atmospheric layer (SVG noise) + custom scrollbar + hover refinements
 
 ### Phase 1 — PR #1 (SEO + Cleanup + A11y)
-- **SEO altyapısı:** robots.txt + sitemap.xml + JSON-LD (Organization, WebSite, Product, BreadcrumbList) + canonical + product.html title fix ("Ürün Detayı" → "Safranbolu Safranı — The House of Anatolia")
-- **Dead code temizliği (~360 satır):** admin.html paket CRUD JS + .package-edit-panel CSS + index.html cert-* / asymmetric about-grid / hero-grid/lines/dots/mountains + 24 dead i18n key × 2 dil
-- **A11y skip-to-main:** index/product/admin'e `<a class="skip-link">` + `id="main-content"` (WCAG 2.4.1)
+- robots.txt + sitemap.xml + JSON-LD + canonical + product.html title fix
+- Dead code temizliği (~360 satır)
+- Skip-to-main link (WCAG 2.4.1)
 - Lighthouse: **A11y 98 / SEO 92 / Best Practices 96 / Agentic 100**
 
 ### Phase 2 — PR #2 (Sparkle iter 1 + contact + footer)
-- Sparkle yan-drift (translateX) → minik statik dots map arkasında (z-index:0)
-- Contact card border + radius + bg gradient
-- Footer grid 1.4/1/1/1.2 → 1.8/1/1/1.4
-- Footer h4 Cormorant 1.3rem → Plus Jakarta 0.74rem uppercase
+- Sparkle yan-drift → statik dots; contact card border + radius
 
 ### Phase 3 — PR #3 (Sparkle removal + Products sayfası)
-- Sparkle TAMAMEN kaldırıldı (kullanıcı isteği — harita üzerinde de altında da kalmasın)
-- Yeni `products.html` (~280 satır): Supabase fetch + TR/EN i18n + JSON-LD CollectionPage + hreflang + mobile responsive + skip-to-main
-- Navbar `nav_products` link href `#home` → `products.html`, text "Ürün Haritası" → "Ürünler"
-- Footer Sayfalar listesine "Ürünler" eklendi
-- sitemap.xml'e `/products.html` URL eklendi
+- Sparkle TAMAMEN kaldırıldı (kullanıcı net karar)
+- Yeni `products.html` Supabase fetch
 
-### Phase 4 — PR #4 (Sparkle re-add + Map section + Contact)
-- **Sparkle GERİ EKLENDİ ama harita ARKASINDA:** `.hero-blossom-layer{z-index:0}`, `.map-wrap > svg{z-index:1}` — opak il alanlarında görünmez, transparent kenarlarda görünür. `@keyframes sparkle-twinkle` rotate kaldırıldı, **DİKEY yukarı translateY -36px** (yana hareket yok).
-- **Map section yenilendi:**
-  - 4 future-pill HTML + `pill_1-4` i18n keys silindi
-  - `.eyebrow::after` eklendi → "KEŞFET" iki yanında altın çizgi
-  - city_note kısaltıldı: "Bir ürünün belirli bir yöreye özgü olduğunun resmi belgesidir — başka yerde aynı kalitede üretilemez."
-  - **Yeni `.marquee-strip`** — TV altyazısı tarzı kayan şerit (5 yakında ürün: Kastamonu Sarımsağı, Antep Fıstığı, Trabzon Hamsisi, Maraş Dondurması, Edirne Ciğeri) — 38s linear infinite, ✦ ayraçlı, `i18n marquee_1-5` (TR + EN)
-- **Contact card horizontal 2-sütun:** `max-width: 640 → 1020px`, `grid-template-columns:1fr 1.1fr`, sol başlık+intro / sağ liste, mobile (<820px) fallback
-- **Section spacing:** `.section padding 110px → 80px` (sayfa daha kompakt)
-- **products.html:** `loadProducts` query'e `.eq("is_active", true)` filter + intro paragraf kaldırıldı
+### Phase 4 — PR #4 (Sparkle re-add iter + Map section + Contact)
+- Sparkle harita arkasına geri eklendi (sonra PR #6'da yine kaldırıldı)
+- Marquee strip eklendi (statik 5 ürün)
+- Contact card horizontal 2-col
 
-### Phase 5 — PR #6 (Sparkle removal + Contact rebuild + Footer newsletter taşıma)
-- **Sparkle TAMAMEN KALDIRILDI** (kullanıcı net karar): index.html'de CSS (`.hero-blossom-layer`, `.gold-sparkle`, `::before/::after`, `@keyframes sparkle-twinkle`, prefers-reduced-motion) + HTML (`<div class="hero-blossom-layer">`) + JS (sparkleEffect IIFE — spawn loop + initial burst).
-- **Contact section 2-col yeni layout:**
-  - SOL: eyebrow "İLETİŞİM" çift altın çizgi + H2 "Bizimle iletişime geçin." + intro + 3 dikey info card (E-POSTA / ADRES / TELEFON) — her kart: SVG ikon (mail/map-pin/phone Heroicons outline) + label/value flex layout, panel-soft bg, 18px radius, gold hover border
-  - SAĞ: `.contact-newsletter-card` — radial gold glow gradient, 22px radius, "Bültenimize Katılın" başlık + intro + pill input + ABONE OL pill button
-- **Footer newsletter contact'a taşındı:** `.footer-top` + `.footer-newsletter` HTML/CSS tamamen kaldırıldı. Form id `newsletter-form` + status id `newsletter-status` aynen korundu (JS handler dokunulmadı). Footer-grid 4-col layout (brand, sayfalar, yasal, iletişim) aynen korundu.
-- **i18n duplicate fix:** TR `contact_title` 2 defa tanımlanmıştı ("iletişime geçin" + "bağlantıya geçin"); ikincisi silindi, "iletişime geçin" geçerli.
-- **product.html dokunulmadı** — `.hero-blossom-layer` mini-blossom safran çiçeği için kullanılan kapsayıcı, mini-blossom KORUNUR.
+### Phase 5 — PR #6 (Sparkle FİNAL removal + Contact rebuild + Footer newsletter taşıma)
+- Sparkle TÜM VARYANTLAR kaldırıldı + yasaklar listesine
+- Contact 2-col layout: SOL (eyebrow + title + intro + 3 info kart) + SAĞ (newsletter card)
+- Footer newsletter contact'a taşındı; footer-grid 4-col aynen kaldı
 
 ### Phase 6 — PR #7 (Hamburger + Ürünler section + Marquee admin + product refresh)
-- **Anasayfa contact sadeleştirildi:** SOL kolondan eyebrow + H2 + intro paragraf KALDIRILDI. Sadece 3 info kart (E-POSTA / ADRES / TELEFON) kaldı. SAĞ newsletter card aynen.
-- **Anasayfa "Ürünler" section eklendi:** about ile contact arasına. Küçük kart vitrini (auto-fit minmax 220px); Supabase products fetch is_active=true, limit 8; "Tümünü Gör →" linki `/products.html`'e. CSS scoped under `.products-section` (16/10 aspect-ratio görseller, hover gold border + image scale).
-- **Hamburger menü (Aesop pattern):** Yatay nav-links kaldırıldı (`.nav-center` HTML'de yok). Sağ üstte hamburger button (`.nav-toggle`) + lang switcher kaldı. Click → fullscreen `.nav-overlay` açılır (radial gold glow + blur backdrop). Overlay içinde:
-  - SAYFALAR (Ana Sayfa / Hakkımızda / İletişim)
-  - ÜRÜNLER (Tüm Ürünler + Supabase fetch dinamik liste — şu an Sarımsak + Safran)
-  - Yasal linkler (gizlilik / kullanım / cerez) + lang switcher
-  - ESC + backdrop click + `[data-nav-close]` ile kapanır, body scroll lock.
-- **product.html "Karabük'ün" → "Safranbolu'nun":** TR + EN tüm GI attribution cümlelerinde (meta description, og/twitter, JSON-LD, kicker, hero-subtitle). Karabük il/adres bilgisi olarak korundu. **NOT:** hero_subtitle Supabase products tablosundan da geliyor — kullanıcı admin'den düzenlemeli.
-- **product.html alt contact:** mevcut tipografik 3 sütun → anasayfa `.contact-info-card` stilinde 3 yatay kart (SVG ikon + label/value). Mobile <760 dikey, <540 sıkışık.
-- **Marquee dinamik (Supabase + statik fallback):** Yeni `marquee_items` tablo (label_tr / label_en / sort_order / is_active) + RLS. `loadMarqueeItems()` async fetch, sonuç varsa `.marquee-track`'i hot swap; tablo yoksa veya boşsa mevcut 10 statik HTML item ile i18n keys fallback. Migration: `supabase_migrations/2026-05-08-marquee-items.sql` (kullanıcı SQL Editor'dan çalıştırır).
-- **Admin "Şerit" sekmesi:** dashboard'a yeni card. CRUD UI: tablo (TR / EN / Sıra / Aktif / [Düzenle] [Pasifleştir] [Sil]) + yeni ekle / edit form. Tablo yoksa migration uyarısı.
+- Hamburger menü Aesop pattern (yatay nav kaldırıldı, fullscreen overlay)
+- Anasayfa Ürünler section (sonra PR #8'de tamamen kaldırıldı)
+- Marquee `marquee_items` tablo + admin "Şerit" sekmesi CRUD
+- product.html: "Karabük'ün" → "Safranbolu'nun" GI cümleleri
 
-### Phase 7 — PR #8 (UI revize + galeri render + marquee permission fix)
+### Phase 7 — PR #8 (UI revize + Galeri render + Marquee permission fix)
+- **Navbar restore:** yatay nav linkleri (Ana Sayfa / Hakkımızda / Ürünler / İletişim) GERİ; hamburger ☰ EN SOLA, lang sağda
+- Anasayfa Ürünler section TAMAMEN kaldırıldı (kullanıcı isteği)
+- products.html küçük kare grid (auto-fill 240px sabit)
+- Marquee permission migration v2 (anon/authenticated GRANT'ler)
+- product.html galeri statik HTML kaldırıldı, dinamik gallery_images render
 
-- **Navbar restore + hamburger en solda:** Yatay nav-links geri (Ana Sayfa / Hakkımızda / Ürünler / İletişim). Hamburger ☰ logo ÖNCE (`.nav-left` wrapper). Lang switcher sağda. Mobile <1180 nav-center display:none. Hamburger fullscreen overlay yine açar.
-- **Anasayfa Ürünler section TAMAMEN kaldırıldı:** kullanıcı isteği "anasayfadan komple kaldır". CSS + HTML + JS render kodu silindi. Overlay'deki dinamik ürün listesi korundu (`loadOverlayProducts`).
-- **products.html küçük kare grid:** auto-fit minmax(280px, 1fr) → auto-fill 240px sabit + justify-content:center. Tek ürün de küçük ortalanır. Card font/padding/spacing küçültüldü.
-- **Marquee permission düzeltmesi:** İlk migration RLS+policy yarattı ama table-level GRANT eksikti — `permission denied` hatası. Yeni migration `supabase_migrations/2026-05-09-marquee-grants.sql` (kullanıcı SQL Editor'dan çalıştırır) + admin uyarı mesajı 42501/permission denied'i yakalar.
-- **Galeri statik HTML kaldırıldı:** product.html'de gallery-track içindeki 12 hardcoded `<figure>` silindi (id="product-gallery-track"). Mevcut `loadProduct` JS render kodu (line 1336+) gallery_images'tan dinamik 2x duplicate ile çiziyor — artık admin'den ekleme otomatik yansır.
+### Phase 8 — PR #9 (Marquee infinite + admin sort + mobil + boşluk)
+- Marquee min kopya formülü `Math.ceil(10/data.length)` × 2 → 1 item bile sürekli akar
+- Admin Şerit sort_order default = max+1 (1, 2, 3 ardışık)
+- Marquee → about arası ◆ silindi
+- Mobile product.html hero padding küçültüldü + html overflow-x:hidden
 
 ### Phase 9 — PR #10 (Çoklu UI fix + DB-bağ + email + domain notu)
+- Map section "KEŞFET" eyebrow kaldırıldı
+- city_note başına "Coğrafi işaret:" prefix
+- About → contact arası ◆ silindi
+- E-posta tüm yerlerde: `info@...` → **`thehouseofanatoliaco@gmail.com`**
+- Adres tüm yerlerde: `Safranbolu, Karabük / Türkiye` → **`Türkiye`**
+- Page tracking URL validation (file://, data:, /C:/ filtreleri)
+- Admin "Gelen Teklif" → Sil butonu (confirmAction + audit log)
+- product.html navbar hamburger + overlay (BU SAYFADA + ÜRÜNLER kategorileri)
+- loadHomepageAbout: anasayfa #about title/subtitle/content homepage_sections'tan override
 
-- **Map section**: KEŞFET eyebrow kaldırıldı; city_note başına "Coğrafi işaret:" prefix eklendi (TR + EN)
-- **About → contact arası ◆ silindi**: "Lezzetin Kökenine Yolculuk" altındaki boşluk gitti
-- **E-posta tüm yerlerde**: `info@thehouseofanatolia.com` → `thehouseofanatoliaco@gmail.com` (mailto + form action FormSubmit endpoint + display + footer + yasal sayfalar)
-- **Adres standardizasyonu**: Tüm `Safranbolu, Karabük / Türkiye` → `Türkiye` (HTML default + i18n TR/EN)
-- **Page tracking URL validation**: file://, data:, blob:, /C: yerel path'leri page_views'a kayıt etmiyor (admin analytics'te garip URL'ler yığılmasın)
-- **Admin "Gelen Teklif" → Sil butonu**: data-delete-request, confirmAction modal, audit log
-- **Product.html navbar hamburger**: index.html ile aynı pattern (nav-left + ☰ + nav-center + cta + lang); hamburger overlay (SAYFALAR + BU SAYFADA + ÜRÜNLER + yasal linkler)
-- **loadHomepageAbout (DB-bağ)**: anasayfa #about title + subtitle + content (newline-delimited paragraphs) artık `homepage_sections` tablosundaki `about` row'undan override edilebilir; admin "Ana Sayfa Bölümleri" CRUD ile düzenlenir; DB row yoksa i18n fallback
-- **Domain alındı**: thehouseofanatolia.com Cloudflare'de aktif (kullanıcı). Netlify domain bağlantısı + sitemap/JSON-LD canonical güncel sonraki PR'da.
+### Phase 10 — PR #11-13 (Hosting hazırlık + deploy trigger)
+- PR #11: `.github/workflows/deploy.yml` SİLİNDİ (Netlify GitHub Actions yok artık)
+- PR #12, #13: deploy trigger commits (.gitignore temp file pattern'leri)
 
-### Phase 8 — PR #9 (Marquee infinite + admin sort + mobil + boşluk fix)
+### Phase 11 — PR #14 (GitHub Pages migration — Netlify → GitHub Pages)
+- **Hosting taşındı:** Netlify credit limit + private repo contributor sorunu nedeniyle GitHub Pages'e
+- CNAME dosyası: `thehouseofanatolia.com`
+- .nojekyll dosyası
+- Tüm URL'ler `house-of-anatolia.netlify.app` → `thehouseofanatolia.com`:
+  - HTML JSON-LD (Organization + WebSite + Product + BreadcrumbList + canonical + og/twitter)
+  - robots.txt (Sitemap URL)
+  - sitemap.xml (6 URL + hreflang)
+  - 3 MD docs
 
-- **Marquee minimum kopya formülü:** `Math.ceil(10 / data.length)` × 2 set seamless. 1 item → 20 toplam, ekran sürekli akar.
-- **Admin sort_order default = max+1:** Yeni eklemede 1'den başlayıp artar (1, 2, 3, ...). Mevcut DB için opsiyonel renumber migration.
-- **Marquee-about arası ◆ section-divider silindi:** boşluk gitti, marquee bittiği an direkt HİKAYEMİZ section başlıyor.
-- **Mobile product.html:** `.subhero` min-height auto, padding küçültüldü (60-70 / 42-50); `html` overflow-x:hidden + width:100%; sağda kahverengi boşluk düzeltildi.
+### Phase 12 — PR #15 (Security hardening — defensive .gitignore)
+- Repo public yapıldıktan sonra defensive savunma katmanı
+- `.env`, `.env.*`, `*.env` ignore (Supabase service_role + DB şifreleri için tipik konum)
+- `*.pem`, `*.key`, `*.p12`, `*.pfx` (sertifika)
+- `id_rsa*`, `id_dsa*` (SSH keys)
+- `secrets.json/yml`, `service-account*.json` (cloud auth)
+- Git history taraması: 0 hit (service_role, postgres://, DATABASE_PASSWORD, nfp_)
 
-### Kullanıcının PR #7 + PR #8 + PR #9 sonrası yapması gerekenler
-
-1. **Supabase migration #1:** Dashboard → SQL Editor → `supabase_migrations/2026-05-08-marquee-items.sql` → Run (tablo + RLS + policy + 5 default row)
-2. **Supabase migration #2:** Aynı yer → `supabase_migrations/2026-05-09-marquee-grants.sql` → Run (anon/auth GRANT'leri; "permission denied" düzeltir)
-3. **Supabase migration #3 (opsiyonel — PR #9):** `supabase_migrations/2026-05-09-marquee-sort-renumber.sql` → Run (mevcut 10/20/30 değerlerini 1/2/3 yapar; opsiyonel temizlik)
-4. **Safran hero_subtitle:** admin → Ürünler → Safranbolu Safranı → Düzenle → "Hero altyazı" → `Safranbolu'nun coğrafi işaretli en zarif değeri` → Kaydet
+### Phase 13 — PR #16 + PR #17 (Cloudflare Access + client gate revert)
+- PR #16: client-side admin gate eklendi (URL ?giris param check) — sonra revert
+- PR #17: gate revert — Cloudflare Access dış katmanı yeterli, gate Cloudflare PIN sonrası akışı bozuyordu
+- **Cloudflare Zero Trust Access** aktif: admin.html erişimi sadece allowed email'lere PIN onayı sonrası
 
 ---
 
@@ -179,12 +215,11 @@ Detay: ARCHITECTURE.md
 - İtalik gold accent (slogan vurgusu)
 - Koyu zemin + altın aksanlar
 - İnce çizgiler, boşluk hakimiyeti
-- **KEŞFET eyebrow'un iki yanında altın çizgi**
-- **Map'in altında kayan şerit** (yakında ürünler)
+- **Map'in altında kayan şerit** (marquee dinamik — Supabase fetch, kullanıcı admin'den yönetir)
 - Mini-blossom safran çiçeği (product.html — dokunulmaz)
-- **Contact 3 info kart sol + newsletter card sağ (PR #6+#7 — başlık/intro yok, sade)**
-- **Hamburger menü ☰ (EN SOLDA) + yatay nav linkleri** (PR #8: hamburger sol başta + 4 yatay link + lang sağda; click → fullscreen overlay)
-- **Ürünler ayrı sayfada** (`/products.html` — anasayfa section kaldırıldı PR #8'de, küçük kare grid)
+- **Contact 3 info kart sol + newsletter card sağ (sade — başlık/intro yok)** (PR #6+#7+#8)
+- **Hamburger menü ☰ EN SOLDA + yatay 4 nav link** (PR #8) — tıklayınca fullscreen overlay (SAYFALAR + ÜRÜNLER + yasal linkler)
+- **Coğrafi işaret tanımı** map section altında prefix ile (PR #10)
 
 ### Reddettiği
 - Stats bar 1/1/1 sayım kartları → "ucuz duruyor"
@@ -193,41 +228,49 @@ Detay: ARCHITECTURE.md
 - EST 2026 — ANATOLIA badge
 - 3-sütun yan yana dikey adres/telefon/eposta (kart yığını OK ama yan yana 3 sütun değil)
 - Cinematic hero (büyük dağ silüetleri)
-- **Sparkle / gold-sim parçacıklar — TÜM VARYANTLAR** (haritanın üzerinde, etrafında, ARKASINDA — hiçbir konumda kabul edilmiyor; PR #6'da tamamen kaldırıldı)
+- **Sparkle / gold-sim parçacıklar — TÜM VARYANTLAR** (üstünde, etrafında, ARKASINDA — hiçbir konumda kabul edilmiyor; PR #6'da tamamen kaldırıldı)
+- KEŞFET eyebrow (PR #10'da kaldırıldı, eyebrow çift altın çizgi pattern'i başka yerlerde devam)
+- Anasayfa Ürünler section (PR #8'de tamamen kaldırıldı; ürünler /products.html ayrı sayfada)
+- Anasayfa contact section'da başlık/intro (PR #8'de sadeleştirildi, sadece 3 kart kaldı)
 
 ### Karar Verilmiş Kararlar (değiştirme!)
 - Site alacak kişi için yapılıyor (Beyza geliştirici, ortak içerik girer)
 - E-ticaret niyeti var ama **şirket kurulmadan satış olmaz** — şu an "talep formlu vitrin"
 - Bilingual TR + EN
-- Custom cursor: KORUNACAK
+- Custom cursor: KORUNACAK (desktop pointer:fine, mobil yok)
 - Slug `karabuk-safrani` DEĞİŞMEYECEK
 - Renk palette: koyu + altın + krem (başka renk YASAK)
 - Inter / Roboto / Arial / system fonts YASAK
 - Force push YASAK (`--force`, `--force-with-lease` kullanma)
 - `--no-verify` YASAK
 - Push öncesi `git fetch origin main && git rebase origin/main` istisnasız
+- **REPO PUBLIC** — credential, secret, .env asla commit etme
+- **Supabase Service Role Key ASLA isteme** (anon key + RLS yeter)
+- **Netlify token gibi credential KULLANICIDAN İSTEME** — sohbete yapıştırırsa derhal revoke ettirme talimatı
+- E-posta: `thehouseofanatoliaco@gmail.com` (her yerde, info@... eski)
+- Adres: `Türkiye` (sadeleştirilmiş, eski "Safranbolu, Karabük / Türkiye" değil)
 
 ---
 
 ## Kalan İşler (özet)
 
 ### P0 (kullanıcı yapacak — yayın öncesi kritik)
-- [ ] Eski Netlify token revoke
-- [ ] Yasal sayfa placeholder'ları (12 yer: ŞİRKET ADI, VERGİ NO, MERSİS, ADRES, TEL, EPOSTA)
-- [ ] Telefon numarası gerçek olsun (+90 5XX XXX XX XX placeholder)
-- [ ] Domain alma (`thehouseofanatolia.com` ~$10/yıl)
-- [ ] Email Routing (Cloudflare)
-- [ ] Admin user oluştur (Supabase Auth + admins tablosu — full_name NOT NULL)
+- [ ] Telefon numarası gerçek olsun (+90 5XX XXX XX XX placeholder, footer + contact + product)
+- [ ] Yasal sayfa placeholder'ları (12+ yer: ŞİRKET ADI, VERGİ NO, MERSİS, ADRES, TEL — KVKK için şirket kurulması gerekli)
+- [ ] Admin user oluşturma (Supabase Auth → admins tablosu — full_name NOT NULL)
+- [ ] Anasayfa hikayemiz (about) içeriğini admin'den düzenle (PR #10 yeni özellik)
+- [ ] Vision row'unu admin "Ana Sayfa Bölümleri"nden sil (anasayfada gösterilmiyor)
 
 ### P1 (sonradan)
-- [ ] EN içerikleri admin panelden doldur
-- [ ] **Marquee admin entegrasyonu** (Supabase `marquee_items` tablosu + admin CRUD UI — şu an statik)
-- [ ] Newsletter SMTP (50+ abone)
-- [ ] Performance: image lazy loading, font subsetting
+- [ ] EN içerikleri admin panelden doldur (`name_en`, `description_en` vb.)
+- [ ] Newsletter SMTP (50+ abone — Brevo/Resend entegrasyonu)
+- [ ] Performance: image lazy loading audit, font subsetting (Cormorant büyük)
+- [ ] Lighthouse re-audit (PR #10-17 sonrası ölçülmedi)
 
 ### P2 (cleanup)
-- [ ] CSS dead code: `.future-pill`, `.future-list` (HTML'den silindi ama CSS rule'ları kaldı)
+- [ ] CSS dead code: `.future-pill`, `.future-list`, `.contact-footer-col`, `.contact-centered`
 - [ ] DB'de `package_options` tablosu (UI kullanmıyor)
+- [ ] eski `index_supabase.html` referansları (varsa)
 
 Detay: KNOWN_ISSUES.md
 
@@ -236,15 +279,19 @@ Detay: KNOWN_ISSUES.md
 ## Geliştirme Akışı
 
 ### Local Test
-- `.claude/launch.json` ile Claude Preview otomatik açılıyor
+- `.claude/launch.json` ile Claude Preview otomatik açılıyor (port 8080 ana repo, port 8081 worktree)
 - Mobil viewport: `preview_resize preset:mobile` (375x812)
 
 ### Git Workflow
-- Her main push → otomatik Netlify deploy (~1.5 dk)
+- Her main push → **GitHub Pages otomatik deploy** (~1-2 dk; build minute limiti yok)
 - Branch (`claude/...`) → `gh pr create` → review → `gh pr merge --rebase --delete-branch`
+- Worktree main check-out'lu olduğu için `gh pr merge` lokal switch yapamaz: `gh api -X PUT repos/.../pulls/N/merge -f merge_method=rebase` kullan
 - **Push öncesi:** `git fetch origin main && git rebase origin/main`
 - Force push + `--no-verify` YASAK
-- 10 PR mergede tamamlandı (#1-7 önceki, #8 UI revize + galeri + marquee grants, #9 marquee infinite + admin sort + mobil + boşluk, #10 çoklu UI fix + DB-bağ + email + domain notu)
+- 17 PR mergede tamamlandı
+
+### gh CLI
+- Path: `"/c/Program Files/GitHub CLI/gh.exe"` (Bash'ten çağırmak için tam path gerekli, PATH'da yok)
 
 ---
 
@@ -252,7 +299,10 @@ Detay: KNOWN_ISSUES.md
 
 | Konu | Durum |
 |---|---|
-| Domain | ❌ thehouseofanatolia.com müsait, alınmadı |
+| Domain | ✅ thehouseofanatolia.com — Cloudflare Registrar (ücretsiz transfer/renewal Cloudflare yıllık) |
+| HTTPS | ✅ Let's Encrypt (GitHub Pages otomatik) |
+| Cloudflare proxy | ✅ Aktif (turuncu bulut) — Zero Trust için şart |
+| Cloudflare Access | ✅ Admin Panel app + Admin Only policy aktif (2 email allowed) |
 | Şirket | ❌ Kurulmadı |
 | Sanal POS | ❌ Yok |
 | KVKK | ⚠️ Skeleton hazır, şirket kurulmadan tamamlanamaz |
@@ -262,10 +312,11 @@ Detay: KNOWN_ISSUES.md
 ## Erişim Bilgileri (kullanıcı tarafında)
 
 - **GitHub:** ataabeeyzaa
-- **Netlify:** beyzata37@gmail.com
+- **Email (admin + Cloudflare):** thehouseofanatoliaco@gmail.com (ortak hesap)
+- **Email (Beyza):** beyzata37@gmail.com (Cloudflare Access ikinci allowed)
 - **Supabase:** GitHub login (Beyza)
-- **Email:** beyzata37@gmail.com (kişisel)
-- **Ortak hesap (admin):** thehouseofanatoliaco@gmail.com
+- **Cloudflare:** beyzata37 hesabı
+- **Eski Netlify hesabı:** kapatılabilir (artık kullanılmıyor)
 
 ---
 
@@ -277,7 +328,7 @@ Detay: KNOWN_ISSUES.md
 - Typography: Cormorant Garamond display + Plus Jakarta Sans body
 - Atmospheric depth: SVG noise overlay, radial gradients (sparkle KALDIRILDI — PR #6)
 - Motion polish: reveal animations, hover surprises, marquee strip kayan şerit
-- Mobile-first: 375 → 480 → 820 → 980 → 1180 → 1600px
+- Mobile-first: 375 → 480 → 540 → 760 → 980 → 1180 → 1600px
 - prefers-reduced-motion saygısı
 - "No AI slop": Inter, Roboto, Arial, Space Grotesk YASAK. Generic gradients YASAK. Predictable layouts YASAK.
 

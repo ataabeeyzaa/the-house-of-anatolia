@@ -1,6 +1,6 @@
 # ARCHITECTURE — The House of Anatolia
 
-> **2026-05-08 güncel (PR #7 sonrası)** — stack, deploy, plugin envanteri, DB şema, veri akışları.
+> **2026-05-10 güncel (PR #17 sonrası)** — stack, deploy, plugin envanteri, DB şema, veri akışları.
 
 ---
 
@@ -14,33 +14,57 @@ Tipografi:   Plus Jakarta Sans (body) + Cormorant Garamond (display)
 Backend:     Supabase (PostgreSQL + Auth + Storage + RLS)
              https://owcgcyvgibyawxfxwlbn.supabase.co
 
-Hosting:     Netlify (CDN edge cached)
-             https://thehouseofanatolia.com
+Hosting:     GitHub Pages (sınırsız bandwidth, ücretsiz)
+             https://thehouseofanatolia.com (custom domain)
 
-CI/CD:       GitHub Actions (.github/workflows/deploy.yml)
-             Her main push → otomatik Netlify deploy (~1.5 dk)
+CI/CD:       GitHub Pages direct (workflow yok — main branch otomatik)
+             Her main push → otomatik deploy (~1-2 dk)
 
-Repo:        github.com/ataabeeyzaa/the-house-of-anatolia (private)
+DNS:         Cloudflare (4 A records → 185.199.108-111.153)
+             CNAME www → ataabeeyzaa.github.io
+             Proxy: turuncu bulut aktif (Cloudflare Access için)
+
+TLS:         Let's Encrypt (GitHub Pages otomatik provision)
+
+Auth Layer:  Cloudflare Zero Trust Access (admin.html PIN gate)
+             Supabase Auth + admins RLS (admin uygulama auth)
+
+Repo:        github.com/ataabeeyzaa/the-house-of-anatolia (PUBLIC)
 
 CDN:         https://esm.sh/@supabase/supabase-js@2 (Supabase client)
              https://fonts.googleapis.com (fonts)
 ```
 
-**Karar:** Build step yok — vitrin sitesi, tüm CSS+JS HTML içinde inline. Netlify minify otomatik.
+**Karar:** Build step yok — vitrin sitesi, tüm CSS+JS HTML içinde inline. GitHub Pages static dosyaları olduğu gibi serve eder.
 
 ---
 
-## Deploy Pipeline
+## Deploy Pipeline (PR #14 — taşıma sonrası)
 
 ```
-Lokal → git push origin main → GitHub Actions →
-  └─ npx netlify-cli deploy --prod (NETLIFY_AUTH_TOKEN secret)
-      └─ Netlify CDN edge → canlı (~90-120s)
+Lokal → git push origin main → GitHub Pages otomatik build →
+  └─ Pages workflow (otomatik, kullanıcı kurulum yok)
+      └─ Cloudflare DNS → GitHub Pages CDN → canlı (~60-120s)
 ```
 
-### GitHub Secrets
-- `NETLIFY_AUTH_TOKEN` — Production CI/CD (1 yıl, 2027-05-08'e kadar)
-- `NETLIFY_SITE_ID` — `6353f35a-2af2-4c3d-872e-438e4368dc35`
+**ÖNCEKI (Netlify):** GitHub Actions + NETLIFY_AUTH_TOKEN secret. Netlify free tier credit limit aştı + private repo "tek contributor" sınırı engelledi → GitHub Pages'e taşındı.
+
+### GitHub Pages Konfigürasyon
+- Repo Settings → Pages → Source: **Deploy from a branch** → **main / (root)**
+- Custom domain: `thehouseofanatolia.com` (CNAME dosyası repo'da)
+- Enforce HTTPS: ✓ (Let's Encrypt provisioned)
+- Build minute / bandwidth limiti **yok** (public repo için)
+
+### Eski GitHub Secrets (artık gereksiz, silinebilir)
+- ~~`NETLIFY_AUTH_TOKEN`~~ — silinebilir
+- ~~`NETLIFY_SITE_ID`~~ — silinebilir
+
+### Cloudflare Zero Trust Access (admin.html koruması)
+- Application: "Admin Panel" — domain `thehouseofanatolia.com`, path `/admin.html`
+- Policy: "Admin Only" — Allow + Email selector → 2 email
+- Identity Provider: One-time PIN (default email)
+- Session: 24 saat
+- **Davranış:** allowed olmayan kullanıcı admin.html açtığında HTML BİLE yüklenmez (302 → Cloudflare Access PIN sayfası)
 
 ---
 
@@ -66,7 +90,7 @@ frontend-design, code-review, feature-dev, security-guidance, superpowers, claud
 
 | Dosya | Boyut yaklaşık | İçerik |
 |---|---|---|
-| `index.html` | ~3300 satır, ~210 KB | Anasayfa: minimal navbar (logo + ☰ hamburger + lang) + hamburger overlay menü, hero, harita, KEŞFET, **marquee strip (Supabase fetch + statik fallback)**, hakkımızda, **Ürünler section (Supabase küçük kart vitrini)**, **contact 2-col (3 info kart sol + newsletter card sağ — sade, başlık yok)**, footer 4-col + Supabase data layer + i18n |
+| `index.html` | ~3300 satır, ~210 KB | Anasayfa: navbar [☰ logo] [4 yatay link] [TR EN] (PR #8) + hamburger overlay menü, hero, harita (KEŞFET kaldırıldı PR #10), **marquee strip (Supabase fetch + statik fallback)**, hakkımızda (PR #10 DB-bağ), **contact 2-col (3 info kart sol + newsletter card sağ — sade, başlık yok)**, footer 4-col + Supabase data layer + i18n. Anasayfa Ürünler section KALDIRILDI PR #8. |
 | `product.html` | ~1700 satır, 80 KB | Ürün detay + talep formu (Supabase + FormSubmit dual) |
 | `products.html` | ~280 satır, ~12 KB | **Yeni** — Ürünler vitrini, Supabase fetch is_active=true, grid layout |
 | `admin.html` | ~4750 satır, ~175 KB | Tek-sayfa admin panel (paket CRUD silindi; Şerit/marquee CRUD eklendi PR #7) |

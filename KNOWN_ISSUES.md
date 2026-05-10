@@ -1,71 +1,25 @@
 # KNOWN ISSUES & TODO — The House of Anatolia
 
-> **2026-05-09 güncel (PR #10 sonrası)** — site canlıda, GitHub Actions auto-deploy aktif. 10 PR mergede tamam (#1-7 önceki, #8 UI revize + galeri + marquee grants, #9 marquee infinite + admin sort + mobil + boşluk, #10 çoklu UI fix + DB-bağ + email + domain notu).
+> **2026-05-10 güncel (PR #17 sonrası)** — site canlıda, **GitHub Pages otomatik deploy**. 17 PR mergede tamam.
+> **Hosting:** Netlify → GitHub Pages (PR #14 taşıma sonrası). **Admin koruması:** Cloudflare Zero Trust Access aktif (PR #16+#17).
 
 ---
 
-## P0 — PR #7 + #8 sonrası kullanıcının yapması gerekenler
+## P0 — Hâlâ kullanıcının yapması gerekenler
 
-### A. Supabase migration #1 çalıştır (marquee_items tablo)
-- Dashboard → SQL Editor → New query
-- Repodaki `supabase_migrations/2026-05-08-marquee-items.sql` içeriğini paste → Run
-- Tablo + RLS + 5 default row oluşur
+### A. Telefon numarası gerçek olsun
+- `+90 (5XX) XXX XX XX` placeholder şu an her yerde
+- `index.html` (contact info-card + footer-contact) + `product.html` (alt contact) + yasal sayfalar (gizlilik, kullanim, cerez)
+- Find/replace ile bir kerede güncellenir
 
-### B. Supabase migration #2 çalıştır (marquee_items GRANT — yeni PR #8)
-- Aynı yer → New query → `supabase_migrations/2026-05-09-marquee-grants.sql` paste → Run
-- Anon + authenticated role'lerine table-level GRANT'ler set edilir
-- Sonra: admin "Şerit" sekmesinde "permission denied" uyarısı gider, fonksiyonel olur
-
-### B2. Supabase migration #3 çalıştır (sort_order renumber — opsiyonel PR #9)
-- Aynı yer → New query → `supabase_migrations/2026-05-09-marquee-sort-renumber.sql` paste → Run
-- Mevcut 10/20/30/40/50 değerleri 1/2/3/4/5 yapılır
-- Opsiyonel — frontend zaten yeni eklemede max+1 artırıyor; bu sadece eski değer temizliği
-
-### C. Safran ürünü hero_subtitle güncelle (admin'den)
-- admin → Ürünler → Safranbolu Safranı → Düzenle
-- "Hero altyazı" alanı şu an `Karabük'ün coğrafi işaretli en zarif değeri` olabilir
-- Yenile: `Safranbolu'nun coğrafi işaretli en zarif değeri`
-- Kaydet
-
-### D. Galeri görseli admin'den ekleme (PR #8 sonrası dinamik render)
-- product.html'de galeri statik HTML kaldırıldı — artık DB'den dinamik
-- admin → Ürünler → safran (veya başka ürün) → galeri yönetimi → görsel yükle + kaydet
-- Eklediğin satırlar `gallery_images.is_active = true` ile yer alırsa product.html'de kayan şerit halinde görünür
-- Boş ürün için galeri section aslında yer kaplar ama boş olur (gerek olursa CSS ile gizlenebilir, sonraki PR)
-
-
----
-
-## P0 — Yayın için kritik (kullanıcı yapacak)
-
-### 1. Eski Netlify Token Revoke
-- https://app.netlify.com/user/applications#personal-access-tokens
-- Authorized applications → "Netlify CLI" → Revoke access
-- Yeni "Production CI/CD" token zaten GitHub Secrets'ta aktif
-
-### 2. Yasal Sayfa Placeholder'ları (12 yer)
+### B. Yasal sayfa placeholder'ları (12+ yer)
 - `gizlilik.html`: 5 placeholder
 - `kullanim.html`: 7 placeholder
-- Doldurulacak: `[ŞİRKET ADI]`, `[VERGİ NO]`, `[MERSİS NO]`, `[ADRES]`, `[TELEFON]`, `[E-POSTA]`
+- Doldurulacak: `[ŞİRKET ADI]`, `[VERGİ DAİRESİ / VERGİ NO]`, `[MERSİS NO]`, `[TİCARET SİCİL NO]`, `[ŞİRKET ADRESİ]`, `[TELEFON]`
 - ⚠️ **KVKK uyumu için şirket kurulmadan tamamlanamaz** — şirket kuruluş resmi bilgileri lazım
 - Avukat / KVKK danışmanı önerilir (~3000-8000 TL)
 
-### 3. Telefon Numarası (placeholder hala canlıda)
-- `index.html` (footer + contact section) + `product.html` (talep formu intro)
-- Şu an: `+90 (5XX) XXX XX XX`
-- Gerçek numara gelince find/replace ile güncellenir
-
-### 4. Domain Alma
-- `thehouseofanatolia.com` (Cloudflare Registrar ~$10/yıl)
-- DNS Netlify'a yönlendirilir → HTTPS otomatik (Let's Encrypt)
-- Alındığında ben şu yerleri güncellerim: `robots.txt`, `sitemap.xml`, `index.html` ve `product.html` JSON-LD canonical (~10 yer find/replace)
-
-### 5. Email Routing
-- Cloudflare Email Routing (ücretsiz forwarding)
-- `info@thehouseofanatolia.com` → Beyza/ortak Gmail
-- Veya Google Workspace ($6/ay/kullanıcı, gerçek mailbox)
-
-### 6. Admin User Oluştur (Supabase)
+### C. Admin user oluştur (Supabase)
 - Authentication → Users → Add user (Auto Confirm İŞARETLİ)
 - SQL Editor'da:
   ```sql
@@ -77,23 +31,35 @@
   ```
 - ⚠️ `full_name` kolonu NOT NULL — atlama!
 
+### D. Anasayfa hikayemiz içeriği admin'den düzenle (PR #10 yeni özellik)
+- admin → Ana Sayfa Bölümleri → about row → Düzenle
+- "Başlık" → h2'yi override eder (italic gold accent için `*kelime*` syntax)
+- "Alt başlık" → first paragraph override
+- "İçerik" → newline-delimited paragraflar → mevcut <p>'leri sırayla override eder
+- DB row yoksa i18n fallback aynen çalışır
+
+### E. Vision row'unu admin'den sil
+- admin → Ana Sayfa Bölümleri → "Vizyonumuz" satırı → Sil
+- Anasayfada kullanılmıyor (frontend sadece about row'unu okuyor)
+
+### F. Eski Netlify hesabı kapat (opsiyonel temizlik)
+- https://app.netlify.com → site `house-of-anatolia` → Site configuration → Delete site
+- Netlify Personal Access Token zaten revoke edildi
+- GitHub Secrets'ta NETLIFY_AUTH_TOKEN ve NETLIFY_SITE_ID hâlâ duruyor olabilir — sil (artık kullanılmıyor)
+
+### G. Cloudflare Access ikinci email kontrolü
+- Zero Trust → Access → Policies → Admin Only → Edit
+- Allowed emails: `thehouseofanatoliaco@gmail.com` (ortak), `beyzata37@gmail.com` (Beyza)
+- Beyza'nın e-postasının olması istenmiyorsa kaldır
+
 ---
 
 ## P1 — Önemli ama acil değil
 
 ### EN İçerikleri
-- Tüm tablolarda `name_en`, `description_en` vb. kolonlar boş
+- Tüm tablolarda `name_en`, `description_en`, `meta_description_en` vb. kolonlar boş
 - Admin panelden TR/EN tab'ları kullanarak doldurulmalı
 - Şu an EN kullanıcı boş alanlar için TR fallback görür (kasıtlı)
-
-### Marquee Admin Entegrasyonu (yeni)
-Şu an `marquee_1-5` i18n dict'te statik (5 yakında ürün hard-coded).
-İstersen ekleme:
-1. Supabase'de `marquee_items` tablosu yarat (`label_tr, label_en, sort_order, is_active`)
-2. Default 5 row insert (mevcut yakındalar)
-3. RLS policy: anon read, admin CRUD
-4. Frontend: `loadMarqueeItems()` fetch + render (i18n dict yerine)
-5. Admin'de yeni "Şerit" sekmesi + CRUD UI (loadMarqueeItems + render + save + delete)
 
 ### Newsletter Gönderim
 - Şu an: aboneler `newsletter_subscribers`'a kaydediliyor, gönderim yok
@@ -101,16 +67,17 @@
 - Plan B: Resend ($20/ay) + Supabase Edge Function + admin "Bülten Yaz" UI
 
 ### Performance
-- Mevcut: index.html ~200KB, product.html ~80KB, admin.html ~165KB, products.html ~12KB
-- Görsel yok (statik HTML)
-- Yapılabilir: HTML/CSS/JS minify (Netlify otomatik), font subsetting (Cormorant büyük)
+- Mevcut: index.html ~210 KB, product.html ~80 KB, admin.html ~175 KB, products.html ~12 KB
+- Yapılabilir: HTML/CSS/JS minify (GitHub Pages otomatik değil — manuel build adımı veya minimal koruma), font subsetting (Cormorant büyük), image lazy loading audit
 
-### Domain Alındığında URL Güncellemeleri
-- robots.txt: Sitemap URL
-- sitemap.xml: tüm `<loc>` ve `hreflang` URL'leri
-- index.html JSON-LD: Organization + WebSite URL
-- product.html JSON-LD: Product + BreadcrumbList URL + canonical
-- products.html JSON-LD: CollectionPage URL + canonical
+### Lighthouse re-audit
+- PR #1 sonrası ölçüldü: A11y 98 / SEO 92 / BP 96 / Agentic 100
+- PR #10-17 sonrası tekrar ölçülmedi — yeni hosting + Cloudflare proxy ile değişebilir
+- Önerilen: Chrome DevTools Lighthouse paneli mobile + desktop
+
+### Bonus güvenlik (opsiyonel)
+- Cloudflare Access **session duration** 24 saat — daha kısa istenirse Application → Edit → Session duration: 8 hours
+- CSP header (Content-Security-Policy) — Cloudflare Page Rules veya HTML meta tag ile
 
 ---
 
@@ -118,11 +85,11 @@
 
 ### Dead Code (CSS)
 - `.future-pill`, `.future-list` rules — HTML'den silindi (PR #4) ama CSS rules kaldı
+- `.contact-footer-col`, `.contact-centered` — HTML'de kullanım var mı belirsiz, eski layout artığı olabilir
 - `.gold-accent` (slogan'da JS dinamik kullanım var, koru)
-- Eski cert / about-grid asymmetric / hero-grid/lines/dots/mountains rules silindi (PR #1)
 
 ### Dead i18n Keys
-- ✅ `pill_1-4`, `hero_est`, `hero_stat1-3`, `gi_eyebrow/title/paragraph1-2`, `cert_*`, `about_meta_*`, `nav_gi` (PR #1 ve #4'te silindi)
+- ✅ `pill_1-4`, `hero_est`, `hero_stat1-3`, `cert_*`, `about_meta_*`, `nav_gi`, `map_eyebrow` (PR #1, #4, #10'da silindi)
 
 ### Dead DB Tablo
 - `package_options` tablosu — UI hiç kullanmıyor, eski talep kayıtlarındaki FK için duruyor
@@ -130,6 +97,7 @@
 
 ### Diğer
 - `supabase_schema_v2_fixed.sql` — referans dosya, repo'da kalabilir (yeniden migration için faydalı)
+- Eski `index_supabase.html` referansları (varsa) — page_views URL filter ile zaten engellenmiş (PR #10)
 
 ---
 
@@ -137,9 +105,9 @@
 
 ### Frontend
 1. **Build step yok** — kasıtlı, basit deploy. Karmaşık component reuse zor.
-2. **Admin panel TEK SAYFA** — 4500 satır. Yönetimi zor. SPA refactor değer.
+2. **Admin panel TEK SAYFA** — 4750+ satır. Yönetimi zor. SPA refactor değer.
 3. **i18n manuel** — her yeni metin için `data-i18n` ekle + dict'e gir
-4. **Marquee items statik** — admin entegrasyonu eklenmeli (P1)
+4. **Marquee items DB'den** (PR #7-9 sonrası); admin'den yönetiliyor
 
 ### Backend (Supabase)
 1. **Free tier** — 500 MB DB, 1 GB storage, 50K MAU, yeterli
@@ -147,10 +115,17 @@
 3. **Edge Functions yok** — newsletter SMTP veya web hooks için lazım olacak
 4. **Backup manuel** — auto-backup 7 gün retention
 
-### Hosting (Netlify)
-1. **Free tier** — 100GB bandwidth/ay, 300 build dakika/ay, yeterli
-2. **GitHub Actions deploy** — Netlify'ın native Git integration yerine custom workflow
-3. **Custom domain** — alındığında 5 dk'lık config
+### Hosting (GitHub Pages — PR #14 sonrası)
+1. **Sınırsız bandwidth + build** — public repo için ücretsiz
+2. **Custom domain + HTTPS** — otomatik (Let's Encrypt)
+3. **Repo public şart** — sadece public repo'da custom domain ücretsiz çalışır
+4. **Headers/redirect customization yok** — Netlify _headers / _redirects yok; Cloudflare Page Rules ile yapılır
+5. **Server-side rendering yok** — vanilla static; SSR ihtiyacı doğarsa Vercel/Cloudflare Pages düşünülebilir
+
+### Auth (Cloudflare Zero Trust Access)
+1. **Free tier** — 50 user limit (yeterli)
+2. **Email PIN** — Cloudflare'in mailing system'i (spam'e düşebilir, "noreply@notify.cloudflare.com" filter)
+3. **Identity Provider** — One-time PIN default; GitHub OAuth eklenebilir alternatif
 
 ### Dış Bağımlılıklar
 1. **FormSubmit.co** — ücretsiz, üst limit 50/ay, unreliable olabilir
@@ -179,130 +154,91 @@
 
 ## Test Edilmemiş Senaryolar
 
-1. iOS Safari (custom cursor + sparkle render)
+1. iOS Safari (custom cursor + marquee performance)
 2. Eski Android Chrome (<80) (i18n)
 3. Slow 3G (loader)
 4. JavaScript kapalı
 5. Çoklu sekmeden simultaneous form submit (rate limit)
 6. Çok büyük image upload (5 MB sınır)
 7. Print stylesheet (`@media print` yok)
-8. Marquee + sparkle birlikte performance
+8. Cloudflare Access PIN gecikmesi senaryoları (mail provider sorunları)
 
 ---
 
 ## Çözülen / Kapalı (referans)
 
 ### PR #1 — SEO + Cleanup + A11y
-- ✅ robots.txt + sitemap.xml + JSON-LD (Organization + WebSite + Product + BreadcrumbList)
-- ✅ product.html title fix
-- ✅ Dead code: paket CRUD JS + dead CSS + 24 dead i18n key
-- ✅ Skip-to-main link + `<main id="main-content">` (WCAG 2.4.1)
-- ✅ Lighthouse: A11y 98 / SEO 92 / Best Practices 96 / Agentic 100
+- ✅ robots.txt + sitemap.xml + JSON-LD + canonical
+- ✅ Dead code temizliği + skip-to-main link
+- ✅ Lighthouse: A11y 98 / SEO 92 / BP 96 / Agentic 100
 
 ### PR #2 — Sparkle iter 1 + contact + footer
-- ✅ Sparkle yan-drift → minik statik dots map arkasında
-- ✅ Contact card border + radius + bg gradient
-- ✅ Footer grid balanced + h4 sektör-tarzı
+- ✅ Sparkle yan-drift → minik statik dots; contact card border + radius
 
 ### PR #3 — Sparkle removal + Products sayfası
-- ✅ Sparkle TAMAMEN kaldırıldı
-- ✅ Yeni products.html (Supabase fetch + i18n + JSON-LD)
-- ✅ Navbar + footer linkleri
-- ✅ sitemap.xml products URL
+- ✅ Sparkle TAMAMEN kaldırıldı (sonra geri eklendi PR #4, sonra final removal PR #6)
+- ✅ Yeni products.html
 
 ### PR #4 — Sparkle re-add + Map section + Contact
-- ✅ Sparkle GERİ — haritanın ARKASINA (z-index:0), DİKEY yukarı (rotate yok) [NOT: PR #6'da tamamen kaldırıldı]
-- ✅ Future-pill kaldırıldı
-- ✅ Eyebrow çift çizgi (KEŞFET iki yanda altın çizgi)
-- ✅ city_note kısa GI tanımı
-- ✅ Marquee strip (5 yakında ürün, kayan şerit)
-- ✅ Contact horizontal 2-col [NOT: PR #6'da yeniden tasarlandı]
-- ✅ Section padding 110 → 80px
-- ✅ products.html is_active=true filter + intro paragraf kaldırıldı
+- ✅ Sparkle harita arkasına geri (sonra final removal PR #6)
+- ✅ Marquee strip + contact horizontal 2-col
 
-### PR #5 — Docs refresh
-- ✅ HANDOFF.md, ARCHITECTURE.md, DESIGN_SYSTEM.md, KNOWN_ISSUES.md, FIRST_PROMPT.md güncel duruma göre yenilendi (kod değişikliği yok)
-
-### PR #6 — Sparkle removal + Contact rebuild + Footer newsletter taşıma
-- ✅ Sparkle TAMAMEN KALDIRILDI (kullanıcı net karar — tüm varyantlar yasak)
-  - index.html CSS (.hero-blossom-layer, .gold-sparkle, ::before/::after, @keyframes sparkle-twinkle, prefers-reduced-motion)
-  - index.html HTML (`<div class="hero-blossom-layer" id="blossom-layer">`)
-  - index.html JS (sparkleEffect IIFE — spawn loop + initial burst)
-  - product.html dokunulmadı (`.hero-blossom-layer` mini-blossom için kapsayıcı, mini-blossom KORUNUR)
-- ✅ Contact section yeni 2-col layout
-  - SOL: eyebrow + H2 + intro + 3 dikey info card (E-POSTA / ADRES / TELEFON, SVG ikon + label/value, hover gold border)
-  - SAĞ: `.contact-newsletter-card` (radial gold glow + pill input + ABONE OL pill button)
-- ✅ Footer-top + footer-newsletter HTML/CSS kaldırıldı, form contact'a taşındı (id `newsletter-form` + status `newsletter-status` aynen, JS handler dokunulmadı)
-- ✅ Footer-grid 4-col layout (1.8fr 1fr 1fr 1.4fr) korundu
-- ✅ i18n duplicate `contact_title` (TR) bug fix — line 2114 silindi, "Bizimle iletişime geçin." (line 2077) geçerli
-- ✅ Yasaklar listesine sparkle tüm varyantlar + duplicate newsletter eklendi
+### PR #6 — Sparkle FİNAL removal + Contact rebuild + Footer newsletter taşıma
+- ✅ Sparkle TÜM VARYANTLAR kaldırıldı + yasaklar listesine eklendi
+- ✅ Contact 2-col, footer newsletter contact'a taşındı
 
 ### PR #7 — Hamburger + Ürünler section + Marquee admin + product refresh
-- ✅ Anasayfa contact sadeleştirildi (sol yazılar kalktı, sadece 3 info kart kaldı)
-- ✅ Anasayfa "Ürünler" section eklendi (Supabase küçük kart vitrini, "Tümünü Gör →" /products.html'e)
-- ✅ Hamburger menü Aesop pattern (yatay nav kaldırıldı; ☰ → fullscreen overlay; SAYFALAR + ÜRÜNLER kategorisi dinamik + lang switcher + yasal linkler)
-- ✅ product.html "Karabük'ün → Safranbolu'nun" GI attribution cümlelerinde (HTML default; DB hero_subtitle admin'den güncellenmeli)
-- ✅ product.html alt contact 3 yatay kart stilinde (anasayfa info-card stili)
-- ✅ Marquee `marquee_items` migration SQL (kullanıcı SQL Editor'dan çalıştıracak)
-- ✅ Marquee dinamik fetch + statik fallback (tablo yoksa eski 10 statik HTML çalışır)
-- ✅ admin "Şerit" sekmesi tam CRUD (yeni ekle / edit / aktif toggle / sil)
-- ✅ Admin ürün CRUD'da hero_subtitle alanı + is_active toggle TEYİT (zaten mevcut, kullanıcı buradan düzenler)
+- ✅ Hamburger Aesop pattern, anasayfa Ürünler section (sonra PR #8'de kaldırıldı), marquee_items tablo + admin CRUD, product.html "Karabük → Safranbolu"
 
-### PR #8 — UI revize + Galeri render + Marquee grants fix
-- ✅ Navbar restore: yatay nav linkleri (Ana Sayfa / Hakkımızda / Ürünler / İletişim) geri, hamburger ☰ EN SOLA, lang sağda
-- ✅ Anasayfa Ürünler section TAMAMEN kaldırıldı (CSS+HTML+JS); overlay'deki dinamik liste korundu
-- ✅ products.html grid küçük kare (auto-fill 240px sabit, tek ürün de küçük ortalanır)
-- ✅ Marquee permission düzeltmesi: yeni `2026-05-09-marquee-grants.sql` migration; admin uyarı 42501 yakalar
-- ✅ product.html galeri statik HTML kaldırıldı (id="product-gallery-track"); mevcut JS render gallery_images'tan dinamik 2x duplicate ile çiziyor — admin'den ekleme otomatik yansır
+### PR #8 — UI revize + Galeri render + Marquee permission fix
+- ✅ Navbar yatay link geri + hamburger EN SOLA
+- ✅ Anasayfa Ürünler section komple kaldırıldı
+- ✅ products.html küçük kare (auto-fill 240px sabit)
+- ✅ Marquee GRANT migration (anon/auth)
+- ✅ product.html galeri statik kaldırıldı, dinamik render
 
-### PR #9 — Marquee infinite + admin sort + mobil + boşluk fix
-- ✅ Marquee min kopya formülü (`Math.ceil(10/data.length)` × 2 set) — 1 item olsa da seamless infinite akar
-- ✅ Admin "Şerit" sort_order default = mevcut max + 1 (yeni eklemede 1, 2, 3 ardışık)
-- ✅ Migration v3 yazıldı (opsiyonel) — mevcut 10/20/30 değerlerini 1/2/3 renumber
-- ✅ Marquee-strip ile home-about arası ◆ section-divider silindi (boşluk gitti, gap 0)
-- ✅ Mobile product.html: `.subhero` min-height auto, padding küçültüldü; `html` overflow-x:hidden + width:100%; sağdaki kahverengi boşluk düzeltildi
+### PR #9 — Marquee infinite + admin sort + mobil + boşluk
+- ✅ Marquee min kopya formülü `Math.ceil(10/data.length)` — 1 item bile sürekli akar
+- ✅ Admin sort_order default = max+1 (1, 2, 3 ardışık)
+- ✅ Marquee → about arası ◆ silindi
+- ✅ Mobile product.html hero padding küçültüldü
 
-### PR #10 — Çoklu UI fix + DB-bağ + email + domain notu
-- ✅ Map section KEŞFET eyebrow kaldırıldı; city_note başına "Coğrafi işaret:" prefix
-- ✅ About → contact arası ◆ section-divider silindi (gereksiz boşluk gitti)
-- ✅ E-posta tüm yerlerde info@... → thehouseofanatoliaco@gmail.com
-- ✅ Adres tüm yerlerde "Türkiye" (kullanıcı standardizasyon isteği)
-- ✅ Page tracking URL validation (data:/file://, /C:/, Downloads/ filtreleri)
-- ✅ Admin "Gelen Teklif" → Sil butonu (confirm modal + audit log)
-- ✅ product.html navbar hamburger + overlay (index.html ile aynı pattern)
-- ✅ loadHomepageAbout: anasayfa #about title/subtitle/content homepage_sections'tan override (admin CRUD)
-- ✅ Domain alındı (thehouseofanatolia.com Cloudflare aktif — kullanıcı tarafı)
+### PR #10 — Çoklu UI fix + DB-bağ + email + adres
+- ✅ KEŞFET eyebrow kaldırıldı; "Coğrafi işaret:" prefix eklendi
+- ✅ About → contact arası ◆ silindi
+- ✅ E-posta tüm yerlerde gmail
+- ✅ Adres tüm yerlerde "Türkiye"
+- ✅ Page tracking URL validation
+- ✅ Admin "Gelen Teklif" Sil butonu
+- ✅ product.html navbar hamburger + overlay
+- ✅ loadHomepageAbout DB-bağ
 
-## P0 — PR #10 sonrası kullanıcının yapması gerekenler
+### PR #11 — GitHub Actions workflow kaldırıldı
+- ✅ `.github/workflows/deploy.yml` silindi (Netlify deploy artık yok)
 
-### A. Admin "Ana Sayfa Bölümleri" → vision row sil
-- admin → Ana Sayfa Bölümleri
-- "Vizyonumuz" satırı **anasayfada gösterilmiyor** (frontend sadece about row'unu okuyor)
-- "Sil" butonuyla kaldır → liste temiz olur
+### PR #14 — GitHub Pages migration
+- ✅ Hosting Netlify → GitHub Pages
+- ✅ CNAME + .nojekyll dosyaları
+- ✅ Tüm URL'ler `house-of-anatolia.netlify.app` → `thehouseofanatolia.com`
 
-### B. Anasayfa hikayemiz başlık/metin admin'den düzenleme (PR #10 yeni)
-- admin → Ana Sayfa Bölümleri → about satırı → Düzenle
-- "Başlık" alanı: anasayfa h2'sini override eder (slogan stili için `*kelime*` kullan altın italic için)
-- "Alt başlık" alanı: ilk paragrafı override eder
-- "İçerik" alanı: boş satırla ayrılmış paragraflar → mevcut <p>'leri sırayla override eder
-- DB değer yoksa i18n fallback aynen çalışır
+### PR #15 — Defensive .gitignore
+- ✅ Repo public yapıldıktan sonra security hardening
+- ✅ .env, *.pem, *.key, secrets.json, service-account*.json pattern'leri
+- ✅ Git history taraması temiz (0 hit hassas string)
 
-### C. Domain bağlama (kullanıcı)
-- thehouseofanatolia.com Cloudflare'de aktif
-- Netlify Dashboard → Domain settings → Custom domain → ekle
-- DNS Cloudflare'den Netlify'e CNAME (Netlify dokümantasyonu)
-- Sonraki PR'da: sitemap.xml, robots.txt, JSON-LD canonical URL'leri yeni domain'e güncellenecek
+### PR #16+#17 — Cloudflare Access entegrasyonu
+- ✅ PR #16: client-side admin gate eklendi (URL ?giris param check)
+- ✅ PR #17: gate revert — Cloudflare Access dış katmanı yeterli
+- ✅ Cloudflare Zero Trust Access aktif (admin.html PIN gate, allowed 2 email)
 
 ### Önceki sohbet (Phase 0)
-- ✅ Site lokalden GitHub'a + Netlify auto-CI/CD
+- ✅ Site lokalden GitHub'a + Netlify auto-CI/CD (PR #14'te GitHub Pages'e taşındı)
 - ✅ Mobile slogan overflow düzeltme
 - ✅ Tipografi (Inter → Plus Jakarta Sans)
 - ✅ Cinematic hero kaldırıldı (product.html)
 - ✅ Asset klasörü repo'ya
-- ✅ Token rotation
+- ✅ Token rotation (artık gereksiz, GitHub Pages token'sız)
 - ✅ Footer 4-sütun + brand logo
-- ✅ EST badge / KÜNYE / sertifika rozeti / stats bar (kullanıcı reddetti)
 - ✅ Atmospheric layer (SVG noise overlay)
 - ✅ Custom scrollbar + hover refinements
 - ✅ Plus Jakarta font features (ligatures, kerning, smoothing)
-- ✅ 18 plugin + Supabase MCP + chrome-devtools-mcp
