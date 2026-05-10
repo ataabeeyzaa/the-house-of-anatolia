@@ -23,41 +23,47 @@
 <link rel="alternate" hreflang="x-default" href="./product.html?slug=karabuk-safrani">
 <link rel="canonical" href="https://thehouseofanatolia.com/product.html?slug=karabuk-safrani">
 
-<!-- Schema.org Product + BreadcrumbList -->
+<!-- Schema.org WebPage + Thing (about) + BreadcrumbList -->
+<!-- NOT: Site şu an vitrin, satış yok. Gerçek fiyat olmadan Product schema yanıltıcı olduğu için
+     WebPage + Thing yapısı kullanılıyor. Şirket kurulup gerçek fiyat eklendiğinde Product + Offer
+     yapısına geri dönüş yapılabilir. -->
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@graph": [
     {
-      "@type": "Product",
-      "@id": "https://thehouseofanatolia.com/product.html?slug=karabuk-safrani#product",
-      "name": "Safranbolu Safranı",
+      "@type": "WebPage",
+      "@id": "https://thehouseofanatolia.com/product.html?slug=karabuk-safrani#webpage",
+      "url": "https://thehouseofanatolia.com/product.html?slug=karabuk-safrani",
+      "name": "Safranbolu Safranı — The House of Anatolia",
       "description": "Safranbolu yöresinde yetiştirilen, Türk Patent ve Marka Kurumu tescilli coğrafi işaretli safran. Anadolu'nun yüzyıllık üretim mirası.",
-      "image": "https://thehouseofanatolia.com/assets/safran_iplik.png",
-      "brand": { "@type": "Brand", "name": "The House of Anatolia" },
-      "category": "Coğrafi İşaretli Baharat",
-      "countryOfOrigin": { "@type": "Country", "name": "Türkiye" },
-      "isRelatedTo": {
-        "@type": "DefinedTerm",
-        "name": "Coğrafi İşaret",
-        "inDefinedTermSet": "Türk Patent ve Marka Kurumu (TPMK)"
+      "isPartOf": { "@id": "https://thehouseofanatolia.com/#website" },
+      "primaryImageOfPage": {
+        "@type": "ImageObject",
+        "url": "https://thehouseofanatolia.com/assets/safran_iplik.png"
       },
-      "manufacturer": {
-        "@type": "Organization",
-        "name": "Safranbolu Üreticileri",
-        "address": {
-          "@type": "PostalAddress",
-          "addressRegion": "Karabük",
-          "addressLocality": "Safranbolu",
-          "addressCountry": "TR"
+      "inLanguage": ["tr-TR", "en-US"],
+      "breadcrumb": { "@id": "https://thehouseofanatolia.com/product.html?slug=karabuk-safrani#breadcrumbs" },
+      "about": {
+        "@type": "Thing",
+        "name": "Safranbolu Safranı",
+        "description": "Safranbolu yöresinde yetiştirilen, Türk Patent ve Marka Kurumu (TPMK) tescilli coğrafi işaretli baharat. Anadolu'nun yüzyıllık üretim mirası.",
+        "image": "https://thehouseofanatolia.com/assets/safran_iplik.png",
+        "additionalType": "https://schema.org/Product",
+        "subjectOf": {
+          "@type": "DefinedTerm",
+          "name": "Coğrafi İşaret",
+          "inDefinedTermSet": "Türk Patent ve Marka Kurumu (TPMK)"
         }
       }
     },
     {
       "@type": "BreadcrumbList",
+      "@id": "https://thehouseofanatolia.com/product.html?slug=karabuk-safrani#breadcrumbs",
       "itemListElement": [
         { "@type": "ListItem", "position": 1, "name": "Ana Sayfa", "item": "https://thehouseofanatolia.com/" },
-        { "@type": "ListItem", "position": 2, "name": "Safranbolu Safranı" }
+        { "@type": "ListItem", "position": 2, "name": "Ürünler", "item": "https://thehouseofanatolia.com/products.html" },
+        { "@type": "ListItem", "position": 3, "name": "Safranbolu Safranı" }
       ]
     }
   ]
