@@ -1447,30 +1447,30 @@ using (public.is_admin())
 with check (public.is_admin());
 
 -- Başlangıç site ayarları
+-- NOT: on conflict do nothing — mevcut değerleri override etme (kullanıcı admin'den
+-- güncellemiş olabilir). Sadece ilk kurulumda default değerler eklenir.
 insert into public.site_settings (setting_key, setting_value, setting_type, label, sort_order)
 values
 ('site_name', 'The House of Anatolia', 'text', 'Site Adı', 1),
 ('map_slogan', 'A Journey to the Roots of Taste', 'text', 'Harita Üstü Slogan', 2),
-('contact_email', 'info@houseofanatolia.com', 'text', 'E-posta', 3),
-('contact_phone', '+90 000 000 00 00', 'text', 'Telefon', 4),
-('contact_whatsapp', '+90 000 000 00 00', 'text', 'WhatsApp', 5),
+('contact_email', 'thehouseofanatoliaco@gmail.com', 'text', 'E-posta', 3),
+('contact_phone', '+90 538 331 03 76', 'text', 'Telefon', 4),
+('contact_whatsapp', '', 'text', 'WhatsApp', 5),
 ('contact_address', 'Türkiye', 'textarea', 'Adres', 6),
-('instagram_url', '', 'text', 'Instagram Linki', 7),
+('instagram_url', '', 'text', 'Instagram URL', 7),
 ('footer_text', '© 2026 The House of Anatolia. Tüm hakları saklıdır.', 'text', 'Footer Yazısı', 8)
-on conflict (setting_key) do update set
-  setting_value = excluded.setting_value,
-  setting_type = excluded.setting_type,
-  label = excluded.label,
-  sort_order = excluded.sort_order;
+on conflict (setting_key) do nothing;
 
 -- Başlangıç ana sayfa bölümleri
+-- Sadece "about" (Hikayemiz) row'u eklenir. vision/contact frontend'de gösterilmiyor.
+-- on conflict do nothing — mevcut admin tarafından düzenlenen değerleri override etme.
 insert into public.homepage_sections (
   section_key, title, subtitle, content, image, button_text, button_link, is_active, sort_order
 )
 values
 (
   'about',
-  'Hakkımızda',
+  'Hikayemiz',
   'Anadolu’nun köklü lezzetlerini dijital dünyaya taşıyoruz.',
   'The House of Anatolia, Türkiye’nin coğrafi işaretli ürünlerini estetik, güvenilir ve erişilebilir bir dijital deneyimle tanıtmayı hedefler.',
   '',
@@ -1478,38 +1478,8 @@ values
   '',
   true,
   1
-),
-(
-  'vision',
-  'Vizyonumuz',
-  'Yerel değerleri global vitrine taşımak.',
-  'Amacımız, şehirlerin kültürel ve gastronomik değerlerini modern bir marka diliyle görünür kılmak ve üretici ile talep sahipleri arasında güvenilir bir köprü kurmaktır.',
-  '',
-  '',
-  '',
-  true,
-  2
-),
-(
-  'contact',
-  'İletişim',
-  'Bizimle iletişime geçin.',
-  'Ürün talepleri, iş birlikleri ve detaylı bilgi için bizimle iletişime geçebilirsiniz.',
-  '',
-  'İletişime Geç',
-  '#contact',
-  true,
-  3
 )
-on conflict (section_key) do update set
-  title = excluded.title,
-  subtitle = excluded.subtitle,
-  content = excluded.content,
-  image = excluded.image,
-  button_text = excluded.button_text,
-  button_link = excluded.button_link,
-  is_active = excluded.is_active,
-  sort_order = excluded.sort_order;
+on conflict (section_key) do nothing;
 
   ------
   grant select, insert, update, delete on table public.cities to authenticated;
