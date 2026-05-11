@@ -1864,6 +1864,13 @@
       const DEDUP_MINUTES = 30;
       const now = Date.now();
 
+      // URL validation — sadece http/https + canlı hostname (lokal/data:/file: pollution'ı engelle)
+      if (location.protocol !== "http:" && location.protocol !== "https:") return;
+      const validHosts = ["thehouseofanatolia.com", "www.thehouseofanatolia.com"];
+      if (!validHosts.includes(location.hostname)) return;
+      const path = location.pathname || "";
+      if (!path.startsWith("/") || /^\/[A-Za-z]:/.test(path)) return;
+
       try {
         const last = parseInt(sessionStorage.getItem(STORAGE_KEY) || "0", 10);
         if (last && (now - last) < DEDUP_MINUTES * 60 * 1000) {
@@ -1886,12 +1893,11 @@
         }
       } catch {}
 
-      // Ürün sayfası yolu — slug ile
+      // Ürün sayfası yolu — slug ile (slug yoksa veya geçersizse tracking yapma)
       const params = new URLSearchParams(location.search);
-      const slug = params.get("slug") || "unknown";
-      // Slug whitelist (XSS / spam koruması)
-      const safeSlug = /^[a-z0-9-]{1,80}$/i.test(slug) ? slug : "unknown";
-      const pagePath = `/product/${safeSlug}`;
+      const slug = params.get("slug") || "";
+      if (!/^[a-z0-9-]{1,80}$/i.test(slug)) return; // unknown loglamayı kaldır
+      const pagePath = `/product/${slug}`;
 
       // Lang — URL'den al
       const langParam = params.get("lang");

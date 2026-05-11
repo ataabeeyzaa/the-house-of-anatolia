@@ -2894,9 +2894,11 @@
         }
       } catch {}
 
-      // URL validation — sadece http/https + valid pathname
-      // (file://, data:, blob: yerel/DEV ortamlarını reddet)
+      // URL validation — sadece http/https + canlı hostname + valid pathname
+      // (file://, data:, blob:, lokal dev ortamı, bot test URL'lerini reddet)
       if (location.protocol !== "http:" && location.protocol !== "https:") return;
+      const validHosts = ["thehouseofanatolia.com", "www.thehouseofanatolia.com"];
+      if (!validHosts.includes(location.hostname)) return;
 
       // Sayfa yolu — ana sayfa için "/"
       let pagePath = location.pathname || "/";
