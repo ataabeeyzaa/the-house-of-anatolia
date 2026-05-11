@@ -1463,6 +1463,7 @@ on conflict (setting_key) do nothing;
 
 -- Başlangıç ana sayfa bölümleri
 -- Sadece "about" (Hikayemiz) row'u eklenir. vision/contact frontend'de gösterilmiyor.
+-- title: anasayfanın h2 başlığı. subtitle: ilk paragraf. content: kalan paragraflar (newline ayrımlı).
 -- on conflict do nothing — mevcut admin tarafından düzenlenen değerleri override etme.
 insert into public.homepage_sections (
   section_key, title, subtitle, content, image, button_text, button_link, is_active, sort_order
@@ -1470,9 +1471,9 @@ insert into public.homepage_sections (
 values
 (
   'about',
-  'Hikayemiz',
-  'Anadolu’nun köklü lezzetlerini dijital dünyaya taşıyoruz.',
-  'The House of Anatolia, Türkiye’nin coğrafi işaretli ürünlerini estetik, güvenilir ve erişilebilir bir dijital deneyimle tanıtmayı hedefler.',
+  'Anadolu''nun binlerce yıllık üretim kültüründen ilham alarak.',
+  'Anadolu''nun binlerce yıllık üretim kültüründen ilham alarak yola çıktık. Toprağın bereketini, emeğin değerini ve gerçek lezzetin kökenini dünyaya ulaştırma hedefiyle markamızı kurduk.',
+  E'Bizim için her ürün sadece bir ticari mal değil; bir hikâye, bir gelenek ve bir mirastır. Bu anlayışla, üretimin en değerli örneklerinden biri olan Safranbolu safranı ile başladık. Coğrafi işaretli, yüksek kaliteli ve özenle seçilmiş ürünleri doğrudan kaynağından temin ederek sizlere ulaştırıyoruz.\n\nAmacımız Anadolu''nun dört bir yanındaki coğrafi işaretli ve özgün ürünleri, kalite standartlarından ödün vermeden hem Türkiye''ye hem de dünyaya sunmak. Üreticiyi destekleyen, sürdürülebilir ve şeffaf bir tedarik zinciri oluşturmayı önemsiyoruz.\n\nKalite, güven ve doğallık bizim temel değerlerimizdir. Her ürünümüz, titizlikle kontrol edilerek sizlere ulaştırılır.\n\nBugün safran ile başlayan bu yolculuk, yarın Anadolu''nun farklı lezzetleriyle büyümeye devam edecek.',
   '',
   '',
   '',
