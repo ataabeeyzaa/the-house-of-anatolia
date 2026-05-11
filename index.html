@@ -3147,17 +3147,21 @@
       const firstP = document.querySelector(".about-narrative p");
       if (firstP && about.subtitle) firstP.textContent = about.subtitle;
       // content alanı: admin'den uzun metin — newline'lar paragraflara
+      // ÖNEMLI: subtitle drop-cap'li ilk paragrafı temsil eder (existingP[0]).
+      // content ise drop-cap'ten sonraki paragrafları (existingP[1]+) temsil eder.
+      // Bu sayede admin'de subtitle ve content alanları çakışmaz.
       if (about.content){
         const narrative = document.querySelector(".about-narrative");
         if (narrative){
           const paragraphs = String(about.content).split(/\n\s*\n/).map(s => s.trim()).filter(Boolean);
           if (paragraphs.length > 0){
-            // İlk N paragrafı override et — fazlası varsa append, eksik varsa olduğu kalsın
             const existingP = narrative.querySelectorAll("p");
             paragraphs.forEach((text, idx) => {
-              if (existingP[idx]){
-                existingP[idx].textContent = text;
-                existingP[idx].removeAttribute("data-i18n");
+              // existingP[idx + 1] — index 0 (drop-cap) subtitle için ayrılmıştır
+              const target = existingP[idx + 1];
+              if (target){
+                target.textContent = text;
+                target.removeAttribute("data-i18n");
               }
             });
           }
