@@ -2012,6 +2012,21 @@
     }
 
 
+    // ASCII-safe slug — Supabase Storage object key kısıtlamaları için
+    // (Türkçe karakterler, boşluk, özel karakterler "Invalid key" hatası veriyor)
+    function asciiSlug(str) {
+      return String(str || "")
+        .toLowerCase()
+        .replaceAll("ı", "i")
+        .replaceAll("ğ", "g")
+        .replaceAll("ü", "u")
+        .replaceAll("ş", "s")
+        .replaceAll("ö", "o")
+        .replaceAll("ç", "c")
+        .replace(/[^a-z0-9]+/g, "-")
+        .replace(/^-+|-+$/g, "");
+    }
+
     function safeFileName(fileName) {
       const extension = fileName.includes(".") ? fileName.split(".").pop().toLowerCase() : "png";
       const baseName = fileName
@@ -2074,8 +2089,10 @@
           uploadBtn.textContent = "Yükleniyor...";
           status.textContent = "Görsel yükleniyor...";
 
-          const folder = product.slug || product.id || "urun";
-          const fieldName = row.dataset.uploadField || "gorsel";
+          // Storage object key ASCII-safe olmalı (Supabase "Invalid key" hatası vermesin)
+          const folderRaw = product.slug || product.id || "urun";
+          const folder = asciiSlug(folderRaw) || "urun";
+          const fieldName = asciiSlug(row.dataset.uploadField || "gorsel");
           const filePath = `${folder}/${fieldName}/${safeFileName(file.name)}`;
 
           const { error: uploadError } = await supabase.storage
