@@ -1197,7 +1197,7 @@
               </span>
               <span class="info">
                 <span class="info-label">ADRES</span>
-                <span class="info-value">Türkiye</span>
+                <span class="info-value" data-setting="contact_address">Türkiye</span>
               </span>
             </div>
             <div class="contact-info-item">
@@ -1206,16 +1206,16 @@
               </span>
               <span class="info">
                 <span class="info-label">TELEFON</span>
-                <a class="info-value" href="tel:+905383310376">+90 538 331 03 76</a>
+                <a class="info-value" href="tel:+905383310376" data-setting-href="tel" data-setting="contact_phone">+90 538 331 03 76</a>
               </span>
             </div>
-            <a href="mailto:thehouseofanatoliaco@gmail.com" class="contact-info-item">
+            <a href="mailto:thehouseofanatoliaco@gmail.com" class="contact-info-item" data-setting-href="mailto">
               <span class="icon" aria-hidden="true">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
               </span>
               <span class="info">
                 <span class="info-label">E-POSTA</span>
-                <span class="info-value">thehouseofanatoliaco@gmail.com</span>
+                <span class="info-value" data-setting="contact_email">thehouseofanatoliaco@gmail.com</span>
               </span>
             </a>
           </div>
@@ -1780,6 +1780,47 @@
   }
 
   loadProduct();
+
+  // ----- İLETİŞİM (telefon/e-posta/adres) — site_settings override -----
+  function formatTrPhoneDisplay(raw){
+    if (!raw) return raw;
+    const digits = String(raw).replace(/\D/g, "");
+    const m = digits.match(/^(?:90)?(\d{3})(\d{3})(\d{2})(\d{2})$/);
+    if (m) return "+90 " + m[1] + " " + m[2] + " " + m[3] + " " + m[4];
+    return raw;
+  }
+  async function loadSiteContactSettings(){
+    try {
+      const { data, error } = await supabase
+        .from("site_settings")
+        .select("setting_key, setting_value")
+        .in("setting_key", ["contact_phone", "contact_email", "contact_address"]);
+      if (error || !data) return;
+      const map = Object.fromEntries(data.map(s => [s.setting_key, (s.setting_value || "").trim()]));
+      if (map.contact_phone) map.contact_phone_display = formatTrPhoneDisplay(map.contact_phone);
+
+      document.querySelectorAll("[data-setting]").forEach(el => {
+        const key = el.dataset.setting;
+        const val = (key === "contact_phone" && map.contact_phone_display) ? map.contact_phone_display : map[key];
+        if (val) el.textContent = val;
+      });
+
+      if (map.contact_email){
+        document.querySelectorAll('[data-setting-href="mailto"]').forEach(a => {
+          a.href = "mailto:" + map.contact_email;
+        });
+      }
+      if (map.contact_phone){
+        const telDigits = map.contact_phone.replace(/[^\d+]/g, "");
+        if (telDigits){
+          document.querySelectorAll('[data-setting-href="tel"]').forEach(a => {
+            a.href = "tel:" + telDigits;
+          });
+        }
+      }
+    } catch (e) { /* HTML fallback */ }
+  }
+  loadSiteContactSettings();
 
   // ----- HAMBURGER MENÜ (Aesop fullscreen overlay) -----
   (function navOverlay(){
