@@ -228,9 +228,9 @@
       <div class="footer-col">
         <h4 data-i18n="footer_contact_title">İletişim</h4>
         <ul class="footer-contact">
-          <li>thehouseofanatoliaco@gmail.com</li>
-          <li><span data-i18n="contact_address_value">Türkiye</span></li>
-          <li><a href="tel:+905383310376">+90 538 331 03 76</a></li>
+          <li><span data-setting="contact_email">thehouseofanatoliaco@gmail.com</span></li>
+          <li><span data-setting="contact_address">Türkiye</span></li>
+          <li><a href="tel:+905383310376" data-setting-href="tel" data-setting="contact_phone">+90 538 331 03 76</a></li>
         </ul>
       </div>
     </div>
@@ -406,5 +406,39 @@
 
   loadProducts();
   window.addEventListener("languagechange", render);
+
+  // ----- İLETİŞİM (telefon/e-posta/adres) — site_settings override -----
+  function formatTrPhoneDisplay(raw){
+    if (!raw) return raw;
+    const digits = String(raw).replace(/\D/g, "");
+    const m = digits.match(/^(?:90)?(\d{3})(\d{3})(\d{2})(\d{2})$/);
+    if (m) return "+90 " + m[1] + " " + m[2] + " " + m[3] + " " + m[4];
+    return raw;
+  }
+  async function loadSiteContactSettings(){
+    try {
+      const { data, error } = await supabase
+        .from("site_settings")
+        .select("setting_key, setting_value")
+        .in("setting_key", ["contact_phone", "contact_email", "contact_address"]);
+      if (error || !data) return;
+      const map = Object.fromEntries(data.map(s => [s.setting_key, (s.setting_value || "").trim()]));
+      if (map.contact_phone) map.contact_phone_display = formatTrPhoneDisplay(map.contact_phone);
+      document.querySelectorAll("[data-setting]").forEach(el => {
+        const key = el.dataset.setting;
+        const val = (key === "contact_phone" && map.contact_phone_display) ? map.contact_phone_display : map[key];
+        if (val) el.textContent = val;
+      });
+      if (map.contact_phone){
+        const telDigits = map.contact_phone.replace(/[^\d+]/g, "");
+        if (telDigits){
+          document.querySelectorAll('[data-setting-href="tel"]').forEach(a => {
+            a.href = "tel:" + telDigits;
+          });
+        }
+      }
+    } catch (e) { /* HTML fallback */ }
+  }
+  loadSiteContactSettings();
 </script>
 </body></html>
