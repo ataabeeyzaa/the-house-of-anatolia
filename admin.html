@@ -306,6 +306,55 @@
       .settings-grid{grid-template-columns:1fr}
     }
 
+    .settings-group{
+      margin-bottom:28px;
+      padding-bottom:24px;
+      border-bottom:1px solid rgba(255,255,255,.08);
+    }
+    .settings-group:last-of-type{
+      border-bottom:none;
+      margin-bottom:0;
+      padding-bottom:0;
+    }
+    .settings-group-head{
+      margin-bottom:14px;
+    }
+    .settings-group-head h4{
+      margin:0 0 6px;
+      font-family:'Plus Jakarta Sans',sans-serif;
+      font-size:.78rem;
+      font-weight:700;
+      letter-spacing:.22em;
+      text-transform:uppercase;
+      color:var(--gold-soft);
+    }
+    .settings-group-hint{
+      margin:0;
+      color:var(--muted);
+      font-size:.85rem;
+      line-height:1.55;
+    }
+
+    .frontend-info{
+      display:inline-block;
+      margin-top:8px;
+      padding:4px 10px;
+      border-radius:999px;
+      font-size:.74rem;
+      letter-spacing:.04em;
+      line-height:1.3;
+    }
+    .frontend-info.ok{
+      background:rgba(185,246,202,.10);
+      color:var(--ok);
+      border:1px solid rgba(185,246,202,.22);
+    }
+    .frontend-info.warn{
+      background:rgba(255,180,169,.10);
+      color:var(--danger);
+      border:1px solid rgba(255,180,169,.22);
+    }
+
     .field-upload-row{
       display:grid;
       grid-template-columns:1fr auto auto;
@@ -929,18 +978,15 @@
             <button id="refresh-homepage-btn" class="secondary" type="button">Ana Sayfayı Yenile</button>
           </div>
           <div class="section-body">
-            <div class="note">
-              Burada yaptığın değişikliklerin ana sayfaya yansıması için bir sonraki adımda <strong>index.html</strong> dosyasını bu ayarları okuyacak hale getireceğiz.
-            </div>
-
             <h3>Site Ayarları</h3>
+            <p class="muted">Telefon, e-posta, adres ve diğer site geneli bilgiler. Bu alanları değiştirip kaydedince anasayfa, ürün ve ürünler sayfasındaki iletişim bölümlerine otomatik yansır.</p>
             <div id="site-settings-manager">Yükleniyor...</div>
 
             <div class="subsection">
               <div class="part-list-title">
                 <div>
                   <h3>Ana Sayfa Bölümleri</h3>
-                  <p class="muted">Hakkımızda, vizyon ve iletişim gibi bölümlerin başlık/metinlerini düzenle.</p>
+                  <p class="muted">Anasayfadaki <strong>Hikayemiz</strong> (about) bölümünün başlık ve metnini buradan düzenleyebilirsin. Diğer satırlar (varsa) frontend'de gösterilmiyor — kullanılmıyorsa silebilirsin.</p>
                 </div>
                 <button type="button" id="add-home-section-btn">Yeni Bölüm Ekle</button>
               </div>
@@ -2098,20 +2144,47 @@
         return;
       }
 
+      // Setting'leri 3 gruba böl: İletişim, Sosyal Medya, Genel
+      const contactKeys = ["contact_phone", "contact_email", "contact_address", "contact_whatsapp"];
+      const socialKeys  = ["instagram_url", "facebook_url", "twitter_url", "youtube_url"];
+      const isContact = (k) => contactKeys.includes(k);
+      const isSocial  = (k) => socialKeys.includes(k) || k.endsWith("_url");
+      const contactGroup = data.filter(s => isContact(s.setting_key));
+      const socialGroup  = data.filter(s => !isContact(s.setting_key) && isSocial(s.setting_key));
+      const generalGroup = data.filter(s => !isContact(s.setting_key) && !isSocial(s.setting_key));
+
+      function renderField(setting){
+        return `
+          <div class="${setting.setting_type === "textarea" ? "full" : ""}">
+            <label>${escapeHtml(setting.label || setting.setting_key)}</label>
+            ${setting.setting_type === "textarea"
+              ? `<textarea name="${escapeHtml(setting.setting_key)}">${escapeHtml(setting.setting_value || "")}</textarea>`
+              : `<input name="${escapeHtml(setting.setting_key)}" value="${escapeHtml(setting.setting_value || "")}">`
+            }
+            <div class="tiny-help"><code>${escapeHtml(setting.setting_key)}</code></div>
+          </div>
+        `;
+      }
+      function renderGroup(title, hint, items){
+        if (!items.length) return "";
+        return `
+          <div class="settings-group">
+            <div class="settings-group-head">
+              <h4>${escapeHtml(title)}</h4>
+              ${hint ? `<p class="settings-group-hint">${escapeHtml(hint)}</p>` : ""}
+            </div>
+            <div class="settings-grid">
+              ${items.map(renderField).join("")}
+            </div>
+          </div>
+        `;
+      }
+
       siteSettingsManager.innerHTML = `
         <form id="site-settings-form" class="settings-edit-panel">
-          <div class="settings-grid">
-            ${data.map(setting => `
-              <div class="${setting.setting_type === "textarea" ? "full" : ""}">
-                <label>${escapeHtml(setting.label || setting.setting_key)}</label>
-                ${setting.setting_type === "textarea"
-                  ? `<textarea name="${escapeHtml(setting.setting_key)}">${escapeHtml(setting.setting_value || "")}</textarea>`
-                  : `<input name="${escapeHtml(setting.setting_key)}" value="${escapeHtml(setting.setting_value || "")}">`
-                }
-                <div class="tiny-help"><code>${escapeHtml(setting.setting_key)}</code></div>
-              </div>
-            `).join("")}
-          </div>
+          ${renderGroup("İletişim Bilgileri", "Telefon, e-posta ve adres — site genelinde tüm iletişim alanlarına otomatik yansır.", contactGroup)}
+          ${renderGroup("Sosyal Medya", "Profil URL'leri (boş bırakılırsa link gösterilmez).", socialGroup)}
+          ${renderGroup("Genel Ayarlar", "Site adı, slogan, footer yazısı gibi diğer bilgiler.", generalGroup)}
 
           <div class="actions">
             <button type="submit">Site Ayarlarını Kaydet</button>
@@ -2171,13 +2244,25 @@
         return;
       }
 
+      // Frontend'in hangi section_key'leri okuduğunu burada tanıt
+      const FRONTEND_USED = {
+        about: { label: "Anasayfa → Hikayemiz bölümü", used: true }
+      };
+      function frontendInfo(key){
+        const info = FRONTEND_USED[key];
+        if (info && info.used){
+          return `<div class="frontend-info ok">✓ ${escapeHtml(info.label)}</div>`;
+        }
+        return `<div class="frontend-info warn">⚠️ Bu bölüm anasayfada gösterilmiyor — silebilirsin</div>`;
+      }
+
       homepageSectionsManager.innerHTML = `
         <table>
           <thead>
             <tr>
               <th>Sıra</th>
               <th>Bölüm</th>
-              <th>Başlık</th>
+              <th>Başlık & Frontend Kullanımı</th>
               <th>Durum</th>
               <th>İşlem</th>
             </tr>
@@ -2190,6 +2275,7 @@
                 <td>
                   <strong>${escapeHtml(section.title || "-")}</strong><br>
                   <span class="muted">${escapeHtml(section.subtitle || "")}</span>
+                  ${frontendInfo(section.section_key)}
                 </td>
                 <td><span class="pill">${section.is_active ? "Aktif" : "Pasif"}</span></td>
                 <td>
