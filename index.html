@@ -1686,7 +1686,7 @@
   <div class="nav-center">
     <ul class="nav-links">
       <li><a href="#home" data-i18n="nav_home">Ana Sayfa</a></li>
-      <li><a href="#about" data-i18n="nav_about">Hakkımızda</a></li>
+      <li><a href="#about" data-i18n="nav_about">Hikayemiz</a></li>
       <li><a href="products.html" data-i18n="nav_products">Ürünler</a></li>
       <li><a href="#contact" data-i18n="nav_contact">İletişim</a></li>
     </ul>
@@ -1717,7 +1717,7 @@
 ************* Free for Commercial Use, full terms at  https://simplemaps.com/resources/svg-license ************
 ************* Attribution is appreciated! https://simplemaps.com *******************************************-->
 
-<svg baseprofile="tiny" fill="#6f9c76" height="auto" stroke="#ffffff" stroke-linecap="round" stroke-linejoin="round" stroke-width=".5" version="1.2" viewbox="0 0 1000 422" width="100%" xmlns="http://www.w3.org/2000/svg">
+<svg baseprofile="tiny" fill="#6f9c76" stroke="#ffffff" stroke-linecap="round" stroke-linejoin="round" stroke-width=".5" version="1.2" viewbox="0 0 1000 422" width="100%" xmlns="http://www.w3.org/2000/svg">
  <g id="features">
   <path d="M889.7 82.2l-3.1 1.1-4.8 2.7-7.7 3.3-7.8 3.3-5.7 3-1.1 4.8-0.7 7.5-0.9 4.5-5.7 0.6-5.5 1.1-1.4-2.6-1.9-1.9-1.4-2.1-1-2.4-1.3-1.7-1.8-1.2-2.4-3.7-1-4.9 3-5.9 4.1-4.6 4-2 1.2-4.2-1.3-4.4-0.9-2.3-0.4-0.7-0.5-1.5-0.3-2.7-0.7-3.6 0.5 0 1-0.7 1.4-2.2 1.1-1 0.5-1.1 0.4-2.6 0.5-1 0.9-0.8 0.1 0 0.2 0 0.9-0.4 2.4-0.2 6.7 0.6 0.9 0.4-0.4 0.6-0.1 0.7-0.1 0.6-0.2 0.6-0.4 0.4-1 0.8-0.4 0.7 1.3 0.7 0.9 1 0.9 0.3 1.1-1.4 0.7-0.4 0.3 0.4 0.3 0.8 0.4 0.7 0.3 0.3 1.4 0.4 0.3 0.3 0.2 0.3 0.2 0.2 0.5 0.2 0.3 0.4 1.4 2.7 0.7 0.8 3.5 2.4 2.3 2 1.5 0.7 1.4 0.2 0 0.3-0.6 0.9-0.7 0.6-2.6 1.3 1.3 0.4 1.1-0.1 0.9 0.1 1 1.1 1.1 2.8 0.7 0.5 4.4-1.2 1.3-0.1 1.5 0.4 1.3 0.8 1.3 1.2 0.7 1.5-0.5 1.6z" id="TR75" name="Ardahan">
   </path>
@@ -2140,7 +2140,8 @@
             <h3 class="nl-title" data-i18n="footer_newsletter_title">Bültenimize Katılın</h3>
             <p class="nl-desc" data-i18n="footer_newsletter_desc">Yeni şehirler ve ürünler eklendiğinde haberdar olun.</p>
             <form id="newsletter-form" novalidate>
-              <input type="email" required data-i18n-attr="placeholder:footer_newsletter_placeholder" placeholder="E-posta adresiniz" maxlength="200" autocomplete="email">
+              <label for="newsletter-email" class="sr-only" data-i18n="footer_newsletter_placeholder">E-posta adresiniz</label>
+              <input id="newsletter-email" name="email" type="email" required data-i18n-attr="placeholder:footer_newsletter_placeholder" placeholder="E-posta adresiniz" maxlength="200" autocomplete="email">
               <button type="submit" data-i18n="footer_newsletter_button">Abone Ol</button>
             </form>
             <p id="newsletter-status" class="newsletter-status" aria-live="polite"></p>
@@ -2164,7 +2165,7 @@
         <h4 data-i18n="footer_links_title">Sayfalar</h4>
         <ul>
           <li><a href="#home" data-i18n="nav_home">Ana Sayfa</a></li>
-          <li><a href="#about" data-i18n="nav_about">Hakkımızda</a></li>
+          <li><a href="#about" data-i18n="nav_about">Hikayemiz</a></li>
           <li><a href="products.html" data-i18n="nav_products">Ürünler</a></li>
           <li><a href="#contact" data-i18n="nav_contact">İletişim</a></li>
         </ul>
@@ -2198,7 +2199,7 @@
     <div class="nav-overlay-section">
       <div class="nav-overlay-eyebrow" data-i18n="overlay_pages_title">SAYFALAR</div>
       <a href="index.html#home" class="nav-overlay-link" data-nav-close data-i18n="nav_home">Ana Sayfa</a>
-      <a href="index.html#about" class="nav-overlay-link" data-nav-close data-i18n="nav_about">Hakkımızda</a>
+      <a href="index.html#about" class="nav-overlay-link" data-nav-close data-i18n="nav_about">Hikayemiz</a>
       <a href="index.html#contact" class="nav-overlay-link" data-nav-close data-i18n="nav_contact">İletişim</a>
     </div>
 
@@ -2237,7 +2238,7 @@
 
       // Navbar
       nav_home: "Ana Sayfa",
-      nav_about: "Hakkımızda",
+      nav_about: "Hikayemiz",
       nav_products: "Ürünler",
       nav_contact: "İletişim",
 
@@ -2321,7 +2322,7 @@
 
       // Navbar
       nav_home: "Home",
-      nav_about: "About",
+      nav_about: "Our Story",
       nav_products: "Products",
       nav_contact: "Contact",
 
