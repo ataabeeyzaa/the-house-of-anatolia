@@ -1401,43 +1401,62 @@
     // (Eski default metinler temizlendi.)
 
     const partCards = document.querySelector(".parts-cards");
+    const partsSection = document.getElementById("parts");
     if (partCards) {
       const parts = sortByOrder(product.product_parts).filter(item => item.is_active);
-      partCards.innerHTML = parts.map((part, index) => `
-        <article class="part-card">
-          <div class="part-top">
-            <span class="part-no">${String(index + 1).padStart(2, "0")}</span>
-            <h3 class="part-title">${escapeHtml(part.title)}</h3>
-            <span class="part-kicker">${escapeHtml(part.subtitle || "")}</span>
-          </div>
-          <p>${escapeHtml(part.description)}</p>
-        </article>
-      `).join("");
+      if (parts.length === 0 && partsSection) {
+        // DB'de bu ürün için bölüm yok — section'u tamamen gizle (başlık tek başına kalmasın)
+        partsSection.style.display = "none";
+      } else {
+        if (partsSection) partsSection.style.display = "";
+        partCards.innerHTML = parts.map((part, index) => `
+          <article class="part-card">
+            <div class="part-top">
+              <span class="part-no">${String(index + 1).padStart(2, "0")}</span>
+              <h3 class="part-title">${escapeHtml(part.title)}</h3>
+              <span class="part-kicker">${escapeHtml(part.subtitle || "")}</span>
+            </div>
+            <p>${escapeHtml(part.description)}</p>
+          </article>
+        `).join("");
+      }
     }
 
     const usageGrid = document.querySelector(".usage-grid");
+    const usageSection = document.getElementById("usage");
     if (usageGrid) {
       const steps = sortByOrder(product.usage_steps).filter(item => item.is_active);
-      usageGrid.innerHTML = steps.map((step, index) => `
-        <article class="usage-step">
-          <div class="usage-no">${String(index + 1).padStart(2, "0")}</div>
-          <div class="usage-line"></div>
-          <h3>${escapeHtml(step.title)}</h3>
-          <p>${escapeHtml(step.description)}</p>
-        </article>
-      `).join("");
+      if (steps.length === 0 && usageSection) {
+        usageSection.style.display = "none";
+      } else {
+        if (usageSection) usageSection.style.display = "";
+        usageGrid.innerHTML = steps.map((step, index) => `
+          <article class="usage-step">
+            <div class="usage-no">${String(index + 1).padStart(2, "0")}</div>
+            <div class="usage-line"></div>
+            <h3>${escapeHtml(step.title)}</h3>
+            <p>${escapeHtml(step.description)}</p>
+          </article>
+        `).join("");
+      }
     }
 
     const galleryTrack = document.querySelector(".gallery-track");
+    const gallerySection = document.getElementById("gallery");
     if (galleryTrack) {
       const gallery = sortByOrder(product.gallery_images).filter(item => item.is_active);
-      const doubled = [...gallery, ...gallery];
-      galleryTrack.innerHTML = doubled.map((image, index) => `
-        <figure class="gallery-item">
-          <img src="${escapeHtml(image.image)}" alt="${escapeHtml(image.caption || product.name)} ${index + 1}">
-          <figcaption class="gallery-tag">${escapeHtml(image.caption || product.short_name || product.name)}</figcaption>
-        </figure>
-      `).join("");
+      if (gallery.length === 0 && gallerySection) {
+        gallerySection.style.display = "none";
+      } else {
+        if (gallerySection) gallerySection.style.display = "";
+        const doubled = [...gallery, ...gallery];
+        galleryTrack.innerHTML = doubled.map((image, index) => `
+          <figure class="gallery-item">
+            <img src="${escapeHtml(image.image)}" alt="${escapeHtml(image.caption || product.name)} ${index + 1}">
+            <figcaption class="gallery-tag">${escapeHtml(image.caption || product.short_name || product.name)}</figcaption>
+          </figure>
+        `).join("");
+      }
     }
 
     renderRequestForm(product);
