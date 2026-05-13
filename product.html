@@ -1293,6 +1293,91 @@
     }
   }
 
+  // ----- OTOMATİK ARKA PLAN KALDIRMA (parts-visual için) -----
+  // Görselin sol-üst köşesindeki renk referans alınır (genelde beyaz/açık arka plan).
+  // Kenarlardan flood fill ile o renge yakın pixeller (tolerans 35) alpha=0 yapılır.
+  // İç kısımlardaki aynı renkler korunur çünkü flood o noktalara ulaşmaz.
+  // Sonuç: canvas → data URL → img.src. Tek seferlik ~100-200ms işlem.
+  async function autoRemoveBg(imgUrl, tolerance = 35) {
+    return new Promise((resolve, reject) => {
+      const img = new Image();
+      img.crossOrigin = "anonymous";
+      img.onerror = reject;
+      img.onload = () => {
+        try {
+          const canvas = document.createElement("canvas");
+          canvas.width = img.naturalWidth;
+          canvas.height = img.naturalHeight;
+          const ctx = canvas.getContext("2d");
+          ctx.drawImage(img, 0, 0);
+          const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+          const data = imageData.data;
+          const w = canvas.width, h = canvas.height;
+
+          // Referans rengi: 4 köşenin ortalaması (daha sağlam tahmin)
+          const corners = [[0,0],[w-1,0],[0,h-1],[w-1,h-1]];
+          let rSum = 0, gSum = 0, bSum = 0;
+          for (const [x, y] of corners) {
+            const i = (y * w + x) * 4;
+            rSum += data[i]; gSum += data[i+1]; bSum += data[i+2];
+          }
+          const refR = rSum / 4, refG = gSum / 4, refB = bSum / 4;
+
+          const isBackground = (r, g, b) =>
+            Math.abs(r - refR) <= tolerance &&
+            Math.abs(g - refG) <= tolerance &&
+            Math.abs(b - refB) <= tolerance;
+
+          // BFS flood fill kenarlardan
+          const visited = new Uint8Array(w * h);
+          const queue = new Int32Array(w * h * 2);
+          let qHead = 0, qTail = 0;
+
+          const enqueue = (x, y) => {
+            if (x < 0 || x >= w || y < 0 || y >= h) return;
+            const idx = y * w + x;
+            if (visited[idx]) return;
+            visited[idx] = 1;
+            queue[qTail++] = x;
+            queue[qTail++] = y;
+          };
+
+          for (let x = 0; x < w; x++) { enqueue(x, 0); enqueue(x, h - 1); }
+          for (let y = 0; y < h; y++) { enqueue(0, y); enqueue(w - 1, y); }
+
+          while (qHead < qTail) {
+            const x = queue[qHead++], y = queue[qHead++];
+            const i = (y * w + x) * 4;
+            if (isBackground(data[i], data[i+1], data[i+2])) {
+              data[i+3] = 0; // şeffaf
+              enqueue(x+1, y); enqueue(x-1, y);
+              enqueue(x, y+1); enqueue(x, y-1);
+            }
+          }
+
+          ctx.putImageData(imageData, 0, 0);
+          resolve(canvas.toDataURL("image/png"));
+        } catch (e) {
+          reject(e);
+        }
+      };
+      img.src = imgUrl;
+    });
+  }
+
+  // Parts visual için arka planı kaldır (asenkron, başarısız olursa orijinal kalır)
+  async function applyBgRemoval(selector) {
+    const img = document.querySelector(selector);
+    if (!img || !img.src) return;
+    try {
+      const processed = await autoRemoveBg(img.src);
+      img.src = processed;
+    } catch (e) {
+      // CORS veya başka hata — orijinal görsel kalır, fallback OK
+      // console.warn("Arka plan kaldırma başarısız:", e);
+    }
+  }
+
   async function loadProduct() {
     const { data: product, error } = await supabase
       .from("products")
@@ -1396,6 +1481,8 @@
     setText(".hero-subtitle", product.hero_subtitle || "");
 
     setImage(".parts-visual img", product.parts_main_image || product.hero_image, product.name);
+    // Bölümler bölümündeki ana görselin arka planını otomatik kaldır (beyaz/açık zemin → şeffaf)
+    applyBgRemoval(".parts-visual img");
 
     // Parts başlık/açıklaması artık göstermiyoruz — sadece "BÖLÜMLER" eyebrow'u kalır.
     // (Eski default metinler temizlendi.)
