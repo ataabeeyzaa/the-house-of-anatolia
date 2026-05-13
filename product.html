@@ -104,6 +104,25 @@
       radial-gradient(circle at 80% 10%, rgba(210,161,47,.07), transparent 22%),
       linear-gradient(180deg, #090706 0%, #0d0b09 58%, #090706 100%);
       color:var(--text);overflow-x:hidden;width:100%;max-width:100vw}
+
+    /* "Flash of wrong content" engelleme — HTML'deki hardcoded Safran içeriği,
+       JS Supabase'den doğru ürünü yüklemeden önce 0.5-1.5sn görünüyordu.
+       Loading sırasında ürün-bağımlı section'lar opacity 0; renderProduct()
+       tamamlanınca body.product-loading class kalkar ve fade-in olur. */
+    body.product-loading .subhero,
+    body.product-loading #parts,
+    body.product-loading #usage,
+    body.product-loading #gallery,
+    body.product-loading #contact{
+      opacity:0;
+    }
+    .subhero, #parts, #usage, #gallery, #contact{
+      transition: opacity .35s ease;
+    }
+    @media (prefers-reduced-motion: reduce){
+      .subhero, #parts, #usage, #gallery, #contact{ transition:none }
+    }
+
     a{text-decoration:none;color:inherit}
     img{display:block;max-width:100%}
     .container{width:min(calc(100% - 48px), var(--max));margin:0 auto}
@@ -886,7 +905,7 @@
     }
 
 </style></head>
-<body>
+<body class="product-loading">
 <a class="skip-link" href="#main-content">İçeriğe atla</a>
 <header class="navbar detail-nav"><div class="container nav-inner">
   <div class="nav-left">
@@ -1464,6 +1483,7 @@
           </div>
         </section>
       `;
+      document.body.classList.remove("product-loading");
       return;
     }
 
@@ -1548,6 +1568,9 @@
 
     renderRequestForm(product);
     setupLightbox();
+
+    // Tüm doğru içerik DOM'a yazıldı → fade-in tetikle (flash of wrong content fix)
+    document.body.classList.remove("product-loading");
   }
 
   function renderRequestForm(product) {
@@ -1885,6 +1908,9 @@
   }
 
   loadProduct();
+
+  // Safety net: 3 sn sonra hâlâ loading class kalmışsa zorla kaldır (kullanıcı boş ekran kalmasın)
+  setTimeout(() => document.body.classList.remove("product-loading"), 3000);
 
   // ----- İLETİŞİM (telefon/e-posta/adres) — site_settings override -----
   function formatTrPhoneDisplay(raw){
