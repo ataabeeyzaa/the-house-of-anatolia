@@ -694,7 +694,11 @@
     @media (max-width: 640px){
       .brand{font-size:2rem}
       .nav-btn{min-height:44px;padding:0 18px;font-size:.86rem}
-      .hero-title-group{gap:4px}.hero-word-part{font-size:clamp(2.8rem,17vw,5.3rem);letter-spacing:.05em;text-shadow:5px 7px 0 rgba(122,74,34,.65),0 14px 24px rgba(0,0,0,.34)}.hero-flower-slot{width:min(22vw,200px);min-width:120px;transform:translateY(4px);margin:0 -10px}
+      .hero-title-group{gap:4px;flex-wrap:nowrap;max-width:100%;overflow:hidden}
+      .hero-word-part{font-size:clamp(2rem,11vw,4.5rem);letter-spacing:.02em;text-shadow:5px 7px 0 rgba(122,74,34,.65),0 14px 24px rgba(0,0,0,.34);min-width:0}
+      .hero-flower-slot{width:min(20vw,150px);min-width:80px;transform:translateY(4px);margin:0 -8px}
+      /* Uzun kelimeler için ek küçültme — "SARIMSAĞI" gibi 8+ harfli kelimeler */
+      .hero-word-part.is-long{font-size:clamp(1.5rem,8vw,3.5rem);letter-spacing:.01em}
       .hero-subtitle{font-size:clamp(1.8rem,7vw,2.4rem)}
       .progress-pill{width:46px;height:46px}
       .title{font-size:clamp(2.2rem,12vw,3.1rem)}
@@ -1497,7 +1501,14 @@
     setText(".subhero h1", product.hero_title || product.name);
     setText(".hero-word-part:first-child", product.hero_left_text || "");
     setText(".hero-word-part:last-child", product.hero_right_text || "");
+    // Uzun kelimeler için (mobilde sığsın diye) is-long class
+    document.querySelectorAll(".hero-word-part").forEach(el => {
+      const len = (el.textContent || "").length;
+      el.classList.toggle("is-long", len >= 5);
+    });
     setImage(".hero-flower", product.hero_image, product.short_name || product.name);
+    // Hero görseli için de arka plan kaldırma (admin'den yüklenen beyaz zeminli PNG'ler için)
+    applyBgRemoval(".hero-flower");
     setText(".hero-subtitle", product.hero_subtitle || "");
 
     setImage(".parts-visual img", product.parts_main_image || product.hero_image, product.name);
@@ -1603,6 +1614,20 @@
             </span>
           </label>
         `).join("");
+        // Ürün tipi seçici thumbnail'leri için arka plan kaldırma
+        grid.querySelectorAll(".selector-thumb img").forEach(async (img, idx) => {
+          if (!img.src) return;
+          try {
+            // Image load tamamlanmasını bekle, sonra bg remove
+            if (!img.complete) {
+              await new Promise(r => img.addEventListener("load", r, { once: true }));
+            }
+            const processed = await autoRemoveBg(img.src);
+            img.src = processed;
+          } catch (e) {
+            // CORS veya hata — orijinal kalır
+          }
+        });
       }
     }
 
