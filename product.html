@@ -1507,13 +1507,12 @@
       el.classList.toggle("is-long", len >= 5);
     });
     setImage(".hero-flower", product.hero_image, product.short_name || product.name);
-    // Hero görseli için de arka plan kaldırma (admin'den yüklenen beyaz zeminli PNG'ler için)
-    applyBgRemoval(".hero-flower");
     setText(".hero-subtitle", product.hero_subtitle || "");
 
     setImage(".parts-visual img", product.parts_main_image || product.hero_image, product.name);
-    // Bölümler bölümündeki ana görselin arka planını otomatik kaldır (beyaz/açık zemin → şeffaf)
-    applyBgRemoval(".parts-visual img");
+    // NOT: Otomatik arka plan kaldırma kaldırıldı (canvas algoritması karmaşık
+    // görsellerde yetersiz sonuç veriyordu). Bunun yerine kullanıcı admin'e
+    // görseli yüklemeden ÖNCE remove.bg / Photoshop ile transparent PNG yapmalı.
 
     // Parts başlık/açıklaması artık göstermiyoruz — sadece "BÖLÜMLER" eyebrow'u kalır.
     // (Eski default metinler temizlendi.)
@@ -1614,20 +1613,6 @@
             </span>
           </label>
         `).join("");
-        // Ürün tipi seçici thumbnail'leri için arka plan kaldırma
-        grid.querySelectorAll(".selector-thumb img").forEach(async (img, idx) => {
-          if (!img.src) return;
-          try {
-            // Image load tamamlanmasını bekle, sonra bg remove
-            if (!img.complete) {
-              await new Promise(r => img.addEventListener("load", r, { once: true }));
-            }
-            const processed = await autoRemoveBg(img.src);
-            img.src = processed;
-          } catch (e) {
-            // CORS veya hata — orijinal kalır
-          }
-        });
       }
     }
 

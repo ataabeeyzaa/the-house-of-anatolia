@@ -3132,24 +3132,32 @@
     if (!__aboutCache) return;
     const lang = (window.HA_I18N?.current || "tr");
     const pickField = (tr, en) => (lang === "en" && en) ? en : tr;
+    const i18nFallback = (key) => window.HA_I18N?.t(key) || "";
 
     const title = pickField(__aboutCache.title, __aboutCache.title_en);
     const subtitle = pickField(__aboutCache.subtitle, __aboutCache.subtitle_en);
     const content = pickField(__aboutCache.content, __aboutCache.content_en);
 
     const titleEl = document.querySelector(".home-about .title");
-    if (titleEl && title){
-      // Slogan i18n marker '*X*' patternini koru
-      if (title.includes("*")){
-        const parts = title.split(/\*([^*]+)\*/g);
-        titleEl.innerHTML = parts.map((p, i) => i % 2 === 1 ? '<em class="gold-accent">' + escHtml(p) + '</em>' : escHtml(p)).join("");
+    if (titleEl){
+      if (title){
+        // DB'de değer var — kullan
+        if (title.includes("*")){
+          const parts = title.split(/\*([^*]+)\*/g);
+          titleEl.innerHTML = parts.map((p, i) => i % 2 === 1 ? '<em class="gold-accent">' + escHtml(p) + '</em>' : escHtml(p)).join("");
+        } else {
+          titleEl.textContent = title;
+        }
       } else {
-        titleEl.textContent = title;
+        // DB boş — i18n fallback DOĞRU dil ile uygula (textContent güncelle)
+        const fb = i18nFallback("about_title");
+        if (fb.includes("*")){
+          const parts = fb.split(/\*([^*]+)\*/g);
+          titleEl.innerHTML = parts.map((p, i) => i % 2 === 1 ? '<em class="gold-accent">' + escHtml(p) + '</em>' : escHtml(p)).join("");
+        } else {
+          titleEl.textContent = fb;
+        }
       }
-      titleEl.removeAttribute("data-i18n"); // DB değeri var, i18n override etmesin
-    } else if (titleEl) {
-      // DB title boş — i18n fallback için data-i18n eski hâline döndür
-      if (!titleEl.hasAttribute("data-i18n")) titleEl.setAttribute("data-i18n", "about_title");
     }
 
     const narrative = document.querySelector(".about-narrative");
@@ -3157,22 +3165,23 @@
     const existingP = narrative.querySelectorAll("p");
 
     // existingP[0] = drop-cap = subtitle
-    if (existingP[0] && subtitle){
-      existingP[0].textContent = subtitle;
-      existingP[0].removeAttribute("data-i18n");
-    } else if (existingP[0]) {
-      if (!existingP[0].hasAttribute("data-i18n")) existingP[0].setAttribute("data-i18n", "about_p1");
+    if (existingP[0]){
+      existingP[0].textContent = subtitle || i18nFallback("about_p1");
     }
 
-    // existingP[1+] = content paragrafları
+    // existingP[1+] = content paragrafları — DB content varsa kullan, yoksa i18n fallback
     if (content){
       const paragraphs = String(content).split(/\n\s*\n/).map(s => s.trim()).filter(Boolean);
       paragraphs.forEach((text, idx) => {
         const target = existingP[idx + 1];
-        if (target){
-          target.textContent = text;
-          target.removeAttribute("data-i18n");
-        }
+        if (target) target.textContent = text;
+      });
+    } else {
+      // DB content yok — i18n fallback uygula
+      const fallbackKeys = ["about_p2", "about_p3", "about_p4", "about_p5"];
+      fallbackKeys.forEach((key, idx) => {
+        const target = existingP[idx + 1];
+        if (target) target.textContent = i18nFallback(key);
       });
     }
   }
