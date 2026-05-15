@@ -149,9 +149,22 @@
     .nav-cta-wrap{display:flex;justify-content:flex-end;align-items:center;gap:12px}
     .nav-btn{display:inline-flex;align-items:center;justify-content:center;min-height:50px;padding:0 26px;background:var(--gold);color:#24170a;border-radius:2px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;box-shadow:0 8px 20px rgba(210,161,47,.22)}
     .nav-btn.secondary{background:transparent;border:1px solid rgba(53,43,35,.22);box-shadow:none;color:#352b23}
-    .lang-switcher{display:inline-flex;border:1px solid rgba(53,43,35,.22);border-radius:99px;overflow:hidden;background:transparent}
-    .lang-switcher button{padding:8px 16px;background:transparent;border:0;color:#352b23;font-family:'Plus Jakarta Sans',sans-serif;font-size:.78rem;font-weight:600;letter-spacing:.06em;cursor:pointer;text-transform:uppercase}
-    .lang-switcher button.active{background:#231b15;color:var(--cream)}
+    .lang-switcher{
+      display:inline-flex;align-items:center;gap:2px;
+      background:rgba(35,27,21,.06);border:1px solid rgba(35,27,21,.12);
+      border-radius:30px;padding:3px;margin-right:14px;
+    }
+    .lang-switcher button{
+      background:transparent;border:none;padding:6px 12px;
+      font-family:'Plus Jakarta Sans',sans-serif;font-size:.78rem;font-weight:600;
+      letter-spacing:.08em;color:#7a6b5c;cursor:pointer;border-radius:30px;transition:.2s ease;
+    }
+    .lang-switcher button:hover{ color:#231b15; }
+    .lang-switcher button.active{ background:#231b15;color:var(--cream); }
+    @media (max-width:760px){
+      .lang-switcher{margin-right:8px;}
+      .lang-switcher button{padding:5px 9px;font-size:.72rem;}
+    }
 
     /* HERO */
     .hero{position:relative;min-height:100vh;display:flex;align-items:center;justify-content:center;overflow:hidden;background:
@@ -925,41 +938,41 @@
     </a>
   </div>
   <div class="nav-center"><ul class="nav-links">
-    <li><a href="#parts">Kısımlar</a></li><li><a href="#usage">Nasıl Kullanılır</a></li><li><a href="#gallery">Galeri</a></li><li><a href="#contact">İletişim</a></li>
+    <li><a href="#parts" data-i18n="nav_parts">Kısımlar</a></li><li><a href="#usage" data-i18n="nav_usage">Nasıl Kullanılır</a></li><li><a href="#gallery" data-i18n="nav_gallery">Galeri</a></li><li><a href="#contact" data-i18n="nav_contact">İletişim</a></li>
   </ul></div>
   <div class="nav-cta-wrap">
     <div class="lang-switcher" role="group" aria-label="Dil seçici / Language switcher">
       <button type="button" data-lang="tr" class="active" aria-label="Türkçe">TR</button>
       <button type="button" data-lang="en" aria-label="English">EN</button>
     </div>
-    <a href="index.html#map" class="nav-btn secondary">Haritaya Dön</a>
-    <a href="#contact" class="nav-btn">Teklif Al</a>
+    <a href="index.html#map" class="nav-btn secondary" data-i18n="nav_back_map">Haritaya Dön</a>
+    <a href="#contact" class="nav-btn" data-i18n="nav_request">Teklif Al</a>
   </div>
 </div></header>
 
 <div class="nav-overlay" id="nav-overlay" role="dialog" aria-modal="true" aria-label="Site menüsü" hidden>
   <div class="nav-overlay-inner">
     <div class="nav-overlay-section">
-      <div class="nav-overlay-eyebrow">SAYFALAR</div>
-      <a href="index.html#home" class="nav-overlay-link" data-nav-close>Ana Sayfa</a>
-      <a href="index.html#about" class="nav-overlay-link" data-nav-close>Hakkımızda</a>
-      <a href="index.html#contact" class="nav-overlay-link" data-nav-close>İletişim</a>
+      <div class="nav-overlay-eyebrow" data-i18n="overlay_pages">SAYFALAR</div>
+      <a href="index.html#home" class="nav-overlay-link" data-nav-close data-i18n="overlay_home">Ana Sayfa</a>
+      <a href="index.html#about" class="nav-overlay-link" data-nav-close data-i18n="overlay_about">Hakkımızda</a>
+      <a href="index.html#contact" class="nav-overlay-link" data-nav-close data-i18n="overlay_contact">İletişim</a>
     </div>
     <div class="nav-overlay-section">
-      <div class="nav-overlay-eyebrow">BU SAYFADA</div>
-      <a href="#parts" class="nav-overlay-link" data-nav-close>Kısımlar</a>
-      <a href="#usage" class="nav-overlay-link" data-nav-close>Nasıl Kullanılır</a>
-      <a href="#gallery" class="nav-overlay-link" data-nav-close>Galeri</a>
-      <a href="#contact" class="nav-overlay-link" data-nav-close>Teklif Al</a>
+      <div class="nav-overlay-eyebrow" data-i18n="overlay_thispage">BU SAYFADA</div>
+      <a href="#parts" class="nav-overlay-link" data-nav-close data-i18n="overlay_parts">Kısımlar</a>
+      <a href="#usage" class="nav-overlay-link" data-nav-close data-i18n="overlay_usage">Nasıl Kullanılır</a>
+      <a href="#gallery" class="nav-overlay-link" data-nav-close data-i18n="overlay_gallery">Galeri</a>
+      <a href="#contact" class="nav-overlay-link" data-nav-close data-i18n="overlay_request">Teklif Al</a>
     </div>
     <div class="nav-overlay-section">
-      <div class="nav-overlay-eyebrow">ÜRÜNLER</div>
-      <a href="products.html" class="nav-overlay-link" data-nav-close>Tüm Ürünler</a>
+      <div class="nav-overlay-eyebrow" data-i18n="overlay_products">ÜRÜNLER</div>
+      <a href="products.html" class="nav-overlay-link" data-nav-close data-i18n="overlay_all_products">Tüm Ürünler</a>
     </div>
     <div class="nav-overlay-foot">
       <div class="nav-overlay-legal">
-        <a href="gizlilik.html" data-nav-close>Gizlilik Politikası</a>
-        <a href="cerez.html" data-nav-close>Çerez Politikası</a>
+        <a href="gizlilik.html" data-nav-close data-i18n="overlay_privacy">Gizlilik Politikası</a>
+        <a href="cerez.html" data-nav-close data-i18n="overlay_cookies">Çerez Politikası</a>
       </div>
       <div class="lang-switcher" role="group" aria-label="Dil seçici / Language switcher" style="margin-top:18px">
         <button type="button" data-lang="tr" class="active">TR</button>
@@ -987,7 +1000,7 @@
 
 
 <section class="section" id="parts"><div class="container">
-<div class="eyebrow" style="margin-bottom:32px">BÖLÜMLER</div>
+<div class="eyebrow" style="margin-bottom:32px" data-i18n="eyebrow_parts">BÖLÜMLER</div>
 
 <div class="parts-simple">
   <div class="parts-visual">
@@ -1029,8 +1042,8 @@
 
 <section class="section usage-section" id="usage">
       <div class="container">
-        <div class="eyebrow" style="justify-content:center">Kullanım Rehberi</div>
-        <h2 class="title">Nasıl Kullanılır?</h2>
+        <div class="eyebrow" style="justify-content:center" data-i18n="usage_eyebrow">Kullanım Rehberi</div>
+        <h2 class="title" data-i18n="usage_title">Nasıl Kullanılır?</h2>
         <div class="usage-grid">
           <article class="usage-step">
             <div class="usage-no">01</div>
@@ -1063,10 +1076,10 @@
       <div class="container">
         <div class="gallery-head">
           <div>
-            <div class="eyebrow">Galeri</div>
-            <h2 class="title">Hikayesi karelerde.</h2>
+            <div class="eyebrow" data-i18n="gallery_eyebrow">Galeri</div>
+            <h2 class="title" data-i18n="gallery_title">Hikayesi karelerde.</h2>
           </div>
-          <p class="gallery-sub">Ürünün hikayesini görsellerle keşfedin.</p>
+          <p class="gallery-sub" data-i18n="gallery_sub">Ürünün hikayesini görsellerle keşfedin.</p>
         </div>
         <div class="gallery-slider">
           <div class="gallery-track" id="product-gallery-track" aria-live="polite"></div>
@@ -1097,8 +1110,8 @@
 
                 <div class="selector-group">
                   <div class="selector-head">
-                    <h4 class="selector-title">İstediğiniz Ürünü Seçin</h4>
-                    <span class="selector-note">Ürün tipini seçin</span>
+                    <h4 class="selector-title" data-i18n="selector_product_title">İstediğiniz Ürünü Seçin</h4>
+                    <span class="selector-note" data-i18n="selector_product_sub">Ürün tipini seçin</span>
                   </div>
                   <div class="selector-grid">
                     <label class="selector-option">
@@ -1131,7 +1144,7 @@
                 <div class="request-fields">
                   <div class="form-row triple">
                     <div>
-                      <label for="gramaj-select">Gramaj</label>
+                      <label for="gramaj-select" data-i18n="form_label_weight">Gramaj</label>
                       <select name="Gramaj" id="gramaj-select" required>
                         <option value="">Seçiniz</option>
                         <option>1 gr</option>
@@ -1160,11 +1173,11 @@
                         aria-label="Gramaj özel değer">
                     </div>
                     <div>
-                      <label for="adet-input">Adet</label>
+                      <label for="adet-input" data-i18n="form_label_qty">Adet</label>
                       <input id="adet-input" type="number" name="Adet" min="1" placeholder="Örn. 50" required>
                     </div>
                     <div>
-                      <label for="talep-tipi-select">Talep Tipi</label>
+                      <label for="talep-tipi-select" data-i18n="form_label_request_type">Talep Tipi</label>
                       <select id="talep-tipi-select" name="Talep Tipi">
                         <option>Bireysel Alım</option>
                         <option>Kurumsal / Toplu Alım</option>
@@ -1176,33 +1189,33 @@
 
                   <div class="form-row">
                     <div>
-                      <label for="adsoyad-input">Ad Soyad</label>
+                      <label for="adsoyad-input" data-i18n="form_label_name">Ad Soyad</label>
                       <input id="adsoyad-input" type="text" name="Ad Soyad" placeholder="Adınız Soyadınız" required>
                     </div>
                     <div>
-                      <label for="firma-input">Firma / Marka</label>
+                      <label for="firma-input" data-i18n="form_label_company">Firma / Marka</label>
                       <input id="firma-input" type="text" name="Firma" placeholder="Firma Adı (opsiyonel)">
                     </div>
                   </div>
 
                   <div class="form-row">
                     <div>
-                      <label for="email-input">E-Posta</label>
+                      <label for="email-input" data-i18n="form_label_email">E-Posta</label>
                       <input id="email-input" type="email" name="E-posta" placeholder="ornek@mail.com" required>
                     </div>
                     <div>
-                      <label for="telefon-input">Telefon</label>
+                      <label for="telefon-input" data-i18n="form_label_phone">Telefon</label>
                       <input id="telefon-input" type="tel" name="Telefon" placeholder="05XX XXX XX XX" required>
                     </div>
                   </div>
 
                   <div>
-                    <label for="teslimat-input">Teslimat Şehri / Ülke</label>
+                    <label for="teslimat-input" data-i18n="form_label_delivery">Teslimat Şehri / Ülke</label>
                     <input id="teslimat-input" type="text" name="Teslimat Lokasyonu" placeholder="Örn. İstanbul / Türkiye">
                   </div>
 
                   <div>
-                    <label for="mesaj-textarea">Ek Not</label>
+                    <label for="mesaj-textarea" data-i18n="form_label_message">Ek Not</label>
                     <textarea id="mesaj-textarea" name="Mesaj" placeholder="İsterseniz teslim tarihi, kullanım amacı veya özel ambalaj notunuzu yazabilirsiniz..."></textarea>
                   </div>
                 </div>
@@ -1222,14 +1235,14 @@
         </div>
 
         <div class="contact-centered">
-          <p class="contact-intro">Talep formunun ardından ekibimiz size doğrudan dönüş sağlar.</p>
+          <p class="contact-intro" data-i18n="contact_intro">Talep formunun ardından ekibimiz size doğrudan dönüş sağlar.</p>
           <div class="contact-info-grid">
             <div class="contact-info-item">
               <span class="icon" aria-hidden="true">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-7.5 7-12a7 7 0 1 0-14 0c0 4.5 7 12 7 12z"/><circle cx="12" cy="9" r="2.5"/></svg>
               </span>
               <span class="info">
-                <span class="info-label">ADRES</span>
+                <span class="info-label" data-i18n="contact_label_address">ADRES</span>
                 <span class="info-value" data-setting="contact_address">Türkiye</span>
               </span>
             </div>
@@ -1238,7 +1251,7 @@
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
               </span>
               <span class="info">
-                <span class="info-label">TELEFON</span>
+                <span class="info-label" data-i18n="contact_label_phone">TELEFON</span>
                 <a class="info-value" href="tel:+905383310376" data-setting-href="tel" data-setting="contact_phone">+90 538 331 03 76</a>
               </span>
             </div>
@@ -1247,7 +1260,7 @@
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
               </span>
               <span class="info">
-                <span class="info-label">E-POSTA</span>
+                <span class="info-label" data-i18n="contact_label_email">E-POSTA</span>
                 <span class="info-value" data-setting="contact_email">thehouseofanatoliaco@gmail.com</span>
               </span>
             </a>
@@ -1295,7 +1308,62 @@
   const supabaseAnonKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im93Y2djeXZnaWJ5YXd4Znh3bGJuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzc5MjEyMTksImV4cCI6MjA5MzQ5NzIxOX0.ynMQBYGOMibnmeT_7bkSdWAdkEJYgZ9F6bRn5-8tkmk";
   const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
-  // ----- DİL DURUMU + SWITCHER (TR / EN) -----
+  // ----- DİL DURUMU + I18N DICT + SWITCHER (TR / EN) -----
+  const I18N = {
+    tr: {
+      doc_title: "Ürün Detayı — The House of Anatolia",
+      nav_parts: "Kısımlar", nav_usage: "Nasıl Kullanılır", nav_gallery: "Galeri", nav_contact: "İletişim",
+      nav_back_map: "Haritaya Dön", nav_request: "Teklif Al",
+      overlay_pages: "SAYFALAR", overlay_thispage: "BU SAYFADA", overlay_products: "ÜRÜNLER",
+      overlay_home: "Ana Sayfa", overlay_about: "Hakkımızda", overlay_contact: "İletişim",
+      overlay_parts: "Kısımlar", overlay_usage: "Nasıl Kullanılır", overlay_gallery: "Galeri",
+      overlay_request: "Teklif Al", overlay_all_products: "Tüm Ürünler",
+      overlay_privacy: "Gizlilik Politikası", overlay_cookies: "Çerez Politikası",
+      eyebrow_parts: "BÖLÜMLER",
+      usage_eyebrow: "Kullanım Rehberi", usage_title: "Nasıl Kullanılır?",
+      gallery_eyebrow: "Galeri", gallery_title: "Hikayesi karelerde.",
+      gallery_sub: "Ürünün hikayesini görsellerle keşfedin.",
+      contact_title: "Teklif İste",
+      contact_intro: "Talep formunun ardından ekibimiz size doğrudan dönüş sağlar.",
+      contact_label_address: "ADRES", contact_label_phone: "TELEFON", contact_label_email: "E-POSTA",
+      selector_product_title: "İstediğiniz Ürünü Seçin", selector_product_sub: "Ürün tipini seçin",
+      form_label_weight: "Gramaj", form_label_qty: "Adet", form_label_request_type: "Talep Tipi",
+      form_label_name: "Ad Soyad", form_label_company: "Firma / Marka", form_label_email: "E-Posta",
+      form_label_phone: "Telefon", form_label_delivery: "Teslimat Şehri / Ülke", form_label_message: "Ek Not",
+      form_placeholder_phone: "05XX XXX XX XX",
+      not_found_eyebrow: "Ürün bulunamadı",
+      not_found_title: "Bu ürün sayfası henüz aktif değil.",
+      not_found_desc: "Ana sayfaya dönüp aktif ürünlerden birini seçebilirsiniz.",
+      not_found_btn: "Ana Sayfaya Dön"
+    },
+    en: {
+      doc_title: "Product Detail — The House of Anatolia",
+      nav_parts: "Parts", nav_usage: "How to Use", nav_gallery: "Gallery", nav_contact: "Contact",
+      nav_back_map: "Back to Map", nav_request: "Request Quote",
+      overlay_pages: "PAGES", overlay_thispage: "ON THIS PAGE", overlay_products: "PRODUCTS",
+      overlay_home: "Home", overlay_about: "About", overlay_contact: "Contact",
+      overlay_parts: "Parts", overlay_usage: "How to Use", overlay_gallery: "Gallery",
+      overlay_request: "Request Quote", overlay_all_products: "All Products",
+      overlay_privacy: "Privacy Policy", overlay_cookies: "Cookie Policy",
+      eyebrow_parts: "PARTS",
+      usage_eyebrow: "Usage Guide", usage_title: "How to Use?",
+      gallery_eyebrow: "Gallery", gallery_title: "The story in frames.",
+      gallery_sub: "Discover the product's story through images.",
+      contact_title: "Request a Quote",
+      contact_intro: "Our team will contact you directly after you submit the form.",
+      contact_label_address: "ADDRESS", contact_label_phone: "PHONE", contact_label_email: "EMAIL",
+      selector_product_title: "Choose Your Product", selector_product_sub: "Select product type",
+      form_label_weight: "Weight", form_label_qty: "Quantity", form_label_request_type: "Request Type",
+      form_label_name: "Full Name", form_label_company: "Company / Brand", form_label_email: "Email",
+      form_label_phone: "Phone", form_label_delivery: "Delivery City / Country", form_label_message: "Additional Notes",
+      form_placeholder_phone: "+90 5XX XXX XX XX",
+      not_found_eyebrow: "Product not found",
+      not_found_title: "This product page is not yet active.",
+      not_found_desc: "Please return to the homepage and select an active product.",
+      not_found_btn: "Back to Homepage"
+    }
+  };
+
   // URL ?lang= param > localStorage > "tr" varsayılan
   const params = new URLSearchParams(window.location.search);
   const urlLang = params.get("lang");
@@ -1303,7 +1371,7 @@
     ? urlLang
     : (localStorage.getItem("ha_lang") || "tr");
 
-  // Botlar için TR'de bırak (Googlebot vb. EN browser raporlar ama site TR cache'lenmeli)
+  // Botlar için TR'de bırak
   const __ua = (navigator.userAgent || "").toLowerCase();
   if (/bot\b|crawl|spider|slurp|facebookexternalhit|twitterbot|whatsapp|telegrambot|linkedinbot|embedly|pinterest|slackbot|discordbot|applebot|duckduck|baidu|yandex/i.test(__ua)) {
     currentLang = "tr";
@@ -1313,18 +1381,29 @@
     currentLang = (lang === "en") ? "en" : "tr";
     try { localStorage.setItem("ha_lang", currentLang); } catch {}
     document.documentElement.setAttribute("lang", currentLang);
-    // Lang-switcher butonlarının active class'ını güncelle
+    const dict = I18N[currentLang];
+
+    // Tüm data-i18n elementleri için textContent
+    document.querySelectorAll("[data-i18n]").forEach(el => {
+      const k = el.getAttribute("data-i18n");
+      if (dict[k] !== undefined) el.textContent = dict[k];
+    });
+    // data-i18n-placeholder için placeholder attribute
+    document.querySelectorAll("[data-i18n-placeholder]").forEach(el => {
+      const k = el.getAttribute("data-i18n-placeholder");
+      if (dict[k] !== undefined) el.setAttribute("placeholder", dict[k]);
+    });
+
+    // Lang-switcher butonlarının active class
     document.querySelectorAll(".lang-switcher [data-lang]").forEach(b => {
       b.classList.toggle("active", b.dataset.lang === currentLang);
     });
-    // HA_I18N global'ı — pickLang ve renderProduct kullanır
-    window.HA_I18N = { current: currentLang, t: (k) => k };
-    // Diğer kod parçalarına haber ver — renderProduct yeniden çağrılır
+
+    window.HA_I18N = { current: currentLang, t: (k) => dict[k] || k };
     window.dispatchEvent(new CustomEvent("languagechange"));
   }
   applyLanguage(currentLang);
 
-  // Lang-switcher click → applyLanguage
   document.addEventListener("click", (e) => {
     const btn = e.target.closest(".lang-switcher [data-lang]");
     if (btn) applyLanguage(btn.dataset.lang);
@@ -1525,13 +1604,14 @@
       document.querySelector("main").innerHTML = `
         <section class="section">
           <div class="container">
-            <div class="eyebrow">Ürün bulunamadı</div>
-            <h1 class="title">Bu ürün sayfası henüz aktif değil.</h1>
-            <p class="desc">Ana sayfaya dönüp aktif ürünlerden birini seçebilirsiniz.</p>
-            <p style="margin-top:28px"><a class="nav-btn" href="index.html#home">Ana Sayfaya Dön</a></p>
+            <div class="eyebrow" data-i18n="not_found_eyebrow">Ürün bulunamadı</div>
+            <h1 class="title" data-i18n="not_found_title">Bu ürün sayfası henüz aktif değil.</h1>
+            <p class="desc" data-i18n="not_found_desc">Ana sayfaya dönüp aktif ürünlerden birini seçebilirsiniz.</p>
+            <p style="margin-top:28px"><a class="nav-btn" href="index.html#home" data-i18n="not_found_btn">Ana Sayfaya Dön</a></p>
           </div>
         </section>
       `;
+      applyLanguage(currentLang); // inject sonrası i18n yeniden uygula
       document.body.classList.remove("product-loading");
       return;
     }
