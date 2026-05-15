@@ -3125,54 +3125,80 @@
   // ----- ANASAYFA HİKAYEMİZ — homepage_sections (about) override -----
   // Admin "Ana Sayfa Bölümleri" → about row başlık/altyazı düzenleyebilir.
   // i18n default fallback olarak çalışmaya devam eder.
+  // about row TR + EN değerlerini bir kez DB'den çek, cache'le, dil değişince yeniden uygula
+  let __aboutCache = null;
+
+  function applyAboutToDom(){
+    if (!__aboutCache) return;
+    const lang = (window.HA_I18N?.current || "tr");
+    const pickField = (tr, en) => (lang === "en" && en) ? en : tr;
+
+    const title = pickField(__aboutCache.title, __aboutCache.title_en);
+    const subtitle = pickField(__aboutCache.subtitle, __aboutCache.subtitle_en);
+    const content = pickField(__aboutCache.content, __aboutCache.content_en);
+
+    const titleEl = document.querySelector(".home-about .title");
+    if (titleEl && title){
+      // Slogan i18n marker '*X*' patternini koru
+      if (title.includes("*")){
+        const parts = title.split(/\*([^*]+)\*/g);
+        titleEl.innerHTML = parts.map((p, i) => i % 2 === 1 ? '<em class="gold-accent">' + escHtml(p) + '</em>' : escHtml(p)).join("");
+      } else {
+        titleEl.textContent = title;
+      }
+      titleEl.removeAttribute("data-i18n"); // DB değeri var, i18n override etmesin
+    } else if (titleEl) {
+      // DB title boş — i18n fallback için data-i18n eski hâline döndür
+      if (!titleEl.hasAttribute("data-i18n")) titleEl.setAttribute("data-i18n", "about_title");
+    }
+
+    const narrative = document.querySelector(".about-narrative");
+    if (!narrative) return;
+    const existingP = narrative.querySelectorAll("p");
+
+    // existingP[0] = drop-cap = subtitle
+    if (existingP[0] && subtitle){
+      existingP[0].textContent = subtitle;
+      existingP[0].removeAttribute("data-i18n");
+    } else if (existingP[0]) {
+      if (!existingP[0].hasAttribute("data-i18n")) existingP[0].setAttribute("data-i18n", "about_p1");
+    }
+
+    // existingP[1+] = content paragrafları
+    if (content){
+      const paragraphs = String(content).split(/\n\s*\n/).map(s => s.trim()).filter(Boolean);
+      paragraphs.forEach((text, idx) => {
+        const target = existingP[idx + 1];
+        if (target){
+          target.textContent = text;
+          target.removeAttribute("data-i18n");
+        }
+      });
+    }
+  }
+
   async function loadHomepageAbout(){
     try {
       const { data, error } = await supabase
         .from("homepage_sections")
-        .select("section_key, title, subtitle, content, is_active")
+        .select("section_key, title, title_en, subtitle, subtitle_en, content, content_en, is_active")
         .eq("is_active", true)
         .eq("section_key", "about")
         .limit(1);
       if (error || !data || data.length === 0) return;
-      const about = data[0];
-      const titleEl = document.querySelector(".home-about .title");
-      if (titleEl && about.title){
-        // Slogan i18n marker '*X*' patternini koru — eğer kullanıcı admin'den * içerikli yazarsa
-        if (about.title.includes("*")){
-          const parts = about.title.split(/\*([^*]+)\*/g);
-          titleEl.innerHTML = parts.map((part, i) => i % 2 === 1 ? '<em class="gold-accent">' + escHtml(part) + '</em>' : escHtml(part)).join("");
-        } else {
-          titleEl.textContent = about.title;
-        }
-      }
-      const firstP = document.querySelector(".about-narrative p");
-      if (firstP && about.subtitle) firstP.textContent = about.subtitle;
-      // content alanı: admin'den uzun metin — newline'lar paragraflara
-      // ÖNEMLI: subtitle drop-cap'li ilk paragrafı temsil eder (existingP[0]).
-      // content ise drop-cap'ten sonraki paragrafları (existingP[1]+) temsil eder.
-      // Bu sayede admin'de subtitle ve content alanları çakışmaz.
-      if (about.content){
-        const narrative = document.querySelector(".about-narrative");
-        if (narrative){
-          const paragraphs = String(about.content).split(/\n\s*\n/).map(s => s.trim()).filter(Boolean);
-          if (paragraphs.length > 0){
-            const existingP = narrative.querySelectorAll("p");
-            paragraphs.forEach((text, idx) => {
-              // existingP[idx + 1] — index 0 (drop-cap) subtitle için ayrılmıştır
-              const target = existingP[idx + 1];
-              if (target){
-                target.textContent = text;
-                target.removeAttribute("data-i18n");
-              }
-            });
-          }
-        }
-      }
+      __aboutCache = data[0];
+      applyAboutToDom();
     } catch (e) {
       // Sessiz: i18n fallback kullanılır
     }
   }
   loadHomepageAbout();
+
+  // Dil değişince About içeriğini yeniden uygula (TR ↔ EN)
+  window.addEventListener("languagechange", () => {
+    // i18n applyLanguage'in DOM'u güncellemesini bekle (microtask sonrası)
+    setTimeout(applyAboutToDom, 0);
+  });
 
   // ----- İLETİŞİM (telefon/e-posta/adres) — site_settings override -----
   // Admin "Site Ayarları" sekmesinden contact_phone/contact_email/contact_address

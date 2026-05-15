@@ -357,7 +357,7 @@
 
     .field-upload-row{
       display:grid;
-      grid-template-columns:1fr auto auto;
+      grid-template-columns:1fr auto auto auto;
       gap:10px;
       align-items:center;
     }
@@ -2058,6 +2058,26 @@
         const status = row.querySelector(".field-upload-status");
 
         if (!fileInput || !pathInput || !uploadBtn || !status) return;
+
+        // "Temizle" butonu yoksa ekle — kullanıcı yanlış görsel seçtiyse veya
+        // alanı boş bırakmak istiyorsa, URL ve dosya seçimini temizler.
+        if (!row.querySelector(".clear-field-btn")){
+          const clearBtn = document.createElement("button");
+          clearBtn.type = "button";
+          clearBtn.className = "clear-field-btn danger";
+          clearBtn.textContent = "Temizle";
+          clearBtn.title = "Görseli kaldır";
+          clearBtn.style.cssText = "min-height:44px;white-space:nowrap";
+          clearBtn.addEventListener("click", () => {
+            pathInput.value = "";
+            pathInput.dispatchEvent(new Event("input", { bubbles: true }));
+            fileInput.value = "";
+            status.textContent = "Görsel kaldırıldı. Kaydet'e basarak değişikliği kaydet.";
+            status.className = "field-upload-status";
+          });
+          uploadBtn.insertAdjacentElement("afterend", clearBtn);
+        }
+
         if (uploadBtn.dataset.ready === "true") return;
 
         uploadBtn.dataset.ready = "true";
