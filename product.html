@@ -1222,13 +1222,13 @@
 
                 <div id="form-status" class="form-status" role="status" aria-live="polite"></div>
 
-                <button id="submit-btn" class="submit-btn" type="submit">Talep Gönder →</button>
+                <button id="submit-btn" class="submit-btn" type="submit" data-i18n="form_submit_btn">Talep Gönder →</button>
               </form>
 
               <div id="form-success-card" class="form-success-card" role="status">
-                <h3>Talebiniz Başarıyla Alındı</h3>
-                <p>Talebiniz tarafımıza ulaştı. En kısa sürede sizinle iletişime geçeceğiz. Teşekkür ederiz.</p>
-                <button type="button" class="new-request-btn" id="new-request-btn">Yeni Talep Oluştur</button>
+                <h3 data-i18n="form_success_title">Talebiniz Başarıyla Alındı</h3>
+                <p data-i18n="form_success_msg">Talebiniz tarafımıza ulaştı. En kısa sürede sizinle iletişime geçeceğiz. Teşekkür ederiz.</p>
+                <button type="button" class="new-request-btn" id="new-request-btn" data-i18n="form_new_request">Yeni Talep Oluştur</button>
               </div>
             </div>
           </div>
@@ -1334,7 +1334,11 @@
       not_found_eyebrow: "Ürün bulunamadı",
       not_found_title: "Bu ürün sayfası henüz aktif değil.",
       not_found_desc: "Ana sayfaya dönüp aktif ürünlerden birini seçebilirsiniz.",
-      not_found_btn: "Ana Sayfaya Dön"
+      not_found_btn: "Ana Sayfaya Dön",
+      form_submit_btn: "Talep Gönder →",
+      form_success_title: "Talebiniz Başarıyla Alındı",
+      form_success_msg: "Talebiniz tarafımıza ulaştı. En kısa sürede sizinle iletişime geçeceğiz. Teşekkür ederiz.",
+      form_new_request: "Yeni Talep Oluştur"
     },
     en: {
       doc_title: "Product Detail — The House of Anatolia",
@@ -1360,7 +1364,11 @@
       not_found_eyebrow: "Product not found",
       not_found_title: "This product page is not yet active.",
       not_found_desc: "Please return to the homepage and select an active product.",
-      not_found_btn: "Back to Homepage"
+      not_found_btn: "Back to Homepage",
+      form_submit_btn: "Submit Request →",
+      form_success_title: "Your Request Has Been Received",
+      form_success_msg: "Your request has reached us. We will contact you as soon as possible. Thank you.",
+      form_new_request: "Create New Request"
     }
   };
 
@@ -1709,12 +1717,16 @@
       } else {
         if (gallerySection) gallerySection.style.display = "";
         const doubled = [...gallery, ...gallery];
-        galleryTrack.innerHTML = doubled.map((image, index) => `
+        galleryTrack.innerHTML = doubled.map((image, index) => {
+          const caption = pickLang(image, "caption") || pickLang(product, "short_name") || pickLang(product, "name");
+          const altText = pickLang(image, "caption") || pickLang(product, "name");
+          return `
           <figure class="gallery-item">
-            <img src="${escapeHtml(image.image)}" alt="${escapeHtml(image.caption || product.name)} ${index + 1}">
-            <figcaption class="gallery-tag">${escapeHtml(image.caption || product.short_name || product.name)}</figcaption>
+            <img src="${escapeHtml(image.image)}" alt="${escapeHtml(altText)} ${index + 1}">
+            <figcaption class="gallery-tag">${escapeHtml(caption)}</figcaption>
           </figure>
-        `).join("");
+        `;
+        }).join("");
       }
     }
 
