@@ -149,6 +149,9 @@
     .nav-cta-wrap{display:flex;justify-content:flex-end;align-items:center;gap:12px}
     .nav-btn{display:inline-flex;align-items:center;justify-content:center;min-height:50px;padding:0 26px;background:var(--gold);color:#24170a;border-radius:2px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;box-shadow:0 8px 20px rgba(210,161,47,.22)}
     .nav-btn.secondary{background:transparent;border:1px solid rgba(53,43,35,.22);box-shadow:none;color:#352b23}
+    .lang-switcher{display:inline-flex;border:1px solid rgba(53,43,35,.22);border-radius:99px;overflow:hidden;background:transparent}
+    .lang-switcher button{padding:8px 16px;background:transparent;border:0;color:#352b23;font-family:'Plus Jakarta Sans',sans-serif;font-size:.78rem;font-weight:600;letter-spacing:.06em;cursor:pointer;text-transform:uppercase}
+    .lang-switcher button.active{background:#231b15;color:var(--cream)}
 
     /* HERO */
     .hero{position:relative;min-height:100vh;display:flex;align-items:center;justify-content:center;overflow:hidden;background:
@@ -925,6 +928,10 @@
     <li><a href="#parts">Kısımlar</a></li><li><a href="#usage">Nasıl Kullanılır</a></li><li><a href="#gallery">Galeri</a></li><li><a href="#contact">İletişim</a></li>
   </ul></div>
   <div class="nav-cta-wrap">
+    <div class="lang-switcher" role="group" aria-label="Dil seçici / Language switcher">
+      <button type="button" data-lang="tr" class="active" aria-label="Türkçe">TR</button>
+      <button type="button" data-lang="en" aria-label="English">EN</button>
+    </div>
     <a href="index.html#map" class="nav-btn secondary">Haritaya Dön</a>
     <a href="#contact" class="nav-btn">Teklif Al</a>
   </div>
@@ -953,6 +960,10 @@
       <div class="nav-overlay-legal">
         <a href="gizlilik.html" data-nav-close>Gizlilik Politikası</a>
         <a href="cerez.html" data-nav-close>Çerez Politikası</a>
+      </div>
+      <div class="lang-switcher" role="group" aria-label="Dil seçici / Language switcher" style="margin-top:18px">
+        <button type="button" data-lang="tr" class="active">TR</button>
+        <button type="button" data-lang="en">EN</button>
       </div>
     </div>
   </div>
@@ -1284,7 +1295,41 @@
   const supabaseAnonKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im93Y2djeXZnaWJ5YXd4Znh3bGJuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzc5MjEyMTksImV4cCI6MjA5MzQ5NzIxOX0.ynMQBYGOMibnmeT_7bkSdWAdkEJYgZ9F6bRn5-8tkmk";
   const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
+  // ----- DİL DURUMU + SWITCHER (TR / EN) -----
+  // URL ?lang= param > localStorage > "tr" varsayılan
   const params = new URLSearchParams(window.location.search);
+  const urlLang = params.get("lang");
+  let currentLang = (urlLang === "en" || urlLang === "tr")
+    ? urlLang
+    : (localStorage.getItem("ha_lang") || "tr");
+
+  // Botlar için TR'de bırak (Googlebot vb. EN browser raporlar ama site TR cache'lenmeli)
+  const __ua = (navigator.userAgent || "").toLowerCase();
+  if (/bot\b|crawl|spider|slurp|facebookexternalhit|twitterbot|whatsapp|telegrambot|linkedinbot|embedly|pinterest|slackbot|discordbot|applebot|duckduck|baidu|yandex/i.test(__ua)) {
+    currentLang = "tr";
+  }
+
+  function applyLanguage(lang){
+    currentLang = (lang === "en") ? "en" : "tr";
+    try { localStorage.setItem("ha_lang", currentLang); } catch {}
+    document.documentElement.setAttribute("lang", currentLang);
+    // Lang-switcher butonlarının active class'ını güncelle
+    document.querySelectorAll(".lang-switcher [data-lang]").forEach(b => {
+      b.classList.toggle("active", b.dataset.lang === currentLang);
+    });
+    // HA_I18N global'ı — pickLang ve renderProduct kullanır
+    window.HA_I18N = { current: currentLang, t: (k) => k };
+    // Diğer kod parçalarına haber ver — renderProduct yeniden çağrılır
+    window.dispatchEvent(new CustomEvent("languagechange"));
+  }
+  applyLanguage(currentLang);
+
+  // Lang-switcher click → applyLanguage
+  document.addEventListener("click", (e) => {
+    const btn = e.target.closest(".lang-switcher [data-lang]");
+    if (btn) applyLanguage(btn.dataset.lang);
+  });
+
   const rawSlug = params.get("slug") || "karabuk-safrani";
   // Slug whitelist: sadece harf, rakam, tire — XSS / injection için ekstra savunma
   const slug = /^[a-z0-9-]{1,80}$/i.test(rawSlug) ? rawSlug : "karabuk-safrani";
