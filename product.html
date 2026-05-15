@@ -1491,25 +1491,42 @@
       return;
     }
 
+    // Cache ürünü ki dil değişince yeniden render edebilelim
+    window.__currentProduct = product;
     renderProduct(product);
   }
 
-  function renderProduct(product) {
-    document.title = product.hero_title || product.name || "Ürün Detayı";
+  // Dile göre EN/TR alan seçici — EN seçili ve _en alanı doluysa onu döndür, aksi halde TR
+  function pickLang(item, baseField){
+    if (!item) return "";
+    const lang = (window.HA_I18N?.current || "tr");
+    if (lang === "en"){
+      const en = item[baseField + "_en"];
+      if (en !== null && en !== undefined && String(en).trim() !== "") return en;
+    }
+    return item[baseField] || "";
+  }
 
-    setText(".kicker-inline", product.hero_badge || `${product.cities?.name || ""} • Coğrafi İşaretli Ürün`);
-    setText(".subhero h1", product.hero_title || product.name);
-    setText(".hero-word-part:first-child", product.hero_left_text || "");
-    setText(".hero-word-part:last-child", product.hero_right_text || "");
+  function renderProduct(product) {
+    const lang = (window.HA_I18N?.current || "tr");
+
+    const heroTitle = pickLang(product, "hero_title") || pickLang(product, "name");
+    document.title = heroTitle || "Ürün Detayı";
+
+    const cityName = pickLang(product.cities || {}, "name") || product.cities?.name || "";
+    setText(".kicker-inline", pickLang(product, "hero_badge") || `${cityName} • ${lang === "en" ? "Geographically Protected Product" : "Coğrafi İşaretli Ürün"}`);
+    setText(".subhero h1", heroTitle);
+    setText(".hero-word-part:first-child", pickLang(product, "hero_left_text"));
+    setText(".hero-word-part:last-child", pickLang(product, "hero_right_text"));
     // Uzun kelimeler için (mobilde sığsın diye) is-long class
     document.querySelectorAll(".hero-word-part").forEach(el => {
       const len = (el.textContent || "").length;
       el.classList.toggle("is-long", len >= 5);
     });
-    setImage(".hero-flower", product.hero_image, product.short_name || product.name);
-    setText(".hero-subtitle", product.hero_subtitle || "");
+    setImage(".hero-flower", product.hero_image, pickLang(product, "short_name") || pickLang(product, "name"));
+    setText(".hero-subtitle", pickLang(product, "hero_subtitle"));
 
-    setImage(".parts-visual img", product.parts_main_image || product.hero_image, product.name);
+    setImage(".parts-visual img", product.parts_main_image || product.hero_image, pickLang(product, "name"));
     // NOT: Otomatik arka plan kaldırma kaldırıldı (canvas algoritması karmaşık
     // görsellerde yetersiz sonuç veriyordu). Bunun yerine kullanıcı admin'e
     // görseli yüklemeden ÖNCE remove.bg / Photoshop ile transparent PNG yapmalı.
@@ -1530,10 +1547,10 @@
           <article class="part-card">
             <div class="part-top">
               <span class="part-no">${String(index + 1).padStart(2, "0")}</span>
-              <h3 class="part-title">${escapeHtml(part.title)}</h3>
-              <span class="part-kicker">${escapeHtml(part.subtitle || "")}</span>
+              <h3 class="part-title">${escapeHtml(pickLang(part, "title"))}</h3>
+              <span class="part-kicker">${escapeHtml(pickLang(part, "subtitle"))}</span>
             </div>
-            <p>${escapeHtml(part.description)}</p>
+            <p>${escapeHtml(pickLang(part, "description"))}</p>
           </article>
         `).join("");
       }
@@ -1551,8 +1568,8 @@
           <article class="usage-step">
             <div class="usage-no">${String(index + 1).padStart(2, "0")}</div>
             <div class="usage-line"></div>
-            <h3>${escapeHtml(step.title)}</h3>
-            <p>${escapeHtml(step.description)}</p>
+            <h3>${escapeHtml(pickLang(step, "title"))}</h3>
+            <p>${escapeHtml(pickLang(step, "description"))}</p>
           </article>
         `).join("");
       }
@@ -1607,9 +1624,9 @@
           <label class="selector-option">
             <input type="radio" name="Ürün Türü" value="${escapeHtml(option.name)}" required>
             <span class="selector-card">
-              <span class="selector-thumb"><img src="${escapeHtml(option.image || product.hero_image)}" alt="${escapeHtml(option.name)}"></span>
-              <strong class="selector-name">${escapeHtml(option.name)}</strong>
-              <span class="selector-meta">${escapeHtml(option.description || "")}</span>
+              <span class="selector-thumb"><img src="${escapeHtml(option.image || product.hero_image)}" alt="${escapeHtml(pickLang(option, "name"))}"></span>
+              <strong class="selector-name">${escapeHtml(pickLang(option, "name"))}</strong>
+              <span class="selector-meta">${escapeHtml(pickLang(option, "description"))}</span>
             </span>
           </label>
         `).join("");
@@ -1918,6 +1935,11 @@
   }
 
   loadProduct();
+
+  // Dil değişince ürün içeriğini yeniden render et (TR ↔ EN seamless geçiş)
+  window.addEventListener("languagechange", () => {
+    if (window.__currentProduct) renderProduct(window.__currentProduct);
+  });
 
   // Safety net: 3 sn sonra hâlâ loading class kalmışsa zorla kaldır (kullanıcı boş ekran kalmasın)
   setTimeout(() => document.body.classList.remove("product-loading"), 3000);
