@@ -1531,67 +1531,67 @@
       .select(`
         id,
         city_id,
-        name,
+        name, name_en,
         slug,
-        short_name,
+        short_name, short_name_en,
         mini_image,
         hero_image,
         parts_main_image,
-        hero_badge,
-        hero_title,
-        hero_subtitle,
-        hero_left_text,
-        hero_right_text,
-        meta_description,
+        hero_badge, hero_badge_en,
+        hero_title, hero_title_en,
+        hero_subtitle, hero_subtitle_en,
+        hero_left_text, hero_left_text_en,
+        hero_right_text, hero_right_text_en,
+        meta_description, meta_description_en,
         is_active,
         cities (
           id,
-          name,
+          name, name_en,
           plate_code,
           svg_id
         ),
         product_parts (
           id,
-          title,
-          subtitle,
-          description,
+          title, title_en,
+          subtitle, subtitle_en,
+          description, description_en,
           image,
           sort_order,
           is_active
         ),
         usage_steps (
           id,
-          title,
-          description,
+          title, title_en,
+          description, description_en,
           sort_order,
           is_active
         ),
         gallery_images (
           id,
           image,
-          caption,
+          caption, caption_en,
           sort_order,
           is_active
         ),
         product_options (
           id,
-          name,
+          name, name_en,
           image,
-          description,
+          description, description_en,
           sort_order,
           is_active
         ),
         package_options (
           id,
-          name,
+          name, name_en,
           image,
-          description,
+          description, description_en,
           sort_order,
           is_active
         ),
         weight_options (
           id,
-          label,
+          label, label_en,
           sort_order,
           is_active
         )
