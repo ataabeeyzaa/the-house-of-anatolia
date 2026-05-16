@@ -1801,11 +1801,12 @@
     const weightCustomInput = form.querySelector('#gramaj-custom');
     if (weightSelect) {
       const weights = sortByOrder(product.weight_options).filter(item => item.is_active);
-      // DB'den gelen seçenekler + en alta "Diğer" seçeneği
+      // DB'den gelen seçenekler + en alta "Diğer" seçeneği — dile göre çevirilmiş
+      const t = (k) => (window.HA_I18N?.t?.(k)) || k;
       weightSelect.innerHTML =
-        `<option value="">Seçiniz</option>` +
-        weights.map((weight) => `<option value="${escapeHtml(weight.label)}">${escapeHtml(weight.label)}</option>`).join("") +
-        `<option value="__custom__">Diğer (Kendim Yazacağım)</option>`;
+        `<option value="">${escapeHtml(t("form_select"))}</option>` +
+        weights.map((weight) => `<option value="${escapeHtml(pickLang(weight, "label"))}">${escapeHtml(pickLang(weight, "label"))}</option>`).join("") +
+        `<option value="__custom__">${escapeHtml(t("form_weight_other"))}</option>`;
 
       // "Diğer" seçilince input görünsün; başka bir şey seçilince gizlensin
       if (weightCustomInput) {
