@@ -1146,7 +1146,7 @@
                     <div>
                       <label for="gramaj-select" data-i18n="form_label_weight">Gramaj</label>
                       <select name="Gramaj" id="gramaj-select" required>
-                        <option value="">Seçiniz</option>
+                        <option value="" data-i18n="form_select">Seçiniz</option>
                         <option>1 gr</option>
                         <option>2 gr</option>
                         <option>5 gr</option>
@@ -1157,7 +1157,7 @@
                         <option>250 gr</option>
                         <option>500 gr</option>
                         <option>1000 gr</option>
-                        <option value="__custom__">Diğer (Kendim Yazacağım)</option>
+                        <option value="__custom__" data-i18n="form_weight_other">Diğer (Kendim Yazacağım)</option>
                       </select>
                       <!-- Custom gramaj input — sadece "Diğer" seçilince görünür -->
                       <input
@@ -1169,20 +1169,21 @@
                         step="1"
                         inputmode="numeric"
                         placeholder="Gram cinsinden sayı (örn. 750)"
+                        data-i18n-placeholder="form_weight_custom_ph"
                         style="display:none;margin-top:10px;"
                         aria-label="Gramaj özel değer">
                     </div>
                     <div>
                       <label for="adet-input" data-i18n="form_label_qty">Adet</label>
-                      <input id="adet-input" type="number" name="Adet" min="1" placeholder="Örn. 50" required>
+                      <input id="adet-input" type="number" name="Adet" min="1" placeholder="Örn. 50" data-i18n-placeholder="form_qty_ph" required>
                     </div>
                     <div>
                       <label for="talep-tipi-select" data-i18n="form_label_request_type">Talep Tipi</label>
                       <select id="talep-tipi-select" name="Talep Tipi">
-                        <option>Bireysel Alım</option>
-                        <option>Kurumsal / Toplu Alım</option>
-                        <option>Bayilik / Distribütörlük</option>
-                        <option>Özel Ambalajlama</option>
+                        <option data-i18n="req_type_individual">Bireysel Alım</option>
+                        <option data-i18n="req_type_corporate">Kurumsal / Toplu Alım</option>
+                        <option data-i18n="req_type_dealer">Bayilik / Distribütörlük</option>
+                        <option data-i18n="req_type_custom">Özel Ambalajlama</option>
                       </select>
                     </div>
                   </div>
@@ -1190,33 +1191,33 @@
                   <div class="form-row">
                     <div>
                       <label for="adsoyad-input" data-i18n="form_label_name">Ad Soyad</label>
-                      <input id="adsoyad-input" type="text" name="Ad Soyad" placeholder="Adınız Soyadınız" required>
+                      <input id="adsoyad-input" type="text" name="Ad Soyad" placeholder="Adınız Soyadınız" data-i18n-placeholder="form_name_ph" required>
                     </div>
                     <div>
                       <label for="firma-input" data-i18n="form_label_company">Firma / Marka</label>
-                      <input id="firma-input" type="text" name="Firma" placeholder="Firma Adı (opsiyonel)">
+                      <input id="firma-input" type="text" name="Firma" placeholder="Firma Adı (opsiyonel)" data-i18n-placeholder="form_company_ph">
                     </div>
                   </div>
 
                   <div class="form-row">
                     <div>
                       <label for="email-input" data-i18n="form_label_email">E-Posta</label>
-                      <input id="email-input" type="email" name="E-posta" placeholder="ornek@mail.com" required>
+                      <input id="email-input" type="email" name="E-posta" placeholder="ornek@mail.com" data-i18n-placeholder="form_email_ph" required>
                     </div>
                     <div>
                       <label for="telefon-input" data-i18n="form_label_phone">Telefon</label>
-                      <input id="telefon-input" type="tel" name="Telefon" placeholder="05XX XXX XX XX" required>
+                      <input id="telefon-input" type="tel" name="Telefon" placeholder="05XX XXX XX XX" data-i18n-placeholder="form_placeholder_phone" required>
                     </div>
                   </div>
 
                   <div>
                     <label for="teslimat-input" data-i18n="form_label_delivery">Teslimat Şehri / Ülke</label>
-                    <input id="teslimat-input" type="text" name="Teslimat Lokasyonu" placeholder="Örn. İstanbul / Türkiye">
+                    <input id="teslimat-input" type="text" name="Teslimat Lokasyonu" placeholder="Örn. İstanbul / Türkiye" data-i18n-placeholder="form_delivery_ph">
                   </div>
 
                   <div>
                     <label for="mesaj-textarea" data-i18n="form_label_message">Ek Not</label>
-                    <textarea id="mesaj-textarea" name="Mesaj" placeholder="İsterseniz teslim tarihi, kullanım amacı veya özel ambalaj notunuzu yazabilirsiniz..."></textarea>
+                    <textarea id="mesaj-textarea" name="Mesaj" placeholder="İsterseniz teslim tarihi, kullanım amacı veya özel ambalaj notunuzu yazabilirsiniz..." data-i18n-placeholder="form_notes_ph"></textarea>
                   </div>
                 </div>
 
@@ -1338,7 +1339,20 @@
       form_submit_btn: "Talep Gönder →",
       form_success_title: "Talebiniz Başarıyla Alındı",
       form_success_msg: "Talebiniz tarafımıza ulaştı. En kısa sürede sizinle iletişime geçeceğiz. Teşekkür ederiz.",
-      form_new_request: "Yeni Talep Oluştur"
+      form_new_request: "Yeni Talep Oluştur",
+      form_select: "Seçiniz",
+      form_weight_other: "Diğer (Kendim Yazacağım)",
+      form_weight_custom_ph: "Gram cinsinden sayı (örn. 750)",
+      form_qty_ph: "Örn. 50",
+      form_name_ph: "Adınız Soyadınız",
+      form_company_ph: "Firma Adı (opsiyonel)",
+      form_email_ph: "ornek@mail.com",
+      form_delivery_ph: "Örn. İstanbul / Türkiye",
+      form_notes_ph: "İsterseniz teslim tarihi, kullanım amacı veya özel ambalaj notunuzu yazabilirsiniz...",
+      req_type_individual: "Bireysel Alım",
+      req_type_corporate: "Kurumsal / Toplu Alım",
+      req_type_dealer: "Bayilik / Distribütörlük",
+      req_type_custom: "Özel Ambalajlama"
     },
     en: {
       doc_title: "Product Detail — The House of Anatolia",
@@ -1368,7 +1382,20 @@
       form_submit_btn: "Submit Request →",
       form_success_title: "Your Request Has Been Received",
       form_success_msg: "Your request has reached us. We will contact you as soon as possible. Thank you.",
-      form_new_request: "Create New Request"
+      form_new_request: "Create New Request",
+      form_select: "Select",
+      form_weight_other: "Other (I'll write)",
+      form_weight_custom_ph: "Quantity in grams (e.g. 750)",
+      form_qty_ph: "e.g. 50",
+      form_name_ph: "Your full name",
+      form_company_ph: "Company name (optional)",
+      form_email_ph: "name@example.com",
+      form_delivery_ph: "e.g. Istanbul / Turkey",
+      form_notes_ph: "You can include delivery date, intended use or special packaging notes...",
+      req_type_individual: "Individual",
+      req_type_corporate: "Corporate / Bulk",
+      req_type_dealer: "Dealership / Distributor",
+      req_type_custom: "Custom Packaging"
     }
   };
 
