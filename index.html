@@ -3131,12 +3131,29 @@
   function applyAboutToDom(){
     if (!__aboutCache) return;
     const lang = (window.HA_I18N?.current || "tr");
-    const pickField = (tr, en) => (lang === "en" && en) ? en : tr;
     const i18nFallback = (key) => window.HA_I18N?.t(key) || "";
 
-    const title = pickField(__aboutCache.title, __aboutCache.title_en);
-    const subtitle = pickField(__aboutCache.subtitle, __aboutCache.subtitle_en);
-    const content = pickField(__aboutCache.content, __aboutCache.content_en);
+    // Dile özgü DB değer YOKSA i18n fallback'i SEÇİLİ DİLDE kullan
+    // (Önce: EN boşsa TR DB'ye düşüyordu → EN sayfada TR gözüküyordu)
+    function pickWithFallback(trVal, enVal, i18nKey){
+      if (lang === "en") {
+        if (enVal && String(enVal).trim() !== "") return enVal;
+        return i18nFallback(i18nKey);
+      }
+      if (trVal && String(trVal).trim() !== "") return trVal;
+      return i18nFallback(i18nKey);
+    }
+
+    const title = pickWithFallback(__aboutCache.title, __aboutCache.title_en, "about_title");
+    const subtitle = pickWithFallback(__aboutCache.subtitle, __aboutCache.subtitle_en, "about_p1");
+    // content: dile özgü DB değer varsa kullan; yoksa i18n fallback (about_p2..p5 birleştir)
+    let content = "";
+    if (lang === "en" && __aboutCache.content_en && __aboutCache.content_en.trim()) {
+      content = __aboutCache.content_en;
+    } else if (lang === "tr" && __aboutCache.content && __aboutCache.content.trim()) {
+      content = __aboutCache.content;
+    }
+    // content boş ise applyAboutToDom alttaki "else" branch'ı i18n fallback uygular
 
     const titleEl = document.querySelector(".home-about .title");
     if (titleEl){
